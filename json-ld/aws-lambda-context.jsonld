@@ -1,0 +1,290 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "lambda": "https://docs.aws.amazon.com/lambda/latest/api/schemas/",
+    "aws": "https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "LambdaFunction": {
+      "@id": "lambda:LambdaFunction",
+      "@context": {
+        "FunctionName": "schema:name",
+        "FunctionArn": {
+          "@id": "aws:arn",
+          "@type": "@id"
+        },
+        "Description": "dcterms:description",
+        "Runtime": "lambda:runtime",
+        "Role": {
+          "@id": "lambda:executionRole",
+          "@type": "@id"
+        },
+        "Handler": "lambda:handler",
+        "CodeSize": {
+          "@id": "lambda:codeSize",
+          "@type": "xsd:long"
+        },
+        "Timeout": {
+          "@id": "lambda:timeout",
+          "@type": "xsd:integer"
+        },
+        "MemorySize": {
+          "@id": "lambda:memorySize",
+          "@type": "xsd:integer"
+        },
+        "LastModified": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "CodeSha256": "lambda:codeSha256",
+        "Version": "lambda:version",
+        "State": "lambda:state",
+        "StateReason": "lambda:stateReason",
+        "PackageType": "lambda:packageType",
+        "Architectures": {
+          "@id": "lambda:architectures",
+          "@container": "@set"
+        },
+        "Tags": {
+          "@id": "lambda:tags",
+          "@container": "@index"
+        }
+      }
+    },
+
+    "FunctionVersion": {
+      "@id": "lambda:FunctionVersion",
+      "@context": {
+        "Version": "lambda:versionNumber",
+        "Description": "dcterms:description",
+        "FunctionName": "schema:name",
+        "FunctionArn": {
+          "@id": "aws:arn",
+          "@type": "@id"
+        },
+        "CodeSha256": "lambda:codeSha256",
+        "LastModified": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Alias": {
+      "@id": "lambda:Alias",
+      "@context": {
+        "Name": "schema:name",
+        "AliasArn": {
+          "@id": "aws:arn",
+          "@type": "@id"
+        },
+        "FunctionVersion": "lambda:functionVersion",
+        "Description": "dcterms:description",
+        "RoutingConfig": "lambda:routingConfig",
+        "RevisionId": "lambda:revisionId"
+      }
+    },
+
+    "EventSourceMapping": {
+      "@id": "lambda:EventSourceMapping",
+      "@context": {
+        "UUID": "@id",
+        "EventSourceArn": {
+          "@id": "lambda:eventSourceArn",
+          "@type": "@id"
+        },
+        "FunctionArn": {
+          "@id": "lambda:functionArn",
+          "@type": "@id"
+        },
+        "BatchSize": {
+          "@id": "lambda:batchSize",
+          "@type": "xsd:integer"
+        },
+        "MaximumBatchingWindowInSeconds": {
+          "@id": "lambda:maximumBatchingWindowInSeconds",
+          "@type": "xsd:integer"
+        },
+        "ParallelizationFactor": {
+          "@id": "lambda:parallelizationFactor",
+          "@type": "xsd:integer"
+        },
+        "StartingPosition": "lambda:startingPosition",
+        "State": "lambda:state",
+        "StateTransitionReason": "lambda:stateTransitionReason",
+        "LastModified": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "LastProcessingResult": "lambda:lastProcessingResult",
+        "MaximumRecordAgeInSeconds": {
+          "@id": "lambda:maximumRecordAgeInSeconds",
+          "@type": "xsd:integer"
+        },
+        "BisectBatchOnFunctionError": {
+          "@id": "lambda:bisectBatchOnFunctionError",
+          "@type": "xsd:boolean"
+        },
+        "MaximumRetryAttempts": {
+          "@id": "lambda:maximumRetryAttempts",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "Layer": {
+      "@id": "lambda:Layer",
+      "@context": {
+        "LayerName": "schema:name",
+        "LayerArn": {
+          "@id": "aws:arn",
+          "@type": "@id"
+        },
+        "Description": "dcterms:description",
+        "CreatedDate": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "Version": {
+          "@id": "lambda:layerVersion",
+          "@type": "xsd:integer"
+        },
+        "CompatibleRuntimes": {
+          "@id": "lambda:compatibleRuntimes",
+          "@container": "@set"
+        },
+        "CompatibleArchitectures": {
+          "@id": "lambda:compatibleArchitectures",
+          "@container": "@set"
+        },
+        "LicenseInfo": "lambda:licenseInfo"
+      }
+    },
+
+    "LayerVersion": {
+      "@id": "lambda:LayerVersion",
+      "@context": {
+        "LayerVersionArn": {
+          "@id": "aws:arn",
+          "@type": "@id"
+        },
+        "Version": {
+          "@id": "lambda:versionNumber",
+          "@type": "xsd:integer"
+        },
+        "Description": "dcterms:description",
+        "CreatedDate": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "CompatibleRuntimes": {
+          "@id": "lambda:compatibleRuntimes",
+          "@container": "@set"
+        },
+        "CompatibleArchitectures": {
+          "@id": "lambda:compatibleArchitectures",
+          "@container": "@set"
+        },
+        "LicenseInfo": "lambda:licenseInfo",
+        "CodeSize": {
+          "@id": "lambda:codeSize",
+          "@type": "xsd:long"
+        },
+        "CodeSha256": "lambda:codeSha256"
+      }
+    },
+
+    "FunctionUrl": {
+      "@id": "lambda:FunctionUrl",
+      "@context": {
+        "FunctionUrl": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "FunctionArn": {
+          "@id": "aws:arn",
+          "@type": "@id"
+        },
+        "AuthType": "lambda:authType",
+        "InvokeMode": "lambda:invokeMode",
+        "CreationTime": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "LastModifiedTime": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "Cors": "lambda:corsConfig"
+      }
+    },
+
+    "VpcConfig": {
+      "@id": "lambda:VpcConfig",
+      "@context": {
+        "SubnetIds": {
+          "@id": "lambda:subnetIds",
+          "@container": "@set"
+        },
+        "SecurityGroupIds": {
+          "@id": "lambda:securityGroupIds",
+          "@container": "@set"
+        },
+        "VpcId": "lambda:vpcId"
+      }
+    },
+
+    "DeadLetterConfig": {
+      "@id": "lambda:DeadLetterConfig",
+      "@context": {
+        "TargetArn": {
+          "@id": "lambda:deadLetterTargetArn",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "ProvisionedConcurrency": {
+      "@id": "lambda:ProvisionedConcurrency",
+      "@context": {
+        "RequestedProvisionedConcurrentExecutions": {
+          "@id": "lambda:requestedProvisionedConcurrency",
+          "@type": "xsd:integer"
+        },
+        "AvailableProvisionedConcurrentExecutions": {
+          "@id": "lambda:availableProvisionedConcurrency",
+          "@type": "xsd:integer"
+        },
+        "AllocatedProvisionedConcurrentExecutions": {
+          "@id": "lambda:allocatedProvisionedConcurrency",
+          "@type": "xsd:integer"
+        },
+        "Status": "lambda:provisionedConcurrencyStatus",
+        "LastModified": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "DestinationConfig": {
+      "@id": "lambda:DestinationConfig",
+      "@context": {
+        "OnSuccess": "lambda:onSuccessDestination",
+        "OnFailure": "lambda:onFailureDestination"
+      }
+    },
+
+    "FilterCriteria": {
+      "@id": "lambda:FilterCriteria",
+      "@context": {
+        "Filters": {
+          "@id": "lambda:filters",
+          "@container": "@list"
+        }
+      }
+    }
+  }
+}

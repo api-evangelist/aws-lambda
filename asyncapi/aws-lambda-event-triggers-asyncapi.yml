@@ -1,0 +1,1047 @@
+asyncapi: 2.6.0
+info:
+  title: AWS Lambda Event Triggers
+  description: >-
+    AWS Lambda integrates with other AWS services to invoke functions in
+    response to events. Lambda functions can be triggered by event sources
+    including Amazon S3, Amazon DynamoDB Streams, Amazon Kinesis Data Streams,
+    Amazon SQS, Amazon SNS, Amazon API Gateway, Amazon EventBridge,
+    Amazon CloudWatch Events, Amazon Cognito, and many more. Event sources
+    send event data as JSON payloads that Lambda passes to the function
+    handler. Events are processed synchronously (push model), asynchronously
+    (event model), or by Lambda polling a stream or queue (poll model).
+  version: '2015-03-31'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  termsOfService: https://aws.amazon.com/service-terms/
+externalDocs:
+  description: AWS Lambda Event Source Documentation
+  url: https://docs.aws.amazon.com/lambda/latest/dg/lambda-services.html
+servers:
+  lambdaRuntime:
+    url: 'https://lambda.{region}.amazonaws.com'
+    protocol: https
+    description: >-
+      AWS Lambda service endpoint. Event sources deliver events to Lambda
+      which invokes the configured function. The function receives the event
+      payload as the first argument to the handler.
+    variables:
+      region:
+        description: The AWS region
+channels:
+  s3/event:
+    description: >-
+      Amazon S3 sends event notifications to Lambda when objects are created,
+      modified, or deleted in a bucket. S3 invokes your function
+      asynchronously with an event that contains details about the object.
+      You configure notifications on the S3 bucket to specify which events
+      trigger the function.
+    subscribe:
+      operationId: onS3Event
+      summary: Receive S3 object event notifications
+      description: >-
+        Triggered when an object is created, modified, or deleted in an S3
+        bucket configured with event notifications. Supports event types
+        such as s3:ObjectCreated:*, s3:ObjectRemoved:*, s3:ObjectRestore:*,
+        and s3:Replication:*.
+      message:
+        $ref: '#/components/messages/S3Event'
+  dynamodb/stream:
+    description: >-
+      Amazon DynamoDB Streams captures a time-ordered sequence of item-level
+      modifications in a DynamoDB table. Lambda polls the stream and invokes
+      your function synchronously with a batch of stream records. You create
+      an event source mapping to connect the stream to your function.
+    subscribe:
+      operationId: onDynamoDBStreamRecord
+      summary: Receive DynamoDB Streams records
+      description: >-
+        Triggered by item-level changes in a DynamoDB table when DynamoDB
+        Streams is enabled. Lambda polls the stream and invokes your function
+        with a batch of records containing the old and new item images.
+      message:
+        $ref: '#/components/messages/DynamoDBStreamEvent'
+  kinesis/stream:
+    description: >-
+      Amazon Kinesis Data Streams captures real-time data at scale. Lambda
+      polls the Kinesis stream and invokes your function with a batch of
+      records from one or more shards. You create an event source mapping
+      to connect the stream to your function.
+    subscribe:
+      operationId: onKinesisRecord
+      summary: Receive Kinesis Data Streams records
+      description: >-
+        Triggered when records are available on a Kinesis data stream. Lambda
+        reads records in batches and invokes your function with each batch.
+        Records are base64-encoded.
+      message:
+        $ref: '#/components/messages/KinesisEvent'
+  sqs/message:
+    description: >-
+      Amazon SQS queues messages for asynchronous processing. Lambda polls
+      the queue and invokes your function with a batch of messages. When the
+      function successfully processes a batch, Lambda deletes the messages
+      from the queue. Supports both standard and FIFO queues.
+    subscribe:
+      operationId: onSQSMessage
+      summary: Receive SQS queue messages
+      description: >-
+        Triggered when messages are available in an SQS queue. Lambda polls
+        the queue, retrieves a batch of messages, and invokes your function.
+        If the function returns an error, the messages become visible again
+        after the visibility timeout.
+      message:
+        $ref: '#/components/messages/SQSEvent'
+  sns/notification:
+    description: >-
+      Amazon SNS delivers notifications to Lambda functions subscribed to an
+      SNS topic. When a message is published to the topic, SNS invokes your
+      function asynchronously with the message payload. Supports standard
+      topics for fanout to multiple subscribers.
+    subscribe:
+      operationId: onSNSNotification
+      summary: Receive SNS topic notifications
+      description: >-
+        Triggered when a message is published to an SNS topic that has a
+        Lambda function subscription. SNS invokes the function asynchronously.
+      message:
+        $ref: '#/components/messages/SNSEvent'
+  apigateway/request:
+    description: >-
+      Amazon API Gateway invokes Lambda functions in response to HTTP API
+      requests. API Gateway passes the request details as an event to the
+      function and returns the function response to the caller. Supports
+      REST APIs (v1 payload format) and HTTP APIs (v2 payload format).
+    subscribe:
+      operationId: onAPIGatewayRequest
+      summary: Receive API Gateway HTTP requests
+      description: >-
+        Triggered by HTTP requests routed through API Gateway to a Lambda
+        function. The event contains HTTP method, headers, query parameters,
+        path parameters, and the request body.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/APIGatewayProxyEvent'
+          - $ref: '#/components/messages/APIGatewayV2ProxyEvent'
+  eventbridge/event:
+    description: >-
+      Amazon EventBridge delivers events from AWS services, custom
+      applications, and SaaS partners to Lambda functions. EventBridge rules
+      match incoming events and route them to target functions. You create
+      rules that match event patterns and specify the Lambda function as a
+      target.
+    subscribe:
+      operationId: onEventBridgeEvent
+      summary: Receive EventBridge events
+      description: >-
+        Triggered when an event matching a rule pattern is published to an
+        EventBridge event bus. Events from AWS services, custom applications,
+        and third-party SaaS providers can all trigger Lambda functions
+        through EventBridge.
+      message:
+        $ref: '#/components/messages/EventBridgeEvent'
+  cloudwatch/scheduledevent:
+    description: >-
+      Amazon EventBridge Scheduler (formerly CloudWatch Events scheduled
+      rules) invokes Lambda functions on a schedule. You define a schedule
+      expression using a rate or cron expression, and EventBridge invokes
+      the function at the specified intervals.
+    subscribe:
+      operationId: onScheduledEvent
+      summary: Receive scheduled invocations
+      description: >-
+        Triggered by an EventBridge scheduled rule at a fixed rate or cron
+        schedule. The event contains the schedule ARN, time, and rule
+        details.
+      message:
+        $ref: '#/components/messages/ScheduledEvent'
+  cognito/trigger:
+    description: >-
+      Amazon Cognito invokes Lambda functions as triggers during user pool
+      operations such as sign-up, authentication, and token generation.
+      The function can modify the authentication flow, validate data, or
+      add custom claims.
+    subscribe:
+      operationId: onCognitoTrigger
+      summary: Receive Cognito user pool trigger events
+      description: >-
+        Triggered by Cognito user pool operations including pre-sign-up,
+        post-confirmation, pre-authentication, post-authentication,
+        custom message, define auth challenge, create auth challenge,
+        verify auth challenge response, pre-token generation, and user
+        migration.
+      message:
+        $ref: '#/components/messages/CognitoEvent'
+  cloudwatch/alarm:
+    description: >-
+      Amazon CloudWatch can invoke Lambda functions as alarm actions when a
+      metric alarm changes state. The function receives details about the
+      alarm state change.
+    subscribe:
+      operationId: onCloudWatchAlarm
+      summary: Receive CloudWatch alarm state changes
+      description: >-
+        Triggered when a CloudWatch alarm transitions between OK, ALARM,
+        and INSUFFICIENT_DATA states.
+      message:
+        $ref: '#/components/messages/CloudWatchAlarmEvent'
+  cloudwatch/logs:
+    description: >-
+      Amazon CloudWatch Logs can invoke a Lambda function when a subscription
+      filter matches log events. The log data is delivered as a batch of log
+      events compressed with gzip and base64-encoded.
+    subscribe:
+      operationId: onCloudWatchLogsEvent
+      summary: Receive CloudWatch Logs subscription filter events
+      description: >-
+        Triggered when log events match a CloudWatch Logs subscription
+        filter pattern. The event contains a base64-encoded, gzip-compressed
+        batch of log events.
+      message:
+        $ref: '#/components/messages/CloudWatchLogsEvent'
+components:
+  messages:
+    S3Event:
+      name: S3Event
+      title: Amazon S3 Event
+      summary: S3 object event notification delivered to Lambda
+      description: >-
+        Contains information about S3 bucket events including the bucket name,
+        object key, size, eTag, and the event type that triggered the function.
+        S3 events are delivered asynchronously.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/S3Event'
+    DynamoDBStreamEvent:
+      name: DynamoDBStreamEvent
+      title: Amazon DynamoDB Stream Event
+      summary: Batch of DynamoDB Streams records delivered to Lambda
+      description: >-
+        Contains a batch of records from a DynamoDB stream. Each record
+        includes the event type (INSERT, MODIFY, REMOVE), the new and old
+        item images (depending on stream view type), and metadata about the
+        change.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/DynamoDBStreamEvent'
+    KinesisEvent:
+      name: KinesisEvent
+      title: Amazon Kinesis Event
+      summary: Batch of Kinesis Data Streams records delivered to Lambda
+      description: >-
+        Contains a batch of records from a Kinesis data stream. Each record
+        includes base64-encoded data, a partition key, and a sequence number.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/KinesisEvent'
+    SQSEvent:
+      name: SQSEvent
+      title: Amazon SQS Event
+      summary: Batch of SQS messages delivered to Lambda
+      description: >-
+        Contains a batch of messages from an SQS queue. Each message includes
+        the message body, message attributes, and metadata such as the message
+        ID and receipt handle.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SQSEvent'
+    SNSEvent:
+      name: SNSEvent
+      title: Amazon SNS Event
+      summary: SNS notification delivered to Lambda
+      description: >-
+        Contains one or more SNS notification records. Each record includes
+        the SNS topic ARN, subject, message body, timestamp, and message
+        attributes.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SNSEvent'
+    APIGatewayProxyEvent:
+      name: APIGatewayProxyEvent
+      title: API Gateway REST API Proxy Event (v1)
+      summary: HTTP request from API Gateway REST API
+      description: >-
+        Contains the full HTTP request details from API Gateway REST API
+        including method, path, headers, query parameters, path parameters,
+        stage variables, request context, and the request body.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/APIGatewayProxyEvent'
+    APIGatewayV2ProxyEvent:
+      name: APIGatewayV2ProxyEvent
+      title: API Gateway HTTP API Proxy Event (v2)
+      summary: HTTP request from API Gateway HTTP API
+      description: >-
+        Contains the HTTP request details from API Gateway HTTP API in the
+        v2 payload format, with a simplified structure compared to the v1
+        format. Includes request context with HTTP method, path, source IP,
+        and user agent.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/APIGatewayV2ProxyEvent'
+    EventBridgeEvent:
+      name: EventBridgeEvent
+      title: Amazon EventBridge Event
+      summary: Event from EventBridge event bus
+      description: >-
+        Contains an event matched by an EventBridge rule. The event includes
+        the source service, detail type, account, region, and the event
+        detail containing the event-specific data.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EventBridgeEvent'
+    ScheduledEvent:
+      name: ScheduledEvent
+      title: Scheduled Event
+      summary: Scheduled invocation from EventBridge Scheduler
+      description: >-
+        Represents a scheduled event trigger. Contains the schedule rule ARN,
+        timestamp, and identifying information. The detail-type is
+        Scheduled Event.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ScheduledEvent'
+    CognitoEvent:
+      name: CognitoEvent
+      title: Amazon Cognito User Pool Trigger Event
+      summary: Cognito user pool trigger event
+      description: >-
+        Contains details about a Cognito user pool trigger including the
+        trigger source, user pool ID, user attributes, and request/response
+        parameters specific to the trigger type.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CognitoEvent'
+    CloudWatchAlarmEvent:
+      name: CloudWatchAlarmEvent
+      title: Amazon CloudWatch Alarm Event
+      summary: CloudWatch alarm state change event
+      description: >-
+        Contains information about a CloudWatch alarm state change including
+        the alarm name, state, reason, and metric details.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CloudWatchAlarmEvent'
+    CloudWatchLogsEvent:
+      name: CloudWatchLogsEvent
+      title: Amazon CloudWatch Logs Event
+      summary: CloudWatch Logs subscription filter event
+      description: >-
+        Contains a base64-encoded, gzip-compressed batch of log events from
+        a CloudWatch Logs subscription filter.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CloudWatchLogsEvent'
+  schemas:
+    S3Event:
+      type: object
+      description: Amazon S3 event notification
+      properties:
+        Records:
+          type: array
+          description: List of S3 event records
+          items:
+            type: object
+            properties:
+              eventVersion:
+                type: string
+                description: Event structure version
+              eventSource:
+                type: string
+                description: Event source identifier
+                const: aws:s3
+              awsRegion:
+                type: string
+                description: AWS region where the event occurred
+              eventTime:
+                type: string
+                format: date-time
+                description: Time when the event occurred
+              eventName:
+                type: string
+                description: >-
+                  The event type (e.g. ObjectCreated:Put,
+                  ObjectRemoved:Delete)
+              userIdentity:
+                type: object
+                properties:
+                  principalId:
+                    type: string
+                    description: The principal ID of the user
+              requestParameters:
+                type: object
+                properties:
+                  sourceIPAddress:
+                    type: string
+                    description: Source IP address of the request
+              responseElements:
+                type: object
+                properties:
+                  x-amz-request-id:
+                    type: string
+                  x-amz-id-2:
+                    type: string
+              s3:
+                type: object
+                properties:
+                  s3SchemaVersion:
+                    type: string
+                  configurationId:
+                    type: string
+                    description: ID of the S3 notification configuration
+                  bucket:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: The bucket name
+                      ownerIdentity:
+                        type: object
+                        properties:
+                          principalId:
+                            type: string
+                      arn:
+                        type: string
+                        description: The bucket ARN
+                  object:
+                    type: object
+                    properties:
+                      key:
+                        type: string
+                        description: The object key (URL-encoded)
+                      size:
+                        type: integer
+                        description: Object size in bytes
+                      eTag:
+                        type: string
+                        description: Object eTag
+                      versionId:
+                        type: string
+                        description: Object version if bucket is versioning-enabled
+                      sequencer:
+                        type: string
+                        description: Hexadecimal value for event ordering
+    DynamoDBStreamEvent:
+      type: object
+      description: Amazon DynamoDB Streams event
+      properties:
+        Records:
+          type: array
+          description: List of DynamoDB stream records
+          items:
+            type: object
+            properties:
+              eventID:
+                type: string
+                description: A globally unique identifier for the event
+              eventName:
+                type: string
+                description: The type of data modification
+                enum:
+                  - INSERT
+                  - MODIFY
+                  - REMOVE
+              eventVersion:
+                type: string
+              eventSource:
+                type: string
+                const: aws:dynamodb
+              awsRegion:
+                type: string
+              dynamodb:
+                type: object
+                properties:
+                  ApproximateCreationDateTime:
+                    type: integer
+                    description: Unix epoch timestamp of the change
+                  Keys:
+                    type: object
+                    description: >-
+                      The primary key attributes for the item that was modified
+                    additionalProperties:
+                      $ref: '#/components/schemas/AttributeValue'
+                  NewImage:
+                    type: object
+                    description: >-
+                      The item in the table as it appeared after it was modified
+                    additionalProperties:
+                      $ref: '#/components/schemas/AttributeValue'
+                  OldImage:
+                    type: object
+                    description: >-
+                      The item in the table as it appeared before it was modified
+                    additionalProperties:
+                      $ref: '#/components/schemas/AttributeValue'
+                  SequenceNumber:
+                    type: string
+                    description: The sequence number of the stream record
+                  SizeBytes:
+                    type: integer
+                    description: The size of the stream record in bytes
+                  StreamViewType:
+                    type: string
+                    description: >-
+                      The type of data from the modified DynamoDB item
+                    enum:
+                      - KEYS_ONLY
+                      - NEW_IMAGE
+                      - OLD_IMAGE
+                      - NEW_AND_OLD_IMAGES
+              eventSourceARN:
+                type: string
+                description: The ARN of the DynamoDB stream
+    AttributeValue:
+      type: object
+      description: A DynamoDB attribute value
+      properties:
+        S:
+          type: string
+          description: String value
+        N:
+          type: string
+          description: Number value (string representation)
+        B:
+          type: string
+          description: Binary value (base64-encoded)
+        BOOL:
+          type: boolean
+          description: Boolean value
+        NULL:
+          type: boolean
+          description: Null value marker
+        L:
+          type: array
+          description: List value
+          items:
+            $ref: '#/components/schemas/AttributeValue'
+        M:
+          type: object
+          description: Map value
+          additionalProperties:
+            $ref: '#/components/schemas/AttributeValue'
+        SS:
+          type: array
+          description: String set value
+          items:
+            type: string
+        NS:
+          type: array
+          description: Number set value
+          items:
+            type: string
+        BS:
+          type: array
+          description: Binary set value
+          items:
+            type: string
+    KinesisEvent:
+      type: object
+      description: Amazon Kinesis Data Streams event
+      properties:
+        Records:
+          type: array
+          description: List of Kinesis stream records
+          items:
+            type: object
+            properties:
+              kinesis:
+                type: object
+                properties:
+                  kinesisSchemaVersion:
+                    type: string
+                  partitionKey:
+                    type: string
+                    description: The partition key for the record
+                  sequenceNumber:
+                    type: string
+                    description: The unique identifier of the record within its shard
+                  data:
+                    type: string
+                    description: The data blob (base64-encoded)
+                  approximateArrivalTimestamp:
+                    type: number
+                    description: >-
+                      Approximate time the record was inserted into the stream
+              eventSource:
+                type: string
+                const: aws:kinesis
+              eventVersion:
+                type: string
+              eventID:
+                type: string
+                description: >-
+                  A unique identifier for the event composed of shard ID and
+                  sequence number
+              eventName:
+                type: string
+                description: The event type
+                const: aws:kinesis:record
+              invokeIdentityArn:
+                type: string
+                description: The ARN of the IAM role used for invocation
+              awsRegion:
+                type: string
+              eventSourceARN:
+                type: string
+                description: The ARN of the Kinesis stream
+    SQSEvent:
+      type: object
+      description: Amazon SQS event
+      properties:
+        Records:
+          type: array
+          description: List of SQS messages
+          items:
+            type: object
+            properties:
+              messageId:
+                type: string
+                description: A unique identifier for the message
+              receiptHandle:
+                type: string
+                description: >-
+                  An identifier associated with the act of receiving the message
+              body:
+                type: string
+                description: The message body
+              attributes:
+                type: object
+                description: Message system attributes
+                properties:
+                  ApproximateReceiveCount:
+                    type: string
+                  SentTimestamp:
+                    type: string
+                  SenderId:
+                    type: string
+                  ApproximateFirstReceiveTimestamp:
+                    type: string
+                  SequenceNumber:
+                    type: string
+                  MessageGroupId:
+                    type: string
+                  MessageDeduplicationId:
+                    type: string
+              messageAttributes:
+                type: object
+                description: Custom message attributes
+                additionalProperties:
+                  type: object
+                  properties:
+                    stringValue:
+                      type: string
+                    binaryValue:
+                      type: string
+                    dataType:
+                      type: string
+              md5OfBody:
+                type: string
+                description: An MD5 digest of the message body
+              eventSource:
+                type: string
+                const: aws:sqs
+              eventSourceARN:
+                type: string
+                description: The ARN of the SQS queue
+              awsRegion:
+                type: string
+    SNSEvent:
+      type: object
+      description: Amazon SNS event
+      properties:
+        Records:
+          type: array
+          description: List of SNS notification records
+          items:
+            type: object
+            properties:
+              EventVersion:
+                type: string
+              EventSubscriptionArn:
+                type: string
+                description: The ARN of the subscription
+              EventSource:
+                type: string
+                const: aws:sns
+              Sns:
+                type: object
+                properties:
+                  SignatureVersion:
+                    type: string
+                  Timestamp:
+                    type: string
+                    format: date-time
+                    description: The time the notification was published
+                  Signature:
+                    type: string
+                  SigningCertUrl:
+                    type: string
+                  MessageId:
+                    type: string
+                    description: A unique identifier for the message
+                  Message:
+                    type: string
+                    description: The message published to the topic
+                  MessageAttributes:
+                    type: object
+                    description: Custom message attributes
+                    additionalProperties:
+                      type: object
+                      properties:
+                        Type:
+                          type: string
+                        Value:
+                          type: string
+                  Type:
+                    type: string
+                    description: The message type
+                  UnsubscribeUrl:
+                    type: string
+                  TopicArn:
+                    type: string
+                    description: The ARN of the SNS topic
+                  Subject:
+                    type: string
+                    description: The subject of the notification
+    APIGatewayProxyEvent:
+      type: object
+      description: API Gateway REST API (v1) proxy integration event
+      properties:
+        resource:
+          type: string
+          description: The resource path (e.g. /users/{id})
+        path:
+          type: string
+          description: The actual request path
+        httpMethod:
+          type: string
+          description: The HTTP method (GET, POST, PUT, DELETE, etc.)
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: Request headers
+        multiValueHeaders:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        queryStringParameters:
+          type: object
+          additionalProperties:
+            type: string
+          description: Query string parameters
+        multiValueQueryStringParameters:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        pathParameters:
+          type: object
+          additionalProperties:
+            type: string
+          description: Path parameters extracted from the resource path
+        stageVariables:
+          type: object
+          additionalProperties:
+            type: string
+          description: Stage variables defined in the API Gateway stage
+        requestContext:
+          type: object
+          description: Request context including authorizer and identity details
+          properties:
+            accountId:
+              type: string
+            resourceId:
+              type: string
+            stage:
+              type: string
+            requestId:
+              type: string
+            identity:
+              type: object
+              properties:
+                sourceIp:
+                  type: string
+                userAgent:
+                  type: string
+            resourcePath:
+              type: string
+            httpMethod:
+              type: string
+            apiId:
+              type: string
+        body:
+          type: string
+          description: The request body (may be base64-encoded)
+        isBase64Encoded:
+          type: boolean
+          description: Whether the body is base64-encoded
+    APIGatewayV2ProxyEvent:
+      type: object
+      description: API Gateway HTTP API (v2) proxy integration event
+      properties:
+        version:
+          type: string
+          description: Payload format version
+          const: '2.0'
+        routeKey:
+          type: string
+          description: The route key (e.g. GET /users/{id})
+        rawPath:
+          type: string
+          description: The raw request path
+        rawQueryString:
+          type: string
+          description: The raw query string
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        queryStringParameters:
+          type: object
+          additionalProperties:
+            type: string
+        pathParameters:
+          type: object
+          additionalProperties:
+            type: string
+        requestContext:
+          type: object
+          properties:
+            accountId:
+              type: string
+            apiId:
+              type: string
+            domainName:
+              type: string
+            domainPrefix:
+              type: string
+            http:
+              type: object
+              properties:
+                method:
+                  type: string
+                path:
+                  type: string
+                protocol:
+                  type: string
+                sourceIp:
+                  type: string
+                userAgent:
+                  type: string
+            requestId:
+              type: string
+            routeKey:
+              type: string
+            stage:
+              type: string
+            time:
+              type: string
+            timeEpoch:
+              type: integer
+        body:
+          type: string
+        isBase64Encoded:
+          type: boolean
+        stageVariables:
+          type: object
+          additionalProperties:
+            type: string
+    EventBridgeEvent:
+      type: object
+      description: Amazon EventBridge event
+      properties:
+        version:
+          type: string
+          description: Event structure version
+          const: '0'
+        id:
+          type: string
+          description: A unique identifier for the event
+        source:
+          type: string
+          description: >-
+            The source of the event (e.g. aws.ec2, custom.myapp)
+        detail-type:
+          type: string
+          description: The type of event detail
+        account:
+          type: string
+          description: The 12-digit AWS account ID
+        time:
+          type: string
+          format: date-time
+          description: The time the event was generated
+        region:
+          type: string
+          description: The AWS region where the event occurred
+        resources:
+          type: array
+          description: ARNs of resources involved in the event
+          items:
+            type: string
+        detail:
+          type: object
+          description: >-
+            The event detail payload. The structure varies by source and
+            detail-type.
+    ScheduledEvent:
+      type: object
+      description: EventBridge scheduled invocation event
+      properties:
+        version:
+          type: string
+          const: '0'
+        id:
+          type: string
+          description: A unique identifier for the event
+        detail-type:
+          type: string
+          description: The event type
+          const: Scheduled Event
+        source:
+          type: string
+          const: aws.events
+        account:
+          type: string
+          description: The AWS account ID
+        time:
+          type: string
+          format: date-time
+          description: The scheduled invocation time
+        region:
+          type: string
+        resources:
+          type: array
+          description: The ARN of the EventBridge rule
+          items:
+            type: string
+        detail:
+          type: object
+          description: Empty object for scheduled events
+    CognitoEvent:
+      type: object
+      description: Amazon Cognito user pool trigger event
+      properties:
+        version:
+          type: string
+          description: The event version
+        triggerSource:
+          type: string
+          description: >-
+            The trigger source indicating which Cognito event triggered the
+            function (e.g. PreSignUp_SignUp, PostConfirmation_ConfirmSignUp,
+            PreAuthentication_Authentication)
+        region:
+          type: string
+          description: The AWS region
+        userPoolId:
+          type: string
+          description: The user pool ID
+        userName:
+          type: string
+          description: The username of the current user
+        callerContext:
+          type: object
+          properties:
+            awsSdkVersion:
+              type: string
+            clientId:
+              type: string
+              description: The client ID of the app
+        request:
+          type: object
+          description: >-
+            The request parameters. Contents vary by trigger source.
+          properties:
+            userAttributes:
+              type: object
+              additionalProperties:
+                type: string
+              description: User attributes from the user pool
+        response:
+          type: object
+          description: >-
+            The response parameters. The function populates these values
+            to return to Cognito.
+    CloudWatchAlarmEvent:
+      type: object
+      description: Amazon CloudWatch alarm state change event
+      properties:
+        source:
+          type: string
+          const: aws.cloudwatch
+        alarmArn:
+          type: string
+          description: The ARN of the CloudWatch alarm
+        accountId:
+          type: string
+          description: The AWS account ID
+        time:
+          type: string
+          format: date-time
+        region:
+          type: string
+        alarmData:
+          type: object
+          properties:
+            alarmName:
+              type: string
+              description: The name of the alarm
+            state:
+              type: object
+              properties:
+                value:
+                  type: string
+                  enum:
+                    - OK
+                    - ALARM
+                    - INSUFFICIENT_DATA
+                reason:
+                  type: string
+                  description: Human-readable reason for the state change
+                reasonData:
+                  type: string
+                timestamp:
+                  type: string
+                  format: date-time
+            previousState:
+              type: object
+              properties:
+                value:
+                  type: string
+                  enum:
+                    - OK
+                    - ALARM
+                    - INSUFFICIENT_DATA
+                reason:
+                  type: string
+                timestamp:
+                  type: string
+                  format: date-time
+            configuration:
+              type: object
+              properties:
+                description:
+                  type: string
+                metrics:
+                  type: array
+                  items:
+                    type: object
+    CloudWatchLogsEvent:
+      type: object
+      description: Amazon CloudWatch Logs subscription filter event
+      properties:
+        awslogs:
+          type: object
+          properties:
+            data:
+              type: string
+              description: >-
+                Base64-encoded, gzip-compressed JSON containing the log
+                events. When decoded, contains the log group, log stream,
+                subscription filters, and the log event records.

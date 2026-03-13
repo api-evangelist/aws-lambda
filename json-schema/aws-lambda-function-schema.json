@@ -1,0 +1,420 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://docs.aws.amazon.com/lambda/schemas/function.json",
+  "title": "AWS Lambda Function",
+  "description": "Schema for an AWS Lambda function configuration. Defines the structure of a Lambda function resource including its code, runtime, execution role, memory, timeout, environment variables, VPC configuration, layers, concurrency, and other settings used by the Lambda service API.",
+  "type": "object",
+  "required": ["FunctionName", "Role"],
+  "properties": {
+    "FunctionName": {
+      "type": "string",
+      "description": "The name of the Lambda function. Can include letters, numbers, hyphens, and underscores. Must be between 1 and 64 characters.",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[a-zA-Z0-9-_]+$"
+    },
+    "FunctionArn": {
+      "type": "string",
+      "description": "The function's Amazon Resource Name (ARN). Format: arn:aws:lambda:{region}:{account-id}:function:{function-name}",
+      "pattern": "^arn:aws:lambda:[a-z0-9-]+:[0-9]{12}:function:[a-zA-Z0-9-_]+(:[a-zA-Z0-9-_]+)?$"
+    },
+    "Runtime": {
+      "type": "string",
+      "description": "The identifier of the function's runtime. Required for .zip deployment packages. Not required for container image deployment packages.",
+      "enum": [
+        "nodejs18.x",
+        "nodejs20.x",
+        "nodejs22.x",
+        "python3.9",
+        "python3.10",
+        "python3.11",
+        "python3.12",
+        "python3.13",
+        "java11",
+        "java17",
+        "java21",
+        "dotnet6",
+        "dotnet8",
+        "ruby3.2",
+        "ruby3.3",
+        "provided",
+        "provided.al2",
+        "provided.al2023"
+      ]
+    },
+    "Role": {
+      "type": "string",
+      "description": "The ARN of the function's execution role. This IAM role grants the function permission to access AWS services and resources.",
+      "pattern": "^arn:aws:iam::[0-9]{12}:role/.+$"
+    },
+    "Handler": {
+      "type": "string",
+      "description": "The name of the method within your code that Lambda calls to run your function. The format includes the file name without an extension and the handler function or method name, separated by a dot (e.g., index.handler).",
+      "maxLength": 128,
+      "pattern": "^[a-zA-Z0-9._-]+$"
+    },
+    "CodeSize": {
+      "type": "integer",
+      "description": "The size of the function's deployment package in bytes.",
+      "minimum": 0,
+      "readOnly": true
+    },
+    "Description": {
+      "type": "string",
+      "description": "A description of the function's purpose.",
+      "maxLength": 256
+    },
+    "Timeout": {
+      "type": "integer",
+      "description": "The amount of time in seconds that Lambda allows a function to run before stopping it. The default is 3 seconds. The maximum allowed value is 900 seconds (15 minutes).",
+      "default": 3,
+      "minimum": 1,
+      "maximum": 900
+    },
+    "MemorySize": {
+      "type": "integer",
+      "description": "The amount of memory available to the function at runtime in megabytes. Lambda allocates CPU power in proportion to the amount of memory configured. The default is 128 MB. The value can be any multiple of 1 MB.",
+      "default": 128,
+      "minimum": 128,
+      "maximum": 10240
+    },
+    "LastModified": {
+      "type": "string",
+      "description": "The date and time that the function was last updated, in ISO 8601 format (YYYY-MM-DDThh:mm:ss.sTZD).",
+      "readOnly": true
+    },
+    "CodeSha256": {
+      "type": "string",
+      "description": "The SHA-256 hash of the function's deployment package.",
+      "readOnly": true
+    },
+    "Version": {
+      "type": "string",
+      "description": "The version of the Lambda function. $LATEST for the unpublished version, or a numeric string for a published version.",
+      "readOnly": true
+    },
+    "VpcConfig": {
+      "$ref": "#/$defs/VpcConfig",
+      "description": "The function's networking configuration for connecting to resources in a VPC"
+    },
+    "DeadLetterConfig": {
+      "$ref": "#/$defs/DeadLetterConfig",
+      "description": "A dead-letter queue configuration that specifies the queue or topic where Lambda sends asynchronous events when they fail processing"
+    },
+    "Environment": {
+      "$ref": "#/$defs/Environment",
+      "description": "Environment variables that are accessible from function code during execution"
+    },
+    "KMSKeyArn": {
+      "type": "string",
+      "description": "The ARN of the AWS KMS key used to encrypt the function's environment variables. If not provided, Lambda uses a default service key.",
+      "pattern": "^arn:aws:kms:[a-z0-9-]+:[0-9]{12}:key/.+$"
+    },
+    "TracingConfig": {
+      "$ref": "#/$defs/TracingConfig",
+      "description": "The function's AWS X-Ray tracing configuration"
+    },
+    "MasterArn": {
+      "type": "string",
+      "description": "For Lambda@Edge functions, the ARN of the main function.",
+      "readOnly": true
+    },
+    "RevisionId": {
+      "type": "string",
+      "description": "The latest updated revision of the function or alias. Changes each time the function configuration or code is updated.",
+      "readOnly": true
+    },
+    "Layers": {
+      "type": "array",
+      "description": "A list of function layer ARNs (including version) applied to the function. Lambda applies layers in the order specified. Maximum of 5 layers.",
+      "items": {
+        "type": "string",
+        "description": "The ARN of a Lambda layer version"
+      },
+      "maxItems": 5
+    },
+    "State": {
+      "type": "string",
+      "description": "The current state of the function. When the state is Inactive, you can reactivate the function by invoking it.",
+      "enum": ["Pending", "Active", "Inactive", "Failed"],
+      "readOnly": true
+    },
+    "StateReason": {
+      "type": "string",
+      "description": "The reason for the function's current state.",
+      "readOnly": true
+    },
+    "StateReasonCode": {
+      "type": "string",
+      "description": "The reason code for the function's current state. When the code is Creating, you cannot invoke or modify the function.",
+      "enum": [
+        "Idle",
+        "Creating",
+        "Restoring",
+        "EniLimitExceeded",
+        "InsufficientRolePermissions",
+        "InvalidConfiguration",
+        "InternalError",
+        "SubnetOutOfIPAddresses",
+        "InvalidSubnet",
+        "InvalidSecurityGroup",
+        "ImageDeleted",
+        "ImageAccessDenied",
+        "InvalidImage",
+        "KMSKeyAccessDenied",
+        "KMSKeyNotFound",
+        "InvalidStateKMSKey",
+        "DisabledKMSKey",
+        "EFSIOError",
+        "EFSMountConnectivityError",
+        "EFSMountFailure",
+        "EFSMountTimeout",
+        "InvalidRuntime",
+        "InvalidZipFileException",
+        "FunctionError"
+      ],
+      "readOnly": true
+    },
+    "LastUpdateStatus": {
+      "type": "string",
+      "description": "The status of the last update that was performed on the function. Set to Successful after a function update completes.",
+      "enum": ["Successful", "Failed", "InProgress"],
+      "readOnly": true
+    },
+    "LastUpdateStatusReason": {
+      "type": "string",
+      "description": "The reason for the last update that was performed on the function.",
+      "readOnly": true
+    },
+    "LastUpdateStatusReasonCode": {
+      "type": "string",
+      "description": "The reason code for the last update that was performed on the function.",
+      "readOnly": true
+    },
+    "PackageType": {
+      "type": "string",
+      "description": "The type of deployment package. Zip for .zip file archive or Image for container image.",
+      "enum": ["Zip", "Image"],
+      "default": "Zip"
+    },
+    "ImageConfigResponse": {
+      "$ref": "#/$defs/ImageConfigResponse",
+      "description": "The function's image configuration values for container image deployment"
+    },
+    "Architectures": {
+      "type": "array",
+      "description": "The instruction set architecture that the function supports. Lambda provides x86_64 (default) and arm64 (AWS Graviton2).",
+      "items": {
+        "type": "string",
+        "enum": ["x86_64", "arm64"]
+      },
+      "maxItems": 1,
+      "default": ["x86_64"]
+    },
+    "EphemeralStorage": {
+      "$ref": "#/$defs/EphemeralStorage",
+      "description": "The size of the function's /tmp directory"
+    },
+    "SnapStart": {
+      "$ref": "#/$defs/SnapStart",
+      "description": "SnapStart configuration to reduce cold start latency. Currently supported for Java runtime functions."
+    },
+    "LoggingConfig": {
+      "$ref": "#/$defs/LoggingConfig",
+      "description": "The function's Amazon CloudWatch Logs configuration settings"
+    },
+    "Tags": {
+      "type": "object",
+      "description": "Key-value pairs attached to the function for organization, cost allocation, and access control.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "VpcConfig": {
+      "type": "object",
+      "description": "The VPC security groups and subnets that are attached to a Lambda function. When you connect a function to a VPC, Lambda creates an elastic network interface for each combination of security group and subnet.",
+      "properties": {
+        "SubnetIds": {
+          "type": "array",
+          "description": "A list of VPC subnet IDs.",
+          "items": {
+            "type": "string",
+            "pattern": "^subnet-[a-z0-9]+$"
+          },
+          "maxItems": 16
+        },
+        "SecurityGroupIds": {
+          "type": "array",
+          "description": "A list of VPC security group IDs.",
+          "items": {
+            "type": "string",
+            "pattern": "^sg-[a-z0-9]+$"
+          },
+          "maxItems": 5
+        },
+        "VpcId": {
+          "type": "string",
+          "description": "The ID of the VPC.",
+          "readOnly": true
+        },
+        "Ipv6AllowedForDualStack": {
+          "type": "boolean",
+          "description": "Allows outbound IPv6 traffic on VPC functions connected to dual-stack subnets."
+        }
+      }
+    },
+    "DeadLetterConfig": {
+      "type": "object",
+      "description": "The dead-letter queue for failed asynchronous invocations. An SQS queue or SNS topic destination.",
+      "properties": {
+        "TargetArn": {
+          "type": "string",
+          "description": "The ARN of an SQS queue or SNS topic.",
+          "pattern": "^arn:aws:(sqs|sns):[a-z0-9-]+:[0-9]{12}:.+$"
+        }
+      }
+    },
+    "Environment": {
+      "type": "object",
+      "description": "A function's environment variable settings. You can use environment variables to adjust your function's behavior without updating code.",
+      "properties": {
+        "Variables": {
+          "type": "object",
+          "description": "Environment variable key-value pairs. Keys can contain letters, numbers, and underscores. Total size of all environment variables cannot exceed 4 KB.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "Error": {
+          "type": "object",
+          "description": "Error messages for environment variables that could not be applied.",
+          "readOnly": true,
+          "properties": {
+            "ErrorCode": {
+              "type": "string"
+            },
+            "Message": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "TracingConfig": {
+      "type": "object",
+      "description": "The function's AWS X-Ray tracing configuration. Set Mode to Active to sample incoming requests with X-Ray.",
+      "properties": {
+        "Mode": {
+          "type": "string",
+          "description": "The tracing mode. Active means Lambda samples a subset of invocations. PassThrough means Lambda only traces a request if an upstream service sends a trace header.",
+          "enum": ["Active", "PassThrough"],
+          "default": "PassThrough"
+        }
+      }
+    },
+    "ImageConfigResponse": {
+      "type": "object",
+      "description": "Response structure for image configuration settings.",
+      "readOnly": true,
+      "properties": {
+        "ImageConfig": {
+          "type": "object",
+          "properties": {
+            "EntryPoint": {
+              "type": "array",
+              "description": "Specifies the entry point to the application, which is typically the location of the runtime executable.",
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 1500
+            },
+            "Command": {
+              "type": "array",
+              "description": "Specifies parameters that you want to pass in with the ENTRYPOINT.",
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 1500
+            },
+            "WorkingDirectory": {
+              "type": "string",
+              "description": "Specifies the working directory.",
+              "maxLength": 1000
+            }
+          }
+        },
+        "Error": {
+          "type": "object",
+          "properties": {
+            "ErrorCode": {
+              "type": "string"
+            },
+            "Message": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "EphemeralStorage": {
+      "type": "object",
+      "description": "The size of the function's /tmp directory in MB. The default value is 512, but it can be any whole number between 512 and 10240 MB.",
+      "properties": {
+        "Size": {
+          "type": "integer",
+          "description": "The size of the /tmp directory in MB.",
+          "minimum": 512,
+          "maximum": 10240,
+          "default": 512
+        }
+      },
+      "required": ["Size"]
+    },
+    "SnapStart": {
+      "type": "object",
+      "description": "The function's SnapStart setting. Lambda SnapStart creates a cached snapshot of the initialized execution environment to improve startup performance.",
+      "properties": {
+        "ApplyOn": {
+          "type": "string",
+          "description": "When set to PublishedVersions, Lambda creates a snapshot of the execution environment when you publish a function version.",
+          "enum": ["PublishedVersions", "None"],
+          "default": "None"
+        },
+        "OptimizationStatus": {
+          "type": "string",
+          "description": "When you provide a qualified ARN, this response element indicates whether SnapStart is activated for the specified function version.",
+          "enum": ["On", "Off"],
+          "readOnly": true
+        }
+      }
+    },
+    "LoggingConfig": {
+      "type": "object",
+      "description": "The function's Amazon CloudWatch Logs configuration settings.",
+      "properties": {
+        "LogFormat": {
+          "type": "string",
+          "description": "The format in which Lambda sends function logs to CloudWatch. JSON format provides structured log output. Text format provides unstructured plaintext output.",
+          "enum": ["JSON", "Text"],
+          "default": "Text"
+        },
+        "ApplicationLogLevel": {
+          "type": "string",
+          "description": "Set this property to filter the application logs for your function that Lambda sends to CloudWatch. Only logs with a level at or above the selected level are sent.",
+          "enum": ["TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"]
+        },
+        "SystemLogLevel": {
+          "type": "string",
+          "description": "Set this property to filter the system logs for your function that Lambda sends to CloudWatch.",
+          "enum": ["DEBUG", "INFO", "WARN"]
+        },
+        "LogGroup": {
+          "type": "string",
+          "description": "The name of the Amazon CloudWatch log group the function sends logs to. By default, Lambda functions send logs to /aws/lambda/{function-name}."
+        }
+      }
+    }
+  }
+}
