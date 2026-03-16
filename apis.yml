@@ -9,7 +9,7 @@ description: >-
 image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
 url: https://aws.amazon.com/lambda/
 created: '2024-01-15'
-modified: '2026-03-03'
+modified: '2026-03-16'
 specificationVersion: '0.18'
 apis:
 - name: AWS Lambda API
@@ -201,9 +201,8 @@ apis:
   - type: Support
     url: https://aws.amazon.com/contact-us/
 maintainers:
-- name: Kin Lane
-  email: kin@apievangelist.com
-  url: https://apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com
 common:
 - type: Terms-of-Service
   url: https://aws.amazon.com/service-terms/
