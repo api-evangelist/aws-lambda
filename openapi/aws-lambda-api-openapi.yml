@@ -41,30 +41,26 @@ servers:
           - sa-east-1
           - ca-central-1
 tags:
-  - name: Functions
-    description: Create, configure, invoke, and manage Lambda functions
-  - name: Versions
-    description: Publish and manage immutable function versions
   - name: Aliases
     description: Create named pointers to function versions with routing configuration
+  - name: Concurrency
+    description: Manage reserved and provisioned concurrency settings for functions
   - name: Event Source Mappings
     description: >-
       Map event sources such as Amazon SQS, Kinesis, and DynamoDB Streams to
       Lambda functions for automatic invocation
-  - name: Layers
-    description: >-
-      Manage Lambda layers that package libraries, custom runtimes, and other
-      dependencies for sharing across functions
   - name: Function URL
     description: >-
       Configure dedicated HTTPS endpoints for Lambda functions that can be
       invoked directly via HTTP
-  - name: Concurrency
-    description: Manage reserved and provisioned concurrency settings for functions
-  - name: Code Signing
-    description: Configure code signing to ensure only trusted code runs in Lambda
-  - name: Tags
-    description: Tag Lambda resources for organization and access control
+  - name: Functions
+    description: Create, configure, invoke, and manage Lambda functions
+  - name: Layers
+    description: >-
+      Manage Lambda layers that package libraries, custom runtimes, and other
+      dependencies for sharing across functions
+  - name: Versions
+    description: Publish and manage immutable function versions
 security:
   - sigv4: []
 paths:
@@ -1289,8 +1285,7 @@ paths:
       summary: AWS Lambda List tags
       description: >-
         Returns a function's tags. You can also view tags with GetFunction.
-      tags:
-        - Tags
+      tags: []
       parameters:
         - name: ARN
           in: path
@@ -1322,8 +1317,7 @@ paths:
       description: >-
         Adds tags to a function. Tags are key-value pairs used for grouping
         and filtering resources.
-      tags:
-        - Tags
+      tags: []
       parameters:
         - name: ARN
           in: path
@@ -1358,8 +1352,7 @@ paths:
       operationId: untagResource
       summary: AWS Lambda Remove tags
       description: Removes tags from a function.
-      tags:
-        - Tags
+      tags: []
       parameters:
         - name: ARN
           in: path
