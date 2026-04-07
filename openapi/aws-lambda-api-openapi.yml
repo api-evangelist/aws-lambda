@@ -71,7 +71,7 @@ paths:
   /2015-03-31/functions:
     get:
       operationId: listFunctions
-      summary: List functions
+      summary: AWS Lambda List functions
       description: >-
         Returns a list of Lambda functions with the version-specific
         configuration of each. Set FunctionVersion to ALL to include all
@@ -100,7 +100,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
       operationId: createFunction
-      summary: Create a function
+      summary: AWS Lambda Create a function
       description: >-
         Creates a Lambda function. To create a function, you need a deployment
         package and an execution role. The deployment package is a ZIP archive
@@ -150,7 +150,7 @@ paths:
   /2015-03-31/functions/{FunctionName}:
     get:
       operationId: getFunction
-      summary: Get a function
+      summary: AWS Lambda Get a function
       description: >-
         Returns information about the function or function version, with a link
         to download the deployment package that is valid for 10 minutes. If you
@@ -183,7 +183,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
       operationId: deleteFunction
-      summary: Delete a function
+      summary: AWS Lambda Delete a function
       description: >-
         Deletes a Lambda function. To delete a specific function version, use
         the Qualifier parameter. Otherwise, all versions and aliases are
@@ -218,7 +218,7 @@ paths:
   /2015-03-31/functions/{FunctionName}/configuration:
     get:
       operationId: getFunctionConfiguration
-      summary: Get function configuration
+      summary: AWS Lambda Get function configuration
       description: >-
         Returns the version-specific settings of a Lambda function or version.
         The output includes the function name, runtime, role, handler,
@@ -246,7 +246,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     put:
       operationId: updateFunctionConfiguration
-      summary: Update function configuration
+      summary: AWS Lambda Update function configuration
       description: >-
         Modify the version-specific settings of a Lambda function. When you
         update a function, Lambda provisions an instance of the function and
@@ -291,7 +291,7 @@ paths:
   /2015-03-31/functions/{FunctionName}/code:
     put:
       operationId: updateFunctionCode
-      summary: Update function code
+      summary: AWS Lambda Update function code
       description: >-
         Updates a Lambda function's code. If code signing is enabled for the
         function, the code package must be signed by a trusted publisher.
@@ -335,7 +335,7 @@ paths:
   /2015-03-31/functions/{FunctionName}/invocations:
     post:
       operationId: invoke
-      summary: Invoke a function
+      summary: AWS Lambda Invoke a function
       description: >-
         Invokes a Lambda function. You can invoke a function synchronously and
         wait for the response, or asynchronously. By default, Lambda invokes
@@ -424,7 +424,7 @@ paths:
   /2015-03-31/functions/{FunctionName}/versions:
     post:
       operationId: publishVersion
-      summary: Publish a version
+      summary: AWS Lambda Publish a version
       description: >-
         Creates a version from the current code and configuration of a
         function. Use versions to create a snapshot of your function code and
@@ -479,7 +479,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     get:
       operationId: listVersionsByFunction
-      summary: List function versions
+      summary: AWS Lambda List function versions
       description: >-
         Returns a list of versions with the version-specific configuration of
         each. Lambda returns up to 50 versions per call.
@@ -505,7 +505,7 @@ paths:
   /2015-03-31/functions/{FunctionName}/aliases:
     get:
       operationId: listAliases
-      summary: List aliases
+      summary: AWS Lambda List aliases
       description: >-
         Returns a list of aliases for a Lambda function. Each alias points to
         a specific function version and can optionally route a percentage of
@@ -536,7 +536,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
       operationId: createAlias
-      summary: Create an alias
+      summary: AWS Lambda Create an alias
       description: >-
         Creates an alias for a Lambda function version. Use aliases to provide
         clients with a function identifier that you can update to invoke a
@@ -574,7 +574,7 @@ paths:
   /2015-03-31/functions/{FunctionName}/aliases/{AliasName}:
     get:
       operationId: getAlias
-      summary: Get an alias
+      summary: AWS Lambda Get an alias
       description: Returns details about a Lambda function alias.
       tags:
         - Aliases
@@ -596,7 +596,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     put:
       operationId: updateAlias
-      summary: Update an alias
+      summary: AWS Lambda Update an alias
       description: >-
         Updates the configuration of a Lambda function alias. You can change
         the function version that the alias points to, or configure routing
@@ -633,7 +633,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
       operationId: deleteAlias
-      summary: Delete an alias
+      summary: AWS Lambda Delete an alias
       description: Deletes a Lambda function alias.
       tags:
         - Aliases
@@ -652,7 +652,7 @@ paths:
   /2015-03-31/event-source-mappings:
     get:
       operationId: listEventSourceMappings
-      summary: List event source mappings
+      summary: AWS Lambda List event source mappings
       description: >-
         Lists event source mappings. Specify an EventSourceArn to show only
         event source mappings for a single event source, or a FunctionName
@@ -691,7 +691,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
       operationId: createEventSourceMapping
-      summary: Create an event source mapping
+      summary: AWS Lambda Create an event source mapping
       description: >-
         Creates a mapping between an event source and a Lambda function.
         Lambda reads items from the event source and invokes the function.
@@ -728,7 +728,7 @@ paths:
   /2015-03-31/event-source-mappings/{UUID}:
     get:
       operationId: getEventSourceMapping
-      summary: Get an event source mapping
+      summary: AWS Lambda Get an event source mapping
       description: Returns details about an event source mapping.
       tags:
         - Event Source Mappings
@@ -749,7 +749,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     put:
       operationId: updateEventSourceMapping
-      summary: Update an event source mapping
+      summary: AWS Lambda Update an event source mapping
       description: >-
         Updates an event source mapping. You can change the function that
         Lambda invokes, or pause invocation and resume later from the same
@@ -779,7 +779,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
       operationId: deleteEventSourceMapping
-      summary: Delete an event source mapping
+      summary: AWS Lambda Delete an event source mapping
       description: >-
         Deletes an event source mapping. Lambda stops polling the event source
         and deletes the mapping.
@@ -803,7 +803,7 @@ paths:
   /2015-03-31/layers:
     get:
       operationId: listLayers
-      summary: List layers
+      summary: AWS Lambda List layers
       description: >-
         Lists Lambda layers and shows information about the latest version of
         each. Specify a compatible runtime to list only layers that are
@@ -863,7 +863,7 @@ paths:
   /2015-03-31/layers/{LayerName}/versions:
     get:
       operationId: listLayerVersions
-      summary: List layer versions
+      summary: AWS Lambda List layer versions
       description: >-
         Lists the versions of an Lambda layer. Versions that have been deleted
         are not listed. Specify a runtime identifier to list only versions
@@ -902,7 +902,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
       operationId: publishLayerVersion
-      summary: Publish a layer version
+      summary: AWS Lambda Publish a layer version
       description: >-
         Creates a Lambda layer from a ZIP archive. Each time you call
         PublishLayerVersion with the same layer name, a new version is
@@ -940,7 +940,7 @@ paths:
   /2015-03-31/layers/{LayerName}/versions/{VersionNumber}:
     get:
       operationId: getLayerVersion
-      summary: Get a layer version
+      summary: AWS Lambda Get a layer version
       description: >-
         Returns information about a version of a Lambda layer, with a link to
         download the layer archive that is valid for 10 minutes.
@@ -964,7 +964,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
       operationId: deleteLayerVersion
-      summary: Delete a layer version
+      summary: AWS Lambda Delete a layer version
       description: >-
         Deletes a version of an Lambda layer. Deleted versions can no longer
         be viewed or added to functions. However, a copy of the version
@@ -986,7 +986,7 @@ paths:
   /2021-10-31/functions/{FunctionName}/url:
     get:
       operationId: getFunctionUrlConfig
-      summary: Get function URL configuration
+      summary: AWS Lambda Get function URL configuration
       description: >-
         Returns details about a Lambda function URL, including the function
         URL itself, the authorization type, CORS settings, creation and
@@ -1011,7 +1011,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
       operationId: createFunctionUrlConfig
-      summary: Create a function URL
+      summary: AWS Lambda Create a function URL
       description: >-
         Creates a Lambda function URL with the specified authorization type.
         A function URL is a dedicated HTTP(S) endpoint that you can use to
@@ -1049,7 +1049,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     put:
       operationId: updateFunctionUrlConfig
-      summary: Update a function URL
+      summary: AWS Lambda Update a function URL
       description: Updates the configuration for a Lambda function URL.
       tags:
         - Function URL
@@ -1077,7 +1077,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
       operationId: deleteFunctionUrlConfig
-      summary: Delete a function URL
+      summary: AWS Lambda Delete a function URL
       description: Deletes a Lambda function URL.
       tags:
         - Function URL
@@ -1096,7 +1096,7 @@ paths:
   /2015-03-31/functions/{FunctionName}/concurrency:
     get:
       operationId: getReservedConcurrency
-      summary: Get reserved concurrency
+      summary: AWS Lambda Get reserved concurrency
       description: >-
         Retrieves the reserved concurrency configuration for a function.
       tags:
@@ -1122,7 +1122,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     put:
       operationId: putFunctionConcurrency
-      summary: Set reserved concurrency
+      summary: AWS Lambda Set reserved concurrency
       description: >-
         Sets the maximum number of simultaneous executions for a function, and
         reserves capacity for that concurrency level. Use
@@ -1163,7 +1163,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
       operationId: deleteFunctionConcurrency
-      summary: Delete reserved concurrency
+      summary: AWS Lambda Delete reserved concurrency
       description: >-
         Removes a concurrency limit from a function. The function can then
         use unreserved account concurrency up to the account limit.
@@ -1183,7 +1183,7 @@ paths:
   /2015-03-31/functions/{FunctionName}/provisioned-concurrency:
     get:
       operationId: getProvisionedConcurrencyConfig
-      summary: Get provisioned concurrency
+      summary: AWS Lambda Get provisioned concurrency
       description: >-
         Retrieves the provisioned concurrency configuration for a function's
         alias or version.
@@ -1212,7 +1212,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     put:
       operationId: putProvisionedConcurrencyConfig
-      summary: Set provisioned concurrency
+      summary: AWS Lambda Set provisioned concurrency
       description: >-
         Adds a provisioned concurrency configuration to a function's alias or
         version. Lambda pre-initializes the specified number of execution
@@ -1261,7 +1261,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
       operationId: deleteProvisionedConcurrencyConfig
-      summary: Delete provisioned concurrency
+      summary: AWS Lambda Delete provisioned concurrency
       description: >-
         Deletes the provisioned concurrency configuration for a function.
       tags:
@@ -1286,7 +1286,7 @@ paths:
   /2015-03-31/tags/{ARN}:
     get:
       operationId: listTags
-      summary: List tags
+      summary: AWS Lambda List tags
       description: >-
         Returns a function's tags. You can also view tags with GetFunction.
       tags:
@@ -1318,7 +1318,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
       operationId: tagResource
-      summary: Add tags
+      summary: AWS Lambda Add tags
       description: >-
         Adds tags to a function. Tags are key-value pairs used for grouping
         and filtering resources.
@@ -1356,7 +1356,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     delete:
       operationId: untagResource
-      summary: Remove tags
+      summary: AWS Lambda Remove tags
       description: Removes tags from a function.
       tags:
         - Tags
