@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateFunctionUrlConfigRequest",
+  "type": "object",
+  "description": "Request body for creating a function URL",
+  "properties": {
+    "AuthType": {
+      "type": "string",
+      "description": "The type of authentication. NONE allows public unauthenticated access. AWS_IAM requires IAM authentication."
+    },
+    "InvokeMode": {
+      "type": "string"
+    }
+  }
+}

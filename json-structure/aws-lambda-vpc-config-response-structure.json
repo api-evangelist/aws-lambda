@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "VpcConfigResponse",
+  "type": "object",
+  "properties": {
+    "SubnetIds": {
+      "type": "array"
+    },
+    "SecurityGroupIds": {
+      "type": "array"
+    },
+    "VpcId": {
+      "type": "string"
+    }
+  }
+}

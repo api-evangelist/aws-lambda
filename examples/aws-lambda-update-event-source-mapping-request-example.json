@@ -1,0 +1,12 @@
+{
+  "FunctionName": "example_value",
+  "Enabled": true,
+  "BatchSize": 10,
+  "MaximumBatchingWindowInSeconds": 10,
+  "MaximumRecordAgeInSeconds": 10,
+  "BisectBatchOnFunctionError": true,
+  "MaximumRetryAttempts": 10,
+  "ParallelizationFactor": 10,
+  "TumblingWindowInSeconds": 10,
+  "FunctionResponseTypes": []
+}

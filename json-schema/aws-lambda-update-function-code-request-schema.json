@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateFunctionCodeRequest",
+  "type": "object",
+  "description": "Request body for updating a function's code",
+  "properties": {
+    "ZipFile": {
+      "type": "string",
+      "description": "Base64-encoded contents of the deployment package. AWS SDK and CLI clients handle encoding automatically."
+    },
+    "S3Bucket": {
+      "type": "string",
+      "description": "An S3 bucket in the same AWS Region as the function"
+    },
+    "S3Key": {
+      "type": "string",
+      "description": "The S3 key of the deployment package"
+    },
+    "S3ObjectVersion": {
+      "type": "string",
+      "description": "For versioned S3 objects, the version of the deployment package"
+    },
+    "ImageUri": {
+      "type": "string",
+      "description": "URI of a container image in Amazon ECR"
+    },
+    "Publish": {
+      "type": "boolean",
+      "description": "Set to true to publish a new version of the function after updating the code"
+    },
+    "DryRun": {
+      "type": "boolean",
+      "description": "Set to true to validate the request without updating the code"
+    },
+    "RevisionId": {
+      "type": "string",
+      "description": "Update only if the revision ID matches"
+    },
+    "Architectures": {
+      "type": "array"
+    }
+  }
+}

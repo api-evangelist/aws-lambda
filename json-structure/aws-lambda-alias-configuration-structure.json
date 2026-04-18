@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "AliasConfiguration",
+  "type": "object",
+  "properties": {
+    "AliasArn": {
+      "type": "string"
+    },
+    "Name": {
+      "type": "string"
+    },
+    "FunctionVersion": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "RevisionId": {
+      "type": "string"
+    }
+  }
+}

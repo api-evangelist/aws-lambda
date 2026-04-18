@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PublishLayerVersionRequest",
+  "type": "object",
+  "description": "Request body for publishing a layer version",
+  "properties": {
+    "Description": {
+      "type": "string",
+      "description": "Description of the layer version"
+    },
+    "Content": {
+      "type": "object",
+      "description": "The function layer archive"
+    },
+    "CompatibleRuntimes": {
+      "type": "array",
+      "description": "A list of compatible runtimes. Used for filtering with ListLayers and ListLayerVersions."
+    },
+    "LicenseInfo": {
+      "type": "string",
+      "description": "The layer's software license (SPDX identifier, URL, or text)"
+    },
+    "CompatibleArchitectures": {
+      "type": "array",
+      "description": "A list of compatible instruction set architectures"
+    }
+  }
+}

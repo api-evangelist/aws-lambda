@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "CreateFunctionRequest",
+  "type": "object",
+  "properties": {
+    "FunctionName": {
+      "type": "string"
+    },
+    "Runtime": {
+      "type": "string"
+    },
+    "Role": {
+      "type": "string"
+    },
+    "Handler": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "Timeout": {
+      "type": "integer"
+    },
+    "MemorySize": {
+      "type": "integer"
+    },
+    "Publish": {
+      "type": "boolean"
+    },
+    "PackageType": {
+      "type": "string"
+    },
+    "DeadLetterConfig": {
+      "type": "object"
+    },
+    "Environment": {
+      "type": "object"
+    },
+    "KMSKeyArn": {
+      "type": "string"
+    },
+    "TracingConfig": {
+      "type": "object"
+    },
+    "Tags": {
+      "type": "object"
+    },
+    "Layers": {
+      "type": "array"
+    },
+    "Architectures": {
+      "type": "array"
+    },
+    "EphemeralStorage": {
+      "type": "object"
+    },
+    "SnapStart": {
+      "type": "object"
+    },
+    "LoggingConfig": {
+      "type": "object"
+    }
+  }
+}

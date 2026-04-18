@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ProvisionedConcurrencyConfig",
+  "type": "object",
+  "properties": {
+    "RequestedProvisionedConcurrentExecutions": {
+      "type": "integer"
+    },
+    "AvailableProvisionedConcurrentExecutions": {
+      "type": "integer"
+    },
+    "AllocatedProvisionedConcurrentExecutions": {
+      "type": "integer"
+    },
+    "Status": {
+      "type": "string"
+    },
+    "StatusReason": {
+      "type": "string"
+    },
+    "LastModified": {
+      "type": "string"
+    }
+  }
+}

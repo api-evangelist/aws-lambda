@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "FunctionUrlConfig",
+  "type": "object",
+  "properties": {
+    "FunctionUrl": {
+      "type": "string"
+    },
+    "FunctionArn": {
+      "type": "string"
+    },
+    "AuthType": {
+      "type": "string"
+    },
+    "CreationTime": {
+      "type": "string"
+    },
+    "LastModifiedTime": {
+      "type": "string"
+    },
+    "InvokeMode": {
+      "type": "string"
+    }
+  }
+}

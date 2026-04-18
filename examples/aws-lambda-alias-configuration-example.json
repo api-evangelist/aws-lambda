@@ -1,0 +1,7 @@
+{
+  "AliasArn": "example_value",
+  "Name": "Example Title",
+  "FunctionVersion": "example_value",
+  "Description": "A sample description.",
+  "RevisionId": "500123"
+}

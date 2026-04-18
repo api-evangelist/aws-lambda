@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "UpdateFunctionCodeRequest",
+  "type": "object",
+  "properties": {
+    "ZipFile": {
+      "type": "string"
+    },
+    "S3Bucket": {
+      "type": "string"
+    },
+    "S3Key": {
+      "type": "string"
+    },
+    "S3ObjectVersion": {
+      "type": "string"
+    },
+    "ImageUri": {
+      "type": "string"
+    },
+    "Publish": {
+      "type": "boolean"
+    },
+    "DryRun": {
+      "type": "boolean"
+    },
+    "RevisionId": {
+      "type": "string"
+    },
+    "Architectures": {
+      "type": "array"
+    }
+  }
+}

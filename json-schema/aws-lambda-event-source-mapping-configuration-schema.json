@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EventSourceMappingConfiguration",
+  "type": "object",
+  "description": "A mapping between an AWS resource and a Lambda function. Lambda reads items from the event source and invokes the function.",
+  "properties": {
+    "UUID": {
+      "type": "string",
+      "description": "The identifier of the event source mapping"
+    },
+    "StartingPosition": {
+      "type": "string",
+      "description": "The position in a stream from which to start reading"
+    },
+    "StartingPositionTimestamp": {
+      "type": "string",
+      "description": "The time from which to start reading with AT_TIMESTAMP position"
+    },
+    "BatchSize": {
+      "type": "integer",
+      "description": "The maximum number of records in each batch that Lambda pulls from the event source"
+    },
+    "MaximumBatchingWindowInSeconds": {
+      "type": "integer",
+      "description": "Maximum amount of time in seconds to gather records before invoking the function"
+    },
+    "ParallelizationFactor": {
+      "type": "integer",
+      "description": "The number of batches to process concurrently from each shard"
+    },
+    "EventSourceArn": {
+      "type": "string",
+      "description": "The ARN of the event source"
+    },
+    "FunctionArn": {
+      "type": "string",
+      "description": "The ARN of the Lambda function"
+    },
+    "LastModified": {
+      "type": "string",
+      "description": "The date that the event source mapping was last updated"
+    },
+    "LastProcessingResult": {
+      "type": "string",
+      "description": "The result of the last invocation"
+    },
+    "State": {
+      "type": "string",
+      "description": "The state of the event source mapping"
+    },
+    "StateTransitionReason": {
+      "type": "string",
+      "description": "The reason for the current state"
+    },
+    "MaximumRecordAgeInSeconds": {
+      "type": "integer",
+      "description": "Maximum age of a record that Lambda sends to a function for processing (in seconds). For Kinesis and DynamoDB Streams only."
+    },
+    "BisectBatchOnFunctionError": {
+      "type": "boolean",
+      "description": "If true, Lambda splits the batch in two and retries when a function returns an error"
+    },
+    "MaximumRetryAttempts": {
+      "type": "integer",
+      "description": "Maximum number of retry attempts for failed batches. -1 means infinite retries."
+    },
+    "TumblingWindowInSeconds": {
+      "type": "integer",
+      "description": "The duration in seconds of a processing window for DynamoDB and Kinesis Streams event sources"
+    },
+    "FunctionResponseTypes": {
+      "type": "array",
+      "description": "A list of current response type enums applied to the event source mapping"
+    }
+  }
+}

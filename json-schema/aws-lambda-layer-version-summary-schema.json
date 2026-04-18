@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LayerVersionSummary",
+  "type": "object",
+  "description": "Summary information about a layer version",
+  "properties": {
+    "LayerVersionArn": {
+      "type": "string",
+      "description": "The ARN of the layer version"
+    },
+    "Version": {
+      "type": "integer",
+      "description": "The version number"
+    },
+    "Description": {
+      "type": "string",
+      "description": "Description of the version"
+    },
+    "CreatedDate": {
+      "type": "string",
+      "description": "The date the version was created"
+    },
+    "CompatibleRuntimes": {
+      "type": "array"
+    },
+    "LicenseInfo": {
+      "type": "string"
+    },
+    "CompatibleArchitectures": {
+      "type": "array"
+    }
+  }
+}

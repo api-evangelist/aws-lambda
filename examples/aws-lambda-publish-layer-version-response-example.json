@@ -1,0 +1,11 @@
+{
+  "Content": "example_value",
+  "LayerArn": "example_value",
+  "LayerVersionArn": "example_value",
+  "Description": "A sample description.",
+  "CreatedDate": "example_value",
+  "Version": 10,
+  "CompatibleRuntimes": [],
+  "LicenseInfo": "example_value",
+  "CompatibleArchitectures": []
+}

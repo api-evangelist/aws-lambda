@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Cors",
+  "type": "object",
+  "properties": {
+    "AllowCredentials": {
+      "type": "boolean"
+    },
+    "AllowHeaders": {
+      "type": "array"
+    },
+    "AllowMethods": {
+      "type": "array"
+    },
+    "AllowOrigins": {
+      "type": "array"
+    },
+    "ExposeHeaders": {
+      "type": "array"
+    },
+    "MaxAge": {
+      "type": "integer"
+    }
+  }
+}

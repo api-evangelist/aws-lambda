@@ -1,0 +1,8 @@
+{
+  "AllowCredentials": true,
+  "AllowHeaders": [],
+  "AllowMethods": [],
+  "AllowOrigins": [],
+  "ExposeHeaders": [],
+  "MaxAge": 10
+}

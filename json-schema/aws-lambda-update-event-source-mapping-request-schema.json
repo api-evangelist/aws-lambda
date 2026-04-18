@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateEventSourceMappingRequest",
+  "type": "object",
+  "description": "Request body for updating an event source mapping",
+  "properties": {
+    "FunctionName": {
+      "type": "string",
+      "description": "The name or ARN of the Lambda function"
+    },
+    "Enabled": {
+      "type": "boolean",
+      "description": "If true, the event source mapping is active"
+    },
+    "BatchSize": {
+      "type": "integer"
+    },
+    "MaximumBatchingWindowInSeconds": {
+      "type": "integer"
+    },
+    "MaximumRecordAgeInSeconds": {
+      "type": "integer"
+    },
+    "BisectBatchOnFunctionError": {
+      "type": "boolean"
+    },
+    "MaximumRetryAttempts": {
+      "type": "integer"
+    },
+    "ParallelizationFactor": {
+      "type": "integer"
+    },
+    "TumblingWindowInSeconds": {
+      "type": "integer"
+    },
+    "FunctionResponseTypes": {
+      "type": "array"
+    }
+  }
+}

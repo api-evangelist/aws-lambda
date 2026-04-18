@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ListLayerVersionsResponse",
+  "type": "object",
+  "description": "Paginated list of layer versions",
+  "properties": {
+    "NextMarker": {
+      "type": "string"
+    },
+    "LayerVersions": {
+      "type": "array"
+    }
+  }
+}

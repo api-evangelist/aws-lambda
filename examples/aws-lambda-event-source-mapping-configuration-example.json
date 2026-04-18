@@ -1,0 +1,19 @@
+{
+  "UUID": "500123",
+  "StartingPosition": "example_value",
+  "StartingPositionTimestamp": "example_value",
+  "BatchSize": 10,
+  "MaximumBatchingWindowInSeconds": 10,
+  "ParallelizationFactor": 10,
+  "EventSourceArn": "example_value",
+  "FunctionArn": "example_value",
+  "LastModified": "example_value",
+  "LastProcessingResult": "example_value",
+  "State": "example_value",
+  "StateTransitionReason": "example_value",
+  "MaximumRecordAgeInSeconds": 10,
+  "BisectBatchOnFunctionError": true,
+  "MaximumRetryAttempts": 10,
+  "TumblingWindowInSeconds": 10,
+  "FunctionResponseTypes": []
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateFunctionUrlConfigRequest",
+  "type": "object",
+  "description": "Request body for updating a function URL configuration",
+  "properties": {
+    "AuthType": {
+      "type": "string"
+    },
+    "InvokeMode": {
+      "type": "string"
+    }
+  }
+}

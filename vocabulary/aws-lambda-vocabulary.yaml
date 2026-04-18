@@ -1,0 +1,14 @@
+name: aws-lambda API Vocabulary
+provider: aws-lambda
+created: '2026-04-18'
+modified: '2026-04-18'
+operations: 38
+schemas: 34
+tags:
+- Aliases
+- Concurrency
+- Event Source Mappings
+- Function URL
+- Functions
+- Layers
+- Versions

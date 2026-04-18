@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VpcConfigResponse",
+  "type": "object",
+  "description": "VPC connectivity details returned by Lambda",
+  "properties": {
+    "SubnetIds": {
+      "type": "array"
+    },
+    "SecurityGroupIds": {
+      "type": "array"
+    },
+    "VpcId": {
+      "type": "string",
+      "description": "The VPC ID"
+    }
+  }
+}

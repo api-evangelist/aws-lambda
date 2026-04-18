@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GetFunctionResponse",
+  "type": "object",
+  "description": "Response containing function details and code location",
+  "properties": {
+    "Code": {
+      "type": "object",
+      "description": "The deployment package of the function"
+    },
+    "Tags": {
+      "type": "object",
+      "description": "The function's tags"
+    },
+    "Concurrency": {
+      "type": "object"
+    }
+  }
+}

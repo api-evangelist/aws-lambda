@@ -1,0 +1,6 @@
+{
+  "Arn": "example_value",
+  "CodeSize": 10,
+  "SigningProfileVersionArn": "example_value",
+  "SigningJobArn": "example_value"
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ListAliasesResponse",
+  "type": "object",
+  "description": "Paginated list of aliases",
+  "properties": {
+    "NextMarker": {
+      "type": "string",
+      "description": "Pagination token for the next page"
+    },
+    "Aliases": {
+      "type": "array"
+    }
+  }
+}

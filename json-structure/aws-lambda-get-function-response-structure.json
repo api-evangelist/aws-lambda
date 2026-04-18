@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "GetFunctionResponse",
+  "type": "object",
+  "properties": {
+    "Code": {
+      "type": "object"
+    },
+    "Tags": {
+      "type": "object"
+    },
+    "Concurrency": {
+      "type": "object"
+    }
+  }
+}

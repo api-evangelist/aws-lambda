@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ErrorResponse",
+  "type": "object",
+  "description": "Error response from the Lambda API",
+  "properties": {
+    "Type": {
+      "type": "string",
+      "description": "The error type"
+    },
+    "Message": {
+      "type": "string",
+      "description": "The error message"
+    },
+    "Code": {
+      "type": "string",
+      "description": "The error code"
+    }
+  }
+}

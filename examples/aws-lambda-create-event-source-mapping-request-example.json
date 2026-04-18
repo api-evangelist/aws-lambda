@@ -1,0 +1,15 @@
+{
+  "EventSourceArn": "example_value",
+  "FunctionName": "example_value",
+  "Enabled": true,
+  "BatchSize": 10,
+  "MaximumBatchingWindowInSeconds": 10,
+  "ParallelizationFactor": 10,
+  "StartingPosition": "example_value",
+  "StartingPositionTimestamp": "example_value",
+  "MaximumRecordAgeInSeconds": 10,
+  "BisectBatchOnFunctionError": true,
+  "MaximumRetryAttempts": 10,
+  "TumblingWindowInSeconds": 10,
+  "FunctionResponseTypes": []
+}

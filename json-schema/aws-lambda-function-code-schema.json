@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FunctionCode",
+  "type": "object",
+  "description": "The code for the Lambda function. You can provide your deployment package as a .zip file archive uploaded directly, from S3, or as a container image from Amazon ECR.",
+  "properties": {
+    "ZipFile": {
+      "type": "string",
+      "description": "Base64-encoded contents of the deployment package .zip file"
+    },
+    "S3Bucket": {
+      "type": "string",
+      "description": "An S3 bucket in the same AWS Region as your function"
+    },
+    "S3Key": {
+      "type": "string",
+      "description": "The S3 key of the deployment package"
+    },
+    "S3ObjectVersion": {
+      "type": "string",
+      "description": "The version of the S3 object for versioned buckets"
+    },
+    "ImageUri": {
+      "type": "string",
+      "description": "URI of a container image in the Amazon ECR registry"
+    }
+  }
+}

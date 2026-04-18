@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FilterCriteria",
+  "type": "object",
+  "description": "An object that contains the filters for an event source. Event filtering enables you to control which records from an event source Lambda sends to your function.",
+  "properties": {
+    "Filters": {
+      "type": "array",
+      "description": "A list of filters"
+    }
+  }
+}

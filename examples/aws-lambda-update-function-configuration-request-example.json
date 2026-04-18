@@ -1,0 +1,17 @@
+{
+  "Role": "example_value",
+  "Handler": "example_value",
+  "Description": "A sample description.",
+  "Timeout": 10,
+  "MemorySize": 10,
+  "Environment": "example_value",
+  "Runtime": "example_value",
+  "DeadLetterConfig": "example_value",
+  "KMSKeyArn": "example_value",
+  "TracingConfig": "example_value",
+  "RevisionId": "500123",
+  "Layers": [],
+  "EphemeralStorage": "example_value",
+  "SnapStart": "example_value",
+  "LoggingConfig": "example_value"
+}

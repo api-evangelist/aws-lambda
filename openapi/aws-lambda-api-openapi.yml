@@ -17,57 +17,57 @@ externalDocs:
   description: AWS Lambda API Reference
   url: https://docs.aws.amazon.com/lambda/latest/api/welcome.html
 servers:
-  - url: https://lambda.{region}.amazonaws.com
-    description: AWS Lambda Regional Endpoint
-    variables:
-      region:
-        description: The AWS region for the Lambda service endpoint
-        default: us-east-1
-        enum:
-          - us-east-1
-          - us-east-2
-          - us-west-1
-          - us-west-2
-          - eu-west-1
-          - eu-west-2
-          - eu-west-3
-          - eu-central-1
-          - eu-north-1
-          - ap-southeast-1
-          - ap-southeast-2
-          - ap-northeast-1
-          - ap-northeast-2
-          - ap-south-1
-          - sa-east-1
-          - ca-central-1
+- url: https://lambda.{region}.amazonaws.com
+  description: AWS Lambda Regional Endpoint
+  variables:
+    region:
+      description: The AWS region for the Lambda service endpoint
+      default: us-east-1
+      enum:
+      - us-east-1
+      - us-east-2
+      - us-west-1
+      - us-west-2
+      - eu-west-1
+      - eu-west-2
+      - eu-west-3
+      - eu-central-1
+      - eu-north-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      - ap-northeast-2
+      - ap-south-1
+      - sa-east-1
+      - ca-central-1
 tags:
-  - name: Aliases
-    description: Create named pointers to function versions with routing configuration
-  - name: Concurrency
-    description: Manage reserved and provisioned concurrency settings for functions
-  - name: Event Source Mappings
-    description: >-
-      Map event sources such as Amazon SQS, Kinesis, and DynamoDB Streams to
-      Lambda functions for automatic invocation
-  - name: Function URL
-    description: >-
-      Configure dedicated HTTPS endpoints for Lambda functions that can be
-      invoked directly via HTTP
-  - name: Functions
-    description: Create, configure, invoke, and manage Lambda functions
-  - name: Layers
-    description: >-
-      Manage Lambda layers that package libraries, custom runtimes, and other
-      dependencies for sharing across functions
-  - name: Versions
-    description: Publish and manage immutable function versions
+- name: Aliases
+  description: Create named pointers to function versions with routing configuration
+- name: Concurrency
+  description: Manage reserved and provisioned concurrency settings for functions
+- name: Event Source Mappings
+  description: >-
+    Map event sources such as Amazon SQS, Kinesis, and DynamoDB Streams to
+    Lambda functions for automatic invocation
+- name: Function URL
+  description: >-
+    Configure dedicated HTTPS endpoints for Lambda functions that can be
+    invoked directly via HTTP
+- name: Functions
+  description: Create, configure, invoke, and manage Lambda functions
+- name: Layers
+  description: >-
+    Manage Lambda layers that package libraries, custom runtimes, and other
+    dependencies for sharing across functions
+- name: Versions
+  description: Publish and manage immutable function versions
 security:
-  - sigv4: []
+- sigv4: []
 paths:
   /2015-03-31/functions:
     get:
       operationId: listFunctions
-      summary: AWS Lambda List functions
+      summary: Aws Lambda List Functions
       description: >-
         Returns a list of Lambda functions with the version-specific
         configuration of each. Set FunctionVersion to ALL to include all
@@ -75,12 +75,12 @@ paths:
         version. The response includes the function configuration for each
         version along with the function ARN and name.
       tags:
-        - Functions
+      - Functions
       parameters:
-        - $ref: '#/components/parameters/masterRegion'
-        - $ref: '#/components/parameters/functionVersion'
-        - $ref: '#/components/parameters/marker'
-        - $ref: '#/components/parameters/maxItems'
+      - $ref: '#/components/parameters/masterRegion'
+      - $ref: '#/components/parameters/functionVersion'
+      - $ref: '#/components/parameters/marker'
+      - $ref: '#/components/parameters/maxItems'
       responses:
         '200':
           description: List of functions
@@ -88,15 +88,65 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListFunctionsResponse'
+              examples:
+                Listfunctions200Example:
+                  summary: Default listFunctions 200 response
+                  x-microcks-default: true
+                  value:
+                    NextMarker: example_value
+                    Functions:
+                    - FunctionName: example_value
+                      FunctionArn: example_value
+                      Runtime: nodejs18.x
+                      Role: example_value
+                      Handler: example_value
+                      CodeSize: 10
+                      Description: A sample description.
+                      Timeout: 10
+                      MemorySize: 10
+                      LastModified: example_value
+                      CodeSha256: example_value
+                      Version: example_value
+                      DeadLetterConfig: {}
+                      Environment: {}
+                      KMSKeyArn: example_value
+                      TracingConfig: {}
+                      MasterArn: example_value
+                      RevisionId: '500123'
+                      Layers: {}
+                      State: Pending
+                      StateReason: example_value
+                      StateReasonCode: Idle
+                      LastUpdateStatus: Successful
+                      LastUpdateStatusReason: example_value
+                      LastUpdateStatusReasonCode: example_value
+                      PackageType: Zip
+                      ImageConfigResponse: {}
+                      Architectures: {}
+                      EphemeralStorage: {}
+                      SnapStart: {}
+                      RuntimeVersionConfig: {}
+                      LoggingConfig: {}
         '429':
           description: Too many requests
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listfunctions429Example:
+                  summary: Default listFunctions 429 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createFunction
-      summary: AWS Lambda Create a function
+      summary: Aws Lambda Create a Function
       description: >-
         Creates a Lambda function. To create a function, you need a deployment
         package and an execution role. The deployment package is a ZIP archive
@@ -105,13 +155,59 @@ paths:
         the function's memory, timeout, environment variables, VPC settings,
         layers, and other options.
       tags:
-        - Functions
+      - Functions
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateFunctionRequest'
+            examples:
+              CreatefunctionRequestExample:
+                summary: Default createFunction request
+                x-microcks-default: true
+                value:
+                  FunctionName: example_value
+                  Runtime: example_value
+                  Role: example_value
+                  Handler: example_value
+                  Code:
+                    ZipFile: example_value
+                    S3Bucket: example_value
+                    S3Key: example_value
+                    S3ObjectVersion: example_value
+                    ImageUri: example_value
+                  Description: A sample description.
+                  Timeout: 10
+                  MemorySize: 10
+                  Publish: true
+                  VpcConfig:
+                    SubnetIds:
+                    - {}
+                    SecurityGroupIds:
+                    - {}
+                  PackageType: Zip
+                  DeadLetterConfig:
+                    TargetArn: example_value
+                  Environment:
+                    Variables: example_value
+                  KMSKeyArn: example_value
+                  TracingConfig:
+                    Mode: Active
+                  Tags: example_value
+                  Layers:
+                  - example_value
+                  Architectures:
+                  - x86_64
+                  EphemeralStorage:
+                    Size: 10
+                  SnapStart:
+                    ApplyOn: PublishedVersions
+                  LoggingConfig:
+                    LogFormat: JSON
+                    ApplicationLogLevel: example_value
+                    SystemLogLevel: example_value
+                    LogGroup: example_value
       responses:
         '201':
           description: Function created successfully
@@ -119,34 +215,143 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FunctionConfiguration'
+              examples:
+                Createfunction201Example:
+                  summary: Default createFunction 201 response
+                  x-microcks-default: true
+                  value:
+                    FunctionName: example_value
+                    FunctionArn: example_value
+                    Runtime: nodejs18.x
+                    Role: example_value
+                    Handler: example_value
+                    CodeSize: 10
+                    Description: A sample description.
+                    Timeout: 10
+                    MemorySize: 10
+                    LastModified: example_value
+                    CodeSha256: example_value
+                    Version: example_value
+                    VpcConfig:
+                      SubnetIds:
+                      - {}
+                      SecurityGroupIds:
+                      - {}
+                      VpcId: '500123'
+                    DeadLetterConfig:
+                      TargetArn: example_value
+                    Environment:
+                      Variables: example_value
+                      Error:
+                        ErrorCode: example_value
+                        Message: example_value
+                    KMSKeyArn: example_value
+                    TracingConfig:
+                      Mode: Active
+                    MasterArn: example_value
+                    RevisionId: '500123'
+                    Layers:
+                    - Arn: example_value
+                      CodeSize: 10
+                      SigningProfileVersionArn: example_value
+                      SigningJobArn: example_value
+                    State: Pending
+                    StateReason: example_value
+                    StateReasonCode: Idle
+                    LastUpdateStatus: Successful
+                    LastUpdateStatusReason: example_value
+                    LastUpdateStatusReasonCode: example_value
+                    PackageType: Zip
+                    ImageConfigResponse:
+                      ImageConfig:
+                        EntryPoint:
+                        - {}
+                        Command:
+                        - {}
+                        WorkingDirectory: example_value
+                      Error:
+                        ErrorCode: example_value
+                        Message: example_value
+                    Architectures:
+                    - x86_64
+                    EphemeralStorage:
+                      Size: 10
+                    SnapStart:
+                      ApplyOn: PublishedVersions
+                      OptimizationStatus: On
+                    RuntimeVersionConfig:
+                      RuntimeVersionArn: example_value
+                      Error:
+                        ErrorCode: example_value
+                        Message: example_value
+                    LoggingConfig:
+                      LogFormat: JSON
+                      ApplicationLogLevel: TRACE
+                      SystemLogLevel: DEBUG
+                      LogGroup: example_value
         '400':
           description: Invalid parameter value or missing required parameter
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createfunction400Example:
+                  summary: Default createFunction 400 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
         '403':
           description: Access denied or code signing validation failure
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createfunction403Example:
+                  summary: Default createFunction 403 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
         '409':
           description: Resource already exists or is in use
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createfunction409Example:
+                  summary: Default createFunction 409 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
         '429':
           description: Too many requests
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createfunction429Example:
+                  summary: Default createFunction 429 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /2015-03-31/functions/{FunctionName}:
     get:
       operationId: getFunction
-      summary: AWS Lambda Get a function
+      summary: Aws Lambda Get a Function
       description: >-
         Returns information about the function or function version, with a link
         to download the deployment package that is valid for 10 minutes. If you
@@ -154,10 +359,10 @@ paths:
         returned. The response includes the function configuration, code
         location, tags, and concurrency settings.
       tags:
-        - Functions
+      - Functions
       parameters:
-        - $ref: '#/components/parameters/functionName'
-        - $ref: '#/components/parameters/qualifier'
+      - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/qualifier'
       responses:
         '200':
           description: Function details
@@ -165,31 +370,113 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetFunctionResponse'
+              examples:
+                Getfunction200Example:
+                  summary: Default getFunction 200 response
+                  x-microcks-default: true
+                  value:
+                    Configuration:
+                      FunctionName: example_value
+                      FunctionArn: example_value
+                      Runtime: nodejs18.x
+                      Role: example_value
+                      Handler: example_value
+                      CodeSize: 10
+                      Description: A sample description.
+                      Timeout: 10
+                      MemorySize: 10
+                      LastModified: example_value
+                      CodeSha256: example_value
+                      Version: example_value
+                      DeadLetterConfig:
+                        TargetArn: example_value
+                      Environment:
+                        Variables: example_value
+                        Error: {}
+                      KMSKeyArn: example_value
+                      TracingConfig:
+                        Mode: Active
+                      MasterArn: example_value
+                      RevisionId: '500123'
+                      Layers:
+                      - {}
+                      State: Pending
+                      StateReason: example_value
+                      StateReasonCode: Idle
+                      LastUpdateStatus: Successful
+                      LastUpdateStatusReason: example_value
+                      LastUpdateStatusReasonCode: example_value
+                      PackageType: Zip
+                      ImageConfigResponse:
+                        ImageConfig: {}
+                        Error: {}
+                      Architectures:
+                      - {}
+                      EphemeralStorage:
+                        Size: 10
+                      SnapStart:
+                        ApplyOn: PublishedVersions
+                        OptimizationStatus: On
+                      RuntimeVersionConfig:
+                        RuntimeVersionArn: example_value
+                        Error: {}
+                      LoggingConfig:
+                        LogFormat: JSON
+                        ApplicationLogLevel: TRACE
+                        SystemLogLevel: DEBUG
+                        LogGroup: example_value
+                    Code:
+                      RepositoryType: example_value
+                      Location: example_value
+                      ImageUri: example_value
+                      ResolvedImageUri: example_value
+                    Tags: example_value
+                    Concurrency:
+                      ReservedConcurrentExecutions: 10
         '404':
           description: Function not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getfunction404Example:
+                  summary: Default getFunction 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
         '429':
           description: Too many requests
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getfunction429Example:
+                  summary: Default getFunction 429 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteFunction
-      summary: AWS Lambda Delete a function
+      summary: Aws Lambda Delete a Function
       description: >-
         Deletes a Lambda function. To delete a specific function version, use
         the Qualifier parameter. Otherwise, all versions and aliases are
         deleted. To delete Lambda event source mappings that invoke a function,
         use DeleteEventSourceMapping.
       tags:
-        - Functions
+      - Functions
       parameters:
-        - $ref: '#/components/parameters/functionName'
-        - $ref: '#/components/parameters/qualifier'
+      - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/qualifier'
       responses:
         '204':
           description: Function deleted successfully
@@ -199,22 +486,49 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deletefunction404Example:
+                  summary: Default deleteFunction 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
         '409':
           description: Resource is in use
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deletefunction409Example:
+                  summary: Default deleteFunction 409 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
         '429':
           description: Too many requests
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deletefunction429Example:
+                  summary: Default deleteFunction 429 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /2015-03-31/functions/{FunctionName}/configuration:
     get:
       operationId: getFunctionConfiguration
-      summary: AWS Lambda Get function configuration
+      summary: Aws Lambda Get Function Configuration
       description: >-
         Returns the version-specific settings of a Lambda function or version.
         The output includes the function name, runtime, role, handler,
@@ -223,10 +537,10 @@ paths:
         configuration, environment variables, KMS key, tracing configuration,
         layers, state, state reason, and last update status.
       tags:
-        - Functions
+      - Functions
       parameters:
-        - $ref: '#/components/parameters/functionName'
-        - $ref: '#/components/parameters/qualifier'
+      - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/qualifier'
       responses:
         '200':
           description: Function configuration
@@ -234,15 +548,100 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FunctionConfiguration'
+              examples:
+                Getfunctionconfiguration200Example:
+                  summary: Default getFunctionConfiguration 200 response
+                  x-microcks-default: true
+                  value:
+                    FunctionName: example_value
+                    FunctionArn: example_value
+                    Runtime: nodejs18.x
+                    Role: example_value
+                    Handler: example_value
+                    CodeSize: 10
+                    Description: A sample description.
+                    Timeout: 10
+                    MemorySize: 10
+                    LastModified: example_value
+                    CodeSha256: example_value
+                    Version: example_value
+                    VpcConfig:
+                      SubnetIds:
+                      - {}
+                      SecurityGroupIds:
+                      - {}
+                      VpcId: '500123'
+                    DeadLetterConfig:
+                      TargetArn: example_value
+                    Environment:
+                      Variables: example_value
+                      Error:
+                        ErrorCode: example_value
+                        Message: example_value
+                    KMSKeyArn: example_value
+                    TracingConfig:
+                      Mode: Active
+                    MasterArn: example_value
+                    RevisionId: '500123'
+                    Layers:
+                    - Arn: example_value
+                      CodeSize: 10
+                      SigningProfileVersionArn: example_value
+                      SigningJobArn: example_value
+                    State: Pending
+                    StateReason: example_value
+                    StateReasonCode: Idle
+                    LastUpdateStatus: Successful
+                    LastUpdateStatusReason: example_value
+                    LastUpdateStatusReasonCode: example_value
+                    PackageType: Zip
+                    ImageConfigResponse:
+                      ImageConfig:
+                        EntryPoint:
+                        - {}
+                        Command:
+                        - {}
+                        WorkingDirectory: example_value
+                      Error:
+                        ErrorCode: example_value
+                        Message: example_value
+                    Architectures:
+                    - x86_64
+                    EphemeralStorage:
+                      Size: 10
+                    SnapStart:
+                      ApplyOn: PublishedVersions
+                      OptimizationStatus: On
+                    RuntimeVersionConfig:
+                      RuntimeVersionArn: example_value
+                      Error:
+                        ErrorCode: example_value
+                        Message: example_value
+                    LoggingConfig:
+                      LogFormat: JSON
+                      ApplicationLogLevel: TRACE
+                      SystemLogLevel: DEBUG
+                      LogGroup: example_value
         '404':
           description: Function not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getfunctionconfiguration404Example:
+                  summary: Default getFunctionConfiguration 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: updateFunctionConfiguration
-      summary: AWS Lambda Update function configuration
+      summary: Aws Lambda Update Function Configuration
       description: >-
         Modify the version-specific settings of a Lambda function. When you
         update a function, Lambda provisions an instance of the function and
@@ -250,15 +649,50 @@ paths:
         invocations use the new configuration. Settings include memory, timeout,
         runtime, handler, environment variables, VPC, layers, and more.
       tags:
-        - Functions
+      - Functions
       parameters:
-        - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/functionName'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateFunctionConfigurationRequest'
+            examples:
+              UpdatefunctionconfigurationRequestExample:
+                summary: Default updateFunctionConfiguration request
+                x-microcks-default: true
+                value:
+                  Role: example_value
+                  Handler: example_value
+                  Description: A sample description.
+                  Timeout: 10
+                  MemorySize: 10
+                  VpcConfig:
+                    SubnetIds:
+                    - {}
+                    SecurityGroupIds:
+                    - {}
+                  Environment:
+                    Variables: example_value
+                  Runtime: example_value
+                  DeadLetterConfig:
+                    TargetArn: example_value
+                  KMSKeyArn: example_value
+                  TracingConfig:
+                    Mode: Active
+                  RevisionId: '500123'
+                  Layers:
+                  - example_value
+                  EphemeralStorage:
+                    Size: 10
+                  SnapStart:
+                    ApplyOn: PublishedVersions
+                  LoggingConfig:
+                    LogFormat: JSON
+                    ApplicationLogLevel: example_value
+                    SystemLogLevel: example_value
+                    LogGroup: example_value
       responses:
         '200':
           description: Updated function configuration
@@ -266,43 +700,159 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FunctionConfiguration'
+              examples:
+                Updatefunctionconfiguration200Example:
+                  summary: Default updateFunctionConfiguration 200 response
+                  x-microcks-default: true
+                  value:
+                    FunctionName: example_value
+                    FunctionArn: example_value
+                    Runtime: nodejs18.x
+                    Role: example_value
+                    Handler: example_value
+                    CodeSize: 10
+                    Description: A sample description.
+                    Timeout: 10
+                    MemorySize: 10
+                    LastModified: example_value
+                    CodeSha256: example_value
+                    Version: example_value
+                    VpcConfig:
+                      SubnetIds:
+                      - {}
+                      SecurityGroupIds:
+                      - {}
+                      VpcId: '500123'
+                    DeadLetterConfig:
+                      TargetArn: example_value
+                    Environment:
+                      Variables: example_value
+                      Error:
+                        ErrorCode: example_value
+                        Message: example_value
+                    KMSKeyArn: example_value
+                    TracingConfig:
+                      Mode: Active
+                    MasterArn: example_value
+                    RevisionId: '500123'
+                    Layers:
+                    - Arn: example_value
+                      CodeSize: 10
+                      SigningProfileVersionArn: example_value
+                      SigningJobArn: example_value
+                    State: Pending
+                    StateReason: example_value
+                    StateReasonCode: Idle
+                    LastUpdateStatus: Successful
+                    LastUpdateStatusReason: example_value
+                    LastUpdateStatusReasonCode: example_value
+                    PackageType: Zip
+                    ImageConfigResponse:
+                      ImageConfig:
+                        EntryPoint:
+                        - {}
+                        Command:
+                        - {}
+                        WorkingDirectory: example_value
+                      Error:
+                        ErrorCode: example_value
+                        Message: example_value
+                    Architectures:
+                    - x86_64
+                    EphemeralStorage:
+                      Size: 10
+                    SnapStart:
+                      ApplyOn: PublishedVersions
+                      OptimizationStatus: On
+                    RuntimeVersionConfig:
+                      RuntimeVersionArn: example_value
+                      Error:
+                        ErrorCode: example_value
+                        Message: example_value
+                    LoggingConfig:
+                      LogFormat: JSON
+                      ApplicationLogLevel: TRACE
+                      SystemLogLevel: DEBUG
+                      LogGroup: example_value
         '400':
           description: Invalid parameter value
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatefunctionconfiguration400Example:
+                  summary: Default updateFunctionConfiguration 400 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
         '404':
           description: Function not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatefunctionconfiguration404Example:
+                  summary: Default updateFunctionConfiguration 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
         '409':
           description: Resource is in use or conflict
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatefunctionconfiguration409Example:
+                  summary: Default updateFunctionConfiguration 409 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /2015-03-31/functions/{FunctionName}/code:
     put:
       operationId: updateFunctionCode
-      summary: AWS Lambda Update function code
+      summary: Aws Lambda Update Function Code
       description: >-
         Updates a Lambda function's code. If code signing is enabled for the
         function, the code package must be signed by a trusted publisher.
         The function's code is locked when you publish a version. You cannot
         modify the code of a published version, only the unpublished version.
       tags:
-        - Functions
+      - Functions
       parameters:
-        - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/functionName'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateFunctionCodeRequest'
+            examples:
+              UpdatefunctioncodeRequestExample:
+                summary: Default updateFunctionCode request
+                x-microcks-default: true
+                value:
+                  ZipFile: example_value
+                  S3Bucket: example_value
+                  S3Key: example_value
+                  S3ObjectVersion: example_value
+                  ImageUri: example_value
+                  Publish: true
+                  DryRun: true
+                  RevisionId: '500123'
+                  Architectures:
+                  - x86_64
       responses:
         '200':
           description: Updated function configuration
@@ -310,28 +860,129 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FunctionConfiguration'
+              examples:
+                Updatefunctioncode200Example:
+                  summary: Default updateFunctionCode 200 response
+                  x-microcks-default: true
+                  value:
+                    FunctionName: example_value
+                    FunctionArn: example_value
+                    Runtime: nodejs18.x
+                    Role: example_value
+                    Handler: example_value
+                    CodeSize: 10
+                    Description: A sample description.
+                    Timeout: 10
+                    MemorySize: 10
+                    LastModified: example_value
+                    CodeSha256: example_value
+                    Version: example_value
+                    VpcConfig:
+                      SubnetIds:
+                      - {}
+                      SecurityGroupIds:
+                      - {}
+                      VpcId: '500123'
+                    DeadLetterConfig:
+                      TargetArn: example_value
+                    Environment:
+                      Variables: example_value
+                      Error:
+                        ErrorCode: example_value
+                        Message: example_value
+                    KMSKeyArn: example_value
+                    TracingConfig:
+                      Mode: Active
+                    MasterArn: example_value
+                    RevisionId: '500123'
+                    Layers:
+                    - Arn: example_value
+                      CodeSize: 10
+                      SigningProfileVersionArn: example_value
+                      SigningJobArn: example_value
+                    State: Pending
+                    StateReason: example_value
+                    StateReasonCode: Idle
+                    LastUpdateStatus: Successful
+                    LastUpdateStatusReason: example_value
+                    LastUpdateStatusReasonCode: example_value
+                    PackageType: Zip
+                    ImageConfigResponse:
+                      ImageConfig:
+                        EntryPoint:
+                        - {}
+                        Command:
+                        - {}
+                        WorkingDirectory: example_value
+                      Error:
+                        ErrorCode: example_value
+                        Message: example_value
+                    Architectures:
+                    - x86_64
+                    EphemeralStorage:
+                      Size: 10
+                    SnapStart:
+                      ApplyOn: PublishedVersions
+                      OptimizationStatus: On
+                    RuntimeVersionConfig:
+                      RuntimeVersionArn: example_value
+                      Error:
+                        ErrorCode: example_value
+                        Message: example_value
+                    LoggingConfig:
+                      LogFormat: JSON
+                      ApplicationLogLevel: TRACE
+                      SystemLogLevel: DEBUG
+                      LogGroup: example_value
         '400':
           description: Invalid parameter value
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatefunctioncode400Example:
+                  summary: Default updateFunctionCode 400 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
         '404':
           description: Function not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatefunctioncode404Example:
+                  summary: Default updateFunctionCode 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
         '409':
           description: Resource is in use
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatefunctioncode409Example:
+                  summary: Default updateFunctionCode 409 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /2015-03-31/functions/{FunctionName}/invocations:
     post:
       operationId: invoke
-      summary: AWS Lambda Invoke a function
+      summary: Aws Lambda Invoke a Function
       description: >-
         Invokes a Lambda function. You can invoke a function synchronously and
         wait for the response, or asynchronously. By default, Lambda invokes
@@ -341,42 +992,50 @@ paths:
         information. For a DryRun invocation type, verify parameter values and
         permissions without running the function.
       tags:
-        - Functions
+      - Functions
       parameters:
-        - $ref: '#/components/parameters/functionName'
-        - $ref: '#/components/parameters/qualifier'
-        - name: X-Amz-Invocation-Type
-          in: header
-          description: >-
-            Choose from RequestResponse (synchronous, default), Event
-            (asynchronous), or DryRun (validate parameters and permissions)
-          schema:
-            type: string
-            enum:
-              - RequestResponse
-              - Event
-              - DryRun
-        - name: X-Amz-Log-Type
-          in: header
-          description: Set to Tail to include the execution log in the response
-          schema:
-            type: string
-            enum:
-              - None
-              - Tail
-        - name: X-Amz-Client-Context
-          in: header
-          description: >-
-            Base64-encoded client context data to pass to the function in the
-            context object. Maximum 3583 bytes of base64-encoded data.
-          schema:
-            type: string
+      - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/qualifier'
+      - name: X-Amz-Invocation-Type
+        in: header
+        description: >-
+          Choose from RequestResponse (synchronous, default), Event
+          (asynchronous), or DryRun (validate parameters and permissions)
+        schema:
+          type: string
+          enum:
+          - RequestResponse
+          - Event
+          - DryRun
+        example: RequestResponse
+      - name: X-Amz-Log-Type
+        in: header
+        description: Set to Tail to include the execution log in the response
+        schema:
+          type: string
+          enum:
+          - None
+          - Tail
+        example: None
+      - name: X-Amz-Client-Context
+        in: header
+        description: >-
+          Base64-encoded client context data to pass to the function in the
+          context object. Maximum 3583 bytes of base64-encoded data.
+        schema:
+          type: string
+        example: example_value
       requestBody:
         description: The JSON payload to pass to the function
         content:
           application/json:
             schema:
               type: object
+            examples:
+              InvokeRequestExample:
+                summary: Default invoke request
+                x-microcks-default: true
+                value: {}
       responses:
         '200':
           description: Function invoked successfully (synchronous)
@@ -401,6 +1060,11 @@ paths:
             application/json:
               schema:
                 type: object
+              examples:
+                Invoke200Example:
+                  summary: Default invoke 200 response
+                  x-microcks-default: true
+                  value: {}
         '202':
           description: Function invoked successfully (asynchronous)
         '204':
@@ -411,16 +1075,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Invoke404Example:
+                  summary: Default invoke 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
         '429':
           description: Too many requests or concurrency limit exceeded
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Invoke429Example:
+                  summary: Default invoke 429 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /2015-03-31/functions/{FunctionName}/versions:
     post:
       operationId: publishVersion
-      summary: AWS Lambda Publish a version
+      summary: Aws Lambda Publish a Version
       description: >-
         Creates a version from the current code and configuration of a
         function. Use versions to create a snapshot of your function code and
@@ -428,9 +1111,9 @@ paths:
         if the function's configuration and code have not changed since the
         last version.
       tags:
-        - Versions
+      - Versions
       parameters:
-        - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/functionName'
       requestBody:
         content:
           application/json:
@@ -454,6 +1137,14 @@ paths:
                     Only publish a version if the revision ID matches. Use this
                     option to avoid publishing a version based on a stale
                     configuration.
+            examples:
+              PublishversionRequestExample:
+                summary: Default publishVersion request
+                x-microcks-default: true
+                value:
+                  CodeSha256: example_value
+                  Description: A sample description.
+                  RevisionId: '500123'
       responses:
         '201':
           description: Version published
@@ -461,30 +1152,123 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FunctionConfiguration'
+              examples:
+                Publishversion201Example:
+                  summary: Default publishVersion 201 response
+                  x-microcks-default: true
+                  value:
+                    FunctionName: example_value
+                    FunctionArn: example_value
+                    Runtime: nodejs18.x
+                    Role: example_value
+                    Handler: example_value
+                    CodeSize: 10
+                    Description: A sample description.
+                    Timeout: 10
+                    MemorySize: 10
+                    LastModified: example_value
+                    CodeSha256: example_value
+                    Version: example_value
+                    VpcConfig:
+                      SubnetIds:
+                      - {}
+                      SecurityGroupIds:
+                      - {}
+                      VpcId: '500123'
+                    DeadLetterConfig:
+                      TargetArn: example_value
+                    Environment:
+                      Variables: example_value
+                      Error:
+                        ErrorCode: example_value
+                        Message: example_value
+                    KMSKeyArn: example_value
+                    TracingConfig:
+                      Mode: Active
+                    MasterArn: example_value
+                    RevisionId: '500123'
+                    Layers:
+                    - Arn: example_value
+                      CodeSize: 10
+                      SigningProfileVersionArn: example_value
+                      SigningJobArn: example_value
+                    State: Pending
+                    StateReason: example_value
+                    StateReasonCode: Idle
+                    LastUpdateStatus: Successful
+                    LastUpdateStatusReason: example_value
+                    LastUpdateStatusReasonCode: example_value
+                    PackageType: Zip
+                    ImageConfigResponse:
+                      ImageConfig:
+                        EntryPoint:
+                        - {}
+                        Command:
+                        - {}
+                        WorkingDirectory: example_value
+                      Error:
+                        ErrorCode: example_value
+                        Message: example_value
+                    Architectures:
+                    - x86_64
+                    EphemeralStorage:
+                      Size: 10
+                    SnapStart:
+                      ApplyOn: PublishedVersions
+                      OptimizationStatus: On
+                    RuntimeVersionConfig:
+                      RuntimeVersionArn: example_value
+                      Error:
+                        ErrorCode: example_value
+                        Message: example_value
+                    LoggingConfig:
+                      LogFormat: JSON
+                      ApplicationLogLevel: TRACE
+                      SystemLogLevel: DEBUG
+                      LogGroup: example_value
         '404':
           description: Function not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Publishversion404Example:
+                  summary: Default publishVersion 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
         '409':
           description: Resource conflict
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Publishversion409Example:
+                  summary: Default publishVersion 409 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     get:
       operationId: listVersionsByFunction
-      summary: AWS Lambda List function versions
+      summary: Aws Lambda List Function Versions
       description: >-
         Returns a list of versions with the version-specific configuration of
         each. Lambda returns up to 50 versions per call.
       tags:
-        - Versions
+      - Versions
       parameters:
-        - $ref: '#/components/parameters/functionName'
-        - $ref: '#/components/parameters/marker'
-        - $ref: '#/components/parameters/maxItems'
+      - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/marker'
+      - $ref: '#/components/parameters/maxItems'
       responses:
         '200':
           description: List of function versions
@@ -492,31 +1276,82 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListVersionsResponse'
+              examples:
+                Listversionsbyfunction200Example:
+                  summary: Default listVersionsByFunction 200 response
+                  x-microcks-default: true
+                  value:
+                    NextMarker: example_value
+                    Versions:
+                    - FunctionName: example_value
+                      FunctionArn: example_value
+                      Runtime: nodejs18.x
+                      Role: example_value
+                      Handler: example_value
+                      CodeSize: 10
+                      Description: A sample description.
+                      Timeout: 10
+                      MemorySize: 10
+                      LastModified: example_value
+                      CodeSha256: example_value
+                      Version: example_value
+                      DeadLetterConfig: {}
+                      Environment: {}
+                      KMSKeyArn: example_value
+                      TracingConfig: {}
+                      MasterArn: example_value
+                      RevisionId: '500123'
+                      Layers: {}
+                      State: Pending
+                      StateReason: example_value
+                      StateReasonCode: Idle
+                      LastUpdateStatus: Successful
+                      LastUpdateStatusReason: example_value
+                      LastUpdateStatusReasonCode: example_value
+                      PackageType: Zip
+                      ImageConfigResponse: {}
+                      Architectures: {}
+                      EphemeralStorage: {}
+                      SnapStart: {}
+                      RuntimeVersionConfig: {}
+                      LoggingConfig: {}
         '404':
           description: Function not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listversionsbyfunction404Example:
+                  summary: Default listVersionsByFunction 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /2015-03-31/functions/{FunctionName}/aliases:
     get:
       operationId: listAliases
-      summary: AWS Lambda List aliases
+      summary: Aws Lambda List Aliases
       description: >-
         Returns a list of aliases for a Lambda function. Each alias points to
         a specific function version and can optionally route a percentage of
         traffic to a second version for canary deployments.
       tags:
-        - Aliases
+      - Aliases
       parameters:
-        - $ref: '#/components/parameters/functionName'
-        - name: FunctionVersion
-          in: query
-          description: Filter by the version that aliases point to
-          schema:
-            type: string
-        - $ref: '#/components/parameters/marker'
-        - $ref: '#/components/parameters/maxItems'
+      - $ref: '#/components/parameters/functionName'
+      - name: FunctionVersion
+        in: query
+        description: Filter by the version that aliases point to
+        schema:
+          type: string
+        example: example_value
+      - $ref: '#/components/parameters/marker'
+      - $ref: '#/components/parameters/maxItems'
       responses:
         '200':
           description: List of aliases
@@ -524,30 +1359,63 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListAliasesResponse'
+              examples:
+                Listaliases200Example:
+                  summary: Default listAliases 200 response
+                  x-microcks-default: true
+                  value:
+                    NextMarker: example_value
+                    Aliases:
+                    - AliasArn: example_value
+                      Name: Example Title
+                      FunctionVersion: example_value
+                      Description: A sample description.
+                      RevisionId: '500123'
         '404':
           description: Function not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listaliases404Example:
+                  summary: Default listAliases 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createAlias
-      summary: AWS Lambda Create an alias
+      summary: Aws Lambda Create an Alias
       description: >-
         Creates an alias for a Lambda function version. Use aliases to provide
         clients with a function identifier that you can update to invoke a
         different version. You can also map an alias to split invocation
         requests between two versions for weighted routing.
       tags:
-        - Aliases
+      - Aliases
       parameters:
-        - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/functionName'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateAliasRequest'
+            examples:
+              CreatealiasRequestExample:
+                summary: Default createAlias request
+                x-microcks-default: true
+                value:
+                  Name: Example Title
+                  FunctionVersion: example_value
+                  Description: A sample description.
+                  RoutingConfig:
+                    AdditionalVersionWeights: example_value
       responses:
         '201':
           description: Alias created
@@ -555,28 +1423,59 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AliasConfiguration'
+              examples:
+                Createalias201Example:
+                  summary: Default createAlias 201 response
+                  x-microcks-default: true
+                  value:
+                    AliasArn: example_value
+                    Name: Example Title
+                    FunctionVersion: example_value
+                    Description: A sample description.
+                    RoutingConfig:
+                      AdditionalVersionWeights: example_value
+                    RevisionId: '500123'
         '404':
           description: Function or version not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createalias404Example:
+                  summary: Default createAlias 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
         '409':
           description: Alias already exists
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createalias409Example:
+                  summary: Default createAlias 409 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /2015-03-31/functions/{FunctionName}/aliases/{AliasName}:
     get:
       operationId: getAlias
-      summary: AWS Lambda Get an alias
+      summary: Aws Lambda Get an Alias
       description: Returns details about a Lambda function alias.
       tags:
-        - Aliases
+      - Aliases
       parameters:
-        - $ref: '#/components/parameters/functionName'
-        - $ref: '#/components/parameters/aliasName'
+      - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/aliasName'
       responses:
         '200':
           description: Alias details
@@ -584,30 +1483,63 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AliasConfiguration'
+              examples:
+                Getalias200Example:
+                  summary: Default getAlias 200 response
+                  x-microcks-default: true
+                  value:
+                    AliasArn: example_value
+                    Name: Example Title
+                    FunctionVersion: example_value
+                    Description: A sample description.
+                    RoutingConfig:
+                      AdditionalVersionWeights: example_value
+                    RevisionId: '500123'
         '404':
           description: Alias not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getalias404Example:
+                  summary: Default getAlias 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: updateAlias
-      summary: AWS Lambda Update an alias
+      summary: Aws Lambda Update an Alias
       description: >-
         Updates the configuration of a Lambda function alias. You can change
         the function version that the alias points to, or configure routing
         between two versions for weighted traffic shifting.
       tags:
-        - Aliases
+      - Aliases
       parameters:
-        - $ref: '#/components/parameters/functionName'
-        - $ref: '#/components/parameters/aliasName'
+      - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/aliasName'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateAliasRequest'
+            examples:
+              UpdatealiasRequestExample:
+                summary: Default updateAlias request
+                x-microcks-default: true
+                value:
+                  FunctionVersion: example_value
+                  Description: A sample description.
+                  RoutingConfig:
+                    AdditionalVersionWeights: example_value
+                  RevisionId: '500123'
       responses:
         '200':
           description: Updated alias
@@ -615,27 +1547,58 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AliasConfiguration'
+              examples:
+                Updatealias200Example:
+                  summary: Default updateAlias 200 response
+                  x-microcks-default: true
+                  value:
+                    AliasArn: example_value
+                    Name: Example Title
+                    FunctionVersion: example_value
+                    Description: A sample description.
+                    RoutingConfig:
+                      AdditionalVersionWeights: example_value
+                    RevisionId: '500123'
         '404':
           description: Alias not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatealias404Example:
+                  summary: Default updateAlias 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
         '409':
           description: Resource conflict
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatealias409Example:
+                  summary: Default updateAlias 409 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteAlias
-      summary: AWS Lambda Delete an alias
+      summary: Aws Lambda Delete an Alias
       description: Deletes a Lambda function alias.
       tags:
-        - Aliases
+      - Aliases
       parameters:
-        - $ref: '#/components/parameters/functionName'
-        - $ref: '#/components/parameters/aliasName'
+      - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/aliasName'
       responses:
         '204':
           description: Alias deleted
@@ -645,33 +1608,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deletealias404Example:
+                  summary: Default deleteAlias 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /2015-03-31/event-source-mappings:
     get:
       operationId: listEventSourceMappings
-      summary: AWS Lambda List event source mappings
+      summary: Aws Lambda List Event Source Mappings
       description: >-
         Lists event source mappings. Specify an EventSourceArn to show only
         event source mappings for a single event source, or a FunctionName
         to show mappings for a single function.
       tags:
-        - Event Source Mappings
+      - Event Source Mappings
       parameters:
-        - name: EventSourceArn
-          in: query
-          description: >-
-            The ARN of the event source (Amazon Kinesis stream, Amazon DynamoDB
-            stream, Amazon SQS queue, Amazon MSK cluster, or self-managed
-            Apache Kafka cluster)
-          schema:
-            type: string
-        - name: FunctionName
-          in: query
-          description: >-
-            The name, ARN, or partial ARN of the Lambda function to filter by
-          schema:
-            type: string
-        - $ref: '#/components/parameters/marker'
-        - $ref: '#/components/parameters/maxItems'
+      - name: EventSourceArn
+        in: query
+        description: >-
+          The ARN of the event source (Amazon Kinesis stream, Amazon DynamoDB
+          stream, Amazon SQS queue, Amazon MSK cluster, or self-managed
+          Apache Kafka cluster)
+        schema:
+          type: string
+        example: example_value
+      - name: FunctionName
+        in: query
+        description: >-
+          The name, ARN, or partial ARN of the Lambda function to filter by
+        schema:
+          type: string
+        example: example_value
+      - $ref: '#/components/parameters/marker'
+      - $ref: '#/components/parameters/maxItems'
       responses:
         '200':
           description: List of event source mappings
@@ -679,15 +1655,50 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListEventSourceMappingsResponse'
+              examples:
+                Listeventsourcemappings200Example:
+                  summary: Default listEventSourceMappings 200 response
+                  x-microcks-default: true
+                  value:
+                    NextMarker: example_value
+                    EventSourceMappings:
+                    - UUID: '500123'
+                      StartingPosition: TRIM_HORIZON
+                      StartingPositionTimestamp: '2026-01-15T10:30:00Z'
+                      BatchSize: 10
+                      MaximumBatchingWindowInSeconds: 10
+                      ParallelizationFactor: 10
+                      EventSourceArn: example_value
+                      FunctionArn: example_value
+                      LastModified: '2026-01-15T10:30:00Z'
+                      LastProcessingResult: example_value
+                      State: Creating
+                      StateTransitionReason: example_value
+                      MaximumRecordAgeInSeconds: 10
+                      BisectBatchOnFunctionError: true
+                      MaximumRetryAttempts: 10
+                      TumblingWindowInSeconds: 10
+                      FunctionResponseTypes: {}
         '404':
           description: Function not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listeventsourcemappings404Example:
+                  summary: Default listEventSourceMappings 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createEventSourceMapping
-      summary: AWS Lambda Create an event source mapping
+      summary: Aws Lambda Create an Event Source Mapping
       description: >-
         Creates a mapping between an event source and a Lambda function.
         Lambda reads items from the event source and invokes the function.
@@ -695,13 +1706,40 @@ paths:
         Streams, Amazon SQS, Amazon MQ, Amazon MSK, self-managed Apache
         Kafka, and Amazon DocumentDB.
       tags:
-        - Event Source Mappings
+      - Event Source Mappings
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateEventSourceMappingRequest'
+            examples:
+              CreateeventsourcemappingRequestExample:
+                summary: Default createEventSourceMapping request
+                x-microcks-default: true
+                value:
+                  EventSourceArn: example_value
+                  FunctionName: example_value
+                  Enabled: true
+                  BatchSize: 10
+                  FilterCriteria:
+                    Filters:
+                    - {}
+                  MaximumBatchingWindowInSeconds: 10
+                  ParallelizationFactor: 10
+                  StartingPosition: TRIM_HORIZON
+                  StartingPositionTimestamp: '2026-01-15T10:30:00Z'
+                  DestinationConfig:
+                    OnSuccess:
+                      Destination: example_value
+                    OnFailure:
+                      Destination: example_value
+                  MaximumRecordAgeInSeconds: 10
+                  BisectBatchOnFunctionError: true
+                  MaximumRetryAttempts: 10
+                  TumblingWindowInSeconds: 10
+                  FunctionResponseTypes:
+                  - ReportBatchItemFailures
       responses:
         '202':
           description: Event source mapping created
@@ -709,27 +1747,77 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventSourceMappingConfiguration'
+              examples:
+                Createeventsourcemapping202Example:
+                  summary: Default createEventSourceMapping 202 response
+                  x-microcks-default: true
+                  value:
+                    UUID: '500123'
+                    StartingPosition: TRIM_HORIZON
+                    StartingPositionTimestamp: '2026-01-15T10:30:00Z'
+                    BatchSize: 10
+                    MaximumBatchingWindowInSeconds: 10
+                    ParallelizationFactor: 10
+                    EventSourceArn: example_value
+                    FunctionArn: example_value
+                    LastModified: '2026-01-15T10:30:00Z'
+                    LastProcessingResult: example_value
+                    State: Creating
+                    StateTransitionReason: example_value
+                    DestinationConfig:
+                      OnSuccess:
+                        Destination: example_value
+                      OnFailure:
+                        Destination: example_value
+                    MaximumRecordAgeInSeconds: 10
+                    BisectBatchOnFunctionError: true
+                    MaximumRetryAttempts: 10
+                    TumblingWindowInSeconds: 10
+                    FunctionResponseTypes:
+                    - ReportBatchItemFailures
+                    FilterCriteria:
+                      Filters:
+                      - {}
         '400':
           description: Invalid parameter value
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createeventsourcemapping400Example:
+                  summary: Default createEventSourceMapping 400 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
         '409':
           description: Resource already exists
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createeventsourcemapping409Example:
+                  summary: Default createEventSourceMapping 409 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /2015-03-31/event-source-mappings/{UUID}:
     get:
       operationId: getEventSourceMapping
-      summary: AWS Lambda Get an event source mapping
+      summary: Aws Lambda Get an Event Source Mapping
       description: Returns details about an event source mapping.
       tags:
-        - Event Source Mappings
+      - Event Source Mappings
       parameters:
-        - $ref: '#/components/parameters/eventSourceMappingUUID'
+      - $ref: '#/components/parameters/eventSourceMappingUUID'
       responses:
         '200':
           description: Event source mapping details
@@ -737,29 +1825,95 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventSourceMappingConfiguration'
+              examples:
+                Geteventsourcemapping200Example:
+                  summary: Default getEventSourceMapping 200 response
+                  x-microcks-default: true
+                  value:
+                    UUID: '500123'
+                    StartingPosition: TRIM_HORIZON
+                    StartingPositionTimestamp: '2026-01-15T10:30:00Z'
+                    BatchSize: 10
+                    MaximumBatchingWindowInSeconds: 10
+                    ParallelizationFactor: 10
+                    EventSourceArn: example_value
+                    FunctionArn: example_value
+                    LastModified: '2026-01-15T10:30:00Z'
+                    LastProcessingResult: example_value
+                    State: Creating
+                    StateTransitionReason: example_value
+                    DestinationConfig:
+                      OnSuccess:
+                        Destination: example_value
+                      OnFailure:
+                        Destination: example_value
+                    MaximumRecordAgeInSeconds: 10
+                    BisectBatchOnFunctionError: true
+                    MaximumRetryAttempts: 10
+                    TumblingWindowInSeconds: 10
+                    FunctionResponseTypes:
+                    - ReportBatchItemFailures
+                    FilterCriteria:
+                      Filters:
+                      - {}
         '404':
           description: Event source mapping not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Geteventsourcemapping404Example:
+                  summary: Default getEventSourceMapping 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: updateEventSourceMapping
-      summary: AWS Lambda Update an event source mapping
+      summary: Aws Lambda Update an Event Source Mapping
       description: >-
         Updates an event source mapping. You can change the function that
         Lambda invokes, or pause invocation and resume later from the same
         location.
       tags:
-        - Event Source Mappings
+      - Event Source Mappings
       parameters:
-        - $ref: '#/components/parameters/eventSourceMappingUUID'
+      - $ref: '#/components/parameters/eventSourceMappingUUID'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateEventSourceMappingRequest'
+            examples:
+              UpdateeventsourcemappingRequestExample:
+                summary: Default updateEventSourceMapping request
+                x-microcks-default: true
+                value:
+                  FunctionName: example_value
+                  Enabled: true
+                  BatchSize: 10
+                  FilterCriteria:
+                    Filters:
+                    - {}
+                  MaximumBatchingWindowInSeconds: 10
+                  DestinationConfig:
+                    OnSuccess:
+                      Destination: example_value
+                    OnFailure:
+                      Destination: example_value
+                  MaximumRecordAgeInSeconds: 10
+                  BisectBatchOnFunctionError: true
+                  MaximumRetryAttempts: 10
+                  ParallelizationFactor: 10
+                  TumblingWindowInSeconds: 10
+                  FunctionResponseTypes:
+                  - ReportBatchItemFailures
       responses:
         '202':
           description: Event source mapping updated
@@ -767,22 +1921,64 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventSourceMappingConfiguration'
+              examples:
+                Updateeventsourcemapping202Example:
+                  summary: Default updateEventSourceMapping 202 response
+                  x-microcks-default: true
+                  value:
+                    UUID: '500123'
+                    StartingPosition: TRIM_HORIZON
+                    StartingPositionTimestamp: '2026-01-15T10:30:00Z'
+                    BatchSize: 10
+                    MaximumBatchingWindowInSeconds: 10
+                    ParallelizationFactor: 10
+                    EventSourceArn: example_value
+                    FunctionArn: example_value
+                    LastModified: '2026-01-15T10:30:00Z'
+                    LastProcessingResult: example_value
+                    State: Creating
+                    StateTransitionReason: example_value
+                    DestinationConfig:
+                      OnSuccess:
+                        Destination: example_value
+                      OnFailure:
+                        Destination: example_value
+                    MaximumRecordAgeInSeconds: 10
+                    BisectBatchOnFunctionError: true
+                    MaximumRetryAttempts: 10
+                    TumblingWindowInSeconds: 10
+                    FunctionResponseTypes:
+                    - ReportBatchItemFailures
+                    FilterCriteria:
+                      Filters:
+                      - {}
         '404':
           description: Event source mapping not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updateeventsourcemapping404Example:
+                  summary: Default updateEventSourceMapping 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteEventSourceMapping
-      summary: AWS Lambda Delete an event source mapping
+      summary: Aws Lambda Delete an Event Source Mapping
       description: >-
         Deletes an event source mapping. Lambda stops polling the event source
         and deletes the mapping.
       tags:
-        - Event Source Mappings
+      - Event Source Mappings
       parameters:
-        - $ref: '#/components/parameters/eventSourceMappingUUID'
+      - $ref: '#/components/parameters/eventSourceMappingUUID'
       responses:
         '202':
           description: Event source mapping deleted
@@ -790,16 +1986,58 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventSourceMappingConfiguration'
+              examples:
+                Deleteeventsourcemapping202Example:
+                  summary: Default deleteEventSourceMapping 202 response
+                  x-microcks-default: true
+                  value:
+                    UUID: '500123'
+                    StartingPosition: TRIM_HORIZON
+                    StartingPositionTimestamp: '2026-01-15T10:30:00Z'
+                    BatchSize: 10
+                    MaximumBatchingWindowInSeconds: 10
+                    ParallelizationFactor: 10
+                    EventSourceArn: example_value
+                    FunctionArn: example_value
+                    LastModified: '2026-01-15T10:30:00Z'
+                    LastProcessingResult: example_value
+                    State: Creating
+                    StateTransitionReason: example_value
+                    DestinationConfig:
+                      OnSuccess:
+                        Destination: example_value
+                      OnFailure:
+                        Destination: example_value
+                    MaximumRecordAgeInSeconds: 10
+                    BisectBatchOnFunctionError: true
+                    MaximumRetryAttempts: 10
+                    TumblingWindowInSeconds: 10
+                    FunctionResponseTypes:
+                    - ReportBatchItemFailures
+                    FilterCriteria:
+                      Filters:
+                      - {}
         '404':
           description: Event source mapping not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deleteeventsourcemapping404Example:
+                  summary: Default deleteEventSourceMapping 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /2015-03-31/layers:
     get:
       operationId: listLayers
-      summary: AWS Lambda List layers
+      summary: Aws Lambda List Layers
       description: >-
         Lists Lambda layers and shows information about the latest version of
         each. Specify a compatible runtime to list only layers that are
@@ -807,42 +2045,44 @@ paths:
         include only layers that are compatible with that instruction set
         architecture.
       tags:
-        - Layers
+      - Layers
       parameters:
-        - name: CompatibleRuntime
-          in: query
-          description: Filter layers by compatible runtime
-          schema:
-            type: string
-            enum:
-              - nodejs18.x
-              - nodejs20.x
-              - nodejs22.x
-              - python3.9
-              - python3.10
-              - python3.11
-              - python3.12
-              - python3.13
-              - java11
-              - java17
-              - java21
-              - dotnet6
-              - dotnet8
-              - ruby3.2
-              - ruby3.3
-              - provided
-              - provided.al2
-              - provided.al2023
-        - name: CompatibleArchitecture
-          in: query
-          description: Filter layers by compatible instruction set architecture
-          schema:
-            type: string
-            enum:
-              - x86_64
-              - arm64
-        - $ref: '#/components/parameters/marker'
-        - $ref: '#/components/parameters/maxItems'
+      - name: CompatibleRuntime
+        in: query
+        description: Filter layers by compatible runtime
+        schema:
+          type: string
+          enum:
+          - nodejs18.x
+          - nodejs20.x
+          - nodejs22.x
+          - python3.9
+          - python3.10
+          - python3.11
+          - python3.12
+          - python3.13
+          - java11
+          - java17
+          - java21
+          - dotnet6
+          - dotnet8
+          - ruby3.2
+          - ruby3.3
+          - provided
+          - provided.al2
+          - provided.al2023
+        example: nodejs18.x
+      - name: CompatibleArchitecture
+        in: query
+        description: Filter layers by compatible instruction set architecture
+        schema:
+          type: string
+          enum:
+          - x86_64
+          - arm64
+        example: x86_64
+      - $ref: '#/components/parameters/marker'
+      - $ref: '#/components/parameters/maxItems'
       responses:
         '200':
           description: List of layers
@@ -850,39 +2090,61 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListLayersResponse'
+              examples:
+                Listlayers200Example:
+                  summary: Default listLayers 200 response
+                  x-microcks-default: true
+                  value:
+                    NextMarker: example_value
+                    Layers:
+                    - LayerName: example_value
+                      LayerArn: example_value
         '429':
           description: Too many requests
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listlayers429Example:
+                  summary: Default listLayers 429 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /2015-03-31/layers/{LayerName}/versions:
     get:
       operationId: listLayerVersions
-      summary: AWS Lambda List layer versions
+      summary: Aws Lambda List Layer Versions
       description: >-
         Lists the versions of an Lambda layer. Versions that have been deleted
         are not listed. Specify a runtime identifier to list only versions
         compatible with that runtime.
       tags:
-        - Layers
+      - Layers
       parameters:
-        - $ref: '#/components/parameters/layerName'
-        - name: CompatibleRuntime
-          in: query
-          description: Filter by compatible runtime
-          schema:
-            type: string
-        - name: CompatibleArchitecture
-          in: query
-          description: Filter by compatible architecture
-          schema:
-            type: string
-            enum:
-              - x86_64
-              - arm64
-        - $ref: '#/components/parameters/marker'
-        - $ref: '#/components/parameters/maxItems'
+      - $ref: '#/components/parameters/layerName'
+      - name: CompatibleRuntime
+        in: query
+        description: Filter by compatible runtime
+        schema:
+          type: string
+        example: example_value
+      - name: CompatibleArchitecture
+        in: query
+        description: Filter by compatible architecture
+        schema:
+          type: string
+          enum:
+          - x86_64
+          - arm64
+        example: x86_64
+      - $ref: '#/components/parameters/marker'
+      - $ref: '#/components/parameters/maxItems'
       responses:
         '200':
           description: List of layer versions
@@ -890,30 +2152,71 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListLayerVersionsResponse'
+              examples:
+                Listlayerversions200Example:
+                  summary: Default listLayerVersions 200 response
+                  x-microcks-default: true
+                  value:
+                    NextMarker: example_value
+                    LayerVersions:
+                    - LayerVersionArn: example_value
+                      Version: 10
+                      Description: A sample description.
+                      CreatedDate: example_value
+                      CompatibleRuntimes: {}
+                      LicenseInfo: example_value
+                      CompatibleArchitectures: {}
         '404':
           description: Layer not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listlayerversions404Example:
+                  summary: Default listLayerVersions 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: publishLayerVersion
-      summary: AWS Lambda Publish a layer version
+      summary: Aws Lambda Publish a Layer Version
       description: >-
         Creates a Lambda layer from a ZIP archive. Each time you call
         PublishLayerVersion with the same layer name, a new version is
         created. Add layers to your function with CreateFunction or
         UpdateFunctionConfiguration.
       tags:
-        - Layers
+      - Layers
       parameters:
-        - $ref: '#/components/parameters/layerName'
+      - $ref: '#/components/parameters/layerName'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PublishLayerVersionRequest'
+            examples:
+              PublishlayerversionRequestExample:
+                summary: Default publishLayerVersion request
+                x-microcks-default: true
+                value:
+                  Description: A sample description.
+                  Content:
+                    S3Bucket: example_value
+                    S3Key: example_value
+                    S3ObjectVersion: example_value
+                    ZipFile: example_value
+                  CompatibleRuntimes:
+                  - example_value
+                  LicenseInfo: example_value
+                  CompatibleArchitectures:
+                  - x86_64
       responses:
         '201':
           description: Layer version published
@@ -921,30 +2224,70 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PublishLayerVersionResponse'
+              examples:
+                Publishlayerversion201Example:
+                  summary: Default publishLayerVersion 201 response
+                  x-microcks-default: true
+                  value:
+                    Content:
+                      Location: example_value
+                      CodeSha256: example_value
+                      CodeSize: 10
+                      SigningProfileVersionArn: example_value
+                      SigningJobArn: example_value
+                    LayerArn: example_value
+                    LayerVersionArn: example_value
+                    Description: A sample description.
+                    CreatedDate: example_value
+                    Version: 10
+                    CompatibleRuntimes:
+                    - example_value
+                    LicenseInfo: example_value
+                    CompatibleArchitectures:
+                    - example_value
         '400':
           description: Invalid parameter value
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Publishlayerversion400Example:
+                  summary: Default publishLayerVersion 400 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
         '429':
           description: Too many requests
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Publishlayerversion429Example:
+                  summary: Default publishLayerVersion 429 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /2015-03-31/layers/{LayerName}/versions/{VersionNumber}:
     get:
       operationId: getLayerVersion
-      summary: AWS Lambda Get a layer version
+      summary: Aws Lambda Get a Layer Version
       description: >-
         Returns information about a version of a Lambda layer, with a link to
         download the layer archive that is valid for 10 minutes.
       tags:
-        - Layers
+      - Layers
       parameters:
-        - $ref: '#/components/parameters/layerName'
-        - $ref: '#/components/parameters/versionNumber'
+      - $ref: '#/components/parameters/layerName'
+      - $ref: '#/components/parameters/versionNumber'
       responses:
         '200':
           description: Layer version details
@@ -952,24 +2295,54 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetLayerVersionResponse'
+              examples:
+                Getlayerversion200Example:
+                  summary: Default getLayerVersion 200 response
+                  x-microcks-default: true
+                  value:
+                    Content:
+                      Location: example_value
+                      CodeSha256: example_value
+                      CodeSize: 10
+                    LayerArn: example_value
+                    LayerVersionArn: example_value
+                    Description: A sample description.
+                    CreatedDate: example_value
+                    Version: 10
+                    CompatibleRuntimes:
+                    - example_value
+                    LicenseInfo: example_value
+                    CompatibleArchitectures:
+                    - example_value
         '404':
           description: Layer version not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getlayerversion404Example:
+                  summary: Default getLayerVersion 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteLayerVersion
-      summary: AWS Lambda Delete a layer version
+      summary: Aws Lambda Delete a Layer Version
       description: >-
         Deletes a version of an Lambda layer. Deleted versions can no longer
         be viewed or added to functions. However, a copy of the version
         remains in Lambda until no functions refer to it.
       tags:
-        - Layers
+      - Layers
       parameters:
-        - $ref: '#/components/parameters/layerName'
-        - $ref: '#/components/parameters/versionNumber'
+      - $ref: '#/components/parameters/layerName'
+      - $ref: '#/components/parameters/versionNumber'
       responses:
         '204':
           description: Layer version deleted
@@ -979,19 +2352,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deletelayerversion404Example:
+                  summary: Default deleteLayerVersion 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /2021-10-31/functions/{FunctionName}/url:
     get:
       operationId: getFunctionUrlConfig
-      summary: AWS Lambda Get function URL configuration
+      summary: Aws Lambda Get Function Url Configuration
       description: >-
         Returns details about a Lambda function URL, including the function
         URL itself, the authorization type, CORS settings, creation and
         modification timestamps, and the invoke mode.
       tags:
-        - Function URL
+      - Function URL
       parameters:
-        - $ref: '#/components/parameters/functionName'
-        - $ref: '#/components/parameters/qualifier'
+      - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/qualifier'
       responses:
         '200':
           description: Function URL configuration
@@ -999,31 +2383,82 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FunctionUrlConfig'
+              examples:
+                Getfunctionurlconfig200Example:
+                  summary: Default getFunctionUrlConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    FunctionUrl: https://www.example.com
+                    FunctionArn: example_value
+                    AuthType: NONE
+                    Cors:
+                      AllowCredentials: true
+                      AllowHeaders:
+                      - {}
+                      AllowMethods:
+                      - {}
+                      AllowOrigins:
+                      - {}
+                      ExposeHeaders:
+                      - {}
+                      MaxAge: 10
+                    CreationTime: example_value
+                    LastModifiedTime: example_value
+                    InvokeMode: BUFFERED
         '404':
           description: Function URL configuration not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getfunctionurlconfig404Example:
+                  summary: Default getFunctionUrlConfig 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: createFunctionUrlConfig
-      summary: AWS Lambda Create a function URL
+      summary: Aws Lambda Create a Function Url
       description: >-
         Creates a Lambda function URL with the specified authorization type.
         A function URL is a dedicated HTTP(S) endpoint that you can use to
         invoke your function. You can create a function URL for the $LATEST
         unpublished version or for any function alias.
       tags:
-        - Function URL
+      - Function URL
       parameters:
-        - $ref: '#/components/parameters/functionName'
-        - $ref: '#/components/parameters/qualifier'
+      - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/qualifier'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateFunctionUrlConfigRequest'
+            examples:
+              CreatefunctionurlconfigRequestExample:
+                summary: Default createFunctionUrlConfig request
+                x-microcks-default: true
+                value:
+                  AuthType: NONE
+                  Cors:
+                    AllowCredentials: true
+                    AllowHeaders:
+                    - {}
+                    AllowMethods:
+                    - {}
+                    AllowOrigins:
+                    - {}
+                    ExposeHeaders:
+                    - {}
+                    MaxAge: 10
+                  InvokeMode: BUFFERED
       responses:
         '201':
           description: Function URL created
@@ -1031,33 +2466,92 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FunctionUrlConfig'
+              examples:
+                Createfunctionurlconfig201Example:
+                  summary: Default createFunctionUrlConfig 201 response
+                  x-microcks-default: true
+                  value:
+                    FunctionUrl: https://www.example.com
+                    FunctionArn: example_value
+                    AuthType: NONE
+                    Cors:
+                      AllowCredentials: true
+                      AllowHeaders:
+                      - {}
+                      AllowMethods:
+                      - {}
+                      AllowOrigins:
+                      - {}
+                      ExposeHeaders:
+                      - {}
+                      MaxAge: 10
+                    CreationTime: example_value
+                    LastModifiedTime: example_value
+                    InvokeMode: BUFFERED
         '404':
           description: Function not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createfunctionurlconfig404Example:
+                  summary: Default createFunctionUrlConfig 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
         '409':
           description: Function URL already exists
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createfunctionurlconfig409Example:
+                  summary: Default createFunctionUrlConfig 409 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: updateFunctionUrlConfig
-      summary: AWS Lambda Update a function URL
+      summary: Aws Lambda Update a Function Url
       description: Updates the configuration for a Lambda function URL.
       tags:
-        - Function URL
+      - Function URL
       parameters:
-        - $ref: '#/components/parameters/functionName'
-        - $ref: '#/components/parameters/qualifier'
+      - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/qualifier'
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/UpdateFunctionUrlConfigRequest'
+            examples:
+              UpdatefunctionurlconfigRequestExample:
+                summary: Default updateFunctionUrlConfig request
+                x-microcks-default: true
+                value:
+                  AuthType: NONE
+                  Cors:
+                    AllowCredentials: true
+                    AllowHeaders:
+                    - {}
+                    AllowMethods:
+                    - {}
+                    AllowOrigins:
+                    - {}
+                    ExposeHeaders:
+                    - {}
+                    MaxAge: 10
+                  InvokeMode: BUFFERED
       responses:
         '200':
           description: Function URL updated
@@ -1065,21 +2559,54 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FunctionUrlConfig'
+              examples:
+                Updatefunctionurlconfig200Example:
+                  summary: Default updateFunctionUrlConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    FunctionUrl: https://www.example.com
+                    FunctionArn: example_value
+                    AuthType: NONE
+                    Cors:
+                      AllowCredentials: true
+                      AllowHeaders:
+                      - {}
+                      AllowMethods:
+                      - {}
+                      AllowOrigins:
+                      - {}
+                      ExposeHeaders:
+                      - {}
+                      MaxAge: 10
+                    CreationTime: example_value
+                    LastModifiedTime: example_value
+                    InvokeMode: BUFFERED
         '404':
           description: Function URL not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatefunctionurlconfig404Example:
+                  summary: Default updateFunctionUrlConfig 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteFunctionUrlConfig
-      summary: AWS Lambda Delete a function URL
+      summary: Aws Lambda Delete a Function Url
       description: Deletes a Lambda function URL.
       tags:
-        - Function URL
+      - Function URL
       parameters:
-        - $ref: '#/components/parameters/functionName'
-        - $ref: '#/components/parameters/qualifier'
+      - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/qualifier'
       responses:
         '204':
           description: Function URL deleted
@@ -1089,16 +2616,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deletefunctionurlconfig404Example:
+                  summary: Default deleteFunctionUrlConfig 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /2015-03-31/functions/{FunctionName}/concurrency:
     get:
       operationId: getReservedConcurrency
-      summary: AWS Lambda Get reserved concurrency
+      summary: Aws Lambda Get Reserved Concurrency
       description: >-
         Retrieves the reserved concurrency configuration for a function.
       tags:
-        - Concurrency
+      - Concurrency
       parameters:
-        - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/functionName'
       responses:
         '200':
           description: Reserved concurrency configuration
@@ -1110,24 +2648,41 @@ paths:
                   ReservedConcurrentExecutions:
                     type: integer
                     description: The number of concurrent executions reserved for this function
+              examples:
+                Getreservedconcurrency200Example:
+                  summary: Default getReservedConcurrency 200 response
+                  x-microcks-default: true
+                  value:
+                    ReservedConcurrentExecutions: 10
         '404':
           description: Function not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getreservedconcurrency404Example:
+                  summary: Default getReservedConcurrency 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: putFunctionConcurrency
-      summary: AWS Lambda Set reserved concurrency
+      summary: Aws Lambda Set Reserved Concurrency
       description: >-
         Sets the maximum number of simultaneous executions for a function, and
         reserves capacity for that concurrency level. Use
         ReservedConcurrentExecutions to reserve a portion of your account's
         concurrency for a function.
       tags:
-        - Concurrency
+      - Concurrency
       parameters:
-        - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/functionName'
       requestBody:
         required: true
         content:
@@ -1135,12 +2690,18 @@ paths:
             schema:
               type: object
               required:
-                - ReservedConcurrentExecutions
+              - ReservedConcurrentExecutions
               properties:
                 ReservedConcurrentExecutions:
                   type: integer
                   description: The number of simultaneous executions to reserve
                   minimum: 0
+            examples:
+              PutfunctionconcurrencyRequestExample:
+                summary: Default putFunctionConcurrency request
+                x-microcks-default: true
+                value:
+                  ReservedConcurrentExecutions: 10
       responses:
         '200':
           description: Reserved concurrency set
@@ -1151,22 +2712,39 @@ paths:
                 properties:
                   ReservedConcurrentExecutions:
                     type: integer
+              examples:
+                Putfunctionconcurrency200Example:
+                  summary: Default putFunctionConcurrency 200 response
+                  x-microcks-default: true
+                  value:
+                    ReservedConcurrentExecutions: 10
         '404':
           description: Function not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Putfunctionconcurrency404Example:
+                  summary: Default putFunctionConcurrency 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteFunctionConcurrency
-      summary: AWS Lambda Delete reserved concurrency
+      summary: Aws Lambda Delete Reserved Concurrency
       description: >-
         Removes a concurrency limit from a function. The function can then
         use unreserved account concurrency up to the account limit.
       tags:
-        - Concurrency
+      - Concurrency
       parameters:
-        - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/functionName'
       responses:
         '204':
           description: Reserved concurrency removed
@@ -1176,23 +2754,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deletefunctionconcurrency404Example:
+                  summary: Default deleteFunctionConcurrency 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /2015-03-31/functions/{FunctionName}/provisioned-concurrency:
     get:
       operationId: getProvisionedConcurrencyConfig
-      summary: AWS Lambda Get provisioned concurrency
+      summary: Aws Lambda Get Provisioned Concurrency
       description: >-
         Retrieves the provisioned concurrency configuration for a function's
         alias or version.
       tags:
-        - Concurrency
+      - Concurrency
       parameters:
-        - $ref: '#/components/parameters/functionName'
-        - name: Qualifier
-          in: query
-          required: true
-          description: The version number or alias name
-          schema:
-            type: string
+      - $ref: '#/components/parameters/functionName'
+      - name: Qualifier
+        in: query
+        required: true
+        description: The version number or alias name
+        schema:
+          type: string
+        example: example_value
       responses:
         '200':
           description: Provisioned concurrency configuration
@@ -1200,29 +2790,52 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProvisionedConcurrencyConfig'
+              examples:
+                Getprovisionedconcurrencyconfig200Example:
+                  summary: Default getProvisionedConcurrencyConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    RequestedProvisionedConcurrentExecutions: 10
+                    AvailableProvisionedConcurrentExecutions: 10
+                    AllocatedProvisionedConcurrentExecutions: 10
+                    Status: IN_PROGRESS
+                    StatusReason: example_value
+                    LastModified: example_value
         '404':
           description: Configuration not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getprovisionedconcurrencyconfig404Example:
+                  summary: Default getProvisionedConcurrencyConfig 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     put:
       operationId: putProvisionedConcurrencyConfig
-      summary: AWS Lambda Set provisioned concurrency
+      summary: Aws Lambda Set Provisioned Concurrency
       description: >-
         Adds a provisioned concurrency configuration to a function's alias or
         version. Lambda pre-initializes the specified number of execution
         environments so they are prepared to respond immediately.
       tags:
-        - Concurrency
+      - Concurrency
       parameters:
-        - $ref: '#/components/parameters/functionName'
-        - name: Qualifier
-          in: query
-          required: true
-          description: The version number or alias name
-          schema:
-            type: string
+      - $ref: '#/components/parameters/functionName'
+      - name: Qualifier
+        in: query
+        required: true
+        description: The version number or alias name
+        schema:
+          type: string
+        example: example_value
       requestBody:
         required: true
         content:
@@ -1230,12 +2843,18 @@ paths:
             schema:
               type: object
               required:
-                - ProvisionedConcurrentExecutions
+              - ProvisionedConcurrentExecutions
               properties:
                 ProvisionedConcurrentExecutions:
                   type: integer
                   description: The amount of provisioned concurrency to allocate
                   minimum: 1
+            examples:
+              PutprovisionedconcurrencyconfigRequestExample:
+                summary: Default putProvisionedConcurrencyConfig request
+                x-microcks-default: true
+                value:
+                  ProvisionedConcurrentExecutions: 10
       responses:
         '202':
           description: Provisioned concurrency configuration created
@@ -1243,33 +2862,64 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProvisionedConcurrencyConfig'
+              examples:
+                Putprovisionedconcurrencyconfig202Example:
+                  summary: Default putProvisionedConcurrencyConfig 202 response
+                  x-microcks-default: true
+                  value:
+                    RequestedProvisionedConcurrentExecutions: 10
+                    AvailableProvisionedConcurrentExecutions: 10
+                    AllocatedProvisionedConcurrentExecutions: 10
+                    Status: IN_PROGRESS
+                    StatusReason: example_value
+                    LastModified: example_value
         '404':
           description: Function or qualifier not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Putprovisionedconcurrencyconfig404Example:
+                  summary: Default putProvisionedConcurrencyConfig 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
         '409':
           description: Resource conflict
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Putprovisionedconcurrencyconfig409Example:
+                  summary: Default putProvisionedConcurrencyConfig 409 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: deleteProvisionedConcurrencyConfig
-      summary: AWS Lambda Delete provisioned concurrency
+      summary: Aws Lambda Delete Provisioned Concurrency
       description: >-
         Deletes the provisioned concurrency configuration for a function.
       tags:
-        - Concurrency
+      - Concurrency
       parameters:
-        - $ref: '#/components/parameters/functionName'
-        - name: Qualifier
-          in: query
-          required: true
-          description: The version number or alias name
-          schema:
-            type: string
+      - $ref: '#/components/parameters/functionName'
+      - name: Qualifier
+        in: query
+        required: true
+        description: The version number or alias name
+        schema:
+          type: string
+        example: example_value
       responses:
         '204':
           description: Provisioned concurrency configuration deleted
@@ -1279,20 +2929,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deleteprovisionedconcurrencyconfig404Example:
+                  summary: Default deleteProvisionedConcurrencyConfig 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /2015-03-31/tags/{ARN}:
     get:
       operationId: listTags
-      summary: AWS Lambda List tags
+      summary: Aws Lambda List Tags
       description: >-
         Returns a function's tags. You can also view tags with GetFunction.
       tags: []
       parameters:
-        - name: ARN
-          in: path
-          required: true
-          description: The function's Amazon Resource Name (ARN)
-          schema:
-            type: string
+      - name: ARN
+        in: path
+        required: true
+        description: The function's Amazon Resource Name (ARN)
+        schema:
+          type: string
+        example: example_value
       responses:
         '200':
           description: Tags for the resource
@@ -1305,26 +2967,44 @@ paths:
                     type: object
                     additionalProperties:
                       type: string
+              examples:
+                Listtags200Example:
+                  summary: Default listTags 200 response
+                  x-microcks-default: true
+                  value:
+                    Tags: example_value
         '404':
           description: Resource not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listtags404Example:
+                  summary: Default listTags 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     post:
       operationId: tagResource
-      summary: AWS Lambda Add tags
+      summary: Aws Lambda Add Tags
       description: >-
         Adds tags to a function. Tags are key-value pairs used for grouping
         and filtering resources.
       tags: []
       parameters:
-        - name: ARN
-          in: path
-          required: true
-          description: The function's Amazon Resource Name (ARN)
-          schema:
-            type: string
+      - name: ARN
+        in: path
+        required: true
+        description: The function's Amazon Resource Name (ARN)
+        schema:
+          type: string
+        example: example_value
       requestBody:
         required: true
         content:
@@ -1332,13 +3012,19 @@ paths:
             schema:
               type: object
               required:
-                - Tags
+              - Tags
               properties:
                 Tags:
                   type: object
                   additionalProperties:
                     type: string
                   description: Key-value pairs to add as tags
+            examples:
+              TagresourceRequestExample:
+                summary: Default tagResource request
+                x-microcks-default: true
+                value:
+                  Tags: example_value
       responses:
         '204':
           description: Tags added successfully
@@ -1348,26 +3034,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Tagresource404Example:
+                  summary: Default tagResource 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
     delete:
       operationId: untagResource
-      summary: AWS Lambda Remove tags
+      summary: Aws Lambda Remove Tags
       description: Removes tags from a function.
       tags: []
       parameters:
-        - name: ARN
-          in: path
-          required: true
-          description: The function's Amazon Resource Name (ARN)
-          schema:
+      - name: ARN
+        in: path
+        required: true
+        description: The function's Amazon Resource Name (ARN)
+        schema:
+          type: string
+        example: example_value
+      - name: tagKeys
+        in: query
+        required: true
+        description: List of tag keys to remove
+        schema:
+          type: array
+          items:
             type: string
-        - name: tagKeys
-          in: query
-          required: true
-          description: List of tag keys to remove
-          schema:
-            type: array
-            items:
-              type: string
+        example: []
       responses:
         '204':
           description: Tags removed successfully
@@ -1377,6 +3076,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Untagresource404Example:
+                  summary: Default untagResource 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     sigv4:
@@ -1468,7 +3178,7 @@ components:
       schema:
         type: string
         enum:
-          - ALL
+        - ALL
   schemas:
     FunctionConfiguration:
       type: object
@@ -1477,49 +3187,56 @@ components:
         FunctionName:
           type: string
           description: The name of the function
+          example: example_value
         FunctionArn:
           type: string
           description: The function's Amazon Resource Name (ARN)
+          example: example_value
         Runtime:
           type: string
           description: >-
             The identifier of the function's runtime. Runtime is required if
             the deployment package is a .zip file archive.
           enum:
-            - nodejs18.x
-            - nodejs20.x
-            - nodejs22.x
-            - python3.9
-            - python3.10
-            - python3.11
-            - python3.12
-            - python3.13
-            - java11
-            - java17
-            - java21
-            - dotnet6
-            - dotnet8
-            - ruby3.2
-            - ruby3.3
-            - provided
-            - provided.al2
-            - provided.al2023
+          - nodejs18.x
+          - nodejs20.x
+          - nodejs22.x
+          - python3.9
+          - python3.10
+          - python3.11
+          - python3.12
+          - python3.13
+          - java11
+          - java17
+          - java21
+          - dotnet6
+          - dotnet8
+          - ruby3.2
+          - ruby3.3
+          - provided
+          - provided.al2
+          - provided.al2023
+          example: nodejs18.x
         Role:
           type: string
           description: The function's execution role ARN
+          example: example_value
         Handler:
           type: string
           description: >-
             The function entrypoint in your code. The format includes the file
             name without extension and the handler function name
             (e.g. index.handler)
+          example: example_value
         CodeSize:
           type: integer
           description: The size of the function's deployment package in bytes
           format: int64
+          example: 10
         Description:
           type: string
           description: The function's description
+          example: A sample description.
         Timeout:
           type: integer
           description: >-
@@ -1527,6 +3244,7 @@ components:
             before stopping it. Maximum is 900 seconds (15 minutes).
           minimum: 1
           maximum: 900
+          example: 10
         MemorySize:
           type: integer
           description: >-
@@ -1535,16 +3253,20 @@ components:
             configured.
           minimum: 128
           maximum: 10240
+          example: 10
         LastModified:
           type: string
           description: >-
             The date and time the function was last updated in ISO 8601 format
+          example: example_value
         CodeSha256:
           type: string
           description: The SHA-256 hash of the function's deployment package
+          example: example_value
         Version:
           type: string
           description: The version of the Lambda function
+          example: example_value
         VpcConfig:
           $ref: '#/components/schemas/VpcConfigResponse'
         DeadLetterConfig:
@@ -1554,6 +3276,7 @@ components:
             TargetArn:
               type: string
               description: The ARN of the SQS queue or SNS topic for failed events
+          example: example_value
         Environment:
           type: object
           description: The function's environment variables
@@ -1571,11 +3294,13 @@ components:
                   type: string
                 Message:
                   type: string
+          example: example_value
         KMSKeyArn:
           type: string
           description: >-
             The ARN of the KMS key used to encrypt the function's environment
             variables at rest
+          example: example_value
         TracingConfig:
           type: object
           description: The function's X-Ray tracing configuration
@@ -1583,78 +3308,89 @@ components:
             Mode:
               type: string
               enum:
-                - Active
-                - PassThrough
+              - Active
+              - PassThrough
+          example: example_value
         MasterArn:
           type: string
           description: >-
             For Lambda@Edge functions, the ARN of the main function
+          example: example_value
         RevisionId:
           type: string
           description: The latest updated revision of the function
+          example: '500123'
         Layers:
           type: array
           description: The function's layers
           items:
             $ref: '#/components/schemas/Layer'
+          example: []
         State:
           type: string
           description: The current state of the function
           enum:
-            - Pending
-            - Active
-            - Inactive
-            - Failed
+          - Pending
+          - Active
+          - Inactive
+          - Failed
+          example: Pending
         StateReason:
           type: string
           description: The reason for the function's current state
+          example: example_value
         StateReasonCode:
           type: string
           description: The reason code for the function's current state
           enum:
-            - Idle
-            - Creating
-            - Restoring
-            - EniLimitExceeded
-            - InsufficientRolePermissions
-            - InvalidConfiguration
-            - InternalError
-            - SubnetOutOfIPAddresses
-            - InvalidSubnet
-            - InvalidSecurityGroup
-            - ImageDeleted
-            - ImageAccessDenied
-            - InvalidImage
-            - KMSKeyAccessDenied
-            - KMSKeyNotFound
-            - InvalidStateKMSKey
-            - DisabledKMSKey
-            - EFSIOError
-            - EFSMountConnectivityError
-            - EFSMountFailure
-            - EFSMountTimeout
-            - InvalidRuntime
-            - InvalidZipFileException
-            - FunctionError
+          - Idle
+          - Creating
+          - Restoring
+          - EniLimitExceeded
+          - InsufficientRolePermissions
+          - InvalidConfiguration
+          - InternalError
+          - SubnetOutOfIPAddresses
+          - InvalidSubnet
+          - InvalidSecurityGroup
+          - ImageDeleted
+          - ImageAccessDenied
+          - InvalidImage
+          - KMSKeyAccessDenied
+          - KMSKeyNotFound
+          - InvalidStateKMSKey
+          - DisabledKMSKey
+          - EFSIOError
+          - EFSMountConnectivityError
+          - EFSMountFailure
+          - EFSMountTimeout
+          - InvalidRuntime
+          - InvalidZipFileException
+          - FunctionError
+          example: Idle
         LastUpdateStatus:
           type: string
           description: The status of the last update that was performed on the function
           enum:
-            - Successful
-            - Failed
-            - InProgress
+          - Successful
+          - Failed
+          - InProgress
+          example: Successful
         LastUpdateStatusReason:
           type: string
           description: The reason for the last update that was performed on the function
+          example: example_value
         LastUpdateStatusReasonCode:
           type: string
           description: The reason code for the last update
+          example: example_value
         PackageType:
           type: string
           description: The type of deployment package
           enum:
-            - Zip
-            - Image
+          - Zip
+          - Image
+          example: Zip
         ImageConfigResponse:
           type: object
           description: The function's image configuration values for container images
@@ -1679,15 +3415,17 @@ components:
                   type: string
                 Message:
                   type: string
+          example: example_value
         Architectures:
           type: array
           description: The instruction set architecture that the function supports
           items:
             type: string
             enum:
-              - x86_64
-              - arm64
+            - x86_64
+            - arm64
           maxItems: 1
+          example: []
         EphemeralStorage:
           type: object
           description: The size of the function's /tmp directory in MB
@@ -1696,6 +3434,7 @@ components:
               type: integer
               minimum: 512
               maximum: 10240
+          example: example_value
         SnapStart:
           type: object
           description: >-
@@ -1704,13 +3443,14 @@ components:
             ApplyOn:
               type: string
               enum:
-                - PublishedVersions
-                - None
+              - PublishedVersions
+              - None
             OptimizationStatus:
               type: string
               enum:
-                - On
-                - Off
+              - On
+              - Off
+          example: example_value
         RuntimeVersionConfig:
           type: object
           description: The ARN of the runtime and any errors that occurred
@@ -1724,6 +3464,7 @@ components:
                   type: string
                 Message:
                   type: string
+          example: example_value
         LoggingConfig:
           type: object
           description: The function's Amazon CloudWatch Logs configuration
@@ -1731,32 +3472,33 @@ components:
             LogFormat:
               type: string
               enum:
-                - JSON
-                - Text
+              - JSON
+              - Text
             ApplicationLogLevel:
               type: string
               enum:
-                - TRACE
-                - DEBUG
-                - INFO
-                - WARN
-                - ERROR
-                - FATAL
+              - TRACE
+              - DEBUG
+              - INFO
+              - WARN
+              - ERROR
+              - FATAL
             SystemLogLevel:
               type: string
               enum:
-                - DEBUG
-                - INFO
-                - WARN
+              - DEBUG
+              - INFO
+              - WARN
             LogGroup:
               type: string
               description: The name of the CloudWatch log group
+          example: example_value
     CreateFunctionRequest:
       type: object
       required:
-        - FunctionName
-        - Role
-        - Code
+      - FunctionName
+      - Role
+      - Code
       description: Request body for creating a Lambda function
       properties:
         FunctionName:
@@ -1766,55 +3508,65 @@ components:
             specify an ARN.
           minLength: 1
           maxLength: 64
+          example: example_value
         Runtime:
           type: string
           description: >-
             The identifier of the function's runtime. Required for .zip file
             deployment packages.
+          example: example_value
         Role:
           type: string
           description: The ARN of the function's execution role
+          example: example_value
         Handler:
           type: string
           description: The name of the function handler (e.g. index.handler)
           maxLength: 128
+          example: example_value
         Code:
           $ref: '#/components/schemas/FunctionCode'
         Description:
           type: string
           description: Description of the function
           maxLength: 256
+          example: A sample description.
         Timeout:
           type: integer
           description: Execution timeout in seconds
           default: 3
           minimum: 1
           maximum: 900
+          example: 10
         MemorySize:
           type: integer
           description: Memory allocated in MB
           default: 128
           minimum: 128
           maximum: 10240
+          example: 10
         Publish:
           type: boolean
           description: Set to true to publish the first version of the function
           default: false
+          example: true
         VpcConfig:
           $ref: '#/components/schemas/VpcConfig'
         PackageType:
           type: string
           description: The type of deployment package
           enum:
-            - Zip
-            - Image
+          - Zip
+          - Image
           default: Zip
+          example: Zip
         DeadLetterConfig:
           type: object
           properties:
             TargetArn:
               type: string
               description: ARN of an SQS queue or SNS topic
+          example: example_value
         Environment:
           type: object
           properties:
@@ -1822,22 +3574,26 @@ components:
               type: object
               additionalProperties:
                 type: string
+          example: example_value
         KMSKeyArn:
           type: string
           description: ARN of the KMS key to encrypt environment variables
+          example: example_value
         TracingConfig:
           type: object
           properties:
             Mode:
               type: string
               enum:
-                - Active
-                - PassThrough
+              - Active
+              - PassThrough
+          example: example_value
         Tags:
           type: object
           additionalProperties:
             type: string
           description: Key-value pairs for tagging the function
+          example: example_value
         Layers:
           type: array
           description: >-
@@ -1846,15 +3602,17 @@ components:
           items:
             type: string
           maxItems: 5
+          example: []
         Architectures:
           type: array
           description: The instruction set architecture
           items:
             type: string
             enum:
-              - x86_64
-              - arm64
+            - x86_64
+            - arm64
           maxItems: 1
+          example: []
         EphemeralStorage:
           type: object
           properties:
@@ -1862,28 +3620,31 @@ components:
               type: integer
               minimum: 512
               maximum: 10240
+          example: example_value
         SnapStart:
           type: object
           properties:
             ApplyOn:
               type: string
               enum:
-                - PublishedVersions
-                - None
+              - PublishedVersions
+              - None
+          example: example_value
         LoggingConfig:
           type: object
           properties:
             LogFormat:
               type: string
               enum:
-                - JSON
-                - Text
+              - JSON
+              - Text
             ApplicationLogLevel:
               type: string
             SystemLogLevel:
               type: string
             LogGroup:
               type: string
+          example: example_value
     UpdateFunctionConfigurationRequest:
       type: object
       description: Request body for updating a function's configuration
@@ -1891,23 +3652,28 @@ components:
         Role:
           type: string
           description: The ARN of the function's execution role
+          example: example_value
         Handler:
           type: string
           description: The name of the function handler
+          example: example_value
         Description:
           type: string
           description: A description of the function
           maxLength: 256
+          example: A sample description.
         Timeout:
           type: integer
           description: Execution timeout in seconds
           minimum: 1
           maximum: 900
+          example: 10
         MemorySize:
           type: integer
           description: Memory allocated in MB
           minimum: 128
           maximum: 10240
+          example: 10
         VpcConfig:
           $ref: '#/components/schemas/VpcConfig'
         Environment:
@@ -1917,34 +3683,41 @@ components:
               type: object
               additionalProperties:
                 type: string
+          example: example_value
         Runtime:
           type: string
           description: The runtime identifier
+          example: example_value
         DeadLetterConfig:
           type: object
           properties:
             TargetArn:
               type: string
+          example: example_value
         KMSKeyArn:
           type: string
+          example: example_value
         TracingConfig:
           type: object
           properties:
             Mode:
               type: string
               enum:
-                - Active
-                - PassThrough
+              - Active
+              - PassThrough
+          example: example_value
         RevisionId:
           type: string
           description: >-
             Update only if the revision ID matches. Prevents modifying a
             function that has changed since you last read it.
+          example: '500123'
         Layers:
           type: array
           items:
             type: string
           maxItems: 5
+          example: []
         EphemeralStorage:
           type: object
           properties:
@@ -1952,28 +3725,31 @@ components:
               type: integer
               minimum: 512
               maximum: 10240
+          example: example_value
         SnapStart:
           type: object
           properties:
             ApplyOn:
               type: string
               enum:
-                - PublishedVersions
-                - None
+              - PublishedVersions
+              - None
+          example: example_value
         LoggingConfig:
           type: object
           properties:
             LogFormat:
               type: string
               enum:
-                - JSON
-                - Text
+              - JSON
+              - Text
             ApplicationLogLevel:
               type: string
             SystemLogLevel:
               type: string
             LogGroup:
               type: string
+          example: example_value
     UpdateFunctionCodeRequest:
       type: object
       description: Request body for updating a function's code
@@ -1984,42 +3760,51 @@ components:
           description: >-
             Base64-encoded contents of the deployment package. AWS SDK and CLI
             clients handle encoding automatically.
+          example: example_value
         S3Bucket:
           type: string
           description: An S3 bucket in the same AWS Region as the function
+          example: example_value
         S3Key:
           type: string
           description: The S3 key of the deployment package
+          example: example_value
         S3ObjectVersion:
           type: string
           description: >-
             For versioned S3 objects, the version of the deployment package
+          example: example_value
         ImageUri:
           type: string
           description: URI of a container image in Amazon ECR
+          example: example_value
         Publish:
           type: boolean
           description: >-
             Set to true to publish a new version of the function after
             updating the code
           default: false
+          example: true
         DryRun:
           type: boolean
           description: >-
             Set to true to validate the request without updating the code
           default: false
+          example: true
         RevisionId:
           type: string
           description: >-
             Update only if the revision ID matches
+          example: '500123'
         Architectures:
           type: array
           items:
             type: string
             enum:
-              - x86_64
-              - arm64
+            - x86_64
+            - arm64
           maxItems: 1
+          example: []
     FunctionCode:
       type: object
       description: >-
@@ -2031,18 +3816,23 @@ components:
           type: string
           format: byte
           description: Base64-encoded contents of the deployment package .zip file
+          example: example_value
         S3Bucket:
           type: string
           description: An S3 bucket in the same AWS Region as your function
+          example: example_value
         S3Key:
           type: string
           description: The S3 key of the deployment package
+          example: example_value
         S3ObjectVersion:
           type: string
           description: The version of the S3 object for versioned buckets
+          example: example_value
         ImageUri:
           type: string
           description: URI of a container image in the Amazon ECR registry
+          example: example_value
     GetFunctionResponse:
       type: object
       description: Response containing function details and code location
@@ -2066,17 +3856,20 @@ components:
             ResolvedImageUri:
               type: string
               description: The resolved URI for the image
+          example: example_value
         Tags:
           type: object
           additionalProperties:
             type: string
           description: The function's tags
+          example: example_value
         Concurrency:
           type: object
           properties:
             ReservedConcurrentExecutions:
               type: integer
               description: Reserved concurrency for the function
+          example: example_value
     ListFunctionsResponse:
       type: object
       description: Paginated list of Lambda functions
@@ -2084,10 +3877,12 @@ components:
         NextMarker:
           type: string
           description: Pagination token for the next page of results
+          example: example_value
         Functions:
           type: array
           items:
             $ref: '#/components/schemas/FunctionConfiguration'
+          example: []
     AliasConfiguration:
       type: object
       description: Configuration of a Lambda function alias
@@ -2095,25 +3890,30 @@ components:
         AliasArn:
           type: string
           description: The ARN of the alias
+          example: example_value
         Name:
           type: string
           description: The name of the alias
+          example: Example Title
         FunctionVersion:
           type: string
           description: The function version that the alias invokes
+          example: example_value
         Description:
           type: string
           description: Description of the alias
+          example: A sample description.
         RoutingConfig:
           $ref: '#/components/schemas/AliasRoutingConfiguration'
         RevisionId:
           type: string
           description: A unique identifier that changes when you update the alias
+          example: '500123'
     CreateAliasRequest:
       type: object
       required:
-        - Name
-        - FunctionVersion
+      - Name
+      - FunctionVersion
       description: Request body for creating a function alias
       properties:
         Name:
@@ -2121,13 +3921,16 @@ components:
           description: The name of the alias
           minLength: 1
           maxLength: 128
+          example: Example Title
         FunctionVersion:
           type: string
           description: The function version that the alias invokes
+          example: example_value
         Description:
           type: string
           description: Description of the alias
           maxLength: 256
+          example: A sample description.
         RoutingConfig:
           $ref: '#/components/schemas/AliasRoutingConfiguration'
     UpdateAliasRequest:
@@ -2137,16 +3940,19 @@ components:
         FunctionVersion:
           type: string
           description: The function version that the alias invokes
+          example: example_value
         Description:
           type: string
           description: Description of the alias
           maxLength: 256
+          example: A sample description.
         RoutingConfig:
           $ref: '#/components/schemas/AliasRoutingConfiguration'
         RevisionId:
           type: string
           description: >-
             Update only if the revision ID matches
+          example: '500123'
     AliasRoutingConfiguration:
       type: object
       description: >-
@@ -2162,6 +3968,7 @@ components:
           description: >-
             The secondary version weight. The key is the version number or
             alias name and the value is the percentage of traffic (0.0-1.0).
+          example: example_value
     ListAliasesResponse:
       type: object
       description: Paginated list of aliases
@@ -2169,10 +3976,12 @@ components:
         NextMarker:
           type: string
           description: Pagination token for the next page
+          example: example_value
         Aliases:
           type: array
           items:
             $ref: '#/components/schemas/AliasConfiguration'
+          example: []
     ListVersionsResponse:
       type: object
       description: Paginated list of function versions
@@ -2180,10 +3989,12 @@ components:
         NextMarker:
           type: string
           description: Pagination token for the next page
+          example: example_value
         Versions:
           type: array
           items:
             $ref: '#/components/schemas/FunctionConfiguration'
+          example: []
     EventSourceMappingConfiguration:
       type: object
       description: >-
@@ -2193,19 +4004,22 @@ components:
         UUID:
           type: string
           description: The identifier of the event source mapping
+          example: '500123'
         StartingPosition:
           type: string
           description: >-
             The position in a stream from which to start reading
           enum:
-            - TRIM_HORIZON
-            - LATEST
-            - AT_TIMESTAMP
+          - TRIM_HORIZON
+          - LATEST
+          - AT_TIMESTAMP
+          example: TRIM_HORIZON
         StartingPositionTimestamp:
           type: string
           format: date-time
           description: >-
             The time from which to start reading with AT_TIMESTAMP position
+          example: '2026-01-15T10:30:00Z'
         BatchSize:
           type: integer
           description: >-
@@ -2213,6 +4027,7 @@ components:
             the event source
           minimum: 1
           maximum: 10000
+          example: 10
         MaximumBatchingWindowInSeconds:
           type: integer
           description: >-
@@ -2220,39 +4035,47 @@ components:
             invoking the function
           minimum: 0
           maximum: 300
+          example: 10
         ParallelizationFactor:
           type: integer
           description: >-
             The number of batches to process concurrently from each shard
           minimum: 1
           maximum: 10
+          example: 10
         EventSourceArn:
           type: string
           description: The ARN of the event source
+          example: example_value
         FunctionArn:
           type: string
           description: The ARN of the Lambda function
+          example: example_value
         LastModified:
           type: string
           format: date-time
           description: The date that the event source mapping was last updated
+          example: '2026-01-15T10:30:00Z'
         LastProcessingResult:
           type: string
           description: The result of the last invocation
+          example: example_value
         State:
           type: string
           description: The state of the event source mapping
           enum:
-            - Creating
-            - Enabling
-            - Enabled
-            - Disabling
-            - Disabled
-            - Updating
-            - Deleting
+          - Creating
+          - Enabling
+          - Enabled
+          - Disabling
+          - Disabled
+          - Updating
+          - Deleting
+          example: Creating
         StateTransitionReason:
           type: string
           description: The reason for the current state
+          example: example_value
         DestinationConfig:
           $ref: '#/components/schemas/DestinationConfig'
         MaximumRecordAgeInSeconds:
@@ -2262,11 +4085,13 @@ components:
             processing (in seconds). For Kinesis and DynamoDB Streams only.
           minimum: -1
           maximum: 604800
+          example: 10
         BisectBatchOnFunctionError:
           type: boolean
           description: >-
             If true, Lambda splits the batch in two and retries when a function
             returns an error
+          example: true
         MaximumRetryAttempts:
           type: integer
           description: >-
@@ -2274,6 +4099,7 @@ components:
             infinite retries.
           minimum: -1
           maximum: 10000
+          example: 10
         TumblingWindowInSeconds:
           type: integer
           description: >-
@@ -2281,6 +4107,7 @@ components:
             Kinesis Streams event sources
           minimum: 0
           maximum: 900
+          example: 10
         FunctionResponseTypes:
           type: array
           description: >-
@@ -2289,13 +4116,14 @@ components:
           items:
             type: string
             enum:
-              - ReportBatchItemFailures
+            - ReportBatchItemFailures
+          example: []
         FilterCriteria:
           $ref: '#/components/schemas/FilterCriteria'
     CreateEventSourceMappingRequest:
       type: object
       required:
-        - FunctionName
+      - FunctionName
       description: Request body for creating an event source mapping
       properties:
         EventSourceArn:
@@ -2303,18 +4131,22 @@ components:
           description: >-
             The ARN of the event source. Required for Kinesis, DynamoDB
             Streams, SQS, MQ, MSK, and DocumentDB.
+          example: example_value
         FunctionName:
           type: string
           description: The name or ARN of the Lambda function
+          example: example_value
         Enabled:
           type: boolean
           description: If true, the event source mapping is active
           default: true
+          example: true
         BatchSize:
           type: integer
           description: Maximum number of records in each batch
           minimum: 1
           maximum: 10000
+          example: 10
         FilterCriteria:
           $ref: '#/components/schemas/FilterCriteria'
         MaximumBatchingWindowInSeconds:
@@ -2322,43 +4154,52 @@ components:
           description: Maximum time to gather records before invoking
           minimum: 0
           maximum: 300
+          example: 10
         ParallelizationFactor:
           type: integer
           description: Number of batches to process concurrently per shard
           minimum: 1
           maximum: 10
+          example: 10
         StartingPosition:
           type: string
           description: Starting position in the stream
           enum:
-            - TRIM_HORIZON
-            - LATEST
-            - AT_TIMESTAMP
+          - TRIM_HORIZON
+          - LATEST
+          - AT_TIMESTAMP
+          example: TRIM_HORIZON
         StartingPositionTimestamp:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         DestinationConfig:
           $ref: '#/components/schemas/DestinationConfig'
         MaximumRecordAgeInSeconds:
           type: integer
           minimum: -1
           maximum: 604800
+          example: 10
         BisectBatchOnFunctionError:
           type: boolean
+          example: true
         MaximumRetryAttempts:
           type: integer
           minimum: -1
           maximum: 10000
+          example: 10
         TumblingWindowInSeconds:
           type: integer
           minimum: 0
           maximum: 900
+          example: 10
         FunctionResponseTypes:
           type: array
           items:
             type: string
             enum:
-              - ReportBatchItemFailures
+            - ReportBatchItemFailures
+          example: []
     UpdateEventSourceMappingRequest:
       type: object
       description: Request body for updating an event source mapping
@@ -2366,45 +4207,55 @@ components:
         FunctionName:
           type: string
           description: The name or ARN of the Lambda function
+          example: example_value
         Enabled:
           type: boolean
           description: If true, the event source mapping is active
+          example: true
         BatchSize:
           type: integer
           minimum: 1
           maximum: 10000
+          example: 10
         FilterCriteria:
           $ref: '#/components/schemas/FilterCriteria'
         MaximumBatchingWindowInSeconds:
           type: integer
           minimum: 0
           maximum: 300
+          example: 10
         DestinationConfig:
           $ref: '#/components/schemas/DestinationConfig'
         MaximumRecordAgeInSeconds:
           type: integer
           minimum: -1
           maximum: 604800
+          example: 10
         BisectBatchOnFunctionError:
           type: boolean
+          example: true
         MaximumRetryAttempts:
           type: integer
           minimum: -1
           maximum: 10000
+          example: 10
         ParallelizationFactor:
           type: integer
           minimum: 1
           maximum: 10
+          example: 10
         TumblingWindowInSeconds:
           type: integer
           minimum: 0
           maximum: 900
+          example: 10
         FunctionResponseTypes:
           type: array
           items:
             type: string
             enum:
-              - ReportBatchItemFailures
+            - ReportBatchItemFailures
+          example: []
     ListEventSourceMappingsResponse:
       type: object
       description: Paginated list of event source mappings
@@ -2412,10 +4263,12 @@ components:
         NextMarker:
           type: string
           description: Pagination token
+          example: example_value
         EventSourceMappings:
           type: array
           items:
             $ref: '#/components/schemas/EventSourceMappingConfiguration'
+          example: []
     DestinationConfig:
       type: object
       description: >-
@@ -2429,12 +4282,14 @@ components:
             Destination:
               type: string
               description: The ARN of the destination resource
+          example: example_value
         OnFailure:
           type: object
           properties:
             Destination:
               type: string
               description: The ARN of the destination resource
+          example: example_value
     FilterCriteria:
       type: object
       description: >-
@@ -2453,6 +4308,7 @@ components:
                 description: >-
                   A filter pattern as a JSON string. Filter patterns support
                   value matching with equals, prefix, and numeric comparisons.
+          example: []
     Layer:
       type: object
       description: An Lambda layer attached to a function
@@ -2460,26 +4316,31 @@ components:
         Arn:
           type: string
           description: The ARN of the function layer
+          example: example_value
         CodeSize:
           type: integer
           description: The size of the layer archive in bytes
           format: int64
+          example: 10
         SigningProfileVersionArn:
           type: string
           description: The ARN of a signing profile version
+          example: example_value
         SigningJobArn:
           type: string
           description: The ARN of a signing job
+          example: example_value
     PublishLayerVersionRequest:
       type: object
       required:
-        - Content
+      - Content
       description: Request body for publishing a layer version
       properties:
         Description:
           type: string
           description: Description of the layer version
           maxLength: 256
+          example: A sample description.
         Content:
           type: object
           required: []
@@ -2499,6 +4360,7 @@ components:
               format: byte
               description: >-
                 Base64-encoded contents of the layer archive .zip file
+          example: example_value
         CompatibleRuntimes:
           type: array
           description: >-
@@ -2507,20 +4369,23 @@ components:
           items:
             type: string
           maxItems: 15
+          example: []
         LicenseInfo:
           type: string
           description: >-
             The layer's software license (SPDX identifier, URL, or text)
           maxLength: 512
+          example: example_value
         CompatibleArchitectures:
           type: array
           description: A list of compatible instruction set architectures
           items:
             type: string
             enum:
-              - x86_64
-              - arm64
+            - x86_64
+            - arm64
           maxItems: 2
+          example: []
     PublishLayerVersionResponse:
       type: object
       description: Details about a published layer version
@@ -2542,31 +4407,40 @@ components:
               type: string
             SigningJobArn:
               type: string
+          example: example_value
         LayerArn:
           type: string
           description: The ARN of the layer
+          example: example_value
         LayerVersionArn:
           type: string
           description: The ARN of the layer version
+          example: example_value
         Description:
           type: string
           description: Description of the version
+          example: A sample description.
         CreatedDate:
           type: string
           description: The date the layer version was created in ISO 8601 format
+          example: example_value
         Version:
           type: integer
           description: The version number
+          example: 10
         CompatibleRuntimes:
           type: array
           items:
             type: string
+          example: []
         LicenseInfo:
           type: string
+          example: example_value
         CompatibleArchitectures:
           type: array
           items:
             type: string
+          example: []
     GetLayerVersionResponse:
       type: object
       description: Details about a layer version
@@ -2582,32 +4456,42 @@ components:
             CodeSize:
               type: integer
               format: int64
+          example: example_value
         LayerArn:
           type: string
+          example: example_value
         LayerVersionArn:
           type: string
+          example: example_value
         Description:
           type: string
+          example: A sample description.
         CreatedDate:
           type: string
+          example: example_value
         Version:
           type: integer
+          example: 10
         CompatibleRuntimes:
           type: array
           items:
             type: string
+          example: []
         LicenseInfo:
           type: string
+          example: example_value
         CompatibleArchitectures:
           type: array
           items:
             type: string
+          example: []
     ListLayersResponse:
       type: object
       description: Paginated list of layers
       properties:
         NextMarker:
           type: string
+          example: example_value
         Layers:
           type: array
           items:
@@ -2621,16 +4505,19 @@ components:
                 description: The ARN of the layer
               LatestMatchingVersion:
                 $ref: '#/components/schemas/LayerVersionSummary'
+          example: []
     ListLayerVersionsResponse:
       type: object
       description: Paginated list of layer versions
       properties:
         NextMarker:
           type: string
+          example: example_value
         LayerVersions:
           type: array
           items:
             $ref: '#/components/schemas/LayerVersionSummary'
+          example: []
     LayerVersionSummary:
       type: object
       description: Summary information about a layer version
@@ -2638,25 +4525,32 @@ components:
         LayerVersionArn:
           type: string
           description: The ARN of the layer version
+          example: example_value
         Version:
           type: integer
           description: The version number
+          example: 10
         Description:
           type: string
           description: Description of the version
+          example: A sample description.
         CreatedDate:
           type: string
           description: The date the version was created
+          example: example_value
         CompatibleRuntimes:
           type: array
           items:
             type: string
+          example: []
         LicenseInfo:
           type: string
+          example: example_value
         CompatibleArchitectures:
           type: array
           items:
             type: string
+          example: []
     FunctionUrlConfig:
       type: object
       description: Configuration for a Lambda function URL
@@ -2664,35 +4558,41 @@ components:
         FunctionUrl:
           type: string
           description: The HTTP URL endpoint for the function
+          example: https://www.example.com
         FunctionArn:
           type: string
           description: The ARN of the function
+          example: example_value
         AuthType:
           type: string
           description: The type of authentication the function URL uses
           enum:
-            - NONE
-            - AWS_IAM
+          - NONE
+          - AWS_IAM
+          example: NONE
         Cors:
           $ref: '#/components/schemas/Cors'
         CreationTime:
           type: string
           description: When the function URL was created in ISO 8601 format
+          example: example_value
         LastModifiedTime:
           type: string
           description: When the function URL was last modified
+          example: example_value
         InvokeMode:
           type: string
           description: >-
             Use BUFFERED for synchronous invocation or RESPONSE_STREAM for
             response streaming
           enum:
-            - BUFFERED
-            - RESPONSE_STREAM
+          - BUFFERED
+          - RESPONSE_STREAM
+          example: BUFFERED
     CreateFunctionUrlConfigRequest:
       type: object
       required:
-        - AuthType
+      - AuthType
       description: Request body for creating a function URL
       properties:
         AuthType:
@@ -2701,15 +4601,17 @@ components:
             The type of authentication. NONE allows public unauthenticated
             access. AWS_IAM requires IAM authentication.
           enum:
-            - NONE
-            - AWS_IAM
+          - NONE
+          - AWS_IAM
+          example: NONE
         Cors:
           $ref: '#/components/schemas/Cors'
         InvokeMode:
           type: string
           enum:
-            - BUFFERED
-            - RESPONSE_STREAM
+          - BUFFERED
+          - RESPONSE_STREAM
+          example: BUFFERED
     UpdateFunctionUrlConfigRequest:
       type: object
       description: Request body for updating a function URL configuration
@@ -2717,15 +4619,17 @@ components:
         AuthType:
           type: string
           enum:
-            - NONE
-            - AWS_IAM
+          - NONE
+          - AWS_IAM
+          example: NONE
         Cors:
           $ref: '#/components/schemas/Cors'
         InvokeMode:
           type: string
           enum:
-            - BUFFERED
-            - RESPONSE_STREAM
+          - BUFFERED
+          - RESPONSE_STREAM
+          example: BUFFERED
     Cors:
       type: object
       description: Cross-origin resource sharing (CORS) settings for a function URL
@@ -2733,30 +4637,35 @@ components:
         AllowCredentials:
           type: boolean
           description: Whether to allow cookies or other credentials
+          example: true
         AllowHeaders:
           type: array
           description: The HTTP headers allowed in requests
           items:
             type: string
           maxItems: 100
+          example: []
         AllowMethods:
           type: array
           description: The HTTP methods allowed
           items:
             type: string
           maxItems: 6
+          example: []
         AllowOrigins:
           type: array
           description: The origins allowed to access the function URL
           items:
             type: string
           maxItems: 100
+          example: []
         ExposeHeaders:
           type: array
           description: The HTTP headers exposed in the response
           items:
             type: string
           maxItems: 100
+          example: []
         MaxAge:
           type: integer
           description: >-
@@ -2764,6 +4673,7 @@ components:
             preflight request
           minimum: 0
           maximum: 86400
+          example: 10
     VpcConfig:
       type: object
       description: VPC connectivity settings for a Lambda function
@@ -2774,12 +4684,14 @@ components:
           items:
             type: string
           maxItems: 16
+          example: []
         SecurityGroupIds:
           type: array
           description: A list of VPC security group IDs
           items:
             type: string
           maxItems: 5
+          example: []
     VpcConfigResponse:
       type: object
       description: VPC connectivity details returned by Lambda
@@ -2788,13 +4700,16 @@ components:
           type: array
           items:
             type: string
+          example: []
         SecurityGroupIds:
           type: array
           items:
             type: string
+          example: []
         VpcId:
           type: string
           description: The VPC ID
+          example: '500123'
     ProvisionedConcurrencyConfig:
       type: object
       description: Provisioned concurrency configuration for a function
@@ -2802,28 +4717,34 @@ components:
         RequestedProvisionedConcurrentExecutions:
           type: integer
           description: The amount of provisioned concurrency requested
+          example: 10
         AvailableProvisionedConcurrentExecutions:
           type: integer
           description: >-
             The amount of provisioned concurrency available
+          example: 10
         AllocatedProvisionedConcurrentExecutions:
           type: integer
           description: >-
             The amount of provisioned concurrency allocated
+          example: 10
         Status:
           type: string
           description: The status of the allocation
           enum:
-            - IN_PROGRESS
-            - READY
-            - FAILED
+          - IN_PROGRESS
+          - READY
+          - FAILED
+          example: IN_PROGRESS
         StatusReason:
           type: string
           description: >-
             For failed allocations, the reason the status is FAILED
+          example: example_value
         LastModified:
           type: string
           description: The date and time the configuration was last modified
+          example: example_value
     ErrorResponse:
       type: object
       description: Error response from the Lambda API
@@ -2831,9 +4752,12 @@ components:
         Type:
           type: string
           description: The error type
+          example: example_value
         Message:
           type: string
           description: The error message
+          example: example_value
         Code:
           type: string
           description: The error code
+          example: example_value

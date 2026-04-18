@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ListVersionsResponse",
+  "type": "object",
+  "description": "Paginated list of function versions",
+  "properties": {
+    "NextMarker": {
+      "type": "string",
+      "description": "Pagination token for the next page"
+    },
+    "Versions": {
+      "type": "array"
+    }
+  }
+}

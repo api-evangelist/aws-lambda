@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "CreateEventSourceMappingRequest",
+  "type": "object",
+  "properties": {
+    "EventSourceArn": {
+      "type": "string"
+    },
+    "FunctionName": {
+      "type": "string"
+    },
+    "Enabled": {
+      "type": "boolean"
+    },
+    "BatchSize": {
+      "type": "integer"
+    },
+    "MaximumBatchingWindowInSeconds": {
+      "type": "integer"
+    },
+    "ParallelizationFactor": {
+      "type": "integer"
+    },
+    "StartingPosition": {
+      "type": "string"
+    },
+    "StartingPositionTimestamp": {
+      "type": "string"
+    },
+    "MaximumRecordAgeInSeconds": {
+      "type": "integer"
+    },
+    "BisectBatchOnFunctionError": {
+      "type": "boolean"
+    },
+    "MaximumRetryAttempts": {
+      "type": "integer"
+    },
+    "TumblingWindowInSeconds": {
+      "type": "integer"
+    },
+    "FunctionResponseTypes": {
+      "type": "array"
+    }
+  }
+}

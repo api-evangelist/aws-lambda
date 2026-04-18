@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "FunctionCode",
+  "type": "object",
+  "properties": {
+    "ZipFile": {
+      "type": "string"
+    },
+    "S3Bucket": {
+      "type": "string"
+    },
+    "S3Key": {
+      "type": "string"
+    },
+    "S3ObjectVersion": {
+      "type": "string"
+    },
+    "ImageUri": {
+      "type": "string"
+    }
+  }
+}

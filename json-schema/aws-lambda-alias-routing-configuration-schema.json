@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AliasRoutingConfiguration",
+  "type": "object",
+  "description": "The traffic-shifting configuration of a Lambda function alias. Used for weighted alias routing to enable canary deployments.",
+  "properties": {
+    "AdditionalVersionWeights": {
+      "type": "object",
+      "description": "The secondary version weight. The key is the version number or alias name and the value is the percentage of traffic (0.0-1.0)."
+    }
+  }
+}

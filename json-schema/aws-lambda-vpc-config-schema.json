@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VpcConfig",
+  "type": "object",
+  "description": "VPC connectivity settings for a Lambda function",
+  "properties": {
+    "SubnetIds": {
+      "type": "array",
+      "description": "A list of VPC subnet IDs"
+    },
+    "SecurityGroupIds": {
+      "type": "array",
+      "description": "A list of VPC security group IDs"
+    }
+  }
+}

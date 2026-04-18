@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateFunctionRequest",
+  "type": "object",
+  "description": "Request body for creating a Lambda function",
+  "properties": {
+    "FunctionName": {
+      "type": "string",
+      "description": "The name of the Lambda function (1-64 characters). Can also specify an ARN."
+    },
+    "Runtime": {
+      "type": "string",
+      "description": "The identifier of the function's runtime. Required for .zip file deployment packages."
+    },
+    "Role": {
+      "type": "string",
+      "description": "The ARN of the function's execution role"
+    },
+    "Handler": {
+      "type": "string",
+      "description": "The name of the function handler (e.g. index.handler)"
+    },
+    "Description": {
+      "type": "string",
+      "description": "Description of the function"
+    },
+    "Timeout": {
+      "type": "integer",
+      "description": "Execution timeout in seconds"
+    },
+    "MemorySize": {
+      "type": "integer",
+      "description": "Memory allocated in MB"
+    },
+    "Publish": {
+      "type": "boolean",
+      "description": "Set to true to publish the first version of the function"
+    },
+    "PackageType": {
+      "type": "string",
+      "description": "The type of deployment package"
+    },
+    "DeadLetterConfig": {
+      "type": "object"
+    },
+    "Environment": {
+      "type": "object"
+    },
+    "KMSKeyArn": {
+      "type": "string",
+      "description": "ARN of the KMS key to encrypt environment variables"
+    },
+    "TracingConfig": {
+      "type": "object"
+    },
+    "Tags": {
+      "type": "object",
+      "description": "Key-value pairs for tagging the function"
+    },
+    "Layers": {
+      "type": "array",
+      "description": "A list of function layer ARNs (with version) to add to the function's execution environment. Up to five layers."
+    },
+    "Architectures": {
+      "type": "array",
+      "description": "The instruction set architecture"
+    },
+    "EphemeralStorage": {
+      "type": "object"
+    },
+    "SnapStart": {
+      "type": "object"
+    },
+    "LoggingConfig": {
+      "type": "object"
+    }
+  }
+}

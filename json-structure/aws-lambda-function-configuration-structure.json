@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "FunctionConfiguration",
+  "type": "object",
+  "properties": {
+    "FunctionName": {
+      "type": "string"
+    },
+    "FunctionArn": {
+      "type": "string"
+    },
+    "Runtime": {
+      "type": "string"
+    },
+    "Role": {
+      "type": "string"
+    },
+    "Handler": {
+      "type": "string"
+    },
+    "CodeSize": {
+      "type": "integer"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "Timeout": {
+      "type": "integer"
+    },
+    "MemorySize": {
+      "type": "integer"
+    },
+    "LastModified": {
+      "type": "string"
+    },
+    "CodeSha256": {
+      "type": "string"
+    },
+    "Version": {
+      "type": "string"
+    },
+    "DeadLetterConfig": {
+      "type": "object"
+    },
+    "Environment": {
+      "type": "object"
+    },
+    "KMSKeyArn": {
+      "type": "string"
+    },
+    "TracingConfig": {
+      "type": "object"
+    },
+    "MasterArn": {
+      "type": "string"
+    },
+    "RevisionId": {
+      "type": "string"
+    },
+    "Layers": {
+      "type": "array"
+    },
+    "State": {
+      "type": "string"
+    },
+    "StateReason": {
+      "type": "string"
+    },
+    "StateReasonCode": {
+      "type": "string"
+    },
+    "LastUpdateStatus": {
+      "type": "string"
+    },
+    "LastUpdateStatusReason": {
+      "type": "string"
+    },
+    "LastUpdateStatusReasonCode": {
+      "type": "string"
+    },
+    "PackageType": {
+      "type": "string"
+    },
+    "ImageConfigResponse": {
+      "type": "object"
+    },
+    "Architectures": {
+      "type": "array"
+    },
+    "EphemeralStorage": {
+      "type": "object"
+    },
+    "SnapStart": {
+      "type": "object"
+    },
+    "RuntimeVersionConfig": {
+      "type": "object"
+    },
+    "LoggingConfig": {
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "LayerVersionSummary",
+  "type": "object",
+  "properties": {
+    "LayerVersionArn": {
+      "type": "string"
+    },
+    "Version": {
+      "type": "integer"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "CreatedDate": {
+      "type": "string"
+    },
+    "CompatibleRuntimes": {
+      "type": "array"
+    },
+    "LicenseInfo": {
+      "type": "string"
+    },
+    "CompatibleArchitectures": {
+      "type": "array"
+    }
+  }
+}

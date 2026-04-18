@@ -1,0 +1,8 @@
+{
+  "RequestedProvisionedConcurrentExecutions": 10,
+  "AvailableProvisionedConcurrentExecutions": 10,
+  "AllocatedProvisionedConcurrentExecutions": 10,
+  "Status": "example_value",
+  "StatusReason": "example_value",
+  "LastModified": "example_value"
+}

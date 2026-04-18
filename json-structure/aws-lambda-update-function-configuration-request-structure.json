@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "UpdateFunctionConfigurationRequest",
+  "type": "object",
+  "properties": {
+    "Role": {
+      "type": "string"
+    },
+    "Handler": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "Timeout": {
+      "type": "integer"
+    },
+    "MemorySize": {
+      "type": "integer"
+    },
+    "Environment": {
+      "type": "object"
+    },
+    "Runtime": {
+      "type": "string"
+    },
+    "DeadLetterConfig": {
+      "type": "object"
+    },
+    "KMSKeyArn": {
+      "type": "string"
+    },
+    "TracingConfig": {
+      "type": "object"
+    },
+    "RevisionId": {
+      "type": "string"
+    },
+    "Layers": {
+      "type": "array"
+    },
+    "EphemeralStorage": {
+      "type": "object"
+    },
+    "SnapStart": {
+      "type": "object"
+    },
+    "LoggingConfig": {
+      "type": "object"
+    }
+  }
+}

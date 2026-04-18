@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DestinationConfig",
+  "type": "object",
+  "description": "Configuration for failed invocation destinations. Specify an SQS queue or SNS topic to receive records of failed asynchronous invocations or event source mapping batches.",
+  "properties": {
+    "OnSuccess": {
+      "type": "object"
+    },
+    "OnFailure": {
+      "type": "object"
+    }
+  }
+}

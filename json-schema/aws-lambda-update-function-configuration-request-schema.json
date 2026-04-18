@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateFunctionConfigurationRequest",
+  "type": "object",
+  "description": "Request body for updating a function's configuration",
+  "properties": {
+    "Role": {
+      "type": "string",
+      "description": "The ARN of the function's execution role"
+    },
+    "Handler": {
+      "type": "string",
+      "description": "The name of the function handler"
+    },
+    "Description": {
+      "type": "string",
+      "description": "A description of the function"
+    },
+    "Timeout": {
+      "type": "integer",
+      "description": "Execution timeout in seconds"
+    },
+    "MemorySize": {
+      "type": "integer",
+      "description": "Memory allocated in MB"
+    },
+    "Environment": {
+      "type": "object"
+    },
+    "Runtime": {
+      "type": "string",
+      "description": "The runtime identifier"
+    },
+    "DeadLetterConfig": {
+      "type": "object"
+    },
+    "KMSKeyArn": {
+      "type": "string"
+    },
+    "TracingConfig": {
+      "type": "object"
+    },
+    "RevisionId": {
+      "type": "string",
+      "description": "Update only if the revision ID matches. Prevents modifying a function that has changed since you last read it."
+    },
+    "Layers": {
+      "type": "array"
+    },
+    "EphemeralStorage": {
+      "type": "object"
+    },
+    "SnapStart": {
+      "type": "object"
+    },
+    "LoggingConfig": {
+      "type": "object"
+    }
+  }
+}

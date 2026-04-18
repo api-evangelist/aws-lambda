@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "CreateAliasRequest",
+  "type": "object",
+  "properties": {
+    "Name": {
+      "type": "string"
+    },
+    "FunctionVersion": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    }
+  }
+}

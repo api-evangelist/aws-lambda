@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AliasConfiguration",
+  "type": "object",
+  "description": "Configuration of a Lambda function alias",
+  "properties": {
+    "AliasArn": {
+      "type": "string",
+      "description": "The ARN of the alias"
+    },
+    "Name": {
+      "type": "string",
+      "description": "The name of the alias"
+    },
+    "FunctionVersion": {
+      "type": "string",
+      "description": "The function version that the alias invokes"
+    },
+    "Description": {
+      "type": "string",
+      "description": "Description of the alias"
+    },
+    "RevisionId": {
+      "type": "string",
+      "description": "A unique identifier that changes when you update the alias"
+    }
+  }
+}

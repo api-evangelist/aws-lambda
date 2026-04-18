@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateEventSourceMappingRequest",
+  "type": "object",
+  "description": "Request body for creating an event source mapping",
+  "properties": {
+    "EventSourceArn": {
+      "type": "string",
+      "description": "The ARN of the event source. Required for Kinesis, DynamoDB Streams, SQS, MQ, MSK, and DocumentDB."
+    },
+    "FunctionName": {
+      "type": "string",
+      "description": "The name or ARN of the Lambda function"
+    },
+    "Enabled": {
+      "type": "boolean",
+      "description": "If true, the event source mapping is active"
+    },
+    "BatchSize": {
+      "type": "integer",
+      "description": "Maximum number of records in each batch"
+    },
+    "MaximumBatchingWindowInSeconds": {
+      "type": "integer",
+      "description": "Maximum time to gather records before invoking"
+    },
+    "ParallelizationFactor": {
+      "type": "integer",
+      "description": "Number of batches to process concurrently per shard"
+    },
+    "StartingPosition": {
+      "type": "string",
+      "description": "Starting position in the stream"
+    },
+    "StartingPositionTimestamp": {
+      "type": "string"
+    },
+    "MaximumRecordAgeInSeconds": {
+      "type": "integer"
+    },
+    "BisectBatchOnFunctionError": {
+      "type": "boolean"
+    },
+    "MaximumRetryAttempts": {
+      "type": "integer"
+    },
+    "TumblingWindowInSeconds": {
+      "type": "integer"
+    },
+    "FunctionResponseTypes": {
+      "type": "array"
+    }
+  }
+}

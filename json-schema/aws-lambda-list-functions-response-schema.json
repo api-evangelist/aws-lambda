@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ListFunctionsResponse",
+  "type": "object",
+  "description": "Paginated list of Lambda functions",
+  "properties": {
+    "NextMarker": {
+      "type": "string",
+      "description": "Pagination token for the next page of results"
+    },
+    "Functions": {
+      "type": "array"
+    }
+  }
+}

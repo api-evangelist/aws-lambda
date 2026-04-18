@@ -1,0 +1,8 @@
+{
+  "FunctionUrl": "https://www.example.com",
+  "FunctionArn": "example_value",
+  "AuthType": "example_value",
+  "CreationTime": "example_value",
+  "LastModifiedTime": "example_value",
+  "InvokeMode": "example_value"
+}

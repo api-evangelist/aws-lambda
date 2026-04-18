@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FunctionConfiguration",
+  "type": "object",
+  "description": "A Lambda function's configuration and metadata",
+  "properties": {
+    "FunctionName": {
+      "type": "string",
+      "description": "The name of the function"
+    },
+    "FunctionArn": {
+      "type": "string",
+      "description": "The function's Amazon Resource Name (ARN)"
+    },
+    "Runtime": {
+      "type": "string",
+      "description": "The identifier of the function's runtime. Runtime is required if the deployment package is a .zip file archive."
+    },
+    "Role": {
+      "type": "string",
+      "description": "The function's execution role ARN"
+    },
+    "Handler": {
+      "type": "string",
+      "description": "The function entrypoint in your code. The format includes the file name without extension and the handler function name (e.g. index.handler)"
+    },
+    "CodeSize": {
+      "type": "integer",
+      "description": "The size of the function's deployment package in bytes"
+    },
+    "Description": {
+      "type": "string",
+      "description": "The function's description"
+    },
+    "Timeout": {
+      "type": "integer",
+      "description": "The amount of time in seconds that Lambda allows a function to run before stopping it. Maximum is 900 seconds (15 minutes)."
+    },
+    "MemorySize": {
+      "type": "integer",
+      "description": "The amount of memory available to the function at runtime in MB. Lambda allocates CPU power in proportion to the amount of memory configured."
+    },
+    "LastModified": {
+      "type": "string",
+      "description": "The date and time the function was last updated in ISO 8601 format"
+    },
+    "CodeSha256": {
+      "type": "string",
+      "description": "The SHA-256 hash of the function's deployment package"
+    },
+    "Version": {
+      "type": "string",
+      "description": "The version of the Lambda function"
+    },
+    "DeadLetterConfig": {
+      "type": "object",
+      "description": "The function's dead-letter queue configuration"
+    },
+    "Environment": {
+      "type": "object",
+      "description": "The function's environment variables"
+    },
+    "KMSKeyArn": {
+      "type": "string",
+      "description": "The ARN of the KMS key used to encrypt the function's environment variables at rest"
+    },
+    "TracingConfig": {
+      "type": "object",
+      "description": "The function's X-Ray tracing configuration"
+    },
+    "MasterArn": {
+      "type": "string",
+      "description": "For Lambda@Edge functions, the ARN of the main function"
+    },
+    "RevisionId": {
+      "type": "string",
+      "description": "The latest updated revision of the function"
+    },
+    "Layers": {
+      "type": "array",
+      "description": "The function's layers"
+    },
+    "State": {
+      "type": "string",
+      "description": "The current state of the function"
+    },
+    "StateReason": {
+      "type": "string",
+      "description": "The reason for the function's current state"
+    },
+    "StateReasonCode": {
+      "type": "string",
+      "description": "The reason code for the function's current state"
+    },
+    "LastUpdateStatus": {
+      "type": "string",
+      "description": "The status of the last update that was performed on the function"
+    },
+    "LastUpdateStatusReason": {
+      "type": "string",
+      "description": "The reason for the last update that was performed on the function"
+    },
+    "LastUpdateStatusReasonCode": {
+      "type": "string",
+      "description": "The reason code for the last update"
+    },
+    "PackageType": {
+      "type": "string",
+      "description": "The type of deployment package"
+    },
+    "ImageConfigResponse": {
+      "type": "object",
+      "description": "The function's image configuration values for container images"
+    },
+    "Architectures": {
+      "type": "array",
+      "description": "The instruction set architecture that the function supports"
+    },
+    "EphemeralStorage": {
+      "type": "object",
+      "description": "The size of the function's /tmp directory in MB"
+    },
+    "SnapStart": {
+      "type": "object",
+      "description": "The function's SnapStart setting for reducing cold start latency"
+    },
+    "RuntimeVersionConfig": {
+      "type": "object",
+      "description": "The ARN of the runtime and any errors that occurred"
+    },
+    "LoggingConfig": {
+      "type": "object",
+      "description": "The function's Amazon CloudWatch Logs configuration"
+    }
+  }
+}

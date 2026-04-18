@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Cors",
+  "type": "object",
+  "description": "Cross-origin resource sharing (CORS) settings for a function URL",
+  "properties": {
+    "AllowCredentials": {
+      "type": "boolean",
+      "description": "Whether to allow cookies or other credentials"
+    },
+    "AllowHeaders": {
+      "type": "array",
+      "description": "The HTTP headers allowed in requests"
+    },
+    "AllowMethods": {
+      "type": "array",
+      "description": "The HTTP methods allowed"
+    },
+    "AllowOrigins": {
+      "type": "array",
+      "description": "The origins allowed to access the function URL"
+    },
+    "ExposeHeaders": {
+      "type": "array",
+      "description": "The HTTP headers exposed in the response"
+    },
+    "MaxAge": {
+      "type": "integer",
+      "description": "Maximum time in seconds that a browser can cache results of a preflight request"
+    }
+  }
+}

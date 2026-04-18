@@ -1,0 +1,7 @@
+{
+  "ZipFile": "example_value",
+  "S3Bucket": "example_value",
+  "S3Key": "example_value",
+  "S3ObjectVersion": "example_value",
+  "ImageUri": "example_value"
+}

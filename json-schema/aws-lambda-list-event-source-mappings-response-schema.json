@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ListEventSourceMappingsResponse",
+  "type": "object",
+  "description": "Paginated list of event source mappings",
+  "properties": {
+    "NextMarker": {
+      "type": "string",
+      "description": "Pagination token"
+    },
+    "EventSourceMappings": {
+      "type": "array"
+    }
+  }
+}

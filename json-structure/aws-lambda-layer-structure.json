@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Layer",
+  "type": "object",
+  "properties": {
+    "Arn": {
+      "type": "string"
+    },
+    "CodeSize": {
+      "type": "integer"
+    },
+    "SigningProfileVersionArn": {
+      "type": "string"
+    },
+    "SigningJobArn": {
+      "type": "string"
+    }
+  }
+}

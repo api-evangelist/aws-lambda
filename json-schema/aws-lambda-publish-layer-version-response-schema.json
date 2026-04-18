@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PublishLayerVersionResponse",
+  "type": "object",
+  "description": "Details about a published layer version",
+  "properties": {
+    "Content": {
+      "type": "object"
+    },
+    "LayerArn": {
+      "type": "string",
+      "description": "The ARN of the layer"
+    },
+    "LayerVersionArn": {
+      "type": "string",
+      "description": "The ARN of the layer version"
+    },
+    "Description": {
+      "type": "string",
+      "description": "Description of the version"
+    },
+    "CreatedDate": {
+      "type": "string",
+      "description": "The date the layer version was created in ISO 8601 format"
+    },
+    "Version": {
+      "type": "integer",
+      "description": "The version number"
+    },
+    "CompatibleRuntimes": {
+      "type": "array"
+    },
+    "LicenseInfo": {
+      "type": "string"
+    },
+    "CompatibleArchitectures": {
+      "type": "array"
+    }
+  }
+}

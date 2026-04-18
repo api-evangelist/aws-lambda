@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpdateAliasRequest",
+  "type": "object",
+  "description": "Request body for updating a function alias",
+  "properties": {
+    "FunctionVersion": {
+      "type": "string",
+      "description": "The function version that the alias invokes"
+    },
+    "Description": {
+      "type": "string",
+      "description": "Description of the alias"
+    },
+    "RevisionId": {
+      "type": "string",
+      "description": "Update only if the revision ID matches"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "FunctionName": "example_value",
+  "Runtime": "example_value",
+  "Role": "example_value",
+  "Handler": "example_value",
+  "Description": "A sample description.",
+  "Timeout": 10,
+  "MemorySize": 10,
+  "Publish": true,
+  "PackageType": "example_value",
+  "DeadLetterConfig": "example_value",
+  "Environment": "example_value",
+  "KMSKeyArn": "example_value",
+  "TracingConfig": "example_value",
+  "Tags": "example_value",
+  "Layers": [],
+  "Architectures": [],
+  "EphemeralStorage": "example_value",
+  "SnapStart": "example_value",
+  "LoggingConfig": "example_value"
+}

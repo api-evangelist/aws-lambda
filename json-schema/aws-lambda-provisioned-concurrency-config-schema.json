@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProvisionedConcurrencyConfig",
+  "type": "object",
+  "description": "Provisioned concurrency configuration for a function",
+  "properties": {
+    "RequestedProvisionedConcurrentExecutions": {
+      "type": "integer",
+      "description": "The amount of provisioned concurrency requested"
+    },
+    "AvailableProvisionedConcurrentExecutions": {
+      "type": "integer",
+      "description": "The amount of provisioned concurrency available"
+    },
+    "AllocatedProvisionedConcurrentExecutions": {
+      "type": "integer",
+      "description": "The amount of provisioned concurrency allocated"
+    },
+    "Status": {
+      "type": "string",
+      "description": "The status of the allocation"
+    },
+    "StatusReason": {
+      "type": "string",
+      "description": "For failed allocations, the reason the status is FAILED"
+    },
+    "LastModified": {
+      "type": "string",
+      "description": "The date and time the configuration was last modified"
+    }
+  }
+}
