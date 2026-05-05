@@ -1,0 +1,13 @@
+{
+  "repo": "aws-lambda",
+  "feeds": [
+    {
+      "source": "https://aws.amazon.com/blogs/compute/category/compute/aws-lambda/",
+      "feed_url": "https://aws.amazon.com/blogs/compute/category/compute/aws-lambda/feed/",
+      "saved": 10,
+      "title": "AWS Lambda \u2013 AWS Compute Blog"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:23:13Z"
+}
