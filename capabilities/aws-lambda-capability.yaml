@@ -1,0 +1,1335 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AWS Lambda API
+  description: The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings,
+    aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure
+    without provisioning or managing servers, performing all administration of compute resources including capacity provisioning,
+    automatic scaling, and logging. The API version used is 2015-03-31.
+  tags:
+  - Aws
+  - Lambda
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: aws-lambda
+    baseUri: https://lambda.us-east-1.amazonaws.com
+    description: AWS Lambda API HTTP API.
+    authentication:
+      type: apikey
+      in: header
+      name: Authorization
+      value: '{{AWS_LAMBDA_TOKEN}}'
+    resources:
+    - name: 2015-03-31-functions
+      path: /2015-03-31/functions
+      operations:
+      - name: listfunctions
+        method: GET
+        description: Aws Lambda List Functions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createfunction
+        method: POST
+        description: Aws Lambda Create a Function
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 2015-03-31-functions-functionname
+      path: /2015-03-31/functions/{FunctionName}
+      operations:
+      - name: getfunction
+        method: GET
+        description: Aws Lambda Get a Function
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletefunction
+        method: DELETE
+        description: Aws Lambda Delete a Function
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 2015-03-31-functions-functionname-configuration
+      path: /2015-03-31/functions/{FunctionName}/configuration
+      operations:
+      - name: getfunctionconfiguration
+        method: GET
+        description: Aws Lambda Get Function Configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatefunctionconfiguration
+        method: PUT
+        description: Aws Lambda Update Function Configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 2015-03-31-functions-functionname-code
+      path: /2015-03-31/functions/{FunctionName}/code
+      operations:
+      - name: updatefunctioncode
+        method: PUT
+        description: Aws Lambda Update Function Code
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 2015-03-31-functions-functionname-invocations
+      path: /2015-03-31/functions/{FunctionName}/invocations
+      operations:
+      - name: invoke
+        method: POST
+        description: Aws Lambda Invoke a Function
+        inputParameters:
+        - name: X-Amz-Invocation-Type
+          in: header
+          type: string
+          description: Choose from RequestResponse (synchronous, default), Event (asynchronous), or DryRun (validate parameters
+            and permissions)
+        - name: X-Amz-Log-Type
+          in: header
+          type: string
+          description: Set to Tail to include the execution log in the response
+        - name: X-Amz-Client-Context
+          in: header
+          type: string
+          description: Base64-encoded client context data to pass to the function in the context object. Maximum 3583 bytes
+            of base64-encoded data.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 2015-03-31-functions-functionname-versions
+      path: /2015-03-31/functions/{FunctionName}/versions
+      operations:
+      - name: publishversion
+        method: POST
+        description: Aws Lambda Publish a Version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: listversionsbyfunction
+        method: GET
+        description: Aws Lambda List Function Versions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 2015-03-31-functions-functionname-aliases
+      path: /2015-03-31/functions/{FunctionName}/aliases
+      operations:
+      - name: listaliases
+        method: GET
+        description: Aws Lambda List Aliases
+        inputParameters:
+        - name: FunctionVersion
+          in: query
+          type: string
+          description: Filter by the version that aliases point to
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createalias
+        method: POST
+        description: Aws Lambda Create an Alias
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 2015-03-31-functions-functionname-aliases-aliasn
+      path: /2015-03-31/functions/{FunctionName}/aliases/{AliasName}
+      operations:
+      - name: getalias
+        method: GET
+        description: Aws Lambda Get an Alias
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatealias
+        method: PUT
+        description: Aws Lambda Update an Alias
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletealias
+        method: DELETE
+        description: Aws Lambda Delete an Alias
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 2015-03-31-event-source-mappings
+      path: /2015-03-31/event-source-mappings
+      operations:
+      - name: listeventsourcemappings
+        method: GET
+        description: Aws Lambda List Event Source Mappings
+        inputParameters:
+        - name: EventSourceArn
+          in: query
+          type: string
+          description: The ARN of the event source (Amazon Kinesis stream, Amazon DynamoDB stream, Amazon SQS queue, Amazon
+            MSK cluster, or self-managed Apache Kafka cluster)
+        - name: FunctionName
+          in: query
+          type: string
+          description: The name, ARN, or partial ARN of the Lambda function to filter by
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createeventsourcemapping
+        method: POST
+        description: Aws Lambda Create an Event Source Mapping
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 2015-03-31-event-source-mappings-uuid
+      path: /2015-03-31/event-source-mappings/{UUID}
+      operations:
+      - name: geteventsourcemapping
+        method: GET
+        description: Aws Lambda Get an Event Source Mapping
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateeventsourcemapping
+        method: PUT
+        description: Aws Lambda Update an Event Source Mapping
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deleteeventsourcemapping
+        method: DELETE
+        description: Aws Lambda Delete an Event Source Mapping
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 2015-03-31-layers
+      path: /2015-03-31/layers
+      operations:
+      - name: listlayers
+        method: GET
+        description: Aws Lambda List Layers
+        inputParameters:
+        - name: CompatibleRuntime
+          in: query
+          type: string
+          description: Filter layers by compatible runtime
+        - name: CompatibleArchitecture
+          in: query
+          type: string
+          description: Filter layers by compatible instruction set architecture
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 2015-03-31-layers-layername-versions
+      path: /2015-03-31/layers/{LayerName}/versions
+      operations:
+      - name: listlayerversions
+        method: GET
+        description: Aws Lambda List Layer Versions
+        inputParameters:
+        - name: CompatibleRuntime
+          in: query
+          type: string
+          description: Filter by compatible runtime
+        - name: CompatibleArchitecture
+          in: query
+          type: string
+          description: Filter by compatible architecture
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: publishlayerversion
+        method: POST
+        description: Aws Lambda Publish a Layer Version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 2015-03-31-layers-layername-versions-versionnumb
+      path: /2015-03-31/layers/{LayerName}/versions/{VersionNumber}
+      operations:
+      - name: getlayerversion
+        method: GET
+        description: Aws Lambda Get a Layer Version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletelayerversion
+        method: DELETE
+        description: Aws Lambda Delete a Layer Version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 2021-10-31-functions-functionname-url
+      path: /2021-10-31/functions/{FunctionName}/url
+      operations:
+      - name: getfunctionurlconfig
+        method: GET
+        description: Aws Lambda Get Function Url Configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createfunctionurlconfig
+        method: POST
+        description: Aws Lambda Create a Function Url
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatefunctionurlconfig
+        method: PUT
+        description: Aws Lambda Update a Function Url
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletefunctionurlconfig
+        method: DELETE
+        description: Aws Lambda Delete a Function Url
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 2015-03-31-functions-functionname-concurrency
+      path: /2015-03-31/functions/{FunctionName}/concurrency
+      operations:
+      - name: getreservedconcurrency
+        method: GET
+        description: Aws Lambda Get Reserved Concurrency
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: putfunctionconcurrency
+        method: PUT
+        description: Aws Lambda Set Reserved Concurrency
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletefunctionconcurrency
+        method: DELETE
+        description: Aws Lambda Delete Reserved Concurrency
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 2015-03-31-functions-functionname-provisioned-co
+      path: /2015-03-31/functions/{FunctionName}/provisioned-concurrency
+      operations:
+      - name: getprovisionedconcurrencyconfig
+        method: GET
+        description: Aws Lambda Get Provisioned Concurrency
+        inputParameters:
+        - name: Qualifier
+          in: query
+          type: string
+          required: true
+          description: The version number or alias name
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: putprovisionedconcurrencyconfig
+        method: PUT
+        description: Aws Lambda Set Provisioned Concurrency
+        inputParameters:
+        - name: Qualifier
+          in: query
+          type: string
+          required: true
+          description: The version number or alias name
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deleteprovisionedconcurrencyconfig
+        method: DELETE
+        description: Aws Lambda Delete Provisioned Concurrency
+        inputParameters:
+        - name: Qualifier
+          in: query
+          type: string
+          required: true
+          description: The version number or alias name
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 2015-03-31-tags-arn
+      path: /2015-03-31/tags/{ARN}
+      operations:
+      - name: listtags
+        method: GET
+        description: Aws Lambda List Tags
+        inputParameters:
+        - name: ARN
+          in: path
+          type: string
+          required: true
+          description: The function's Amazon Resource Name (ARN)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: tagresource
+        method: POST
+        description: Aws Lambda Add Tags
+        inputParameters:
+        - name: ARN
+          in: path
+          type: string
+          required: true
+          description: The function's Amazon Resource Name (ARN)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: untagresource
+        method: DELETE
+        description: Aws Lambda Remove Tags
+        inputParameters:
+        - name: ARN
+          in: path
+          type: string
+          required: true
+          description: The function's Amazon Resource Name (ARN)
+        - name: tagKeys
+          in: query
+          type: array
+          required: true
+          description: List of tag keys to remove
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: aws-lambda-rest
+    description: REST adapter for AWS Lambda API.
+    resources:
+    - path: /2015-03-31/functions
+      name: listfunctions
+      operations:
+      - method: GET
+        name: listfunctions
+        description: Aws Lambda List Functions
+        call: aws-lambda.listfunctions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions
+      name: createfunction
+      operations:
+      - method: POST
+        name: createfunction
+        description: Aws Lambda Create a Function
+        call: aws-lambda.createfunction
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions/{FunctionName}
+      name: getfunction
+      operations:
+      - method: GET
+        name: getfunction
+        description: Aws Lambda Get a Function
+        call: aws-lambda.getfunction
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions/{FunctionName}
+      name: deletefunction
+      operations:
+      - method: DELETE
+        name: deletefunction
+        description: Aws Lambda Delete a Function
+        call: aws-lambda.deletefunction
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions/{FunctionName}/configuration
+      name: getfunctionconfiguration
+      operations:
+      - method: GET
+        name: getfunctionconfiguration
+        description: Aws Lambda Get Function Configuration
+        call: aws-lambda.getfunctionconfiguration
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions/{FunctionName}/configuration
+      name: updatefunctionconfiguration
+      operations:
+      - method: PUT
+        name: updatefunctionconfiguration
+        description: Aws Lambda Update Function Configuration
+        call: aws-lambda.updatefunctionconfiguration
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions/{FunctionName}/code
+      name: updatefunctioncode
+      operations:
+      - method: PUT
+        name: updatefunctioncode
+        description: Aws Lambda Update Function Code
+        call: aws-lambda.updatefunctioncode
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions/{FunctionName}/invocations
+      name: invoke
+      operations:
+      - method: POST
+        name: invoke
+        description: Aws Lambda Invoke a Function
+        call: aws-lambda.invoke
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions/{FunctionName}/versions
+      name: publishversion
+      operations:
+      - method: POST
+        name: publishversion
+        description: Aws Lambda Publish a Version
+        call: aws-lambda.publishversion
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions/{FunctionName}/versions
+      name: listversionsbyfunction
+      operations:
+      - method: GET
+        name: listversionsbyfunction
+        description: Aws Lambda List Function Versions
+        call: aws-lambda.listversionsbyfunction
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions/{FunctionName}/aliases
+      name: listaliases
+      operations:
+      - method: GET
+        name: listaliases
+        description: Aws Lambda List Aliases
+        call: aws-lambda.listaliases
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions/{FunctionName}/aliases
+      name: createalias
+      operations:
+      - method: POST
+        name: createalias
+        description: Aws Lambda Create an Alias
+        call: aws-lambda.createalias
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions/{FunctionName}/aliases/{AliasName}
+      name: getalias
+      operations:
+      - method: GET
+        name: getalias
+        description: Aws Lambda Get an Alias
+        call: aws-lambda.getalias
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions/{FunctionName}/aliases/{AliasName}
+      name: updatealias
+      operations:
+      - method: PUT
+        name: updatealias
+        description: Aws Lambda Update an Alias
+        call: aws-lambda.updatealias
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions/{FunctionName}/aliases/{AliasName}
+      name: deletealias
+      operations:
+      - method: DELETE
+        name: deletealias
+        description: Aws Lambda Delete an Alias
+        call: aws-lambda.deletealias
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/event-source-mappings
+      name: listeventsourcemappings
+      operations:
+      - method: GET
+        name: listeventsourcemappings
+        description: Aws Lambda List Event Source Mappings
+        call: aws-lambda.listeventsourcemappings
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/event-source-mappings
+      name: createeventsourcemapping
+      operations:
+      - method: POST
+        name: createeventsourcemapping
+        description: Aws Lambda Create an Event Source Mapping
+        call: aws-lambda.createeventsourcemapping
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/event-source-mappings/{UUID}
+      name: geteventsourcemapping
+      operations:
+      - method: GET
+        name: geteventsourcemapping
+        description: Aws Lambda Get an Event Source Mapping
+        call: aws-lambda.geteventsourcemapping
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/event-source-mappings/{UUID}
+      name: updateeventsourcemapping
+      operations:
+      - method: PUT
+        name: updateeventsourcemapping
+        description: Aws Lambda Update an Event Source Mapping
+        call: aws-lambda.updateeventsourcemapping
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/event-source-mappings/{UUID}
+      name: deleteeventsourcemapping
+      operations:
+      - method: DELETE
+        name: deleteeventsourcemapping
+        description: Aws Lambda Delete an Event Source Mapping
+        call: aws-lambda.deleteeventsourcemapping
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/layers
+      name: listlayers
+      operations:
+      - method: GET
+        name: listlayers
+        description: Aws Lambda List Layers
+        call: aws-lambda.listlayers
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/layers/{LayerName}/versions
+      name: listlayerversions
+      operations:
+      - method: GET
+        name: listlayerversions
+        description: Aws Lambda List Layer Versions
+        call: aws-lambda.listlayerversions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/layers/{LayerName}/versions
+      name: publishlayerversion
+      operations:
+      - method: POST
+        name: publishlayerversion
+        description: Aws Lambda Publish a Layer Version
+        call: aws-lambda.publishlayerversion
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/layers/{LayerName}/versions/{VersionNumber}
+      name: getlayerversion
+      operations:
+      - method: GET
+        name: getlayerversion
+        description: Aws Lambda Get a Layer Version
+        call: aws-lambda.getlayerversion
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/layers/{LayerName}/versions/{VersionNumber}
+      name: deletelayerversion
+      operations:
+      - method: DELETE
+        name: deletelayerversion
+        description: Aws Lambda Delete a Layer Version
+        call: aws-lambda.deletelayerversion
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2021-10-31/functions/{FunctionName}/url
+      name: getfunctionurlconfig
+      operations:
+      - method: GET
+        name: getfunctionurlconfig
+        description: Aws Lambda Get Function Url Configuration
+        call: aws-lambda.getfunctionurlconfig
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2021-10-31/functions/{FunctionName}/url
+      name: createfunctionurlconfig
+      operations:
+      - method: POST
+        name: createfunctionurlconfig
+        description: Aws Lambda Create a Function Url
+        call: aws-lambda.createfunctionurlconfig
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2021-10-31/functions/{FunctionName}/url
+      name: updatefunctionurlconfig
+      operations:
+      - method: PUT
+        name: updatefunctionurlconfig
+        description: Aws Lambda Update a Function Url
+        call: aws-lambda.updatefunctionurlconfig
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2021-10-31/functions/{FunctionName}/url
+      name: deletefunctionurlconfig
+      operations:
+      - method: DELETE
+        name: deletefunctionurlconfig
+        description: Aws Lambda Delete a Function Url
+        call: aws-lambda.deletefunctionurlconfig
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions/{FunctionName}/concurrency
+      name: getreservedconcurrency
+      operations:
+      - method: GET
+        name: getreservedconcurrency
+        description: Aws Lambda Get Reserved Concurrency
+        call: aws-lambda.getreservedconcurrency
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions/{FunctionName}/concurrency
+      name: putfunctionconcurrency
+      operations:
+      - method: PUT
+        name: putfunctionconcurrency
+        description: Aws Lambda Set Reserved Concurrency
+        call: aws-lambda.putfunctionconcurrency
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions/{FunctionName}/concurrency
+      name: deletefunctionconcurrency
+      operations:
+      - method: DELETE
+        name: deletefunctionconcurrency
+        description: Aws Lambda Delete Reserved Concurrency
+        call: aws-lambda.deletefunctionconcurrency
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions/{FunctionName}/provisioned-concurrency
+      name: getprovisionedconcurrencyconfig
+      operations:
+      - method: GET
+        name: getprovisionedconcurrencyconfig
+        description: Aws Lambda Get Provisioned Concurrency
+        call: aws-lambda.getprovisionedconcurrencyconfig
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions/{FunctionName}/provisioned-concurrency
+      name: putprovisionedconcurrencyconfig
+      operations:
+      - method: PUT
+        name: putprovisionedconcurrencyconfig
+        description: Aws Lambda Set Provisioned Concurrency
+        call: aws-lambda.putprovisionedconcurrencyconfig
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/functions/{FunctionName}/provisioned-concurrency
+      name: deleteprovisionedconcurrencyconfig
+      operations:
+      - method: DELETE
+        name: deleteprovisionedconcurrencyconfig
+        description: Aws Lambda Delete Provisioned Concurrency
+        call: aws-lambda.deleteprovisionedconcurrencyconfig
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/tags/{ARN}
+      name: listtags
+      operations:
+      - method: GET
+        name: listtags
+        description: Aws Lambda List Tags
+        call: aws-lambda.listtags
+        with:
+          ARN: rest.ARN
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/tags/{ARN}
+      name: tagresource
+      operations:
+      - method: POST
+        name: tagresource
+        description: Aws Lambda Add Tags
+        call: aws-lambda.tagresource
+        with:
+          ARN: rest.ARN
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /2015-03-31/tags/{ARN}
+      name: untagresource
+      operations:
+      - method: DELETE
+        name: untagresource
+        description: Aws Lambda Remove Tags
+        call: aws-lambda.untagresource
+        with:
+          ARN: rest.ARN
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: aws-lambda-mcp
+    transport: http
+    description: MCP adapter for AWS Lambda API for AI agent use.
+    tools:
+    - name: listfunctions
+      description: Aws Lambda List Functions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda.listfunctions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createfunction
+      description: Aws Lambda Create a Function
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: aws-lambda.createfunction
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getfunction
+      description: Aws Lambda Get a Function
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda.getfunction
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletefunction
+      description: Aws Lambda Delete a Function
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: aws-lambda.deletefunction
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getfunctionconfiguration
+      description: Aws Lambda Get Function Configuration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda.getfunctionconfiguration
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatefunctionconfiguration
+      description: Aws Lambda Update Function Configuration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: aws-lambda.updatefunctionconfiguration
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatefunctioncode
+      description: Aws Lambda Update Function Code
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: aws-lambda.updatefunctioncode
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: invoke
+      description: Aws Lambda Invoke a Function
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: aws-lambda.invoke
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: publishversion
+      description: Aws Lambda Publish a Version
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: aws-lambda.publishversion
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listversionsbyfunction
+      description: Aws Lambda List Function Versions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda.listversionsbyfunction
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listaliases
+      description: Aws Lambda List Aliases
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda.listaliases
+      with:
+        FunctionVersion: tools.FunctionVersion
+      inputParameters:
+      - name: FunctionVersion
+        type: string
+        description: Filter by the version that aliases point to
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createalias
+      description: Aws Lambda Create an Alias
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: aws-lambda.createalias
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getalias
+      description: Aws Lambda Get an Alias
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda.getalias
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatealias
+      description: Aws Lambda Update an Alias
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: aws-lambda.updatealias
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletealias
+      description: Aws Lambda Delete an Alias
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: aws-lambda.deletealias
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listeventsourcemappings
+      description: Aws Lambda List Event Source Mappings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda.listeventsourcemappings
+      with:
+        EventSourceArn: tools.EventSourceArn
+        FunctionName: tools.FunctionName
+      inputParameters:
+      - name: EventSourceArn
+        type: string
+        description: The ARN of the event source (Amazon Kinesis stream, Amazon DynamoDB stream, Amazon SQS queue, Amazon
+          MSK cluster, or self-managed Apache Kafka cluster)
+      - name: FunctionName
+        type: string
+        description: The name, ARN, or partial ARN of the Lambda function to filter by
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createeventsourcemapping
+      description: Aws Lambda Create an Event Source Mapping
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: aws-lambda.createeventsourcemapping
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: geteventsourcemapping
+      description: Aws Lambda Get an Event Source Mapping
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda.geteventsourcemapping
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updateeventsourcemapping
+      description: Aws Lambda Update an Event Source Mapping
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: aws-lambda.updateeventsourcemapping
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deleteeventsourcemapping
+      description: Aws Lambda Delete an Event Source Mapping
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: aws-lambda.deleteeventsourcemapping
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listlayers
+      description: Aws Lambda List Layers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda.listlayers
+      with:
+        CompatibleRuntime: tools.CompatibleRuntime
+        CompatibleArchitecture: tools.CompatibleArchitecture
+      inputParameters:
+      - name: CompatibleRuntime
+        type: string
+        description: Filter layers by compatible runtime
+      - name: CompatibleArchitecture
+        type: string
+        description: Filter layers by compatible instruction set architecture
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listlayerversions
+      description: Aws Lambda List Layer Versions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda.listlayerversions
+      with:
+        CompatibleRuntime: tools.CompatibleRuntime
+        CompatibleArchitecture: tools.CompatibleArchitecture
+      inputParameters:
+      - name: CompatibleRuntime
+        type: string
+        description: Filter by compatible runtime
+      - name: CompatibleArchitecture
+        type: string
+        description: Filter by compatible architecture
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: publishlayerversion
+      description: Aws Lambda Publish a Layer Version
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: aws-lambda.publishlayerversion
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getlayerversion
+      description: Aws Lambda Get a Layer Version
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda.getlayerversion
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletelayerversion
+      description: Aws Lambda Delete a Layer Version
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: aws-lambda.deletelayerversion
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getfunctionurlconfig
+      description: Aws Lambda Get Function Url Configuration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda.getfunctionurlconfig
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createfunctionurlconfig
+      description: Aws Lambda Create a Function Url
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: aws-lambda.createfunctionurlconfig
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatefunctionurlconfig
+      description: Aws Lambda Update a Function Url
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: aws-lambda.updatefunctionurlconfig
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletefunctionurlconfig
+      description: Aws Lambda Delete a Function Url
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: aws-lambda.deletefunctionurlconfig
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getreservedconcurrency
+      description: Aws Lambda Get Reserved Concurrency
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda.getreservedconcurrency
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: putfunctionconcurrency
+      description: Aws Lambda Set Reserved Concurrency
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: aws-lambda.putfunctionconcurrency
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletefunctionconcurrency
+      description: Aws Lambda Delete Reserved Concurrency
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: aws-lambda.deletefunctionconcurrency
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getprovisionedconcurrencyconfig
+      description: Aws Lambda Get Provisioned Concurrency
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda.getprovisionedconcurrencyconfig
+      with:
+        Qualifier: tools.Qualifier
+      inputParameters:
+      - name: Qualifier
+        type: string
+        description: The version number or alias name
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: putprovisionedconcurrencyconfig
+      description: Aws Lambda Set Provisioned Concurrency
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: aws-lambda.putprovisionedconcurrencyconfig
+      with:
+        Qualifier: tools.Qualifier
+      inputParameters:
+      - name: Qualifier
+        type: string
+        description: The version number or alias name
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deleteprovisionedconcurrencyconfig
+      description: Aws Lambda Delete Provisioned Concurrency
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: aws-lambda.deleteprovisionedconcurrencyconfig
+      with:
+        Qualifier: tools.Qualifier
+      inputParameters:
+      - name: Qualifier
+        type: string
+        description: The version number or alias name
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listtags
+      description: Aws Lambda List Tags
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda.listtags
+      with:
+        ARN: tools.ARN
+      inputParameters:
+      - name: ARN
+        type: string
+        description: The function's Amazon Resource Name (ARN)
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: tagresource
+      description: Aws Lambda Add Tags
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: aws-lambda.tagresource
+      with:
+        ARN: tools.ARN
+      inputParameters:
+      - name: ARN
+        type: string
+        description: The function's Amazon Resource Name (ARN)
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: untagresource
+      description: Aws Lambda Remove Tags
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: aws-lambda.untagresource
+      with:
+        ARN: tools.ARN
+        tagKeys: tools.tagKeys
+      inputParameters:
+      - name: ARN
+        type: string
+        description: The function's Amazon Resource Name (ARN)
+        required: true
+      - name: tagKeys
+        type: array
+        description: List of tag keys to remove
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    AWS_LAMBDA_TOKEN: AWS_LAMBDA_TOKEN
