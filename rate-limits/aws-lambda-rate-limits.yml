@@ -4,101 +4,118 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: AWS Lambda
 providerId: aws-lambda
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
+  - Serverless
+  - Functions
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the AWS Lambda API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  - Concurrency
+  - AWS
+description: AWS Lambda enforces concurrency-based and API-based limits per account per Region.
+  Concurrent executions default to 1,000 (increasable). Each execution environment serves up to 10
+  synchronous requests per second, so per-function steady-state RPS scales as 10x concurrency. Burst
+  scaling adds 1,000 environments every 10 seconds. Control-plane APIs have separate fixed RPS quotas.
+sources:
+  - https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
+  - https://aws.amazon.com/lambda/pricing/
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
+  - name: Concurrent executions
+    scope: account/region
+    metric: concurrent_requests
+    limit: 1000
+    notes: Default per Region; new accounts may start lower. Increasable to tens of thousands via
+      Service Quotas.
+  - name: Burst concurrency scaling
+    scope: function
+    metric: concurrent_requests
+    limit: 1000
+    timeFrame: second
+    notes: Each function can add 1,000 execution environments every 10 seconds (i.e. ~100 environments
+      per second of burst headroom).
+  - name: Synchronous invocation per env
+    scope: execution-environment
+    metric: requests_per_second
     limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - AWS Lambda API
-      - AWS Lambda Extensions API
-      - AWS Lambda Telemetry API
-      - AWS Lambda Runtime API
-      - AWS Lambda Logs API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - AWS Lambda API
-      - AWS Lambda Extensions API
-      - AWS Lambda Telemetry API
-      - AWS Lambda Runtime API
-      - AWS Lambda Logs API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
+    timeFrame: second
+    notes: Each execution environment serves up to 10 synchronous requests per second; total
+      synchronous RPS is 10 x concurrency.
+  - name: Asynchronous invocation per env
+    scope: execution-environment
+    metric: requests_per_second
+    limit: -1
+    notes: Asynchronous invocation is unlimited per environment; total bounded only by available
+      concurrency.
+  - name: Provisioned concurrency invocation
+    scope: function-version-or-alias
+    metric: requests_per_second
+    limit: -1
+    notes: 10 x allocated provisioned concurrency. Applies only to functions with provisioned
+      concurrency configured.
+  - name: GetFunction API
+    scope: account
+    metric: requests_per_second
     limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - AWS Lambda API
-      - AWS Lambda Extensions API
-      - AWS Lambda Telemetry API
-      - AWS Lambda Runtime API
-      - AWS Lambda Logs API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - AWS Lambda API
-      - AWS Lambda Extensions API
-      - AWS Lambda Telemetry API
-      - AWS Lambda Runtime API
-      - AWS Lambda Logs API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - AWS Lambda API
-      - AWS Lambda Extensions API
-      - AWS Lambda Telemetry API
-      - AWS Lambda Runtime API
-      - AWS Lambda Logs API
+    timeFrame: second
+    notes: Fixed; not increasable.
+  - name: GetPolicy API
+    scope: account
+    metric: requests_per_second
+    limit: 15
+    timeFrame: second
+    notes: Fixed; not increasable.
+  - name: Other control-plane APIs
+    scope: account
+    metric: requests_per_second
+    limit: 15
+    timeFrame: second
+    notes: 15 RPS aggregate across all other control-plane APIs (excludes invocation, GetFunction,
+      GetPolicy). Not increasable.
+  - name: Storage for uploaded functions / layers
+    scope: account/region
+    metric: GB
+    limit: 75
+    notes: Increasable to terabytes via Service Quotas.
+  - name: Function timeout
+    scope: function
+    metric: seconds
+    limit: 900
+    notes: 15 minutes max execution time. Fixed.
+  - name: Sync invocation payload
+    scope: invocation
+    metric: MB
+    limit: 6
+    notes: 6 MB request and 6 MB response (sync). 200 MB for streamed responses. 1 MB async.
+  - name: Deployment package (zip)
+    scope: function-version
+    metric: MB
+    limit: 50
+    notes: 50 MB via API/console; 250 MB unzipped including layers; container images up to 10 GB.
+  - name: ENIs per VPC
+    scope: vpc
+    metric: enis
+    limit: 500
+    notes: Shared with other services such as EFS.
 policies:
   - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+    description: AWS SDKs implement exponential backoff with jitter on 429 / TooManyRequestsException
+      / 5xx automatically. Raw HTTP clients should mirror this and honor Retry-After.
+  - name: Reserved & Provisioned Concurrency
+    description: Use reserved concurrency to cap a function's slice of the account pool; use provisioned
+      concurrency to pre-warm and eliminate cold starts (billed separately).
+  - name: Service Quotas Increases
+    description: Concurrent executions, storage, ENIs, and durable executions are increasable via
+      Service Quotas; control-plane RPS, invocation payload, timeout, and runtime quotas are fixed.
+  - name: Burst Headroom
+    description: Cold-start bursts beyond the 1,000-environments-per-10-seconds rate will throttle even
+      if total concurrency is well below the account ceiling — pre-warm with provisioned concurrency
+      for spiky traffic.
+  - name: Idempotency
+    description: Asynchronous and event-source invocations may retry on failure (default 2 retries
+      asynchronous). Design handler logic to be idempotent on the event identifier.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

@@ -4,152 +4,196 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: AWS Lambda
 providerId: aws-lambda
 created: '2026-05-04'
-modified: '2026-05-04'
-tags: []
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+modified: '2026-05-05'
+reconciled: true
+tags:
+  - Serverless
+  - Functions
+  - Compute
+  - Event-Driven
+  - AWS
+description: AWS Lambda is pay-as-you-go priced on two axes — number of requests and duration in
+  GB-seconds — with separate rates for x86 and ARM (Graviton2) architectures. Provisioned concurrency
+  and ephemeral storage above 512 MB are billed separately. A perpetual free tier provides 1M requests
+  and 400K GB-seconds per month. Compute Savings Plans offer up to 17% discount.
+sources:
+  - https://aws.amazon.com/lambda/pricing/
+  - https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
 plans:
-  - id: aws-lambda-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the AWS Lambda API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+  - id: aws-lambda-on-demand-x86
+    name: On-Demand (x86)
+    type: usage-based
+    description: Default pricing for x86_64 Lambda functions.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://lambda.{region}.amazonaws.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://lambda.{region}.amazonaws.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: AWS Lambda API
-      - name: AWS Lambda Extensions API
-      - name: AWS Lambda Telemetry API
-      - name: AWS Lambda Runtime API
-      - name: AWS Lambda Logs API
-  - id: aws-lambda-pro
-    name: Professional
-    type: paid
-    description: Production tier for AWS Lambda. Provides higher quotas, priority support, and access
-      to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://lambda.{region}.amazonaws.com
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://lambda.{region}.amazonaws.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
+      - label: Requests
+        name: requests
         type: metered
-        metric: requests
+        metric: request
+        limit: -1
+        timeFrame: usage
+        geo: US-East-1
+        unit: 1000000
+        price: '$0.20 per million'
+        userMultiplied: false
+      - label: Compute (first tier)
+        name: compute_x86_tier1
+        type: tiered
+        metric: GB-second
+        limit: -1
+        timeFrame: usage
+        geo: US-East-1
+        unit: 1
+        price: '$0.0000166667 per GB-second'
+        userMultiplied: false
+    elements:
+      - name: 128 MB - 10,240 MB memory in 1 MB steps
+      - name: Up to 15-minute timeout
+      - name: 512 MB ephemeral /tmp included
+      - name: Lambda function URLs (no extra charge)
+  - id: aws-lambda-on-demand-arm
+    name: On-Demand (ARM / Graviton2)
+    type: usage-based
+    description: Lower-cost ARM-based Graviton2 functions; AWS quotes up to 34% better price-performance
+      vs x86 for equivalent workloads.
+    entries:
+      - label: Requests
+        name: requests_arm
+        type: metered
+        metric: request
+        limit: -1
+        timeFrame: usage
+        geo: US-East-1
+        unit: 1000000
+        price: '$0.20 per million'
+        userMultiplied: false
+      - label: Compute (Graviton2)
+        name: compute_arm
+        type: metered
+        metric: GB-second
+        limit: -1
+        timeFrame: usage
+        geo: US-East-1
+        unit: 1
+        price: see Graviton2 row on https://aws.amazon.com/lambda/pricing/ (lower than x86)
+        userMultiplied: false
+    elements:
+      - name: Graviton2 ARM cores
+      - name: Up to 34% price-performance vs x86
+  - id: aws-lambda-provisioned-concurrency
+    name: Provisioned Concurrency
+    type: usage-based
+    description: Pre-warmed execution environments billed continuously while enabled. Used to eliminate
+      cold starts.
+    entries:
+      - label: Provisioned concurrency
+        name: provisioned_concurrency
+        type: metered
+        metric: GB-second
+        limit: -1
+        timeFrame: usage
+        geo: US-East-1
+        unit: 1
+        price: '$0.0000041667 per GB-second (configured)'
+        userMultiplied: false
+      - label: Compute on provisioned (executions)
+        name: provisioned_executions
+        type: metered
+        metric: GB-second
+        limit: -1
+        timeFrame: usage
+        geo: US-East-1
+        unit: 1
+        price: see provisioned-concurrency execution rate on https://aws.amazon.com/lambda/pricing/
+        userMultiplied: false
+    elements:
+      - name: Pre-warmed environments
+      - name: 5-minute billing increments from enable to disable
+  - id: aws-lambda-ephemeral-storage
+    name: Ephemeral /tmp Storage (above 512 MB)
+    type: usage-based
+    description: Configurable ephemeral storage from 512 MB up to 10,240 MB. First 512 MB free; charged
+      above that.
+    entries:
+      - label: Ephemeral storage above 512 MB
+        name: ephemeral_storage
+        type: metered
+        metric: GB-second
+        limit: -1
+        timeFrame: usage
+        geo: US-East-1
+        unit: 1
+        price: '$0.0000000309 per GB-second'
+        userMultiplied: false
+    elements:
+      - name: Per-invocation /tmp storage
+      - name: Up to 10,240 MB
+  - id: aws-lambda-data-transfer
+    name: Data Transfer
+    type: usage-based
+    description: Lambda inherits standard EC2 data-transfer rates for cross-region / internet egress.
+      In-region transfers to S3, DynamoDB, SNS, SQS, Kinesis are free.
+    entries:
+      - label: Data transfer out
+        name: lambda_data_transfer_out
+        type: metered
+        metric: gb
+        limit: -1
+        timeFrame: usage
+        geo: US-East-1
+        unit: 1
+        price: see EC2 data transfer rates on https://aws.amazon.com/ec2/pricing/on-demand/
+        userMultiplied: false
+    elements:
+      - name: Standard EC2 data-transfer rates apply
+      - name: Free same-region transfer to S3 / DynamoDB / SNS / SQS / Kinesis
+  - id: aws-lambda-savings-plans
+    name: Compute Savings Plans
+    type: subscription
+    description: Up to 17% discount on Lambda compute (duration + provisioned concurrency) for 1- or
+      3-year commitment.
+    entries:
+      - label: Compute Savings Plan discount
+        name: lambda_savings_plan
+        type: subscription
+        metric: month
         limit: -1
         timeFrame: month
         geo: global
-        domains:
-          - https://lambda.{region}.amazonaws.com
-        unit: 1000
-        price: TBD
+        unit: 1
+        price: up to 17% discount on compute (1 yr / 3 yr terms)
         userMultiplied: false
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: AWS Lambda API
-      - name: AWS Lambda Extensions API
-      - name: AWS Lambda Telemetry API
-      - name: AWS Lambda Runtime API
-      - name: AWS Lambda Logs API
-  - id: aws-lambda-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for AWS Lambda. Includes dedicated capacity, contractual SLAs,
-      security review, data residency options, and named technical account management.
+      - name: 1-year or 3-year commitment
+      - name: Applies to duration and provisioned concurrency
+  - id: aws-lambda-free-tier
+    name: AWS Free Tier (perpetual)
+    type: freemium
+    description: Lambda free tier is perpetual, not 12-month-limited. Applies across both x86 and
+      Graviton2.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
+      - label: Free requests
+        name: free_requests
         type: quota
-        metric: requests
-        limit: -1
+        metric: request
+        limit: 1000000
         timeFrame: month
-        geo: configurable
-        domains:
-          - https://lambda.{region}.amazonaws.com
+        geo: global
         unit: 1
-        price: custom
+        price: '0.00'
         userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://lambda.{region}.amazonaws.com
+      - label: Free compute
+        name: free_compute
+        type: quota
+        metric: GB-second
+        limit: 400000
+        timeFrame: month
+        geo: global
         unit: 1
-        price: custom
+        price: '0.00'
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: AWS Lambda API
-      - name: AWS Lambda Extensions API
-      - name: AWS Lambda Telemetry API
-      - name: AWS Lambda Runtime API
-      - name: AWS Lambda Logs API
+      - name: 1M requests per month perpetual
+      - name: 400K GB-seconds per month perpetual
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
