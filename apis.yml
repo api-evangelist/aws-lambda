@@ -249,6 +249,16 @@ common:
         description: Route events from AWS services, SaaS applications, and custom sources to Lambda functions based on rules.
       - name: AWS Step Functions
         description: Orchestrate Lambda functions into complex workflows with branching, error handling, and parallel execution.
+integrations:
+  - name: Sign in
+  - name: Agent Mode
+  - name: 'Why AWS Marketplace?'
+  - name: Get started in AWS Marketplace
+  - name: Industry
+  - name: Resources
+  - name: Become a Channel Partner
+  - name: Sell in AWS Marketplace
+  - name: Manage Your Account
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
