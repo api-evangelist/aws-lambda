@@ -1,0 +1,335 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AWS Lambda API — Functions
+  description: 'AWS Lambda API — Functions. 8 operations. Lead operation: Aws Lambda List Functions. Self-contained Naftiko
+    capability covering one Aws Lambda business surface.'
+  tags:
+  - Aws Lambda
+  - Functions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AWS_LAMBDA_API_KEY: AWS_LAMBDA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: aws-lambda-functions
+    baseUri: https://lambda.{region}.amazonaws.com
+    description: AWS Lambda API — Functions business capability. Self-contained, no shared references.
+    resources:
+    - name: 2015-03-31-functions
+      path: /2015-03-31/functions
+      operations:
+      - name: listfunctions
+        method: GET
+        description: Aws Lambda List Functions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createfunction
+        method: POST
+        description: Aws Lambda Create a Function
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: 2015-03-31-functions-FunctionName
+      path: /2015-03-31/functions/{FunctionName}
+      operations:
+      - name: getfunction
+        method: GET
+        description: Aws Lambda Get a Function
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletefunction
+        method: DELETE
+        description: Aws Lambda Delete a Function
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: 2015-03-31-functions-FunctionName-code
+      path: /2015-03-31/functions/{FunctionName}/code
+      operations:
+      - name: updatefunctioncode
+        method: PUT
+        description: Aws Lambda Update Function Code
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: 2015-03-31-functions-FunctionName-configuration
+      path: /2015-03-31/functions/{FunctionName}/configuration
+      operations:
+      - name: getfunctionconfiguration
+        method: GET
+        description: Aws Lambda Get Function Configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatefunctionconfiguration
+        method: PUT
+        description: Aws Lambda Update Function Configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: 2015-03-31-functions-FunctionName-invocations
+      path: /2015-03-31/functions/{FunctionName}/invocations
+      operations:
+      - name: invoke
+        method: POST
+        description: Aws Lambda Invoke a Function
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Amz-Invocation-Type
+          in: header
+          type: string
+          description: Choose from RequestResponse (synchronous, default), Event (asynchronous), or DryRun (validate parameters
+            and permissions)
+        - name: X-Amz-Log-Type
+          in: header
+          type: string
+          description: Set to Tail to include the execution log in the response
+        - name: X-Amz-Client-Context
+          in: header
+          type: string
+          description: Base64-encoded client context data to pass to the function in the context object. Maximum 3583 bytes
+            of base64-encoded data.
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.AWS_LAMBDA_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: aws-lambda-functions-rest
+    port: 8080
+    description: REST adapter for AWS Lambda API — Functions. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/2015-03-31/functions
+      name: 2015-03-31-functions
+      description: REST surface for 2015-03-31-functions.
+      operations:
+      - method: GET
+        name: listfunctions
+        description: Aws Lambda List Functions
+        call: aws-lambda-functions.listfunctions
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createfunction
+        description: Aws Lambda Create a Function
+        call: aws-lambda-functions.createfunction
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2015-03-31/functions/{functionname}
+      name: 2015-03-31-functions-functionname
+      description: REST surface for 2015-03-31-functions-FunctionName.
+      operations:
+      - method: GET
+        name: getfunction
+        description: Aws Lambda Get a Function
+        call: aws-lambda-functions.getfunction
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletefunction
+        description: Aws Lambda Delete a Function
+        call: aws-lambda-functions.deletefunction
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2015-03-31/functions/{functionname}/code
+      name: 2015-03-31-functions-functionname-code
+      description: REST surface for 2015-03-31-functions-FunctionName-code.
+      operations:
+      - method: PUT
+        name: updatefunctioncode
+        description: Aws Lambda Update Function Code
+        call: aws-lambda-functions.updatefunctioncode
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2015-03-31/functions/{functionname}/configuration
+      name: 2015-03-31-functions-functionname-configuration
+      description: REST surface for 2015-03-31-functions-FunctionName-configuration.
+      operations:
+      - method: GET
+        name: getfunctionconfiguration
+        description: Aws Lambda Get Function Configuration
+        call: aws-lambda-functions.getfunctionconfiguration
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatefunctionconfiguration
+        description: Aws Lambda Update Function Configuration
+        call: aws-lambda-functions.updatefunctionconfiguration
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2015-03-31/functions/{functionname}/invocations
+      name: 2015-03-31-functions-functionname-invocations
+      description: REST surface for 2015-03-31-functions-FunctionName-invocations.
+      operations:
+      - method: POST
+        name: invoke
+        description: Aws Lambda Invoke a Function
+        call: aws-lambda-functions.invoke
+        with:
+          X-Amz-Invocation-Type: rest.X-Amz-Invocation-Type
+          X-Amz-Log-Type: rest.X-Amz-Log-Type
+          X-Amz-Client-Context: rest.X-Amz-Client-Context
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: aws-lambda-functions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AWS Lambda API — Functions. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: aws-lambda-list-functions
+      description: Aws Lambda List Functions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda-functions.listfunctions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: aws-lambda-create-function
+      description: Aws Lambda Create a Function
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: aws-lambda-functions.createfunction
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: aws-lambda-get-function
+      description: Aws Lambda Get a Function
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda-functions.getfunction
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: aws-lambda-delete-function
+      description: Aws Lambda Delete a Function
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: aws-lambda-functions.deletefunction
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: aws-lambda-update-function-code
+      description: Aws Lambda Update Function Code
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: aws-lambda-functions.updatefunctioncode
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: aws-lambda-get-function-configuration
+      description: Aws Lambda Get Function Configuration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda-functions.getfunctionconfiguration
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: aws-lambda-update-function-configuration
+      description: Aws Lambda Update Function Configuration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: aws-lambda-functions.updatefunctionconfiguration
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: aws-lambda-invoke-function
+      description: Aws Lambda Invoke a Function
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: aws-lambda-functions.invoke
+      with:
+        X-Amz-Invocation-Type: tools.X-Amz-Invocation-Type
+        X-Amz-Log-Type: tools.X-Amz-Log-Type
+        X-Amz-Client-Context: tools.X-Amz-Client-Context
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

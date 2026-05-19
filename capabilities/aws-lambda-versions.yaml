@@ -1,0 +1,107 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AWS Lambda API — Versions
+  description: 'AWS Lambda API — Versions. 2 operations. Lead operation: Aws Lambda Publish a Version. Self-contained Naftiko
+    capability covering one Aws Lambda business surface.'
+  tags:
+  - Aws Lambda
+  - Versions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AWS_LAMBDA_API_KEY: AWS_LAMBDA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: aws-lambda-versions
+    baseUri: https://lambda.{region}.amazonaws.com
+    description: AWS Lambda API — Versions business capability. Self-contained, no shared references.
+    resources:
+    - name: 2015-03-31-functions-FunctionName-versions
+      path: /2015-03-31/functions/{FunctionName}/versions
+      operations:
+      - name: publishversion
+        method: POST
+        description: Aws Lambda Publish a Version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: listversionsbyfunction
+        method: GET
+        description: Aws Lambda List Function Versions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.AWS_LAMBDA_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: aws-lambda-versions-rest
+    port: 8080
+    description: REST adapter for AWS Lambda API — Versions. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/2015-03-31/functions/{functionname}/versions
+      name: 2015-03-31-functions-functionname-versions
+      description: REST surface for 2015-03-31-functions-FunctionName-versions.
+      operations:
+      - method: POST
+        name: publishversion
+        description: Aws Lambda Publish a Version
+        call: aws-lambda-versions.publishversion
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listversionsbyfunction
+        description: Aws Lambda List Function Versions
+        call: aws-lambda-versions.listversionsbyfunction
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: aws-lambda-versions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AWS Lambda API — Versions. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: aws-lambda-publish-version
+      description: Aws Lambda Publish a Version
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: aws-lambda-versions.publishversion
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: aws-lambda-list-function-versions
+      description: Aws Lambda List Function Versions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda-versions.listversionsbyfunction
+      outputParameters:
+      - type: object
+        mapping: $.

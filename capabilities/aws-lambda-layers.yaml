@@ -1,0 +1,226 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: AWS Lambda API — Layers
+  description: 'AWS Lambda API — Layers. 5 operations. Lead operation: Aws Lambda List Layers. Self-contained Naftiko capability
+    covering one Aws Lambda business surface.'
+  tags:
+  - Aws Lambda
+  - Layers
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AWS_LAMBDA_API_KEY: AWS_LAMBDA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: aws-lambda-layers
+    baseUri: https://lambda.{region}.amazonaws.com
+    description: AWS Lambda API — Layers business capability. Self-contained, no shared references.
+    resources:
+    - name: 2015-03-31-layers
+      path: /2015-03-31/layers
+      operations:
+      - name: listlayers
+        method: GET
+        description: Aws Lambda List Layers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: CompatibleRuntime
+          in: query
+          type: string
+          description: Filter layers by compatible runtime
+        - name: CompatibleArchitecture
+          in: query
+          type: string
+          description: Filter layers by compatible instruction set architecture
+    - name: 2015-03-31-layers-LayerName-versions
+      path: /2015-03-31/layers/{LayerName}/versions
+      operations:
+      - name: listlayerversions
+        method: GET
+        description: Aws Lambda List Layer Versions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: CompatibleRuntime
+          in: query
+          type: string
+          description: Filter by compatible runtime
+        - name: CompatibleArchitecture
+          in: query
+          type: string
+          description: Filter by compatible architecture
+      - name: publishlayerversion
+        method: POST
+        description: Aws Lambda Publish a Layer Version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: 2015-03-31-layers-LayerName-versions-VersionNumber
+      path: /2015-03-31/layers/{LayerName}/versions/{VersionNumber}
+      operations:
+      - name: getlayerversion
+        method: GET
+        description: Aws Lambda Get a Layer Version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletelayerversion
+        method: DELETE
+        description: Aws Lambda Delete a Layer Version
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.AWS_LAMBDA_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: aws-lambda-layers-rest
+    port: 8080
+    description: REST adapter for AWS Lambda API — Layers. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/2015-03-31/layers
+      name: 2015-03-31-layers
+      description: REST surface for 2015-03-31-layers.
+      operations:
+      - method: GET
+        name: listlayers
+        description: Aws Lambda List Layers
+        call: aws-lambda-layers.listlayers
+        with:
+          CompatibleRuntime: rest.CompatibleRuntime
+          CompatibleArchitecture: rest.CompatibleArchitecture
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2015-03-31/layers/{layername}/versions
+      name: 2015-03-31-layers-layername-versions
+      description: REST surface for 2015-03-31-layers-LayerName-versions.
+      operations:
+      - method: GET
+        name: listlayerversions
+        description: Aws Lambda List Layer Versions
+        call: aws-lambda-layers.listlayerversions
+        with:
+          CompatibleRuntime: rest.CompatibleRuntime
+          CompatibleArchitecture: rest.CompatibleArchitecture
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: publishlayerversion
+        description: Aws Lambda Publish a Layer Version
+        call: aws-lambda-layers.publishlayerversion
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/2015-03-31/layers/{layername}/versions/{versionnumber}
+      name: 2015-03-31-layers-layername-versions-versionnumber
+      description: REST surface for 2015-03-31-layers-LayerName-versions-VersionNumber.
+      operations:
+      - method: GET
+        name: getlayerversion
+        description: Aws Lambda Get a Layer Version
+        call: aws-lambda-layers.getlayerversion
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletelayerversion
+        description: Aws Lambda Delete a Layer Version
+        call: aws-lambda-layers.deletelayerversion
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: aws-lambda-layers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for AWS Lambda API — Layers. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: aws-lambda-list-layers
+      description: Aws Lambda List Layers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda-layers.listlayers
+      with:
+        CompatibleRuntime: tools.CompatibleRuntime
+        CompatibleArchitecture: tools.CompatibleArchitecture
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: aws-lambda-list-layer-versions
+      description: Aws Lambda List Layer Versions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda-layers.listlayerversions
+      with:
+        CompatibleRuntime: tools.CompatibleRuntime
+        CompatibleArchitecture: tools.CompatibleArchitecture
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: aws-lambda-publish-layer-version
+      description: Aws Lambda Publish a Layer Version
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: aws-lambda-layers.publishlayerversion
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: aws-lambda-get-layer-version
+      description: Aws Lambda Get a Layer Version
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aws-lambda-layers.getlayerversion
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: aws-lambda-delete-layer-version
+      description: Aws Lambda Delete a Layer Version
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: aws-lambda-layers.deletelayerversion
+      outputParameters:
+      - type: object
+        mapping: $.
