@@ -1,173 +1,163 @@
 # AWS Lambda (aws-lambda)
-AWS Lambda is a serverless, event-driven compute service that lets you run code for virtually any type of application or backend service without provisioning or managing servers.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/aws-lambda/refs/heads/main/apis.yml)
+AWS Lambda is a serverless, event-driven compute service that lets you run code for virtually any type of application or backend service without provisioning or managing servers. Lambda runs your code on high-availability compute infrastructure and performs all of the administration of the compute resources, including server and operating system maintenance, capacity provisioning and automatic scaling, and logging.
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/aws-lambda/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/aws-lambda/refs/heads/main/apis.yml)
 
-## Tags:
+## Scope
 
- - Compute, Event-Driven, FaaS, Functions, Serverless
+- **Type:** Index
 
 ## Timestamps
 
 - **Created:** 2024-01-15
-- **Modified:** 2026-04-18
+- **Modified:** 2026-05-19
 
 ## APIs
 
 ### AWS Lambda API
+
 The AWS Lambda REST API enables you to create, manage, and invoke Lambda functions programmatically. Supports function management, event source mappings, aliases, versions, and layer operations.
 
-**Human URL:** [https://aws.amazon.com/lambda/](https://aws.amazon.com/lambda/)
+- **Human URL:** [https://aws.amazon.com/lambda/](https://aws.amazon.com/lambda/)
+- **Base URL:** `https://lambda.{region}.amazonaws.com`
 
-#### Tags:
+#### Tags
 
- - Compute, Event-Driven, FaaS, Functions, Serverless
+- Compute
+- Event-Driven
+- FaaS
+- Functions
+- Serverless
 
 #### Properties
 
 - [Documentation](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
-- [OpenAPI](openapi/aws-lambda-api-openapi.yml)
-- [AsyncAPI](asyncapi/aws-lambda-event-triggers-asyncapi.yml)
-- [JSONSchema](json-schema/aws-lambda-function-schema.json)
-- [JSONLD](json-ld/aws-lambda-context.jsonld)
-- [APIReference](https://docs.aws.amazon.com/lambda/latest/api/welcome.html)
+- [OpenAPI](https://api.apis.guru/v2/specs/amazonaws.com/lambda/2015-03-31/openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [OpenAPI](openapi/aws-lambda-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/aws-lambda-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/aws-lambda-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [AsyncAPI](asyncapi/aws-lambda-event-triggers-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
+- [JSON Schema](json-schema/aws-lambda-function-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON-LD](json-ld/aws-lambda-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [API Reference](https://docs.aws.amazon.com/lambda/latest/api/welcome.html)
 - [Pricing](https://aws.amazon.com/lambda/pricing/)
-- [GettingStarted](https://aws.amazon.com/lambda/getting-started/)
+- [Getting Started](https://aws.amazon.com/lambda/getting-started/)
 - [SDK](https://aws.amazon.com/tools/)
 - [Console](https://console.aws.amazon.com/lambda/)
-- [CLI](https://docs.aws.amazon.com/cli/latest/reference/lambda/)
-- [CodeExamples](https://docs.aws.amazon.com/lambda/latest/dg/service_code_examples.html)
+- [Status Page](https://health.aws.amazon.com/health/status)
+- [Rate Limits](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html)
+- [Best Practices](https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html)
+- [Security](https://docs.aws.amazon.com/lambda/latest/dg/lambda-security.html)
+- [Tutorials](https://aws.amazon.com/lambda/resources/)
+- [C L I](https://docs.aws.amazon.com/cli/latest/reference/lambda/)
+- [Code Examples](https://docs.aws.amazon.com/lambda/latest/dg/service_code_examples.html)
+- [Versioning](https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html)
+- [Troubleshooting](https://docs.aws.amazon.com/lambda/latest/dg/troubleshooting-deployment.html)
 
 ### AWS Lambda Extensions API
-The Lambda Extensions API enables you to create extensions that integrate with the Lambda execution environment lifecycle.
 
-**Human URL:** [https://docs.aws.amazon.com/lambda/latest/dg/lambda-extensions.html](https://docs.aws.amazon.com/lambda/latest/dg/lambda-extensions.html)
+The Lambda Extensions API enables you to create extensions that integrate with the Lambda execution environment lifecycle. Extensions can run as companion processes alongside your function, enabling use cases such as capturing diagnostic information, sending telemetry data, and integrating with monitoring and observability tools.
 
-#### Tags:
+- **Human URL:** [https://docs.aws.amazon.com/lambda/latest/dg/lambda-extensions.html](https://docs.aws.amazon.com/lambda/latest/dg/lambda-extensions.html)
+- **Base URL:** `https://lambda.{region}.amazonaws.com`
 
- - Extensions, Monitoring, Observability, Serverless
+#### Tags
+
+- Extensions
+- Monitoring
+- Observability
+- Serverless
 
 #### Properties
 
 - [Documentation](https://docs.aws.amazon.com/lambda/latest/dg/lambda-extensions.html)
-- [APIReference](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-extensions-api.html)
+- [API Reference](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-extensions-api.html)
+- [Partners](https://docs.aws.amazon.com/lambda/latest/dg/extensions-api-partners.html)
+- [Code Examples](https://github.com/aws-samples/aws-lambda-extensions)
+- [Postman Collection](collections/aws-lambda-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/aws-lambda-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### AWS Lambda Telemetry API
-The Lambda Telemetry API lets you collect telemetry data directly from the Lambda execution environment.
 
-**Human URL:** [https://docs.aws.amazon.com/lambda/latest/dg/telemetry-api.html](https://docs.aws.amazon.com/lambda/latest/dg/telemetry-api.html)
+The Lambda Telemetry API lets you collect telemetry data directly from the Lambda execution environment. Extensions can subscribe to telemetry streams for platform telemetry, function logs, and extension logs to send data to custom destinations for monitoring and observability.
 
-#### Tags:
+- **Human URL:** [https://docs.aws.amazon.com/lambda/latest/dg/telemetry-api.html](https://docs.aws.amazon.com/lambda/latest/dg/telemetry-api.html)
+- **Base URL:** `https://lambda.{region}.amazonaws.com`
 
- - Logging, Monitoring, Observability, Serverless, Telemetry
+#### Tags
+
+- Logging
+- Monitoring
+- Observability
+- Serverless
+- Telemetry
 
 #### Properties
 
 - [Documentation](https://docs.aws.amazon.com/lambda/latest/dg/telemetry-api.html)
-- [APIReference](https://docs.aws.amazon.com/lambda/latest/dg/telemetry-api-reference.html)
+- [API Reference](https://docs.aws.amazon.com/lambda/latest/dg/telemetry-api-reference.html)
+- [Postman Collection](collections/aws-lambda-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/aws-lambda-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### AWS Lambda Runtime API
-The Lambda Runtime API enables you to use custom runtimes to run functions in any programming language.
 
-**Human URL:** [https://docs.aws.amazon.com/lambda/latest/dg/runtimes-api.html](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-api.html)
+The Lambda Runtime API enables you to use custom runtimes to run functions in any programming language. The runtime API provides an HTTP API for custom runtimes to receive invocation events from Lambda and send response data back within the Lambda execution environment.
 
-#### Tags:
+- **Human URL:** [https://docs.aws.amazon.com/lambda/latest/dg/runtimes-api.html](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-api.html)
+- **Base URL:** `https://lambda.{region}.amazonaws.com`
 
- - Custom Runtime, Functions, Runtime, Serverless
+#### Tags
+
+- Custom Runtime
+- Functions
+- Runtime
+- Serverless
 
 #### Properties
 
 - [Documentation](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html)
-- [APIReference](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-api.html)
+- [API Reference](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-api.html)
+- [Postman Collection](collections/aws-lambda-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/aws-lambda-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### AWS Lambda Logs API
-The Lambda Logs API enables extensions to subscribe to log streams generated by the Lambda platform, function code, and extensions.
 
-**Human URL:** [https://docs.aws.amazon.com/lambda/latest/dg/runtimes-logs-api.html](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-logs-api.html)
+The Lambda Logs API enables extensions to subscribe to log streams generated by the Lambda platform, function code, and extensions within the execution environment, providing access to log data for processing and forwarding.
 
-#### Tags:
+- **Human URL:** [https://docs.aws.amazon.com/lambda/latest/dg/runtimes-logs-api.html](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-logs-api.html)
+- **Base URL:** `https://lambda.{region}.amazonaws.com`
 
- - Logging, Monitoring, Serverless
+#### Tags
+
+- Logging
+- Monitoring
+- Serverless
 
 #### Properties
 
 - [Documentation](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-logs-api.html)
+- [Postman Collection](collections/aws-lambda-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/aws-lambda-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ## Common Properties
 
-- [TermsOfService](https://aws.amazon.com/service-terms/)
-- [PrivacyPolicy](https://aws.amazon.com/privacy/)
+- [Terms of Service](https://aws.amazon.com/service-terms/)
+- [Privacy Policy](https://aws.amazon.com/privacy/)
 - [Blog](https://aws.amazon.com/blogs/compute/category/compute/aws-lambda/)
 - [Compliance](https://aws.amazon.com/compliance/)
-- [FAQ](https://aws.amazon.com/lambda/faqs/)
+- [F A Q](https://aws.amazon.com/lambda/faqs/)
 - [Partners](https://aws.amazon.com/lambda/partners/)
-- [KnowledgeCenter](https://repost.aws/tags/TA5uNafDy2TpGNjidWLMSxDw/aws-lambda)
-- [ChangeLog](https://docs.aws.amazon.com/lambda/latest/dg/lambda-releases.html)
-- [GitHubRepository](https://github.com/awsdocs/aws-lambda-developer-guide)
-
-## Features
-
-| Name | Description |
-|------|-------------|
-| Serverless Compute | Run code without provisioning or managing servers, paying only for the compute time consumed. |
-| Event-Driven Execution | Automatically trigger functions from over 200 AWS services and SaaS applications via event source mappings. |
-| Auto Scaling | Automatically scale from zero to thousands of concurrent executions in response to incoming events. |
-| Function URLs | Dedicated HTTPS endpoints for Lambda functions that can be invoked directly without API Gateway. |
-| Lambda Layers | Package shared libraries, custom runtimes, and dependencies as layers reusable across multiple functions. |
-| Provisioned Concurrency | Pre-initialize function instances to reduce cold start latency for latency-sensitive workloads. |
-| SnapStart | Improve startup performance for Java functions by caching initialized snapshots of the execution environment. |
-| Lambda Extensions | Integrate monitoring, observability, and security tools directly into the Lambda execution environment. |
-| Container Image Support | Package and deploy Lambda functions as container images up to 10 GB in size. |
-| Graviton2 Support | Run functions on ARM-based AWS Graviton2 processors for better price-performance. |
-
-## Use Cases
-
-| Name | Description |
-|------|-------------|
-| Real-Time File Processing | Automatically process files uploaded to S3, such as image resizing, video transcoding, or document indexing. |
-| Real-Time Stream Processing | Process real-time streaming data from Kinesis or DynamoDB Streams for analytics, monitoring, or ETL pipelines. |
-| Web Application Backends | Build scalable API backends using Lambda with API Gateway or Function URLs for web and mobile applications. |
-| IoT Backends | Process IoT device data from AWS IoT Core for device management, telemetry analysis, and alerting. |
-| Scheduled Tasks | Run periodic tasks like database cleanup, report generation, or data synchronization using EventBridge rules. |
-| CI/CD Automation | Automate build, test, and deployment workflows by triggering Lambda functions from CodePipeline or GitHub events. |
-
-## Integrations
-
-| Name | Description |
-|------|-------------|
-| Amazon S3 | Trigger functions on object creation, deletion, or modification events in S3 buckets. |
-| Amazon API Gateway | Create RESTful and WebSocket APIs that invoke Lambda functions as backend handlers. |
-| Amazon DynamoDB | Process DynamoDB Streams events to react to table changes in real time. |
-| Amazon SQS | Poll SQS queues and invoke Lambda functions with batches of messages for asynchronous processing. |
-| Amazon SNS | Subscribe Lambda functions to SNS topics for fan-out event processing patterns. |
-| Amazon Kinesis | Process real-time streaming data from Kinesis Data Streams with configurable batch sizes and parallelization. |
-| Amazon EventBridge | Route events from AWS services, SaaS applications, and custom sources to Lambda functions based on rules. |
-| AWS Step Functions | Orchestrate Lambda functions into complex workflows with branching, error handling, and parallel execution. |
-
-## Artifacts
-
-Machine-readable API specifications organized by format.
-
-### OpenAPI
-
-- [AWS Lambda API](openapi/aws-lambda-api-openapi.yml)
-
-### AsyncAPI
-
-- [AWS Lambda Event Triggers](asyncapi/aws-lambda-event-triggers-asyncapi.yml)
-
-## Rules
-
-- [AWS Lambda Spectral Rules](rules/aws-lambda-spectral-rules.yml)
-
-## Vocabulary
-
-- [AWS Lambda Vocabulary](vocabulary/aws-lambda-vocabulary.yaml)
+- [Knowledge Center](https://repost.aws/tags/TA5uNafDy2TpGNjidWLMSxDw/aws-lambda)
+- [Changelog](https://docs.aws.amazon.com/lambda/latest/dg/lambda-releases.html)
+- [GitHub Repository](https://github.com/awsdocs/aws-lambda-developer-guide)
+- [Spectral Rules](rules/aws-lambda-spectral-rules.yml)
+- [Vocabulary](vocabulary/aws-lambda-vocabulary.yaml)
+- [Features](https://aws.amazon.com/lambda/features/)
+- [Use Cases](https://aws.amazon.com/lambda/)
+- [Integrations](https://aws.amazon.com/lambda/)
 
 ## Maintainers
 
 **FN:** Kin Lane
-
 **Email:** kin@apievangelist.com
