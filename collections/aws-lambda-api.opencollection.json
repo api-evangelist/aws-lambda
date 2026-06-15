@@ -1,0 +1,1072 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AWS Lambda API",
+    "version": "2015-03-31"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Functions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aws Lambda List Functions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions",
+            "params": [
+              {
+                "name": "MasterRegion",
+                "value": "",
+                "type": "query",
+                "description": "For Lambda@Edge functions, the AWS Region of the master function"
+              },
+              {
+                "name": "FunctionVersion",
+                "value": "",
+                "type": "query",
+                "description": "Set to ALL to include entries for all published versions"
+              },
+              {
+                "name": "Marker",
+                "value": "",
+                "type": "query",
+                "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results."
+              },
+              {
+                "name": "MaxItems",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return (1-10000)"
+              }
+            ]
+          },
+          "docs": "Returns a list of Lambda functions with the version-specific configuration of each. Set FunctionVersion to ALL to include all published versions of each function in addition to the unpublished version. The response includes the function configuration for each version along with the function ARN and name."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Create a Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Lambda function. To create a function, you need a deployment package and an execution role. The deployment package is a ZIP archive or container image that contains your function code. The execution role grants the function permission to use AWS services. You can configure the function's memory, timeout, environment variables, VPC settings, layers, and other options."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Get a Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "",
+                "type": "query",
+                "description": "A version number or alias name"
+              }
+            ]
+          },
+          "docs": "Returns information about the function or function version, with a link to download the deployment package that is valid for 10 minutes. If you specify a function version, only details specific to that version are returned. The response includes the function configuration, code location, tags, and concurrency settings."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Delete a Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "",
+                "type": "query",
+                "description": "A version number or alias name"
+              }
+            ]
+          },
+          "docs": "Deletes a Lambda function. To delete a specific function version, use the Qualifier parameter. Otherwise, all versions and aliases are deleted. To delete Lambda event source mappings that invoke a function, use DeleteEventSourceMapping."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Get Function Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/configuration",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "",
+                "type": "query",
+                "description": "A version number or alias name"
+              }
+            ]
+          },
+          "docs": "Returns the version-specific settings of a Lambda function or version. The output includes the function name, runtime, role, handler, description, code size, memory, timeout, last modified date, code SHA-256 hash, version, VPC configuration, dead-letter queue configuration, environment variables, KMS key, tracing configuration, layers, state, state reason, and last update status."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Update Function Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/configuration",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modify the version-specific settings of a Lambda function. When you update a function, Lambda provisions an instance of the function and its supporting resources. After the update completes, subsequent invocations use the new configuration. Settings include memory, timeout, runtime, handler, environment variables, VPC, layers, and more."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Update Function Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/code",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a Lambda function's code. If code signing is enabled for the function, the code package must be signed by a trusted publisher. The function's code is locked when you publish a version. You cannot modify the code of a published version, only the unpublished version."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Invoke a Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/invocations",
+            "headers": [
+              {
+                "name": "X-Amz-Invocation-Type",
+                "value": "RequestResponse"
+              },
+              {
+                "name": "X-Amz-Log-Type",
+                "value": "None"
+              },
+              {
+                "name": "X-Amz-Client-Context",
+                "value": "example_value"
+              }
+            ],
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "",
+                "type": "query",
+                "description": "A version number or alias name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invokes a Lambda function. You can invoke a function synchronously and wait for the response, or asynchronously. By default, Lambda invokes your function synchronously. To invoke a function asynchronously, set InvocationType to Event. For asynchronous invocation, Lambda adds the event to a queue and returns a success response without additional information. For a DryRun invocation type, verify parameter values and permissions without running the function."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Versions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aws Lambda List Function Versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/versions",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Marker",
+                "value": "",
+                "type": "query",
+                "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results."
+              },
+              {
+                "name": "MaxItems",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return (1-10000)"
+              }
+            ]
+          },
+          "docs": "Returns a list of versions with the version-specific configuration of each. Lambda returns up to 50 versions per call."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Publish a Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/versions",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a version from the current code and configuration of a function. Use versions to create a snapshot of your function code and configuration that does not change. Lambda does not publish a version if the function's configuration and code have not changed since the last version."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Aliases",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aws Lambda List Aliases",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/aliases",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "FunctionVersion",
+                "value": "example_value",
+                "type": "query",
+                "description": "Filter by the version that aliases point to"
+              },
+              {
+                "name": "Marker",
+                "value": "",
+                "type": "query",
+                "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results."
+              },
+              {
+                "name": "MaxItems",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return (1-10000)"
+              }
+            ]
+          },
+          "docs": "Returns a list of aliases for a Lambda function. Each alias points to a specific function version and can optionally route a percentage of traffic to a second version for canary deployments."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Create an Alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/aliases",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an alias for a Lambda function version. Use aliases to provide clients with a function identifier that you can update to invoke a different version. You can also map an alias to split invocation requests between two versions for weighted routing."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Get an Alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/aliases/:AliasName",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "AliasName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the alias"
+              }
+            ]
+          },
+          "docs": "Returns details about a Lambda function alias."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Update an Alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/aliases/:AliasName",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "AliasName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the alias"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of a Lambda function alias. You can change the function version that the alias points to, or configure routing between two versions for weighted traffic shifting."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Delete an Alias",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/aliases/:AliasName",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "AliasName",
+                "value": "",
+                "type": "path",
+                "description": "The name of the alias"
+              }
+            ]
+          },
+          "docs": "Deletes a Lambda function alias."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Event Source Mappings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aws Lambda List Event Source Mappings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/event-source-mappings",
+            "params": [
+              {
+                "name": "EventSourceArn",
+                "value": "example_value",
+                "type": "query",
+                "description": "The ARN of the event source (Amazon Kinesis stream, Amazon DynamoDB stream, Amazon SQS queue, Amazon MSK cluster, or self-managed Apache Kafka cluster)"
+              },
+              {
+                "name": "FunctionName",
+                "value": "example_value",
+                "type": "query",
+                "description": "The name, ARN, or partial ARN of the Lambda function to filter by"
+              },
+              {
+                "name": "Marker",
+                "value": "",
+                "type": "query",
+                "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results."
+              },
+              {
+                "name": "MaxItems",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return (1-10000)"
+              }
+            ]
+          },
+          "docs": "Lists event source mappings. Specify an EventSourceArn to show only event source mappings for a single event source, or a FunctionName to show mappings for a single function."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Create an Event Source Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/event-source-mappings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a mapping between an event source and a Lambda function. Lambda reads items from the event source and invokes the function. Supported event sources include Amazon Kinesis, Amazon DynamoDB Streams, Amazon SQS, Amazon MQ, Amazon MSK, self-managed Apache Kafka, and Amazon DocumentDB."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Get an Event Source Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/event-source-mappings/:UUID",
+            "params": [
+              {
+                "name": "UUID",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the event source mapping"
+              }
+            ]
+          },
+          "docs": "Returns details about an event source mapping."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Update an Event Source Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/event-source-mappings/:UUID",
+            "params": [
+              {
+                "name": "UUID",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the event source mapping"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an event source mapping. You can change the function that Lambda invokes, or pause invocation and resume later from the same location."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Delete an Event Source Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/event-source-mappings/:UUID",
+            "params": [
+              {
+                "name": "UUID",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the event source mapping"
+              }
+            ]
+          },
+          "docs": "Deletes an event source mapping. Lambda stops polling the event source and deletes the mapping."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Layers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aws Lambda List Layers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/layers",
+            "params": [
+              {
+                "name": "CompatibleRuntime",
+                "value": "nodejs18.x",
+                "type": "query",
+                "description": "Filter layers by compatible runtime"
+              },
+              {
+                "name": "CompatibleArchitecture",
+                "value": "x86_64",
+                "type": "query",
+                "description": "Filter layers by compatible instruction set architecture"
+              },
+              {
+                "name": "Marker",
+                "value": "",
+                "type": "query",
+                "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results."
+              },
+              {
+                "name": "MaxItems",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return (1-10000)"
+              }
+            ]
+          },
+          "docs": "Lists Lambda layers and shows information about the latest version of each. Specify a compatible runtime to list only layers that are compatible with that runtime. Specify a compatible architecture to include only layers that are compatible with that instruction set architecture."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda List Layer Versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/layers/:LayerName/versions",
+            "params": [
+              {
+                "name": "LayerName",
+                "value": "",
+                "type": "path",
+                "description": "The name or ARN of the layer"
+              },
+              {
+                "name": "CompatibleRuntime",
+                "value": "example_value",
+                "type": "query",
+                "description": "Filter by compatible runtime"
+              },
+              {
+                "name": "CompatibleArchitecture",
+                "value": "x86_64",
+                "type": "query",
+                "description": "Filter by compatible architecture"
+              },
+              {
+                "name": "Marker",
+                "value": "",
+                "type": "query",
+                "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results."
+              },
+              {
+                "name": "MaxItems",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return (1-10000)"
+              }
+            ]
+          },
+          "docs": "Lists the versions of an Lambda layer. Versions that have been deleted are not listed. Specify a runtime identifier to list only versions compatible with that runtime."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Publish a Layer Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/layers/:LayerName/versions",
+            "params": [
+              {
+                "name": "LayerName",
+                "value": "",
+                "type": "path",
+                "description": "The name or ARN of the layer"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Lambda layer from a ZIP archive. Each time you call PublishLayerVersion with the same layer name, a new version is created. Add layers to your function with CreateFunction or UpdateFunctionConfiguration."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Get a Layer Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/layers/:LayerName/versions/:VersionNumber",
+            "params": [
+              {
+                "name": "LayerName",
+                "value": "",
+                "type": "path",
+                "description": "The name or ARN of the layer"
+              },
+              {
+                "name": "VersionNumber",
+                "value": "",
+                "type": "path",
+                "description": "The version number"
+              }
+            ]
+          },
+          "docs": "Returns information about a version of a Lambda layer, with a link to download the layer archive that is valid for 10 minutes."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Delete a Layer Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/layers/:LayerName/versions/:VersionNumber",
+            "params": [
+              {
+                "name": "LayerName",
+                "value": "",
+                "type": "path",
+                "description": "The name or ARN of the layer"
+              },
+              {
+                "name": "VersionNumber",
+                "value": "",
+                "type": "path",
+                "description": "The version number"
+              }
+            ]
+          },
+          "docs": "Deletes a version of an Lambda layer. Deleted versions can no longer be viewed or added to functions. However, a copy of the version remains in Lambda until no functions refer to it."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Function URL",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aws Lambda Get Function Url Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2021-10-31/functions/:FunctionName/url",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "",
+                "type": "query",
+                "description": "A version number or alias name"
+              }
+            ]
+          },
+          "docs": "Returns details about a Lambda function URL, including the function URL itself, the authorization type, CORS settings, creation and modification timestamps, and the invoke mode."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Create a Function Url",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lambda.{region}.amazonaws.com/2021-10-31/functions/:FunctionName/url",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "",
+                "type": "query",
+                "description": "A version number or alias name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Lambda function URL with the specified authorization type. A function URL is a dedicated HTTP(S) endpoint that you can use to invoke your function. You can create a function URL for the $LATEST unpublished version or for any function alias."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Update a Function Url",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lambda.{region}.amazonaws.com/2021-10-31/functions/:FunctionName/url",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "",
+                "type": "query",
+                "description": "A version number or alias name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration for a Lambda function URL."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Delete a Function Url",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lambda.{region}.amazonaws.com/2021-10-31/functions/:FunctionName/url",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "",
+                "type": "query",
+                "description": "A version number or alias name"
+              }
+            ]
+          },
+          "docs": "Deletes a Lambda function URL."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Concurrency",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aws Lambda Get Reserved Concurrency",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/concurrency",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              }
+            ]
+          },
+          "docs": "Retrieves the reserved concurrency configuration for a function."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Set Reserved Concurrency",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/concurrency",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets the maximum number of simultaneous executions for a function, and reserves capacity for that concurrency level. Use ReservedConcurrentExecutions to reserve a portion of your account's concurrency for a function."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Delete Reserved Concurrency",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/concurrency",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              }
+            ]
+          },
+          "docs": "Removes a concurrency limit from a function. The function can then use unreserved account concurrency up to the account limit."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Get Provisioned Concurrency",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/provisioned-concurrency",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "example_value",
+                "type": "query",
+                "description": "The version number or alias name"
+              }
+            ]
+          },
+          "docs": "Retrieves the provisioned concurrency configuration for a function's alias or version."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Set Provisioned Concurrency",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/provisioned-concurrency",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "example_value",
+                "type": "query",
+                "description": "The version number or alias name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a provisioned concurrency configuration to a function's alias or version. Lambda pre-initializes the specified number of execution environments so they are prepared to respond immediately."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Delete Provisioned Concurrency",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/provisioned-concurrency",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "example_value",
+                "type": "query",
+                "description": "The version number or alias name"
+              }
+            ]
+          },
+          "docs": "Deletes the provisioned concurrency configuration for a function."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Default",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aws Lambda List Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/tags/:ARN",
+            "params": [
+              {
+                "name": "ARN",
+                "value": "example_value",
+                "type": "path",
+                "description": "The function's Amazon Resource Name (ARN)"
+              }
+            ]
+          },
+          "docs": "Returns a function's tags. You can also view tags with GetFunction."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Add Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/tags/:ARN",
+            "params": [
+              {
+                "name": "ARN",
+                "value": "example_value",
+                "type": "path",
+                "description": "The function's Amazon Resource Name (ARN)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds tags to a function. Tags are key-value pairs used for grouping and filtering resources."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Remove Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/tags/:ARN",
+            "params": [
+              {
+                "name": "ARN",
+                "value": "example_value",
+                "type": "path",
+                "description": "The function's Amazon Resource Name (ARN)"
+              },
+              {
+                "name": "tagKeys",
+                "value": "",
+                "type": "query",
+                "description": "List of tag keys to remove"
+              }
+            ]
+          },
+          "docs": "Removes tags from a function."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
