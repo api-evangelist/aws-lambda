@@ -45,7 +45,7 @@ apis:
         url: https://aws.amazon.com/lambda/pricing/
       - type: GettingStarted
         url: https://aws.amazon.com/lambda/getting-started/
-      - type: SDK
+      - type: SDKs
         url: https://aws.amazon.com/tools/
       - type: Console
         url: https://console.aws.amazon.com/lambda/
