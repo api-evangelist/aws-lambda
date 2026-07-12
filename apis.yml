@@ -162,6 +162,14 @@ apis:
       - type: Support
         url: https://aws.amazon.com/contact-us/
 common:
+  - type: TrustCenter
+    url: security/aws-lambda-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/aws-lambda-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/aws-lambda-domain-security.yml
+  - type: Authentication
+    url: authentication/aws-lambda-authentication.yml
   - type: TermsOfService
     url: https://aws.amazon.com/service-terms/
   - type: PrivacyPolicy

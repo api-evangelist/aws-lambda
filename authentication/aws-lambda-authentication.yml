@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/aws-lambda-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: sigv4
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: AWS Signature Version 4 authentication. Requests must be signed with valid AWS
+    credentials that have the appropriate Lambda IAM permissions.
+  sources:
+  - openapi/aws-lambda-api-openapi.yml
