@@ -162,6 +162,8 @@ apis:
       - type: Support
         url: https://aws.amazon.com/contact-us/
 common:
+  - type: AgenticAccess
+    url: agentic-access/aws-lambda-agentic-access.yml
   - type: TrustCenter
     url: security/aws-lambda-trust-center.yml
   - type: VulnerabilityDisclosure
