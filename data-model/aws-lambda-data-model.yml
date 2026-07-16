@@ -1,0 +1,76 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/aws-lambda-api-openapi.yml
+description: >-
+  Entity-relationship graph for the AWS Lambda API, derived from OpenAPI schemas
+  and id-reference fields (FunctionName/FunctionArn, LayerName, Qualifier).
+entities:
+  - name: Function
+    schema: FunctionConfiguration
+    identifiers: [FunctionName, FunctionArn]
+    note: The core resource; FunctionArn optionally carries a version/alias qualifier.
+  - name: Version
+    schema: FunctionConfiguration
+    identifiers: [Version]
+    note: Immutable numbered snapshot of a function (plus $LATEST).
+  - name: Alias
+    schema: AliasConfiguration
+    identifiers: [AliasArn, Name]
+  - name: EventSourceMapping
+    schema: EventSourceMappingConfiguration
+    identifiers: [UUID]
+  - name: Layer
+    schema: Layer
+    identifiers: [LayerName, LayerArn]
+  - name: LayerVersion
+    schema: LayerVersionSummary
+    identifiers: [LayerVersionArn, Version]
+  - name: FunctionUrlConfig
+    schema: FunctionUrlConfig
+    identifiers: [FunctionUrl, FunctionArn]
+  - name: ProvisionedConcurrencyConfig
+    schema: ProvisionedConcurrencyConfig
+    identifiers: [FunctionArn]
+relationships:
+  - from: Version
+    type: belongs_to
+    to: Function
+    via: FunctionName
+  - from: Alias
+    type: belongs_to
+    to: Function
+    via: FunctionName
+  - from: Alias
+    type: has_one
+    to: Version
+    via: FunctionVersion
+  - from: Function
+    type: has_many
+    to: Version
+    via: FunctionName
+  - from: Function
+    type: has_many
+    to: Alias
+    via: FunctionName
+  - from: Function
+    type: has_many
+    to: EventSourceMapping
+    via: FunctionName
+  - from: Function
+    type: has_one
+    to: FunctionUrlConfig
+    via: FunctionName
+  - from: Function
+    type: has_many
+    to: Layer
+    via: Layers
+    note: A function references layer versions via its Layers[] array.
+  - from: LayerVersion
+    type: belongs_to
+    to: Layer
+    via: LayerName
+  - from: ProvisionedConcurrencyConfig
+    type: belongs_to
+    to: Function
+    via: Qualifier
+    note: Qualifier targets a version or alias.

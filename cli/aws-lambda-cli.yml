@@ -1,0 +1,72 @@
+generated: '2026-06-20'
+method: searched
+source: https://docs.aws.amazon.com/cli/latest/reference/lambda/
+description: >-
+  The Lambda command surface of the first-party AWS CLI (aws lambda ...). The
+  CLI binary itself is catalogued in packages/; this artifact captures its
+  command surface. The AWS SAM CLI (sam) is a separate serverless build/deploy
+  tool that also targets Lambda.
+binary: aws
+command_group: lambda
+install:
+  - method: bundled-installer
+    detail: Official AWS CLI v2 installer (macOS .pkg / Linux zip / Windows msi).
+    url: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+  - method: pip
+    detail: pip install awscli (AWS CLI v1)
+commands:
+  functions:
+    - create-function
+    - delete-function
+    - get-function
+    - get-function-configuration
+    - list-functions
+    - update-function-code
+    - update-function-configuration
+    - invoke
+    - publish-version
+    - list-versions-by-function
+  aliases:
+    - create-alias
+    - get-alias
+    - list-aliases
+    - update-alias
+    - delete-alias
+  event_source_mappings:
+    - create-event-source-mapping
+    - get-event-source-mapping
+    - list-event-source-mappings
+    - update-event-source-mapping
+    - delete-event-source-mapping
+  layers:
+    - publish-layer-version
+    - get-layer-version
+    - list-layers
+    - list-layer-versions
+    - delete-layer-version
+  function_url:
+    - create-function-url-config
+    - get-function-url-config
+    - update-function-url-config
+    - delete-function-url-config
+  concurrency:
+    - put-function-concurrency
+    - get-function-concurrency
+    - delete-function-concurrency
+    - put-provisioned-concurrency-config
+    - get-provisioned-concurrency-config
+    - delete-provisioned-concurrency-config
+  tags:
+    - list-tags
+    - tag-resource
+    - untag-resource
+key_flows:
+  - name: Package and deploy
+    detail: aws lambda create-function / update-function-code with --zip-file or --image-uri.
+  - name: Invoke and test
+    detail: aws lambda invoke --function-name NAME --payload ... response.json
+related_tools:
+  - name: AWS SAM CLI
+    binary: sam
+    detail: Serverless Application Model CLI for building, testing (sam local), and deploying Lambda-based apps.
+    url: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli.html

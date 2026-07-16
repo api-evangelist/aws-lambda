@@ -1,0 +1,41 @@
+generated: '2026-06-20'
+method: searched
+source: https://docs.aws.amazon.com/lambda/latest/dg/lambda-releases.html
+rss: https://docs.aws.amazon.com/lambda/latest/dg/lambda-updates.rss
+description: >-
+  Recent window of the AWS Lambda Developer Guide document history (dated
+  changes). This is a docs/feature changelog; the Lambda API version (2015-03-31)
+  itself is stable and unversioned in this feed.
+scheme: dated-document-history
+current_api_version: '2015-03-31'
+entries:
+  - date: '2026-06-19'
+    highlights: New AWS managed policy AWSLambdaNetworkConnectorOperatorPolicy for elastic network interface (ENI) resources managed by the Lambda Network Connector.
+    breaking: false
+  - date: '2026-06-10'
+    highlights: AWSLambdaManagedEC2ResourceOperator managed policy updated with Amazon CloudWatch Logs permissions.
+    breaking: false
+  - date: '2026-04-30'
+    highlights: Self-managed S3 code storage — reference function and layer code directly from your own S3 bucket, removing Lambda-managed storage limits.
+    breaking: false
+  - date: '2026-04-23'
+    highlights: AWSLambdaManagedEC2ResourceOperator policy adds ec2:DescribeVpcEncryptionControls.
+    breaking: false
+  - date: '2025-12-01'
+    highlights: New AWSLambdaBasicDurableExecutionRolePolicy for Lambda durable functions.
+    breaking: false
+  - date: '2025-11-30'
+    highlights: Lambda Managed Instances (dedicated compute capacity for functions), service-linked role AWSServiceRoleForLambda, and several new/updated managed policies.
+    breaking: false
+  - date: '2025-02-20'
+    highlights: Updates to AWSLambda_ReadOnlyAccess and AWSLambda_FullAccess managed policies.
+    breaking: false
+  - date: '2024-11-22'
+    highlights: Node.js 22.x managed runtime and container base image (nodejs22.x).
+    breaking: false
+  - date: '2024-11-18'
+    highlights: SnapStart support extended to Python and .NET runtimes (python3.12, dotnet8).
+    breaking: false
+  - date: '2024-11-13'
+    highlights: Python 3.13 managed runtime and container base image.
+    breaking: false

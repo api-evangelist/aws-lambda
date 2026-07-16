@@ -1,0 +1,58 @@
+generated: '2026-06-20'
+method: searched
+source: https://aws.amazon.com/developer/tools/
+description: >-
+  First-party AWS SDK client libraries carrying the Lambda service client. The
+  AWS SDKs are official Amazon-maintained packages; each language SDK ships a
+  Lambda client generated from the same service model as the Lambda API.
+packages:
+  - language: javascript
+    registry: npm
+    name: "@aws-sdk/client-lambda"
+    url: https://www.npmjs.com/package/@aws-sdk/client-lambda
+    install: npm install @aws-sdk/client-lambda
+    official: true
+  - language: python
+    registry: pypi
+    name: boto3
+    url: https://pypi.org/project/boto3/
+    install: pip install boto3
+    official: true
+    note: Lambda client exposed via boto3.client('lambda'); low-level botocore also official.
+  - language: go
+    registry: pkg.go.dev
+    name: github.com/aws/aws-sdk-go-v2/service/lambda
+    url: https://pkg.go.dev/github.com/aws/aws-sdk-go-v2/service/lambda
+    install: go get github.com/aws/aws-sdk-go-v2/service/lambda
+    official: true
+  - language: java
+    registry: maven
+    name: software.amazon.awssdk:lambda
+    url: https://central.sonatype.com/artifact/software.amazon.awssdk/lambda
+    install: "implementation 'software.amazon.awssdk:lambda'"
+    official: true
+  - language: csharp
+    registry: nuget
+    name: AWSSDK.Lambda
+    url: https://www.nuget.org/packages/AWSSDK.Lambda
+    install: dotnet add package AWSSDK.Lambda
+    official: true
+  - language: ruby
+    registry: rubygems
+    name: aws-sdk-lambda
+    url: https://rubygems.org/gems/aws-sdk-lambda
+    install: gem install aws-sdk-lambda
+    official: true
+  - language: php
+    registry: packagist
+    name: aws/aws-sdk-php
+    url: https://packagist.org/packages/aws/aws-sdk-php
+    install: composer require aws/aws-sdk-php
+    official: true
+    note: Lambda client exposed via the monolithic AWS SDK for PHP.
+  - language: rust
+    registry: crates.io
+    name: aws-sdk-lambda
+    url: https://crates.io/crates/aws-sdk-lambda
+    install: cargo add aws-sdk-lambda
+    official: true

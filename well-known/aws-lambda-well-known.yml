@@ -1,0 +1,25 @@
+generated: '2026-06-20'
+method: searched
+source: live probes of AWS Lambda API + corporate hosts
+notes: >-
+  The regional Lambda data-plane host (lambda.{region}.amazonaws.com) requires a
+  SigV4-signed request and returns 403 to unauthenticated well-known probes.
+  The corporate aws.amazon.com host publishes an RFC 9116 security.txt.
+hosts:
+  - host: https://aws.amazon.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: aws-lambda-security.txt
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: https://lambda.us-east-1.amazonaws.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /.well-known/openid-configuration
+        status: 403
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+      - path: /.well-known/api-catalog
+        status: 403

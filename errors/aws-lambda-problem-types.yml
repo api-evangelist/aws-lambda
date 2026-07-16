@@ -1,0 +1,80 @@
+generated: '2026-06-20'
+method: searched
+source: openapi/aws-lambda-api-openapi.yml
+docs: https://docs.aws.amazon.com/lambda/latest/api/CommonErrors.html
+format: aws-json
+envelope:
+  media_type: application/json
+  fields:
+    - Type
+    - Message
+    - Code
+  note: >-
+    Lambda returns the standard AWS error envelope. The HTTP status is carried
+    on the response; the exception name appears as the error code/type. This is
+    not RFC 9457 application/problem+json.
+description: >-
+  API-level error types. The status codes are derived from the OpenAPI 4xx
+  responses (400/403/404/409/429 are declared per operation); titles and
+  remediation are enriched from the AWS Lambda API common-errors reference.
+problems:
+  - status: 400
+    code: InvalidParameterValueException
+    title: Invalid or missing parameter
+    remediation: One of the request parameters is not valid. Verify parameter values against the API reference.
+    source: openapi 400 responses
+  - status: 400
+    code: ValidationError
+    title: Input validation failed
+    remediation: The input does not meet the required format or constraints. Check required parameters and value formats.
+    source: docs CommonErrors
+  - status: 400
+    code: ThrottlingException
+    title: Request rate too high
+    remediation: Reduce request frequency; AWS SDKs retry automatically with backoff.
+    source: docs CommonErrors
+  - status: 403
+    code: AccessDeniedException
+    title: Access denied
+    remediation: Your IAM policy is missing required Lambda permissions, or code-signing validation failed.
+    source: openapi 403 responses
+  - status: 403
+    code: UnrecognizedClientException
+    title: Invalid credentials
+    remediation: The AWS access key ID provided does not exist or has expired. Use valid credentials.
+    source: docs CommonErrors
+  - status: 403
+    code: ExpiredTokenException
+    title: Security token expired
+    remediation: Request a new security token and retry.
+    source: docs CommonErrors
+  - status: 404
+    code: ResourceNotFoundException
+    title: Resource not found
+    remediation: The requested function, alias, version, layer, or mapping does not exist in this region/account.
+    source: openapi 404 responses
+  - status: 409
+    code: ResourceConflictException
+    title: Resource conflict
+    remediation: The resource already exists or is in a state that conflicts with the operation (e.g. Pending update).
+    source: openapi 409 responses
+  - status: 413
+    code: RequestEntityTooLargeException
+    title: Request entity too large
+    remediation: Reduce the size of the request body (e.g. deployment package inline limits).
+    source: docs CommonErrors
+  - status: 429
+    code: TooManyRequestsException
+    title: Too many requests
+    remediation: Request was throttled by reserved/account concurrency or API rate limits. Retry with backoff.
+    source: openapi 429 responses
+  - status: 500
+    code: ServiceException / InternalFailure
+    title: Internal service error
+    remediation: A server-side error occurred. Retry later; contact AWS Support if it persists.
+    source: docs CommonErrors
+  - status: 503
+    code: ServiceUnavailable
+    title: Service temporarily unavailable
+    remediation: The service is temporarily unavailable. Retry later.
+    source: docs CommonErrors

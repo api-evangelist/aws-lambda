@@ -1,6 +1,8 @@
-generated: '2026-07-11'
-method: derived
+generated: '2026-06-20'
+method: searched
 source: openapi/aws-lambda-api-openapi.yml
+docs: https://docs.aws.amazon.com/lambda/latest/dg/security-iam.html
+signing_docs: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_sigv.html
 summary:
   types:
   - apiKey

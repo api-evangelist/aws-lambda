@@ -1,0 +1,36 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/aws-lambda-api-openapi.yml
+description: >-
+  Cross-cutting / industry standard conformance for the AWS Lambda API, derived
+  from the OpenAPI and enriched from AWS docs. AWS Lambda uses AWS SigV4 request
+  signing rather than OAuth2/OIDC, so those standards do not apply.
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: API authenticates with AWS Signature Version 4 (SigV4), not OAuth2.
+  - id: oidc
+    conforms: false
+  - id: aws-sigv4
+    conforms: true
+    evidence: openapi securityScheme sigv4; all operations require SigV4-signed requests with IAM credentials.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors use the AWS JSON error envelope (Type/Message/Code), not application/problem+json.
+  - id: rfc9116-security-txt
+    conforms: true
+    evidence: https://aws.amazon.com/.well-known/security.txt returns 200 (RFC 9116).
+  - id: json-api
+    conforms: false
+  - id: fhir-r4
+    conforms: false
+  - id: scim2
+    conforms: false
+  - id: odata
+    conforms: false
+  - id: pagination
+    conforms: true
+    evidence: List operations use Marker request param + NextMarker response field (cursor/token pagination).
+  - id: tls1.2-plus
+    conforms: true
+    evidence: Regional endpoints and corporate hosts negotiate TLS 1.2/1.3 (see security/aws-lambda-domain-security.yml).

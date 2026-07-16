@@ -1,0 +1,40 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/aws-lambda-api-openapi.yml
+docs: https://docs.aws.amazon.com/lambda/latest/api/welcome.html
+description: >-
+  Cross-cutting request/response semantics for the AWS Lambda API, derived from
+  the OpenAPI and AWS API conventions.
+authentication:
+  style: aws-sigv4
+  detail: All requests are signed with AWS Signature Version 4 using IAM credentials; authorization is enforced by IAM policy.
+  ref: authentication/aws-lambda-authentication.yml
+pagination:
+  style: cursor
+  request_params:
+    - Marker
+    - MaxItems
+  response_fields:
+    - NextMarker
+  note: List operations (ListFunctions, ListAliases, ListLayers, ListEventSourceMappings, ...) page via Marker/NextMarker.
+versioning:
+  style: uri-path-date
+  detail: The API version 2015-03-31 is embedded in resource paths.
+  ref: lifecycle/aws-lambda-lifecycle.yml
+error_envelope:
+  media_type: application/json
+  fields: [Type, Message, Code]
+  ref: errors/aws-lambda-problem-types.yml
+concurrency_control:
+  mechanism: RevisionId
+  detail: Function and configuration mutations accept/return a RevisionId for optimistic concurrency; supplying a stale RevisionId yields a 409 ResourceConflictException.
+qualifiers:
+  detail: Many operations accept a Qualifier (version number or alias name) to target a specific function version.
+rate_limit_signaling:
+  detail: Throttling surfaces as HTTP 429 TooManyRequestsException; SDKs retry with exponential backoff. See rate-limits/aws-lambda-rate-limits.yml.
+  ref: rate-limits/aws-lambda-rate-limits.yml
+idempotency:
+  supported: false
+  note: The control-plane API does not use a client idempotency-key header; RevisionId provides optimistic-concurrency safety on updates.
+request_tracing:
+  detail: Responses carry x-amzn-RequestId (and x-amz-id-2) headers for support/tracing; AWS X-Ray provides distributed tracing for invocations.

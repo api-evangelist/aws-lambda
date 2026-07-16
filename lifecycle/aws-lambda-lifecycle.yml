@@ -1,0 +1,32 @@
+generated: '2026-06-20'
+method: searched
+source: https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html
+description: >-
+  Versioning, deprecation, runtime-lifecycle, SLA, and status posture for AWS
+  Lambda. The Lambda control-plane API is date-versioned (2015-03-31) and stable;
+  the more active lifecycle surface is managed runtime deprecation.
+versioning:
+  scheme: date
+  current: '2015-03-31'
+  docs: https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html
+  note: >-
+    The Lambda API version string (2015-03-31) is embedded in request paths and
+    has remained stable; new capabilities are added without breaking the version.
+    Function versioning (numbered function versions + aliases) is a separate,
+    per-function concept.
+runtime_lifecycle:
+  docs: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy
+  note: >-
+    Managed runtimes follow a published deprecation policy tied to upstream
+    language/OS end-of-life; deprecated runtimes move to Block Function Create
+    then Block Function Update phases.
+deprecation:
+  policy_url: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy
+  sunset_header: false
+  note: The Lambda API does not emit RFC 8594 Sunset/Deprecation headers; runtime deprecation is communicated via docs, email, and the AWS Health Dashboard.
+sla:
+  url: https://aws.amazon.com/lambda/sla/
+  uptime_target: "99.95%"
+status_page: https://health.aws.amazon.com/health/status
+changelog: https://docs.aws.amazon.com/lambda/latest/dg/lambda-releases.html
+deprecated_operations: []

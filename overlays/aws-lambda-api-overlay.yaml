@@ -1,0 +1,25 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for AWS Lambda API
+  version: 1.0.0
+extends: openapi/aws-lambda-api-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: aws-lambda
+      x-apievangelist-auth: sigv4
+      x-apievangelist-api-version: '2015-03-31'
+  - target: $.info
+    update:
+      x-apievangelist-artifacts:
+        authentication: authentication/aws-lambda-authentication.yml
+        errors: errors/aws-lambda-problem-types.yml
+        conventions: conventions/aws-lambda-conventions.yml
+        lifecycle: lifecycle/aws-lambda-lifecycle.yml
+        data_model: data-model/aws-lambda-data-model.yml
+        conformance: conformance/aws-lambda-conformance.yml
+        packages: packages/aws-lambda-packages.yml
+        mcp: mcp/aws-lambda-mcp.yml
+  - target: $.externalDocs
+    update:
+      x-apievangelist-changelog: https://docs.aws.amazon.com/lambda/latest/dg/lambda-releases.html

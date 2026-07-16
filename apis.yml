@@ -8,7 +8,7 @@ description: >-
 image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
 url: https://raw.githubusercontent.com/api-evangelist/aws-lambda/refs/heads/main/apis.yml
 created: '2024-01-15'
-modified: '2026-05-19'
+modified: '2026-06-20'
 specificationVersion: '0.19'
 type: Index
 apis:
@@ -164,6 +164,32 @@ apis:
 common:
   - type: AgenticAccess
     url: agentic-access/aws-lambda-agentic-access.yml
+  - type: Packages
+    url: packages/aws-lambda-packages.yml
+  - type: WellKnown
+    url: well-known/aws-lambda-well-known.yml
+  - type: SecurityTxt
+    url: well-known/aws-lambda-security.txt
+  - type: MCPServer
+    url: mcp/aws-lambda-mcp.yml
+  - type: LLMsTxt
+    url: llms/aws-lambda-llms.txt
+  - type: Overlay
+    url: overlays/aws-lambda-api-overlay.yaml
+  - type: Conformance
+    url: conformance/aws-lambda-conformance.yml
+  - type: ErrorCatalog
+    url: errors/aws-lambda-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/aws-lambda-lifecycle.yml
+  - type: Conventions
+    url: conventions/aws-lambda-conventions.yml
+  - type: DataModel
+    url: data-model/aws-lambda-data-model.yml
+  - type: ChangeLog
+    url: changelog/aws-lambda-changelog.yml
+  - type: CLI
+    url: cli/aws-lambda-cli.yml
   - type: TrustCenter
     url: security/aws-lambda-trust-center.yml
   - type: VulnerabilityDisclosure

@@ -1,0 +1,38 @@
+generated: '2026-06-20'
+method: searched
+status: published
+source: https://awslabs.github.io/mcp/servers/lambda-tool-mcp-server
+description: >-
+  Official AWS Labs MCP server that turns AWS Lambda functions into MCP tools.
+  It acts as a bridge between MCP clients and Lambda, letting generative-AI
+  models select and invoke Lambda functions as tools with no function code
+  changes. Tools are discovered dynamically from the caller's account rather
+  than being a fixed list; the server needs IAM permission to invoke the
+  functions it exposes.
+server:
+  name: awslabs.lambda-tool-mcp-server
+  vendor: AWS Labs
+  transport: stdio
+  install: uvx awslabs.lambda-tool-mcp-server@latest
+  registry: pypi
+  package_url: https://pypi.org/project/awslabs.lambda-tool-mcp-server/
+  repo: https://github.com/awslabs/mcp/tree/main/src/lambda-tool-mcp-server
+tool_discovery:
+  model: dynamic
+  description: >-
+    Each exposed tool corresponds to a Lambda function; the tool description is
+    sourced from the function's Lambda description property.
+  filters:
+    - FUNCTION_PREFIX
+    - FUNCTION_LIST
+    - FUNCTION_TAG_KEY
+    - FUNCTION_TAG_VALUE
+related_servers:
+  - name: run-mcp-servers-with-aws-lambda
+    description: Run existing stdio-based MCP servers inside AWS Lambda functions (Streamable HTTP via API Gateway / Lambda function URLs with SigV4, or direct Invoke).
+    repo: https://github.com/awslabs/run-model-context-protocol-servers-with-aws-lambda
+    registry: pypi
+    package_url: https://pypi.org/project/run-mcp-servers-with-aws-lambda/
+  - name: awslabs.aws-serverless-mcp-server
+    description: AWS Serverless MCP server for AI-powered serverless application development.
+    source: https://aws.amazon.com/blogs/compute/introducing-aws-serverless-mcp-server-ai-powered-development-for-modern-applications/
