@@ -1,0 +1,142 @@
+arazzo: 1.0.1
+info:
+  title: AWS Lambda Wire an Event Source to a Function
+  summary: Confirm the target function exists, create an event source mapping onto a queue or stream, and poll until Lambda actually starts polling it.
+  description: >-
+    How a Lambda function starts consuming from SQS, Kinesis, DynamoDB Streams,
+    MSK, or Amazon MQ. Creating a mapping is asynchronous and returns 202 with
+    State "Creating"; Lambda has not begun reading from the source until the
+    state reaches "Enabled", and a mapping can also settle into a failed state
+    when the execution role lacks permission on the event source. This workflow
+    verifies the function first so a typo surfaces as a clean 404 rather than a
+    half-built mapping, creates the mapping with batching and failure-handling
+    configured, and polls until the state settles. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: lambdaApi
+  url: ../openapi/aws-lambda-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: event-source-mapping-onboard
+  summary: Create an event source mapping and wait for it to reach the Enabled state.
+  description: >-
+    Confirms the target function, maps an event source ARN onto it with batch
+    size and retry behaviour set explicitly, and blocks until Lambda reports the
+    mapping is live.
+  inputs:
+    type: object
+    required:
+    - functionName
+    - eventSourceArn
+    properties:
+      functionName:
+        type: string
+        description: The name, ARN, or partial ARN of the function that consumes the events.
+      eventSourceArn:
+        type: string
+        description: The ARN of the event source (SQS queue, Kinesis stream, DynamoDB stream, MSK cluster, or DocumentDB change stream).
+      batchSize:
+        type: integer
+        description: Maximum number of records delivered to the function in a single invocation.
+      maximumBatchingWindowInSeconds:
+        type: integer
+        description: How long Lambda waits to gather a full batch before invoking with a partial one.
+      startingPosition:
+        type: string
+        description: >-
+          Where to begin reading a stream — TRIM_HORIZON for the oldest record,
+          LATEST for new records only, or AT_TIMESTAMP. Required for Kinesis,
+          DynamoDB Streams, and Kafka sources; omit for SQS.
+      maximumRetryAttempts:
+        type: integer
+        description: Retries before a stream record batch is discarded or sent on-failure.
+      bisectBatchOnFunctionError:
+        type: boolean
+        description: Split a failing batch in two and retry each half, isolating the poison record.
+      onFailureDestinationArn:
+        type: string
+        description: ARN of the SQS queue or SNS topic that receives records Lambda could not process.
+      functionResponseTypes:
+        type: array
+        description: Set to ["ReportBatchItemFailures"] to let the handler return only the records that failed.
+        items:
+          type: string
+  steps:
+  - stepId: confirmFunction
+    description: >-
+      Confirm the consuming function exists and capture its ARN before any
+      mapping is created, so a bad function name fails here rather than leaving a
+      mapping pointed at nothing.
+    operationId: getFunction
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      functionArn: $response.body#/Configuration/FunctionArn
+      state: $response.body#/Configuration/State
+      runtime: $response.body#/Configuration/Runtime
+  - stepId: createTheMapping
+    description: >-
+      Map the event source onto the function. Enabled is true so Lambda begins
+      polling as soon as the mapping is ready, and failure handling is set here
+      rather than left to defaults so a poison record cannot stall the source
+      indefinitely.
+    operationId: createEventSourceMapping
+    requestBody:
+      contentType: application/json
+      payload:
+        EventSourceArn: $inputs.eventSourceArn
+        FunctionName: $inputs.functionName
+        Enabled: true
+        BatchSize: $inputs.batchSize
+        MaximumBatchingWindowInSeconds: $inputs.maximumBatchingWindowInSeconds
+        StartingPosition: $inputs.startingPosition
+        MaximumRetryAttempts: $inputs.maximumRetryAttempts
+        BisectBatchOnFunctionError: $inputs.bisectBatchOnFunctionError
+        FunctionResponseTypes: $inputs.functionResponseTypes
+        DestinationConfig:
+          OnFailure:
+            Destination: $inputs.onFailureDestinationArn
+    successCriteria:
+    - condition: $statusCode == 202
+    outputs:
+      uuid: $response.body#/UUID
+      initialState: $response.body#/State
+      mappedFunctionArn: $response.body#/FunctionArn
+  - stepId: waitUntilEnabled
+    description: >-
+      Poll the mapping until Lambda reports State "Enabled". The create call
+      returns while the state is still "Creating", and no records are read from
+      the event source until the mapping is enabled.
+    operationId: getEventSourceMapping
+    parameters:
+    - name: UUID
+      in: path
+      value: $steps.createTheMapping.outputs.uuid
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.State == "Enabled"
+      type: jsonpath
+    onFailure:
+    - name: keepWaitingForEnabled
+      type: retry
+      retryAfter: 5
+      retryLimit: 60
+      criteria:
+      - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/State
+      stateTransitionReason: $response.body#/StateTransitionReason
+      lastProcessingResult: $response.body#/LastProcessingResult
+      batchSize: $response.body#/BatchSize
+  outputs:
+    uuid: $steps.createTheMapping.outputs.uuid
+    functionArn: $steps.confirmFunction.outputs.functionArn
+    state: $steps.waitUntilEnabled.outputs.state
+    stateTransitionReason: $steps.waitUntilEnabled.outputs.stateTransitionReason

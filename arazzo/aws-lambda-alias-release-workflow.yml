@@ -1,0 +1,145 @@
+arazzo: 1.0.1
+info:
+  title: AWS Lambda Release a Version Behind an Alias
+  summary: Publish a version, then either move an existing alias onto it or create the alias if this is the first release.
+  description: >-
+    How production traffic actually moves on Lambda. Clients invoke a stable
+    alias (e.g. "prod") rather than a version number, so a release is a change to
+    what that alias points at. This workflow publishes an immutable version,
+    probes for the alias, and branches: when the alias already exists it is moved
+    onto the new version under a RevisionId guard so a concurrent release cannot
+    be clobbered, and when the alias does not exist it is created pointing at the
+    new version. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: lambdaApi
+  url: ../openapi/aws-lambda-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: alias-release
+  summary: Publish a version and point a named alias at it, creating the alias when absent.
+  description: >-
+    Cuts an immutable version from the current code, resolves the target alias,
+    and either updates it onto the new version or creates it.
+  inputs:
+    type: object
+    required:
+    - functionName
+    - aliasName
+    properties:
+      functionName:
+        type: string
+        description: The name or ARN of the function being released.
+      aliasName:
+        type: string
+        description: The alias clients invoke (e.g. prod).
+      versionDescription:
+        type: string
+        description: Description recorded against the published version (e.g. a git SHA or release tag).
+  steps:
+  - stepId: publishTheVersion
+    description: >-
+      Cut an immutable version from the function's current code and
+      configuration. Lambda declines to publish a new version if neither the
+      code nor the configuration has changed since the last one.
+    operationId: publishVersion
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    requestBody:
+      contentType: application/json
+      payload:
+        Description: $inputs.versionDescription
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      newVersion: $response.body#/Version
+      functionArn: $response.body#/FunctionArn
+      codeSha256: $response.body#/CodeSha256
+  - stepId: resolveAlias
+    description: >-
+      Probe for the alias to decide whether this is a move or a first release. A
+      200 means an incumbent version exists and its RevisionId can be used as a
+      concurrency guard; a 404 means the alias has never existed.
+    operationId: getAlias
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    - name: AliasName
+      in: path
+      value: $inputs.aliasName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      incumbentVersion: $response.body#/FunctionVersion
+      aliasRevisionId: $response.body#/RevisionId
+    onSuccess:
+    - name: aliasExists
+      type: goto
+      stepId: moveAliasToNewVersion
+      criteria:
+      - condition: $statusCode == 200
+    onFailure:
+    - name: aliasMissing
+      type: goto
+      stepId: createAliasOutright
+      criteria:
+      - condition: $statusCode == 404
+  - stepId: moveAliasToNewVersion
+    description: >-
+      Point the existing alias at the newly published version. RevisionId is
+      passed as a guard so Lambda rejects the update if another release moved the
+      alias after it was read.
+    operationId: updateAlias
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    - name: AliasName
+      in: path
+      value: $inputs.aliasName
+    requestBody:
+      contentType: application/json
+      payload:
+        FunctionVersion: $steps.publishTheVersion.outputs.newVersion
+        Description: $inputs.versionDescription
+        RevisionId: $steps.resolveAlias.outputs.aliasRevisionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      aliasArn: $response.body#/AliasArn
+      pointsAtVersion: $response.body#/FunctionVersion
+      revisionId: $response.body#/RevisionId
+    onSuccess:
+    - name: released
+      type: end
+  - stepId: createAliasOutright
+    description: >-
+      Create the alias pointing at the new version. This is the first release for
+      this alias, so there is no incumbent version and no RevisionId to guard
+      against.
+    operationId: createAlias
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.aliasName
+        FunctionVersion: $steps.publishTheVersion.outputs.newVersion
+        Description: $inputs.versionDescription
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      aliasArn: $response.body#/AliasArn
+      pointsAtVersion: $response.body#/FunctionVersion
+      revisionId: $response.body#/RevisionId
+  outputs:
+    newVersion: $steps.publishTheVersion.outputs.newVersion
+    previousVersion: $steps.resolveAlias.outputs.incumbentVersion
+    movedAliasArn: $steps.moveAliasToNewVersion.outputs.aliasArn
+    createdAliasArn: $steps.createAliasOutright.outputs.aliasArn

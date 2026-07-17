@@ -1,0 +1,157 @@
+arazzo: 1.0.1
+info:
+  title: AWS Lambda Ship New Code and Cut an Immutable Version
+  summary: Upload new function code, wait for the update to settle, smoke-test $LATEST, and publish an immutable version guarded by the code hash.
+  description: >-
+    The core Lambda release step. Updating code is asynchronous: the API accepts
+    the new package immediately while LastUpdateStatus is "InProgress", and
+    publishing a version or invoking before the update settles either fails or
+    silently snapshots the old code. This workflow uploads the package, polls
+    LastUpdateStatus until "Successful", smoke-tests the unpublished $LATEST,
+    and then publishes a version passing the CodeSha256 returned by the update
+    so Lambda refuses to cut the version if anything else changed the code in
+    the meantime. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: lambdaApi
+  url: ../openapi/aws-lambda-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: update-code-publish-version
+  summary: Update function code, verify it, and publish a hash-guarded immutable version.
+  description: >-
+    Pushes a new deployment package to the unpublished $LATEST version, waits
+    for the update to complete, invokes it once as a smoke test, and publishes a
+    numbered version pinned to the exact code hash that was tested.
+  inputs:
+    type: object
+    required:
+    - functionName
+    - s3Bucket
+    - s3Key
+    properties:
+      functionName:
+        type: string
+        description: The name or ARN of the function to update.
+      s3Bucket:
+        type: string
+        description: The S3 bucket holding the new deployment package ZIP.
+      s3Key:
+        type: string
+        description: The S3 key of the new deployment package ZIP.
+      s3ObjectVersion:
+        type: string
+        description: Optional S3 object version of the deployment package, when the bucket is versioned.
+      versionDescription:
+        type: string
+        description: Description recorded against the published version (e.g. a git SHA or release tag).
+      smokeTestPayload:
+        type: object
+        description: The JSON event used to smoke-test the new code before a version is cut.
+  steps:
+  - stepId: uploadNewCode
+    description: >-
+      Replace the code of the unpublished $LATEST version with the new package.
+      Publish is false because the version is only cut after the smoke test
+      passes, and DryRun is false so the code is actually written.
+    operationId: updateFunctionCode
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    requestBody:
+      contentType: application/json
+      payload:
+        S3Bucket: $inputs.s3Bucket
+        S3Key: $inputs.s3Key
+        S3ObjectVersion: $inputs.s3ObjectVersion
+        Publish: false
+        DryRun: false
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      codeSha256: $response.body#/CodeSha256
+      revisionId: $response.body#/RevisionId
+      lastUpdateStatus: $response.body#/LastUpdateStatus
+  - stepId: waitForUpdate
+    description: >-
+      Poll the configuration until LastUpdateStatus reports "Successful". Until
+      then Lambda is still provisioning the new code and a published version
+      would snapshot the previous package.
+    operationId: getFunctionConfiguration
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.LastUpdateStatus == "Successful"
+      type: jsonpath
+    onFailure:
+    - name: keepWaitingForUpdate
+      type: retry
+      retryAfter: 5
+      retryLimit: 60
+      criteria:
+      - condition: $statusCode == 200
+    outputs:
+      lastUpdateStatus: $response.body#/LastUpdateStatus
+      lastUpdateStatusReason: $response.body#/LastUpdateStatusReason
+      settledCodeSha256: $response.body#/CodeSha256
+      revisionId: $response.body#/RevisionId
+  - stepId: smokeTest
+    description: >-
+      Invoke the unpublished $LATEST version synchronously to confirm the new
+      code actually runs before it is frozen into a version. Qualifier is
+      deliberately omitted: with no qualifier Lambda invokes $LATEST, which is
+      exactly the code that was just uploaded.
+    operationId: invoke
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    - name: X-Amz-Invocation-Type
+      in: header
+      value: RequestResponse
+    - name: X-Amz-Log-Type
+      in: header
+      value: Tail
+    requestBody:
+      contentType: application/json
+      payload: $inputs.smokeTestPayload
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      result: $response.body
+      functionError: $response.header.X-Amz-Function-Error
+      logTail: $response.header.X-Amz-Log-Result
+  - stepId: publishTheVersion
+    description: >-
+      Publish an immutable version. CodeSha256 is passed as a guard: Lambda
+      publishes only if the current code hash still matches the package that was
+      just uploaded and tested, so a concurrent deploy cannot be snapshotted by
+      accident.
+    operationId: publishVersion
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    requestBody:
+      contentType: application/json
+      payload:
+        CodeSha256: $steps.uploadNewCode.outputs.codeSha256
+        Description: $inputs.versionDescription
+        RevisionId: $steps.waitForUpdate.outputs.revisionId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      version: $response.body#/Version
+      functionArn: $response.body#/FunctionArn
+      publishedCodeSha256: $response.body#/CodeSha256
+  outputs:
+    version: $steps.publishTheVersion.outputs.version
+    functionArn: $steps.publishTheVersion.outputs.functionArn
+    codeSha256: $steps.publishTheVersion.outputs.publishedCodeSha256
+    smokeTestError: $steps.smokeTest.outputs.functionError

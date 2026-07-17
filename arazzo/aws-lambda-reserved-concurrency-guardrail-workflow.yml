@@ -1,0 +1,89 @@
+arazzo: 1.0.1
+info:
+  title: AWS Lambda Cap a Function with Reserved Concurrency
+  summary: Read a function's current concurrency reservation, set a ceiling on its simultaneous executions, and confirm the value Lambda stored.
+  description: >-
+    Reserved concurrency does two jobs at once, which is why it is worth setting
+    deliberately. It guarantees a function can always reach the reserved level,
+    and it caps that function so it can never consume more than its share of the
+    account's regional concurrency pool and starve every other function in the
+    account. It is the standard guardrail for a function that fans out onto a
+    limited downstream resource such as a relational database. This workflow
+    reads the existing reservation, applies the new ceiling, and reads it back.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: lambdaApi
+  url: ../openapi/aws-lambda-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: reserved-concurrency-guardrail
+  summary: Set and verify the maximum simultaneous executions reserved for a function.
+  description: >-
+    Captures the prior reservation so the change is auditable and reversible,
+    applies the new limit, and verifies the stored value.
+  inputs:
+    type: object
+    required:
+    - functionName
+    - reservedConcurrentExecutions
+    properties:
+      functionName:
+        type: string
+        description: The name or ARN of the function to cap.
+      reservedConcurrentExecutions:
+        type: integer
+        description: >-
+          Maximum simultaneous executions for this function. Setting 0 stops the
+          function from being invoked at all, which is the standard way to
+          quarantine a misbehaving function without deleting it.
+  steps:
+  - stepId: readCurrentReservation
+    description: >-
+      Read the existing reservation before changing it, so the prior value is
+      captured for audit and rollback. A function with no reservation returns no
+      ReservedConcurrentExecutions value and draws from the shared account pool.
+    operationId: getReservedConcurrency
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      previousReservation: $response.body#/ReservedConcurrentExecutions
+  - stepId: applyReservation
+    description: >-
+      Set the ceiling. This carves the reserved amount out of the account's
+      regional concurrency pool, so the capacity is no longer available to any
+      other function in the account.
+    operationId: putFunctionConcurrency
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    requestBody:
+      contentType: application/json
+      payload:
+        ReservedConcurrentExecutions: $inputs.reservedConcurrentExecutions
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      appliedReservation: $response.body#/ReservedConcurrentExecutions
+  - stepId: verifyReservation
+    description: >-
+      Read the reservation back to confirm the ceiling Lambda actually stored
+      matches what was requested.
+    operationId: getReservedConcurrency
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      verifiedReservation: $response.body#/ReservedConcurrentExecutions
+  outputs:
+    previousReservation: $steps.readCurrentReservation.outputs.previousReservation
+    reservedConcurrentExecutions: $steps.verifyReservation.outputs.verifiedReservation

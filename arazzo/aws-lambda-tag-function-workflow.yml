@@ -1,0 +1,91 @@
+arazzo: 1.0.1
+info:
+  title: AWS Lambda Tag a Function for Cost Allocation
+  summary: Resolve a function name to its ARN, apply cost-allocation and ownership tags, and read the tags back to confirm the merge.
+  description: >-
+    Tagging is how Lambda spend is attributed to a team, environment, or cost
+    center in AWS Cost Explorer, and the tagging calls are the awkward corner of
+    this API: they are keyed by the function's full ARN rather than its name, so
+    a plain function name cannot be tagged directly. This workflow resolves the
+    name to an ARN first, applies the tags, and reads them back. Tagging merges
+    rather than replaces, so keys not mentioned survive untouched — which is why
+    the read-back matters when several pipelines tag the same function. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: lambdaApi
+  url: ../openapi/aws-lambda-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: tag-function
+  summary: Resolve a function's ARN, apply tags to it, and verify the resulting tag set.
+  description: >-
+    Looks up the function to obtain the ARN the tagging endpoints require,
+    applies a set of key-value tags, and lists the tags afterwards to confirm the
+    merged result.
+  inputs:
+    type: object
+    required:
+    - functionName
+    - tags
+    properties:
+      functionName:
+        type: string
+        description: The name or partial ARN of the function to tag.
+      tags:
+        type: object
+        description: >-
+          Key-value pairs to apply (e.g. {"Environment":"production",
+          "CostCenter":"platform","Owner":"payments-team"}). Existing keys not
+          listed here are left in place.
+  steps:
+  - stepId: resolveFunctionArn
+    description: >-
+      Look up the function to obtain its full ARN. The tag endpoints are keyed by
+      ARN, not by function name, so this lookup is a hard requirement rather than
+      a convenience. The response also carries the tags already on the function.
+    operationId: getFunction
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      functionArn: $response.body#/Configuration/FunctionArn
+      existingTags: $response.body#/Tags
+  - stepId: applyTags
+    description: >-
+      Apply the tags to the resolved ARN. The call merges: keys present are set
+      or overwritten, and keys absent from this payload are left alone. It
+      returns 204 with no body, which is why the tag set has to be read back to
+      be observed.
+    operationId: tagResource
+    parameters:
+    - name: ARN
+      in: path
+      value: $steps.resolveFunctionArn.outputs.functionArn
+    requestBody:
+      contentType: application/json
+      payload:
+        Tags: $inputs.tags
+    successCriteria:
+    - condition: $statusCode == 204
+  - stepId: verifyTags
+    description: >-
+      List the tags on the function to confirm the merged result, showing both
+      the newly applied keys and any pre-existing keys that survived.
+    operationId: listTags
+    parameters:
+    - name: ARN
+      in: path
+      value: $steps.resolveFunctionArn.outputs.functionArn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tags: $response.body#/Tags
+  outputs:
+    functionArn: $steps.resolveFunctionArn.outputs.functionArn
+    previousTags: $steps.resolveFunctionArn.outputs.existingTags
+    tags: $steps.verifyTags.outputs.tags

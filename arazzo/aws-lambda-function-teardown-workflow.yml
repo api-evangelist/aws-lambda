@@ -1,0 +1,129 @@
+arazzo: 1.0.1
+info:
+  title: AWS Lambda Tear a Function Down in Dependency Order
+  summary: Detach the event sources and the public URL that outlive a function, then delete the function and all its versions and aliases.
+  description: >-
+    Deleting a Lambda function does not clean up after itself in the way most
+    people assume. Deleting the function removes all of its versions and aliases,
+    but event source mappings are separate resources that survive it: an orphaned
+    mapping keeps polling the queue or stream and reports failures against a
+    function that no longer exists. This workflow finds the mappings attached to
+    the function, deletes one, removes the function URL so nothing on the public
+    internet outlives the function either, and then deletes the function itself.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: lambdaApi
+  url: ../openapi/aws-lambda-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: function-teardown
+  summary: Remove a function's event source mapping and URL, then delete the function.
+  description: >-
+    Confirms the function, enumerates the event source mappings that would
+    otherwise be orphaned, deletes the first of them and the function URL, and
+    finally deletes the function together with its versions and aliases. Run once
+    per attached mapping when a function consumes from more than one source.
+  inputs:
+    type: object
+    required:
+    - functionName
+    properties:
+      functionName:
+        type: string
+        description: The name or ARN of the function to tear down.
+  steps:
+  - stepId: confirmFunction
+    description: >-
+      Confirm the function exists and capture its ARN before anything is deleted,
+      so a mistyped name fails before it can detach resources belonging to some
+      other function.
+    operationId: getFunction
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      functionArn: $response.body#/Configuration/FunctionArn
+      state: $response.body#/Configuration/State
+  - stepId: findEventSourceMappings
+    description: >-
+      List the event source mappings pointed at this function. These are
+      independent resources that survive the function's deletion, so they must be
+      enumerated before it disappears and their UUIDs become hard to recover.
+    operationId: listEventSourceMappings
+    parameters:
+    - name: FunctionName
+      in: query
+      value: $inputs.functionName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      mappings: $response.body#/EventSourceMappings
+      firstMappingUuid: $response.body#/EventSourceMappings/0/UUID
+    onSuccess:
+    - name: hasMappings
+      type: goto
+      stepId: deleteFirstMapping
+      criteria:
+      - context: $response.body
+        condition: $.EventSourceMappings.length > 0
+        type: jsonpath
+    - name: noMappings
+      type: goto
+      stepId: deleteFunctionUrl
+      criteria:
+      - context: $response.body
+        condition: $.EventSourceMappings.length == 0
+        type: jsonpath
+  - stepId: deleteFirstMapping
+    description: >-
+      Delete the mapping so Lambda stops polling the event source. Deletion is
+      asynchronous and returns 202 while the mapping drains in-flight records.
+    operationId: deleteEventSourceMapping
+    parameters:
+    - name: UUID
+      in: path
+      value: $steps.findEventSourceMappings.outputs.firstMappingUuid
+    successCriteria:
+    - condition: $statusCode == 202
+    outputs:
+      deletedMappingUuid: $response.body#/UUID
+      deletionState: $response.body#/State
+  - stepId: deleteFunctionUrl
+    description: >-
+      Remove the public HTTPS endpoint. A function with no URL configured returns
+      404 here, which is a successful outcome for a teardown, so the flow
+      continues to the deletion either way.
+    operationId: deleteFunctionUrlConfig
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    successCriteria:
+    - condition: $statusCode == 204
+    onFailure:
+    - name: noUrlConfigured
+      type: goto
+      stepId: deleteTheFunction
+      criteria:
+      - condition: $statusCode == 404
+  - stepId: deleteTheFunction
+    description: >-
+      Delete the function itself. Qualifier is deliberately omitted so that every
+      version and alias is removed rather than a single version, leaving nothing
+      behind.
+    operationId: deleteFunction
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    successCriteria:
+    - condition: $statusCode == 204
+  outputs:
+    functionArn: $steps.confirmFunction.outputs.functionArn
+    detachedMappings: $steps.findEventSourceMappings.outputs.mappings
+    deletedMappingUuid: $steps.deleteFirstMapping.outputs.deletedMappingUuid

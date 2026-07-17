@@ -1,0 +1,127 @@
+arazzo: 1.0.1
+info:
+  title: AWS Lambda Find a Compatible Layer Version to Attach
+  summary: Filter the account's layers by runtime and architecture, list the versions of a chosen layer, and resolve one to the exact ARN a function needs.
+  description: >-
+    The lookup that has to happen before a layer can be attached to a function.
+    Functions reference a layer by a fully qualified version ARN, not by layer
+    name, so a caller who knows only "we have a shared logging layer" cannot act
+    on that. This read-only flow narrows the account's layers to those compatible
+    with a given runtime and architecture, lists the versions of the chosen
+    layer, and reads one back to yield the LayerVersionArn plus the licence and
+    size details worth checking before taking a dependency. Lambda caps a
+    function at five layers and 250 MB unzipped across all of them, which is why
+    the size is worth knowing up front. Every step spells out its request inline
+    so the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: lambdaApi
+  url: ../openapi/aws-lambda-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: layer-discovery
+  summary: Resolve a compatible layer to a specific version ARN a function can reference.
+  description: >-
+    Lists layers compatible with a runtime and architecture, enumerates the
+    versions of a named layer, and resolves a specific version to its ARN and
+    content metadata.
+  inputs:
+    type: object
+    required:
+    - layerName
+    - versionNumber
+    properties:
+      layerName:
+        type: string
+        description: The name or ARN of the layer to resolve to a version ARN.
+      versionNumber:
+        type: integer
+        description: The version number of the layer to resolve.
+      compatibleRuntime:
+        type: string
+        description: >-
+          Only list layers and versions compatible with this runtime (e.g.
+          nodejs20.x, python3.12). Lambda rejects attaching an incompatible
+          layer.
+      compatibleArchitecture:
+        type: string
+        description: Only list layers and versions compatible with this architecture (x86_64 or arm64).
+      maxItems:
+        type: integer
+        description: Maximum number of items returned per list call (1-10000).
+  steps:
+  - stepId: findCompatibleLayers
+    description: >-
+      List the account's layers narrowed to those compatible with the target
+      runtime and architecture, showing the latest version of each. Filtering
+      here rather than after the fact avoids surfacing layers the function could
+      never load.
+    operationId: listLayers
+    parameters:
+    - name: CompatibleRuntime
+      in: query
+      value: $inputs.compatibleRuntime
+    - name: CompatibleArchitecture
+      in: query
+      value: $inputs.compatibleArchitecture
+    - name: MaxItems
+      in: query
+      value: $inputs.maxItems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      layers: $response.body#/Layers
+      nextMarker: $response.body#/NextMarker
+  - stepId: listVersionsOfLayer
+    description: >-
+      List the versions of the chosen layer. Deleted versions are not returned,
+      so anything listed here can still be attached to a function.
+    operationId: listLayerVersions
+    parameters:
+    - name: LayerName
+      in: path
+      value: $inputs.layerName
+    - name: CompatibleRuntime
+      in: query
+      value: $inputs.compatibleRuntime
+    - name: CompatibleArchitecture
+      in: query
+      value: $inputs.compatibleArchitecture
+    - name: MaxItems
+      in: query
+      value: $inputs.maxItems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      layerVersions: $response.body#/LayerVersions
+      nextMarker: $response.body#/NextMarker
+  - stepId: resolveVersionArn
+    description: >-
+      Read the specific layer version to obtain the LayerVersionArn a function's
+      configuration must reference, along with the code size and licence terms
+      worth reviewing before depending on it.
+    operationId: getLayerVersion
+    parameters:
+    - name: LayerName
+      in: path
+      value: $inputs.layerName
+    - name: VersionNumber
+      in: path
+      value: $inputs.versionNumber
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      layerVersionArn: $response.body#/LayerVersionArn
+      layerArn: $response.body#/LayerArn
+      version: $response.body#/Version
+      compatibleRuntimes: $response.body#/CompatibleRuntimes
+      compatibleArchitectures: $response.body#/CompatibleArchitectures
+      licenseInfo: $response.body#/LicenseInfo
+      codeSize: $response.body#/Content/CodeSize
+      codeSha256: $response.body#/Content/CodeSha256
+  outputs:
+    compatibleLayers: $steps.findCompatibleLayers.outputs.layers
+    layerVersions: $steps.listVersionsOfLayer.outputs.layerVersions
+    layerVersionArn: $steps.resolveVersionArn.outputs.layerVersionArn
+    codeSize: $steps.resolveVersionArn.outputs.codeSize

@@ -1,0 +1,160 @@
+arazzo: 1.0.1
+info:
+  title: AWS Lambda Publish a Layer Version and Attach It to a Function
+  summary: Publish a shared dependency layer from S3, verify the version, attach it to a function, and wait for the configuration update to settle.
+  description: >-
+    How shared dependencies reach a Lambda function. Layers package libraries or
+    a custom runtime once and are attached to many functions, and every call to
+    publish creates a brand new immutable version rather than mutating the last
+    one. This workflow publishes the layer version, reads it back to confirm the
+    runtime compatibility Lambda actually recorded, attaches the resulting
+    version ARN to the target function, and polls until LastUpdateStatus reports
+    the configuration change is live. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: lambdaApi
+  url: ../openapi/aws-lambda-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: publish-layer-and-attach
+  summary: Publish a new layer version and wire it into a function's configuration.
+  description: >-
+    Creates a new immutable version of a layer from an S3 archive, verifies it,
+    then updates the function to reference that exact layer version ARN and
+    waits for the update to complete.
+  inputs:
+    type: object
+    required:
+    - layerName
+    - functionName
+    - s3Bucket
+    - s3Key
+    - compatibleRuntimes
+    properties:
+      layerName:
+        type: string
+        description: The name of the layer to publish a new version of.
+      functionName:
+        type: string
+        description: The name or ARN of the function the layer is attached to.
+      s3Bucket:
+        type: string
+        description: The S3 bucket holding the layer archive ZIP.
+      s3Key:
+        type: string
+        description: The S3 key of the layer archive ZIP.
+      compatibleRuntimes:
+        type: array
+        description: Runtimes this layer supports (e.g. ["nodejs20.x"]). Lambda rejects attaching a layer to an incompatible runtime.
+        items:
+          type: string
+      compatibleArchitectures:
+        type: array
+        description: Instruction set architectures this layer supports (x86_64 and/or arm64).
+        items:
+          type: string
+      layerDescription:
+        type: string
+        description: Description recorded against the published layer version.
+      licenseInfo:
+        type: string
+        description: The layer's software license (an SPDX identifier, a URL, or the full text).
+  steps:
+  - stepId: publishTheLayerVersion
+    description: >-
+      Publish a new immutable version of the layer from the staged S3 archive.
+      The version number increments on every call; existing versions are never
+      overwritten, so functions pinned to an older version are unaffected.
+    operationId: publishLayerVersion
+    parameters:
+    - name: LayerName
+      in: path
+      value: $inputs.layerName
+    requestBody:
+      contentType: application/json
+      payload:
+        Description: $inputs.layerDescription
+        Content:
+          S3Bucket: $inputs.s3Bucket
+          S3Key: $inputs.s3Key
+        CompatibleRuntimes: $inputs.compatibleRuntimes
+        CompatibleArchitectures: $inputs.compatibleArchitectures
+        LicenseInfo: $inputs.licenseInfo
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      layerVersionArn: $response.body#/LayerVersionArn
+      layerArn: $response.body#/LayerArn
+      version: $response.body#/Version
+      codeSha256: $response.body#/Content/CodeSha256
+  - stepId: verifyLayerVersion
+    description: >-
+      Read the published version back to confirm the archive landed and to see
+      the runtime compatibility Lambda recorded, before any function is pointed
+      at it.
+    operationId: getLayerVersion
+    parameters:
+    - name: LayerName
+      in: path
+      value: $inputs.layerName
+    - name: VersionNumber
+      in: path
+      value: $steps.publishTheLayerVersion.outputs.version
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      verifiedArn: $response.body#/LayerVersionArn
+      compatibleRuntimes: $response.body#/CompatibleRuntimes
+      codeSize: $response.body#/Content/CodeSize
+  - stepId: attachLayerToFunction
+    description: >-
+      Update the function to reference the new layer version ARN. The Layers
+      list is replaced wholesale rather than appended to, so the caller supplies
+      the full intended set through this single new ARN.
+    operationId: updateFunctionConfiguration
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    requestBody:
+      contentType: application/json
+      payload:
+        Layers:
+        - $steps.publishTheLayerVersion.outputs.layerVersionArn
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      lastUpdateStatus: $response.body#/LastUpdateStatus
+      revisionId: $response.body#/RevisionId
+  - stepId: waitForConfigUpdate
+    description: >-
+      Poll until LastUpdateStatus reports "Successful". Until then the function
+      is still being provisioned with the new layer and invocations continue to
+      use the previous configuration.
+    operationId: getFunctionConfiguration
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.LastUpdateStatus == "Successful"
+      type: jsonpath
+    onFailure:
+    - name: keepWaitingForUpdate
+      type: retry
+      retryAfter: 5
+      retryLimit: 60
+      criteria:
+      - condition: $statusCode == 200
+    outputs:
+      lastUpdateStatus: $response.body#/LastUpdateStatus
+      lastUpdateStatusReason: $response.body#/LastUpdateStatusReason
+      attachedLayers: $response.body#/Layers
+  outputs:
+    layerVersionArn: $steps.publishTheLayerVersion.outputs.layerVersionArn
+    layerVersion: $steps.publishTheLayerVersion.outputs.version
+    attachedLayers: $steps.waitForConfigUpdate.outputs.attachedLayers

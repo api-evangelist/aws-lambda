@@ -1,0 +1,147 @@
+arazzo: 1.0.1
+info:
+  title: AWS Lambda Warm a Release with Provisioned Concurrency
+  summary: Publish a version, point an alias at it, allocate provisioned concurrency to that alias, and wait until the environments are actually READY.
+  description: >-
+    How latency-sensitive Lambda functions escape cold starts. Provisioned
+    concurrency pre-initializes execution environments, but it cannot be attached
+    to the unpublished $LATEST version — it requires a published version or an
+    alias — and allocation is asynchronous, reporting Status "IN_PROGRESS" while
+    Lambda spins the environments up. Traffic sent during that window still cold
+    starts, which is exactly what the feature was bought to avoid. This workflow
+    publishes a version, binds an alias to it, requests the allocation against
+    the alias, and polls until Status reaches "READY". Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: lambdaApi
+  url: ../openapi/aws-lambda-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provisioned-concurrency-warmup
+  summary: Publish a version, alias it, and allocate provisioned concurrency until it reports READY.
+  description: >-
+    Cuts a version, creates the alias that carries provisioned capacity, requests
+    the allocation, and blocks until the pre-initialized environments are
+    available.
+  inputs:
+    type: object
+    required:
+    - functionName
+    - aliasName
+    - provisionedConcurrentExecutions
+    properties:
+      functionName:
+        type: string
+        description: The name or ARN of the function to warm.
+      aliasName:
+        type: string
+        description: The alias that will carry the provisioned capacity (e.g. warm or prod).
+      provisionedConcurrentExecutions:
+        type: integer
+        description: >-
+          Number of execution environments to pre-initialize. Must be at least 1
+          and counts against the account's concurrency limit for the region.
+      versionDescription:
+        type: string
+        description: Description recorded against the published version (e.g. a git SHA or release tag).
+  steps:
+  - stepId: publishTheVersion
+    description: >-
+      Cut an immutable version. Provisioned concurrency cannot target $LATEST,
+      so a published version is a precondition rather than an optimization.
+    operationId: publishVersion
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    requestBody:
+      contentType: application/json
+      payload:
+        Description: $inputs.versionDescription
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      newVersion: $response.body#/Version
+      functionArn: $response.body#/FunctionArn
+  - stepId: aliasTheVersion
+    description: >-
+      Create the alias that carries the warm capacity. Allocating against an
+      alias rather than a bare version number means the next release can move the
+      alias without clients having to learn a new qualifier.
+    operationId: createAlias
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    requestBody:
+      contentType: application/json
+      payload:
+        Name: $inputs.aliasName
+        FunctionVersion: $steps.publishTheVersion.outputs.newVersion
+        Description: $inputs.versionDescription
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      aliasArn: $response.body#/AliasArn
+      aliasName: $response.body#/Name
+      pointsAtVersion: $response.body#/FunctionVersion
+  - stepId: allocateWarmCapacity
+    description: >-
+      Request provisioned concurrency against the alias. The call returns as soon
+      as the request is accepted; the environments are not yet warm at this
+      point.
+    operationId: putProvisionedConcurrencyConfig
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    - name: Qualifier
+      in: query
+      value: $steps.aliasTheVersion.outputs.aliasName
+    requestBody:
+      contentType: application/json
+      payload:
+        ProvisionedConcurrentExecutions: $inputs.provisionedConcurrentExecutions
+    successCriteria:
+    - condition: $statusCode == 202
+    outputs:
+      requested: $response.body#/RequestedProvisionedConcurrentExecutions
+      status: $response.body#/Status
+  - stepId: waitUntilReady
+    description: >-
+      Poll until Status reports "READY". While it reads "IN_PROGRESS" Lambda is
+      still initializing environments and invocations continue to cold start;
+      StatusReason carries the explanation when allocation fails, typically an
+      account concurrency limit.
+    operationId: getProvisionedConcurrencyConfig
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    - name: Qualifier
+      in: query
+      value: $steps.aliasTheVersion.outputs.aliasName
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.Status == "READY"
+      type: jsonpath
+    onFailure:
+    - name: keepWaitingForReady
+      type: retry
+      retryAfter: 10
+      retryLimit: 60
+      criteria:
+      - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/Status
+      statusReason: $response.body#/StatusReason
+      available: $response.body#/AvailableProvisionedConcurrentExecutions
+      allocated: $response.body#/AllocatedProvisionedConcurrentExecutions
+  outputs:
+    version: $steps.publishTheVersion.outputs.newVersion
+    aliasArn: $steps.aliasTheVersion.outputs.aliasArn
+    status: $steps.waitUntilReady.outputs.status
+    available: $steps.waitUntilReady.outputs.available

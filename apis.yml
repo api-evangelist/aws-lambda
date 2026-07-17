@@ -220,6 +220,45 @@ common:
     url: rules/aws-lambda-spectral-rules.yml
   - type: Vocabulary
     url: vocabulary/aws-lambda-vocabulary.yaml
+  - type: Arazzo
+    url: arazzo/aws-lambda-deploy-function-workflow.yml
+    name: AWS Lambda Deploy a Function and Verify It Runs
+  - type: Arazzo
+    url: arazzo/aws-lambda-update-code-publish-version-workflow.yml
+    name: AWS Lambda Ship New Code and Cut an Immutable Version
+  - type: Arazzo
+    url: arazzo/aws-lambda-alias-release-workflow.yml
+    name: AWS Lambda Release a Version Behind an Alias
+  - type: Arazzo
+    url: arazzo/aws-lambda-canary-traffic-shift-workflow.yml
+    name: AWS Lambda Shift Canary Traffic Across Two Versions
+  - type: Arazzo
+    url: arazzo/aws-lambda-publish-layer-attach-workflow.yml
+    name: AWS Lambda Publish a Layer Version and Attach It to a Function
+  - type: Arazzo
+    url: arazzo/aws-lambda-layer-discovery-workflow.yml
+    name: AWS Lambda Find a Compatible Layer Version to Attach
+  - type: Arazzo
+    url: arazzo/aws-lambda-event-source-mapping-onboard-workflow.yml
+    name: AWS Lambda Wire an Event Source to a Function
+  - type: Arazzo
+    url: arazzo/aws-lambda-function-url-expose-workflow.yml
+    name: AWS Lambda Expose a Function Over an HTTPS Function URL
+  - type: Arazzo
+    url: arazzo/aws-lambda-provisioned-concurrency-warmup-workflow.yml
+    name: AWS Lambda Warm a Release with Provisioned Concurrency
+  - type: Arazzo
+    url: arazzo/aws-lambda-reserved-concurrency-guardrail-workflow.yml
+    name: AWS Lambda Cap a Function with Reserved Concurrency
+  - type: Arazzo
+    url: arazzo/aws-lambda-tag-function-workflow.yml
+    name: AWS Lambda Tag a Function for Cost Allocation
+  - type: Arazzo
+    url: arazzo/aws-lambda-function-teardown-workflow.yml
+    name: AWS Lambda Tear a Function Down in Dependency Order
+  - type: Arazzo
+    url: arazzo/aws-lambda-function-inventory-audit-workflow.yml
+    name: AWS Lambda Audit a Function's Versions, Aliases, and Event Sources
   - type: Features
     url: https://aws.amazon.com/lambda/features/
     data:

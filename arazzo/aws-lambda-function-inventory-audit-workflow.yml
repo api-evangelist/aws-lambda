@@ -1,0 +1,136 @@
+arazzo: 1.0.1
+info:
+  title: AWS Lambda Audit a Function's Versions, Aliases, and Event Sources
+  summary: Walk the account's functions, then drill into one to inventory its configuration, published versions, aliases, and attached event sources.
+  description: >-
+    A read-only sweep for governance, cost review, and incident triage. Nothing
+    here mutates state, so it is safe to run against production on a schedule.
+    The flow lists the account's functions in a region, then pivots to a single
+    function and gathers the four facts an auditor actually needs: how it is
+    configured right now, which immutable versions exist, which aliases point at
+    which versions, and what event sources are invoking it. Together these answer
+    what is deployed, what is reachable, and what is still triggering it. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: lambdaApi
+  url: ../openapi/aws-lambda-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: function-inventory-audit
+  summary: Inventory a function's configuration, versions, aliases, and event source mappings.
+  description: >-
+    Enumerates functions in the region, then reads the live configuration,
+    published versions, alias-to-version bindings, and event source mappings for
+    one named function.
+  inputs:
+    type: object
+    required:
+    - functionName
+    properties:
+      functionName:
+        type: string
+        description: The name or ARN of the function to audit in depth.
+      maxItems:
+        type: integer
+        description: Maximum number of items returned per list call (1-10000).
+  steps:
+  - stepId: listAccountFunctions
+    description: >-
+      List the functions in the region to establish the account-level inventory
+      the audited function sits in. FunctionVersion is left unset so the response
+      carries the unpublished $LATEST configuration of each function rather than
+      an entry per published version.
+    operationId: listFunctions
+    parameters:
+    - name: MaxItems
+      in: query
+      value: $inputs.maxItems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      functions: $response.body#/Functions
+      nextMarker: $response.body#/NextMarker
+  - stepId: auditConfiguration
+    description: >-
+      Read the live configuration of the audited function — runtime, role,
+      memory, timeout, layers, and state. This is the $LATEST configuration,
+      which is what the next published version will snapshot.
+    operationId: getFunctionConfiguration
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      functionArn: $response.body#/FunctionArn
+      runtime: $response.body#/Runtime
+      role: $response.body#/Role
+      memorySize: $response.body#/MemorySize
+      timeout: $response.body#/Timeout
+      layers: $response.body#/Layers
+      state: $response.body#/State
+      lastModified: $response.body#/LastModified
+      codeSha256: $response.body#/CodeSha256
+  - stepId: auditVersions
+    description: >-
+      List the published versions. Each is an immutable snapshot of code and
+      configuration, so this is the deployment history an auditor can roll back
+      to.
+    operationId: listVersionsByFunction
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    - name: MaxItems
+      in: query
+      value: $inputs.maxItems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      versions: $response.body#/Versions
+      nextMarker: $response.body#/NextMarker
+  - stepId: auditAliases
+    description: >-
+      List the aliases and the versions they point at. This is what reveals which
+      version is actually serving production traffic, and whether any alias is
+      mid-canary with a weighted routing config.
+    operationId: listAliases
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    - name: MaxItems
+      in: query
+      value: $inputs.maxItems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      aliases: $response.body#/Aliases
+  - stepId: auditEventSources
+    description: >-
+      List the event sources invoking this function, completing the picture of
+      what can trigger it. LastProcessingResult on each mapping is the fastest
+      signal that a source is failing.
+    operationId: listEventSourceMappings
+    parameters:
+    - name: FunctionName
+      in: query
+      value: $inputs.functionName
+    - name: MaxItems
+      in: query
+      value: $inputs.maxItems
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      eventSourceMappings: $response.body#/EventSourceMappings
+  outputs:
+    accountFunctions: $steps.listAccountFunctions.outputs.functions
+    functionArn: $steps.auditConfiguration.outputs.functionArn
+    runtime: $steps.auditConfiguration.outputs.runtime
+    state: $steps.auditConfiguration.outputs.state
+    versions: $steps.auditVersions.outputs.versions
+    aliases: $steps.auditAliases.outputs.aliases
+    eventSourceMappings: $steps.auditEventSources.outputs.eventSourceMappings

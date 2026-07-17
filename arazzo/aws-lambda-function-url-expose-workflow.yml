@@ -1,0 +1,155 @@
+arazzo: 1.0.1
+info:
+  title: AWS Lambda Expose a Function Over an HTTPS Function URL
+  summary: Confirm a function is Active, give it a dedicated HTTPS endpoint with an explicit auth type and CORS policy, and read the URL back.
+  description: >-
+    Function URLs put a Lambda function on the public internet without API
+    Gateway in front of it. The decision that matters is AuthType: AWS_IAM
+    requires callers to sign requests with SigV4, while NONE makes the endpoint
+    open to anyone who learns the URL and hands authorization entirely to the
+    handler. This workflow confirms the function is Active, creates the URL with
+    the auth type and CORS policy stated explicitly rather than defaulted, and
+    reads the configuration back to capture the assigned endpoint. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: lambdaApi
+  url: ../openapi/aws-lambda-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: function-url-expose
+  summary: Create a function URL for a function or alias and read back the assigned endpoint.
+  description: >-
+    Verifies the function state, creates a function URL config with an explicit
+    authorization type, CORS rules, and invoke mode, then reads it back to
+    capture the HTTPS endpoint clients will call.
+  inputs:
+    type: object
+    required:
+    - functionName
+    - authType
+    properties:
+      functionName:
+        type: string
+        description: The name or ARN of the function to expose.
+      qualifier:
+        type: string
+        description: >-
+          An alias name to attach the URL to (e.g. prod). Omit to expose the
+          unpublished $LATEST version. Function URLs cannot target a version
+          number.
+      authType:
+        type: string
+        description: >-
+          AWS_IAM to require SigV4-signed requests, or NONE for an unauthenticated
+          public endpoint where the handler is solely responsible for authorization.
+      invokeMode:
+        type: string
+        description: BUFFERED to return the response in one payload, or RESPONSE_STREAM to stream it.
+      allowOrigins:
+        type: array
+        description: Origins permitted by CORS (e.g. ["https://example.com"]).
+        items:
+          type: string
+      allowMethods:
+        type: array
+        description: HTTP methods permitted by CORS (e.g. ["GET","POST"]).
+        items:
+          type: string
+      allowHeaders:
+        type: array
+        description: Request headers permitted by CORS.
+        items:
+          type: string
+      allowCredentials:
+        type: boolean
+        description: Whether browsers may send credentials with cross-origin requests.
+      maxAge:
+        type: integer
+        description: Seconds a browser may cache the CORS preflight response.
+  steps:
+  - stepId: confirmFunctionActive
+    description: >-
+      Confirm the function exists and has finished provisioning before it is put
+      on the internet, so the first caller does not meet a Pending function.
+    operationId: getFunctionConfiguration
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    - name: Qualifier
+      in: query
+      value: $inputs.qualifier
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.State == "Active"
+      type: jsonpath
+    onFailure:
+    - name: keepWaitingForActive
+      type: retry
+      retryAfter: 5
+      retryLimit: 30
+      criteria:
+      - condition: $statusCode == 200
+    outputs:
+      functionArn: $response.body#/FunctionArn
+      state: $response.body#/State
+      version: $response.body#/Version
+  - stepId: createTheUrl
+    description: >-
+      Create the function URL. AuthType is passed from input rather than
+      defaulted because it is the single control deciding whether the endpoint is
+      open to the internet or requires signed requests.
+    operationId: createFunctionUrlConfig
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    - name: Qualifier
+      in: query
+      value: $inputs.qualifier
+    requestBody:
+      contentType: application/json
+      payload:
+        AuthType: $inputs.authType
+        InvokeMode: $inputs.invokeMode
+        Cors:
+          AllowCredentials: $inputs.allowCredentials
+          AllowHeaders: $inputs.allowHeaders
+          AllowMethods: $inputs.allowMethods
+          AllowOrigins: $inputs.allowOrigins
+          MaxAge: $inputs.maxAge
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      functionUrl: $response.body#/FunctionUrl
+      functionArn: $response.body#/FunctionArn
+      authType: $response.body#/AuthType
+  - stepId: verifyUrlConfig
+    description: >-
+      Read the URL configuration back to confirm the endpoint, the authorization
+      type, and the CORS policy Lambda actually stored before the URL is handed
+      to clients.
+    operationId: getFunctionUrlConfig
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    - name: Qualifier
+      in: query
+      value: $inputs.qualifier
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      functionUrl: $response.body#/FunctionUrl
+      authType: $response.body#/AuthType
+      cors: $response.body#/Cors
+      invokeMode: $response.body#/InvokeMode
+      creationTime: $response.body#/CreationTime
+  outputs:
+    functionUrl: $steps.verifyUrlConfig.outputs.functionUrl
+    authType: $steps.verifyUrlConfig.outputs.authType
+    invokeMode: $steps.verifyUrlConfig.outputs.invokeMode
+    functionArn: $steps.createTheUrl.outputs.functionArn

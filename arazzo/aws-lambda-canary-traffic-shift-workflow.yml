@@ -1,0 +1,126 @@
+arazzo: 1.0.1
+info:
+  title: AWS Lambda Shift Canary Traffic Across Two Versions
+  summary: Read an alias, split its invocations between the current version and a canary version by weight, and read the routing back to confirm it took.
+  description: >-
+    The traffic-weighting half of a Lambda canary deploy, kept separate from
+    publishing so a rollout can be dialled up or rolled back without cutting new
+    versions. An alias points at one primary version and can additionally route a
+    weighted share of invocations to a second version. This workflow reads the
+    alias to capture its RevisionId, applies the caller's weight map under that
+    guard, and reads the alias back so the routing Lambda actually stored is
+    visible rather than assumed. Dialling a canary back to zero is the same call
+    with an empty weight map. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: lambdaApi
+  url: ../openapi/aws-lambda-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: canary-traffic-shift
+  summary: Re-weight an existing alias between its primary version and a canary version.
+  description: >-
+    Resolves the alias, updates its primary version and additional version
+    weights under a RevisionId guard, and verifies the stored routing
+    configuration.
+  inputs:
+    type: object
+    required:
+    - functionName
+    - aliasName
+    - primaryVersion
+    - additionalVersionWeights
+    properties:
+      functionName:
+        type: string
+        description: The name or ARN of the function whose alias is being re-weighted.
+      aliasName:
+        type: string
+        description: The alias carrying production traffic (e.g. prod).
+      primaryVersion:
+        type: string
+        description: >-
+          The version the alias points at, which receives all invocations not
+          claimed by additionalVersionWeights.
+      additionalVersionWeights:
+        type: object
+        description: >-
+          Map of version number to the share of invocations it receives, between
+          0.0 and 1.0 (e.g. {"7": 0.1} sends 10 percent to version 7 and leaves
+          90 percent on primaryVersion). Lambda supports one additional version.
+          Pass an empty object to send all traffic back to primaryVersion.
+      shiftDescription:
+        type: string
+        description: Description recorded against the alias for this shift (e.g. "canary 10%").
+  steps:
+  - stepId: resolveAlias
+    description: >-
+      Read the alias to capture the version it currently points at and its
+      RevisionId, which guards the update against a concurrent release.
+    operationId: getAlias
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    - name: AliasName
+      in: path
+      value: $inputs.aliasName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      currentVersion: $response.body#/FunctionVersion
+      currentRouting: $response.body#/RoutingConfig
+      aliasRevisionId: $response.body#/RevisionId
+  - stepId: applyWeights
+    description: >-
+      Set the primary version and the weighted split in a single update.
+      AdditionalVersionWeights is replaced wholesale, so an empty map removes the
+      canary and returns every invocation to the primary version.
+    operationId: updateAlias
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    - name: AliasName
+      in: path
+      value: $inputs.aliasName
+    requestBody:
+      contentType: application/json
+      payload:
+        FunctionVersion: $inputs.primaryVersion
+        Description: $inputs.shiftDescription
+        RevisionId: $steps.resolveAlias.outputs.aliasRevisionId
+        RoutingConfig:
+          AdditionalVersionWeights: $inputs.additionalVersionWeights
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      aliasArn: $response.body#/AliasArn
+      pointsAtVersion: $response.body#/FunctionVersion
+      revisionId: $response.body#/RevisionId
+  - stepId: verifyRouting
+    description: >-
+      Read the alias back so the routing configuration Lambda stored is observed
+      directly, confirming the canary is carrying the intended share before the
+      rollout proceeds.
+    operationId: getAlias
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    - name: AliasName
+      in: path
+      value: $inputs.aliasName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      verifiedPrimaryVersion: $response.body#/FunctionVersion
+      verifiedRouting: $response.body#/RoutingConfig
+      verifiedRevisionId: $response.body#/RevisionId
+  outputs:
+    previousVersion: $steps.resolveAlias.outputs.currentVersion
+    previousRouting: $steps.resolveAlias.outputs.currentRouting
+    primaryVersion: $steps.verifyRouting.outputs.verifiedPrimaryVersion
+    routingConfig: $steps.verifyRouting.outputs.verifiedRouting

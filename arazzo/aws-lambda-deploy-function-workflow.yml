@@ -1,0 +1,160 @@
+arazzo: 1.0.1
+info:
+  title: AWS Lambda Deploy a Function and Verify It Runs
+  summary: Create a Lambda function from an S3 deployment package, wait for it to become Active, then invoke it once to prove it runs.
+  description: >-
+    The starting point for every Lambda integration. Creating a function is
+    asynchronous: the API returns immediately with State "Pending" while Lambda
+    provisions the execution environment, and an invoke against a Pending
+    function fails. This workflow creates the function, polls the
+    version-specific configuration until Lambda reports State "Active", and only
+    then performs a synchronous test invocation with the log tail attached so a
+    handler error surfaces immediately rather than silently. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: lambdaApi
+  url: ../openapi/aws-lambda-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: deploy-function
+  summary: Create a Lambda function, wait for it to become Active, and test-invoke it.
+  description: >-
+    Creates a function from a ZIP archive already staged in Amazon S3, blocks
+    until the function state settles to Active, and then invokes it
+    synchronously with a caller-supplied test payload.
+  inputs:
+    type: object
+    required:
+    - functionName
+    - runtime
+    - roleArn
+    - handler
+    - s3Bucket
+    - s3Key
+    properties:
+      functionName:
+        type: string
+        description: The name of the function to create (e.g. order-processor).
+      runtime:
+        type: string
+        description: The runtime identifier for the function (e.g. nodejs20.x, python3.12).
+      roleArn:
+        type: string
+        description: The ARN of the IAM execution role Lambda assumes when running the function.
+      handler:
+        type: string
+        description: The entry point in the code (e.g. index.handler).
+      s3Bucket:
+        type: string
+        description: The S3 bucket holding the deployment package ZIP.
+      s3Key:
+        type: string
+        description: The S3 key of the deployment package ZIP.
+      description:
+        type: string
+        description: An optional human-readable description for the function.
+      memorySize:
+        type: integer
+        description: Memory in MB allocated to the function.
+      timeout:
+        type: integer
+        description: Maximum execution time in seconds before Lambda stops the invocation.
+      environmentVariables:
+        type: object
+        description: Map of environment variable name/value pairs to expose to the handler.
+      testPayload:
+        type: object
+        description: The JSON event passed to the function during the verification invoke.
+  steps:
+  - stepId: createTheFunction
+    description: >-
+      Create the Lambda function from the staged S3 deployment package. Publish
+      is left false so the unpublished $LATEST version is what gets tested; a
+      version is only cut once the code is known good.
+    operationId: createFunction
+    requestBody:
+      contentType: application/json
+      payload:
+        FunctionName: $inputs.functionName
+        Runtime: $inputs.runtime
+        Role: $inputs.roleArn
+        Handler: $inputs.handler
+        Code:
+          S3Bucket: $inputs.s3Bucket
+          S3Key: $inputs.s3Key
+        Description: $inputs.description
+        Timeout: $inputs.timeout
+        MemorySize: $inputs.memorySize
+        PackageType: Zip
+        Publish: false
+        Environment:
+          Variables: $inputs.environmentVariables
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      functionArn: $response.body#/FunctionArn
+      initialState: $response.body#/State
+      codeSha256: $response.body#/CodeSha256
+      revisionId: $response.body#/RevisionId
+  - stepId: waitUntilActive
+    description: >-
+      Poll the function configuration until Lambda finishes provisioning. A
+      newly created function reports State "Pending" first; invoking before it
+      reaches "Active" is rejected, so this step retries until the state
+      settles.
+    operationId: getFunctionConfiguration
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.State == "Active"
+      type: jsonpath
+    onFailure:
+    - name: keepWaitingForActive
+      type: retry
+      retryAfter: 5
+      retryLimit: 60
+      criteria:
+      - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/State
+      stateReason: $response.body#/StateReason
+      lastUpdateStatus: $response.body#/LastUpdateStatus
+  - stepId: testInvoke
+    description: >-
+      Invoke the function synchronously with the test payload. The Tail log type
+      returns the last 4 KB of the execution log base64-encoded, and the
+      X-Amz-Function-Error response header is present when the handler itself
+      threw, which a 200 status code alone would not reveal.
+    operationId: invoke
+    parameters:
+    - name: FunctionName
+      in: path
+      value: $inputs.functionName
+    - name: X-Amz-Invocation-Type
+      in: header
+      value: RequestResponse
+    - name: X-Amz-Log-Type
+      in: header
+      value: Tail
+    requestBody:
+      contentType: application/json
+      payload: $inputs.testPayload
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      result: $response.body
+      executedVersion: $response.header.X-Amz-Executed-Version
+      functionError: $response.header.X-Amz-Function-Error
+      logTail: $response.header.X-Amz-Log-Result
+  outputs:
+    functionArn: $steps.createTheFunction.outputs.functionArn
+    codeSha256: $steps.createTheFunction.outputs.codeSha256
+    state: $steps.waitUntilActive.outputs.state
+    executedVersion: $steps.testInvoke.outputs.executedVersion
+    functionError: $steps.testInvoke.outputs.functionError
