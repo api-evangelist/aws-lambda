@@ -1,0 +1,771 @@
+openapi: 3.1.0
+info:
+  title: AWS Lambda Aliases Event Source Mappings API
+  description: The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.
+  version: '2015-03-31'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  termsOfService: https://aws.amazon.com/service-terms/
+servers:
+- url: https://lambda.{region}.amazonaws.com
+  description: AWS Lambda Regional Endpoint
+  variables:
+    region:
+      description: The AWS region for the Lambda service endpoint
+      default: us-east-1
+      enum:
+      - us-east-1
+      - us-east-2
+      - us-west-1
+      - us-west-2
+      - eu-west-1
+      - eu-west-2
+      - eu-west-3
+      - eu-central-1
+      - eu-north-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      - ap-northeast-2
+      - ap-south-1
+      - sa-east-1
+      - ca-central-1
+security:
+- sigv4: []
+tags:
+- name: Event Source Mappings
+  description: Map event sources such as Amazon SQS, Kinesis, and DynamoDB Streams to Lambda functions for automatic invocation
+paths:
+  /2015-03-31/event-source-mappings:
+    get:
+      operationId: listEventSourceMappings
+      summary: Aws Lambda List Event Source Mappings
+      description: Lists event source mappings. Specify an EventSourceArn to show only event source mappings for a single event source, or a FunctionName to show mappings for a single function.
+      tags:
+      - Event Source Mappings
+      parameters:
+      - name: EventSourceArn
+        in: query
+        description: The ARN of the event source (Amazon Kinesis stream, Amazon DynamoDB stream, Amazon SQS queue, Amazon MSK cluster, or self-managed Apache Kafka cluster)
+        schema:
+          type: string
+        example: example_value
+      - name: FunctionName
+        in: query
+        description: The name, ARN, or partial ARN of the Lambda function to filter by
+        schema:
+          type: string
+        example: example_value
+      - $ref: '#/components/parameters/marker'
+      - $ref: '#/components/parameters/maxItems'
+      responses:
+        '200':
+          description: List of event source mappings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListEventSourceMappingsResponse'
+              examples:
+                Listeventsourcemappings200Example:
+                  summary: Default listEventSourceMappings 200 response
+                  x-microcks-default: true
+                  value:
+                    NextMarker: example_value
+                    EventSourceMappings:
+                    - UUID: '500123'
+                      StartingPosition: TRIM_HORIZON
+                      StartingPositionTimestamp: '2026-01-15T10:30:00Z'
+                      BatchSize: 10
+                      MaximumBatchingWindowInSeconds: 10
+                      ParallelizationFactor: 10
+                      EventSourceArn: example_value
+                      FunctionArn: example_value
+                      LastModified: '2026-01-15T10:30:00Z'
+                      LastProcessingResult: example_value
+                      State: Creating
+                      StateTransitionReason: example_value
+                      MaximumRecordAgeInSeconds: 10
+                      BisectBatchOnFunctionError: true
+                      MaximumRetryAttempts: 10
+                      TumblingWindowInSeconds: 10
+                      FunctionResponseTypes: {}
+        '404':
+          description: Function not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listeventsourcemappings404Example:
+                  summary: Default listEventSourceMappings 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createEventSourceMapping
+      summary: Aws Lambda Create an Event Source Mapping
+      description: Creates a mapping between an event source and a Lambda function. Lambda reads items from the event source and invokes the function. Supported event sources include Amazon Kinesis, Amazon DynamoDB Streams, Amazon SQS, Amazon MQ, Amazon MSK, self-managed Apache Kafka, and Amazon DocumentDB.
+      tags:
+      - Event Source Mappings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEventSourceMappingRequest'
+            examples:
+              CreateeventsourcemappingRequestExample:
+                summary: Default createEventSourceMapping request
+                x-microcks-default: true
+                value:
+                  EventSourceArn: example_value
+                  FunctionName: example_value
+                  Enabled: true
+                  BatchSize: 10
+                  FilterCriteria:
+                    Filters:
+                    - {}
+                  MaximumBatchingWindowInSeconds: 10
+                  ParallelizationFactor: 10
+                  StartingPosition: TRIM_HORIZON
+                  StartingPositionTimestamp: '2026-01-15T10:30:00Z'
+                  DestinationConfig:
+                    OnSuccess:
+                      Destination: example_value
+                    OnFailure:
+                      Destination: example_value
+                  MaximumRecordAgeInSeconds: 10
+                  BisectBatchOnFunctionError: true
+                  MaximumRetryAttempts: 10
+                  TumblingWindowInSeconds: 10
+                  FunctionResponseTypes:
+                  - ReportBatchItemFailures
+      responses:
+        '202':
+          description: Event source mapping created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSourceMappingConfiguration'
+              examples:
+                Createeventsourcemapping202Example:
+                  summary: Default createEventSourceMapping 202 response
+                  x-microcks-default: true
+                  value:
+                    UUID: '500123'
+                    StartingPosition: TRIM_HORIZON
+                    StartingPositionTimestamp: '2026-01-15T10:30:00Z'
+                    BatchSize: 10
+                    MaximumBatchingWindowInSeconds: 10
+                    ParallelizationFactor: 10
+                    EventSourceArn: example_value
+                    FunctionArn: example_value
+                    LastModified: '2026-01-15T10:30:00Z'
+                    LastProcessingResult: example_value
+                    State: Creating
+                    StateTransitionReason: example_value
+                    DestinationConfig:
+                      OnSuccess:
+                        Destination: example_value
+                      OnFailure:
+                        Destination: example_value
+                    MaximumRecordAgeInSeconds: 10
+                    BisectBatchOnFunctionError: true
+                    MaximumRetryAttempts: 10
+                    TumblingWindowInSeconds: 10
+                    FunctionResponseTypes:
+                    - ReportBatchItemFailures
+                    FilterCriteria:
+                      Filters:
+                      - {}
+        '400':
+          description: Invalid parameter value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createeventsourcemapping400Example:
+                  summary: Default createEventSourceMapping 400 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+        '409':
+          description: Resource already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createeventsourcemapping409Example:
+                  summary: Default createEventSourceMapping 409 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /2015-03-31/event-source-mappings/{UUID}:
+    get:
+      operationId: getEventSourceMapping
+      summary: Aws Lambda Get an Event Source Mapping
+      description: Returns details about an event source mapping.
+      tags:
+      - Event Source Mappings
+      parameters:
+      - $ref: '#/components/parameters/eventSourceMappingUUID'
+      responses:
+        '200':
+          description: Event source mapping details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSourceMappingConfiguration'
+              examples:
+                Geteventsourcemapping200Example:
+                  summary: Default getEventSourceMapping 200 response
+                  x-microcks-default: true
+                  value:
+                    UUID: '500123'
+                    StartingPosition: TRIM_HORIZON
+                    StartingPositionTimestamp: '2026-01-15T10:30:00Z'
+                    BatchSize: 10
+                    MaximumBatchingWindowInSeconds: 10
+                    ParallelizationFactor: 10
+                    EventSourceArn: example_value
+                    FunctionArn: example_value
+                    LastModified: '2026-01-15T10:30:00Z'
+                    LastProcessingResult: example_value
+                    State: Creating
+                    StateTransitionReason: example_value
+                    DestinationConfig:
+                      OnSuccess:
+                        Destination: example_value
+                      OnFailure:
+                        Destination: example_value
+                    MaximumRecordAgeInSeconds: 10
+                    BisectBatchOnFunctionError: true
+                    MaximumRetryAttempts: 10
+                    TumblingWindowInSeconds: 10
+                    FunctionResponseTypes:
+                    - ReportBatchItemFailures
+                    FilterCriteria:
+                      Filters:
+                      - {}
+        '404':
+          description: Event source mapping not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Geteventsourcemapping404Example:
+                  summary: Default getEventSourceMapping 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateEventSourceMapping
+      summary: Aws Lambda Update an Event Source Mapping
+      description: Updates an event source mapping. You can change the function that Lambda invokes, or pause invocation and resume later from the same location.
+      tags:
+      - Event Source Mappings
+      parameters:
+      - $ref: '#/components/parameters/eventSourceMappingUUID'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEventSourceMappingRequest'
+            examples:
+              UpdateeventsourcemappingRequestExample:
+                summary: Default updateEventSourceMapping request
+                x-microcks-default: true
+                value:
+                  FunctionName: example_value
+                  Enabled: true
+                  BatchSize: 10
+                  FilterCriteria:
+                    Filters:
+                    - {}
+                  MaximumBatchingWindowInSeconds: 10
+                  DestinationConfig:
+                    OnSuccess:
+                      Destination: example_value
+                    OnFailure:
+                      Destination: example_value
+                  MaximumRecordAgeInSeconds: 10
+                  BisectBatchOnFunctionError: true
+                  MaximumRetryAttempts: 10
+                  ParallelizationFactor: 10
+                  TumblingWindowInSeconds: 10
+                  FunctionResponseTypes:
+                  - ReportBatchItemFailures
+      responses:
+        '202':
+          description: Event source mapping updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSourceMappingConfiguration'
+              examples:
+                Updateeventsourcemapping202Example:
+                  summary: Default updateEventSourceMapping 202 response
+                  x-microcks-default: true
+                  value:
+                    UUID: '500123'
+                    StartingPosition: TRIM_HORIZON
+                    StartingPositionTimestamp: '2026-01-15T10:30:00Z'
+                    BatchSize: 10
+                    MaximumBatchingWindowInSeconds: 10
+                    ParallelizationFactor: 10
+                    EventSourceArn: example_value
+                    FunctionArn: example_value
+                    LastModified: '2026-01-15T10:30:00Z'
+                    LastProcessingResult: example_value
+                    State: Creating
+                    StateTransitionReason: example_value
+                    DestinationConfig:
+                      OnSuccess:
+                        Destination: example_value
+                      OnFailure:
+                        Destination: example_value
+                    MaximumRecordAgeInSeconds: 10
+                    BisectBatchOnFunctionError: true
+                    MaximumRetryAttempts: 10
+                    TumblingWindowInSeconds: 10
+                    FunctionResponseTypes:
+                    - ReportBatchItemFailures
+                    FilterCriteria:
+                      Filters:
+                      - {}
+        '404':
+          description: Event source mapping not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updateeventsourcemapping404Example:
+                  summary: Default updateEventSourceMapping 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteEventSourceMapping
+      summary: Aws Lambda Delete an Event Source Mapping
+      description: Deletes an event source mapping. Lambda stops polling the event source and deletes the mapping.
+      tags:
+      - Event Source Mappings
+      parameters:
+      - $ref: '#/components/parameters/eventSourceMappingUUID'
+      responses:
+        '202':
+          description: Event source mapping deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSourceMappingConfiguration'
+              examples:
+                Deleteeventsourcemapping202Example:
+                  summary: Default deleteEventSourceMapping 202 response
+                  x-microcks-default: true
+                  value:
+                    UUID: '500123'
+                    StartingPosition: TRIM_HORIZON
+                    StartingPositionTimestamp: '2026-01-15T10:30:00Z'
+                    BatchSize: 10
+                    MaximumBatchingWindowInSeconds: 10
+                    ParallelizationFactor: 10
+                    EventSourceArn: example_value
+                    FunctionArn: example_value
+                    LastModified: '2026-01-15T10:30:00Z'
+                    LastProcessingResult: example_value
+                    State: Creating
+                    StateTransitionReason: example_value
+                    DestinationConfig:
+                      OnSuccess:
+                        Destination: example_value
+                      OnFailure:
+                        Destination: example_value
+                    MaximumRecordAgeInSeconds: 10
+                    BisectBatchOnFunctionError: true
+                    MaximumRetryAttempts: 10
+                    TumblingWindowInSeconds: 10
+                    FunctionResponseTypes:
+                    - ReportBatchItemFailures
+                    FilterCriteria:
+                      Filters:
+                      - {}
+        '404':
+          description: Event source mapping not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deleteeventsourcemapping404Example:
+                  summary: Default deleteEventSourceMapping 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    EventSourceMappingConfiguration:
+      type: object
+      description: A mapping between an AWS resource and a Lambda function. Lambda reads items from the event source and invokes the function.
+      properties:
+        UUID:
+          type: string
+          description: The identifier of the event source mapping
+          example: '500123'
+        StartingPosition:
+          type: string
+          description: The position in a stream from which to start reading
+          enum:
+          - TRIM_HORIZON
+          - LATEST
+          - AT_TIMESTAMP
+          example: TRIM_HORIZON
+        StartingPositionTimestamp:
+          type: string
+          format: date-time
+          description: The time from which to start reading with AT_TIMESTAMP position
+          example: '2026-01-15T10:30:00Z'
+        BatchSize:
+          type: integer
+          description: The maximum number of records in each batch that Lambda pulls from the event source
+          minimum: 1
+          maximum: 10000
+          example: 10
+        MaximumBatchingWindowInSeconds:
+          type: integer
+          description: Maximum amount of time in seconds to gather records before invoking the function
+          minimum: 0
+          maximum: 300
+          example: 10
+        ParallelizationFactor:
+          type: integer
+          description: The number of batches to process concurrently from each shard
+          minimum: 1
+          maximum: 10
+          example: 10
+        EventSourceArn:
+          type: string
+          description: The ARN of the event source
+          example: example_value
+        FunctionArn:
+          type: string
+          description: The ARN of the Lambda function
+          example: example_value
+        LastModified:
+          type: string
+          format: date-time
+          description: The date that the event source mapping was last updated
+          example: '2026-01-15T10:30:00Z'
+        LastProcessingResult:
+          type: string
+          description: The result of the last invocation
+          example: example_value
+        State:
+          type: string
+          description: The state of the event source mapping
+          enum:
+          - Creating
+          - Enabling
+          - Enabled
+          - Disabling
+          - Disabled
+          - Updating
+          - Deleting
+          example: Creating
+        StateTransitionReason:
+          type: string
+          description: The reason for the current state
+          example: example_value
+        DestinationConfig:
+          $ref: '#/components/schemas/DestinationConfig'
+        MaximumRecordAgeInSeconds:
+          type: integer
+          description: Maximum age of a record that Lambda sends to a function for processing (in seconds). For Kinesis and DynamoDB Streams only.
+          minimum: -1
+          maximum: 604800
+          example: 10
+        BisectBatchOnFunctionError:
+          type: boolean
+          description: If true, Lambda splits the batch in two and retries when a function returns an error
+          example: true
+        MaximumRetryAttempts:
+          type: integer
+          description: Maximum number of retry attempts for failed batches. -1 means infinite retries.
+          minimum: -1
+          maximum: 10000
+          example: 10
+        TumblingWindowInSeconds:
+          type: integer
+          description: The duration in seconds of a processing window for DynamoDB and Kinesis Streams event sources
+          minimum: 0
+          maximum: 900
+          example: 10
+        FunctionResponseTypes:
+          type: array
+          description: A list of current response type enums applied to the event source mapping
+          items:
+            type: string
+            enum:
+            - ReportBatchItemFailures
+          example: []
+        FilterCriteria:
+          $ref: '#/components/schemas/FilterCriteria'
+    DestinationConfig:
+      type: object
+      description: Configuration for failed invocation destinations. Specify an SQS queue or SNS topic to receive records of failed asynchronous invocations or event source mapping batches.
+      properties:
+        OnSuccess:
+          type: object
+          properties:
+            Destination:
+              type: string
+              description: The ARN of the destination resource
+          example: example_value
+        OnFailure:
+          type: object
+          properties:
+            Destination:
+              type: string
+              description: The ARN of the destination resource
+          example: example_value
+    FilterCriteria:
+      type: object
+      description: An object that contains the filters for an event source. Event filtering enables you to control which records from an event source Lambda sends to your function.
+      properties:
+        Filters:
+          type: array
+          description: A list of filters
+          items:
+            type: object
+            properties:
+              Pattern:
+                type: string
+                description: A filter pattern as a JSON string. Filter patterns support value matching with equals, prefix, and numeric comparisons.
+          example: []
+    ListEventSourceMappingsResponse:
+      type: object
+      description: Paginated list of event source mappings
+      properties:
+        NextMarker:
+          type: string
+          description: Pagination token
+          example: example_value
+        EventSourceMappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventSourceMappingConfiguration'
+          example: []
+    UpdateEventSourceMappingRequest:
+      type: object
+      description: Request body for updating an event source mapping
+      properties:
+        FunctionName:
+          type: string
+          description: The name or ARN of the Lambda function
+          example: example_value
+        Enabled:
+          type: boolean
+          description: If true, the event source mapping is active
+          example: true
+        BatchSize:
+          type: integer
+          minimum: 1
+          maximum: 10000
+          example: 10
+        FilterCriteria:
+          $ref: '#/components/schemas/FilterCriteria'
+        MaximumBatchingWindowInSeconds:
+          type: integer
+          minimum: 0
+          maximum: 300
+          example: 10
+        DestinationConfig:
+          $ref: '#/components/schemas/DestinationConfig'
+        MaximumRecordAgeInSeconds:
+          type: integer
+          minimum: -1
+          maximum: 604800
+          example: 10
+        BisectBatchOnFunctionError:
+          type: boolean
+          example: true
+        MaximumRetryAttempts:
+          type: integer
+          minimum: -1
+          maximum: 10000
+          example: 10
+        ParallelizationFactor:
+          type: integer
+          minimum: 1
+          maximum: 10
+          example: 10
+        TumblingWindowInSeconds:
+          type: integer
+          minimum: 0
+          maximum: 900
+          example: 10
+        FunctionResponseTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - ReportBatchItemFailures
+          example: []
+    ErrorResponse:
+      type: object
+      description: Error response from the Lambda API
+      properties:
+        Type:
+          type: string
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
+          example: example_value
+    CreateEventSourceMappingRequest:
+      type: object
+      required:
+      - FunctionName
+      description: Request body for creating an event source mapping
+      properties:
+        EventSourceArn:
+          type: string
+          description: The ARN of the event source. Required for Kinesis, DynamoDB Streams, SQS, MQ, MSK, and DocumentDB.
+          example: example_value
+        FunctionName:
+          type: string
+          description: The name or ARN of the Lambda function
+          example: example_value
+        Enabled:
+          type: boolean
+          description: If true, the event source mapping is active
+          default: true
+          example: true
+        BatchSize:
+          type: integer
+          description: Maximum number of records in each batch
+          minimum: 1
+          maximum: 10000
+          example: 10
+        FilterCriteria:
+          $ref: '#/components/schemas/FilterCriteria'
+        MaximumBatchingWindowInSeconds:
+          type: integer
+          description: Maximum time to gather records before invoking
+          minimum: 0
+          maximum: 300
+          example: 10
+        ParallelizationFactor:
+          type: integer
+          description: Number of batches to process concurrently per shard
+          minimum: 1
+          maximum: 10
+          example: 10
+        StartingPosition:
+          type: string
+          description: Starting position in the stream
+          enum:
+          - TRIM_HORIZON
+          - LATEST
+          - AT_TIMESTAMP
+          example: TRIM_HORIZON
+        StartingPositionTimestamp:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        DestinationConfig:
+          $ref: '#/components/schemas/DestinationConfig'
+        MaximumRecordAgeInSeconds:
+          type: integer
+          minimum: -1
+          maximum: 604800
+          example: 10
+        BisectBatchOnFunctionError:
+          type: boolean
+          example: true
+        MaximumRetryAttempts:
+          type: integer
+          minimum: -1
+          maximum: 10000
+          example: 10
+        TumblingWindowInSeconds:
+          type: integer
+          minimum: 0
+          maximum: 900
+          example: 10
+        FunctionResponseTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - ReportBatchItemFailures
+          example: []
+  parameters:
+    maxItems:
+      name: MaxItems
+      in: query
+      description: Maximum number of items to return (1-10000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+    marker:
+      name: Marker
+      in: query
+      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
+      schema:
+        type: string
+    eventSourceMappingUUID:
+      name: UUID
+      in: path
+      required: true
+      description: The identifier of the event source mapping
+      schema:
+        type: string
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication. Requests must be signed with valid AWS credentials that have the appropriate Lambda IAM permissions.
+externalDocs:
+  description: AWS Lambda API Reference
+  url: https://docs.aws.amazon.com/lambda/latest/api/welcome.html

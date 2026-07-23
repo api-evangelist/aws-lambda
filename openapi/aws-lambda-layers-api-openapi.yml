@@ -1,0 +1,626 @@
+openapi: 3.1.0
+info:
+  title: AWS Lambda Aliases Layers API
+  description: The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.
+  version: '2015-03-31'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  termsOfService: https://aws.amazon.com/service-terms/
+servers:
+- url: https://lambda.{region}.amazonaws.com
+  description: AWS Lambda Regional Endpoint
+  variables:
+    region:
+      description: The AWS region for the Lambda service endpoint
+      default: us-east-1
+      enum:
+      - us-east-1
+      - us-east-2
+      - us-west-1
+      - us-west-2
+      - eu-west-1
+      - eu-west-2
+      - eu-west-3
+      - eu-central-1
+      - eu-north-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      - ap-northeast-2
+      - ap-south-1
+      - sa-east-1
+      - ca-central-1
+security:
+- sigv4: []
+tags:
+- name: Layers
+  description: Manage Lambda layers that package libraries, custom runtimes, and other dependencies for sharing across functions
+paths:
+  /2015-03-31/layers:
+    get:
+      operationId: listLayers
+      summary: Aws Lambda List Layers
+      description: Lists Lambda layers and shows information about the latest version of each. Specify a compatible runtime to list only layers that are compatible with that runtime. Specify a compatible architecture to include only layers that are compatible with that instruction set architecture.
+      tags:
+      - Layers
+      parameters:
+      - name: CompatibleRuntime
+        in: query
+        description: Filter layers by compatible runtime
+        schema:
+          type: string
+          enum:
+          - nodejs18.x
+          - nodejs20.x
+          - nodejs22.x
+          - python3.9
+          - python3.10
+          - python3.11
+          - python3.12
+          - python3.13
+          - java11
+          - java17
+          - java21
+          - dotnet6
+          - dotnet8
+          - ruby3.2
+          - ruby3.3
+          - provided
+          - provided.al2
+          - provided.al2023
+        example: nodejs18.x
+      - name: CompatibleArchitecture
+        in: query
+        description: Filter layers by compatible instruction set architecture
+        schema:
+          type: string
+          enum:
+          - x86_64
+          - arm64
+        example: x86_64
+      - $ref: '#/components/parameters/marker'
+      - $ref: '#/components/parameters/maxItems'
+      responses:
+        '200':
+          description: List of layers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListLayersResponse'
+              examples:
+                Listlayers200Example:
+                  summary: Default listLayers 200 response
+                  x-microcks-default: true
+                  value:
+                    NextMarker: example_value
+                    Layers:
+                    - LayerName: example_value
+                      LayerArn: example_value
+        '429':
+          description: Too many requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listlayers429Example:
+                  summary: Default listLayers 429 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /2015-03-31/layers/{LayerName}/versions:
+    get:
+      operationId: listLayerVersions
+      summary: Aws Lambda List Layer Versions
+      description: Lists the versions of an Lambda layer. Versions that have been deleted are not listed. Specify a runtime identifier to list only versions compatible with that runtime.
+      tags:
+      - Layers
+      parameters:
+      - $ref: '#/components/parameters/layerName'
+      - name: CompatibleRuntime
+        in: query
+        description: Filter by compatible runtime
+        schema:
+          type: string
+        example: example_value
+      - name: CompatibleArchitecture
+        in: query
+        description: Filter by compatible architecture
+        schema:
+          type: string
+          enum:
+          - x86_64
+          - arm64
+        example: x86_64
+      - $ref: '#/components/parameters/marker'
+      - $ref: '#/components/parameters/maxItems'
+      responses:
+        '200':
+          description: List of layer versions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListLayerVersionsResponse'
+              examples:
+                Listlayerversions200Example:
+                  summary: Default listLayerVersions 200 response
+                  x-microcks-default: true
+                  value:
+                    NextMarker: example_value
+                    LayerVersions:
+                    - LayerVersionArn: example_value
+                      Version: 10
+                      Description: A sample description.
+                      CreatedDate: example_value
+                      CompatibleRuntimes: {}
+                      LicenseInfo: example_value
+                      CompatibleArchitectures: {}
+        '404':
+          description: Layer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listlayerversions404Example:
+                  summary: Default listLayerVersions 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: publishLayerVersion
+      summary: Aws Lambda Publish a Layer Version
+      description: Creates a Lambda layer from a ZIP archive. Each time you call PublishLayerVersion with the same layer name, a new version is created. Add layers to your function with CreateFunction or UpdateFunctionConfiguration.
+      tags:
+      - Layers
+      parameters:
+      - $ref: '#/components/parameters/layerName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishLayerVersionRequest'
+            examples:
+              PublishlayerversionRequestExample:
+                summary: Default publishLayerVersion request
+                x-microcks-default: true
+                value:
+                  Description: A sample description.
+                  Content:
+                    S3Bucket: example_value
+                    S3Key: example_value
+                    S3ObjectVersion: example_value
+                    ZipFile: example_value
+                  CompatibleRuntimes:
+                  - example_value
+                  LicenseInfo: example_value
+                  CompatibleArchitectures:
+                  - x86_64
+      responses:
+        '201':
+          description: Layer version published
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishLayerVersionResponse'
+              examples:
+                Publishlayerversion201Example:
+                  summary: Default publishLayerVersion 201 response
+                  x-microcks-default: true
+                  value:
+                    Content:
+                      Location: example_value
+                      CodeSha256: example_value
+                      CodeSize: 10
+                      SigningProfileVersionArn: example_value
+                      SigningJobArn: example_value
+                    LayerArn: example_value
+                    LayerVersionArn: example_value
+                    Description: A sample description.
+                    CreatedDate: example_value
+                    Version: 10
+                    CompatibleRuntimes:
+                    - example_value
+                    LicenseInfo: example_value
+                    CompatibleArchitectures:
+                    - example_value
+        '400':
+          description: Invalid parameter value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Publishlayerversion400Example:
+                  summary: Default publishLayerVersion 400 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+        '429':
+          description: Too many requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Publishlayerversion429Example:
+                  summary: Default publishLayerVersion 429 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /2015-03-31/layers/{LayerName}/versions/{VersionNumber}:
+    get:
+      operationId: getLayerVersion
+      summary: Aws Lambda Get a Layer Version
+      description: Returns information about a version of a Lambda layer, with a link to download the layer archive that is valid for 10 minutes.
+      tags:
+      - Layers
+      parameters:
+      - $ref: '#/components/parameters/layerName'
+      - $ref: '#/components/parameters/versionNumber'
+      responses:
+        '200':
+          description: Layer version details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLayerVersionResponse'
+              examples:
+                Getlayerversion200Example:
+                  summary: Default getLayerVersion 200 response
+                  x-microcks-default: true
+                  value:
+                    Content:
+                      Location: example_value
+                      CodeSha256: example_value
+                      CodeSize: 10
+                    LayerArn: example_value
+                    LayerVersionArn: example_value
+                    Description: A sample description.
+                    CreatedDate: example_value
+                    Version: 10
+                    CompatibleRuntimes:
+                    - example_value
+                    LicenseInfo: example_value
+                    CompatibleArchitectures:
+                    - example_value
+        '404':
+          description: Layer version not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getlayerversion404Example:
+                  summary: Default getLayerVersion 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteLayerVersion
+      summary: Aws Lambda Delete a Layer Version
+      description: Deletes a version of an Lambda layer. Deleted versions can no longer be viewed or added to functions. However, a copy of the version remains in Lambda until no functions refer to it.
+      tags:
+      - Layers
+      parameters:
+      - $ref: '#/components/parameters/layerName'
+      - $ref: '#/components/parameters/versionNumber'
+      responses:
+        '204':
+          description: Layer version deleted
+        '404':
+          description: Layer version not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deletelayerversion404Example:
+                  summary: Default deleteLayerVersion 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    versionNumber:
+      name: VersionNumber
+      in: path
+      required: true
+      description: The version number
+      schema:
+        type: integer
+    maxItems:
+      name: MaxItems
+      in: query
+      description: Maximum number of items to return (1-10000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+    marker:
+      name: Marker
+      in: query
+      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
+      schema:
+        type: string
+    layerName:
+      name: LayerName
+      in: path
+      required: true
+      description: The name or ARN of the layer
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 140
+  schemas:
+    PublishLayerVersionResponse:
+      type: object
+      description: Details about a published layer version
+      properties:
+        Content:
+          type: object
+          properties:
+            Location:
+              type: string
+              description: A link to download the layer archive (valid for 10 minutes)
+            CodeSha256:
+              type: string
+              description: The SHA-256 hash of the layer archive
+            CodeSize:
+              type: integer
+              description: The size of the layer archive in bytes
+              format: int64
+            SigningProfileVersionArn:
+              type: string
+            SigningJobArn:
+              type: string
+          example: example_value
+        LayerArn:
+          type: string
+          description: The ARN of the layer
+          example: example_value
+        LayerVersionArn:
+          type: string
+          description: The ARN of the layer version
+          example: example_value
+        Description:
+          type: string
+          description: Description of the version
+          example: A sample description.
+        CreatedDate:
+          type: string
+          description: The date the layer version was created in ISO 8601 format
+          example: example_value
+        Version:
+          type: integer
+          description: The version number
+          example: 10
+        CompatibleRuntimes:
+          type: array
+          items:
+            type: string
+          example: []
+        LicenseInfo:
+          type: string
+          example: example_value
+        CompatibleArchitectures:
+          type: array
+          items:
+            type: string
+          example: []
+    ListLayersResponse:
+      type: object
+      description: Paginated list of layers
+      properties:
+        NextMarker:
+          type: string
+          example: example_value
+        Layers:
+          type: array
+          items:
+            type: object
+            properties:
+              LayerName:
+                type: string
+                description: The name of the layer
+              LayerArn:
+                type: string
+                description: The ARN of the layer
+              LatestMatchingVersion:
+                $ref: '#/components/schemas/LayerVersionSummary'
+          example: []
+    ErrorResponse:
+      type: object
+      description: Error response from the Lambda API
+      properties:
+        Type:
+          type: string
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
+          example: example_value
+    LayerVersionSummary:
+      type: object
+      description: Summary information about a layer version
+      properties:
+        LayerVersionArn:
+          type: string
+          description: The ARN of the layer version
+          example: example_value
+        Version:
+          type: integer
+          description: The version number
+          example: 10
+        Description:
+          type: string
+          description: Description of the version
+          example: A sample description.
+        CreatedDate:
+          type: string
+          description: The date the version was created
+          example: example_value
+        CompatibleRuntimes:
+          type: array
+          items:
+            type: string
+          example: []
+        LicenseInfo:
+          type: string
+          example: example_value
+        CompatibleArchitectures:
+          type: array
+          items:
+            type: string
+          example: []
+    PublishLayerVersionRequest:
+      type: object
+      required:
+      - Content
+      description: Request body for publishing a layer version
+      properties:
+        Description:
+          type: string
+          description: Description of the layer version
+          maxLength: 256
+          example: A sample description.
+        Content:
+          type: object
+          required: []
+          description: The function layer archive
+          properties:
+            S3Bucket:
+              type: string
+              description: The S3 bucket of the layer archive
+            S3Key:
+              type: string
+              description: The S3 key of the layer archive
+            S3ObjectVersion:
+              type: string
+              description: For versioned objects, the version of the layer archive
+            ZipFile:
+              type: string
+              format: byte
+              description: Base64-encoded contents of the layer archive .zip file
+          example: example_value
+        CompatibleRuntimes:
+          type: array
+          description: A list of compatible runtimes. Used for filtering with ListLayers and ListLayerVersions.
+          items:
+            type: string
+          maxItems: 15
+          example: []
+        LicenseInfo:
+          type: string
+          description: The layer's software license (SPDX identifier, URL, or text)
+          maxLength: 512
+          example: example_value
+        CompatibleArchitectures:
+          type: array
+          description: A list of compatible instruction set architectures
+          items:
+            type: string
+            enum:
+            - x86_64
+            - arm64
+          maxItems: 2
+          example: []
+    ListLayerVersionsResponse:
+      type: object
+      description: Paginated list of layer versions
+      properties:
+        NextMarker:
+          type: string
+          example: example_value
+        LayerVersions:
+          type: array
+          items:
+            $ref: '#/components/schemas/LayerVersionSummary'
+          example: []
+    GetLayerVersionResponse:
+      type: object
+      description: Details about a layer version
+      properties:
+        Content:
+          type: object
+          properties:
+            Location:
+              type: string
+              description: A presigned URL to download the layer archive
+            CodeSha256:
+              type: string
+            CodeSize:
+              type: integer
+              format: int64
+          example: example_value
+        LayerArn:
+          type: string
+          example: example_value
+        LayerVersionArn:
+          type: string
+          example: example_value
+        Description:
+          type: string
+          example: A sample description.
+        CreatedDate:
+          type: string
+          example: example_value
+        Version:
+          type: integer
+          example: 10
+        CompatibleRuntimes:
+          type: array
+          items:
+            type: string
+          example: []
+        LicenseInfo:
+          type: string
+          example: example_value
+        CompatibleArchitectures:
+          type: array
+          items:
+            type: string
+          example: []
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication. Requests must be signed with valid AWS credentials that have the appropriate Lambda IAM permissions.
+externalDocs:
+  description: AWS Lambda API Reference
+  url: https://docs.aws.amazon.com/lambda/latest/api/welcome.html

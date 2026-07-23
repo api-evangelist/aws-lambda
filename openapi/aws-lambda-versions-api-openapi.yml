@@ -1,0 +1,658 @@
+openapi: 3.1.0
+info:
+  title: AWS Lambda Aliases Versions API
+  description: The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.
+  version: '2015-03-31'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  termsOfService: https://aws.amazon.com/service-terms/
+servers:
+- url: https://lambda.{region}.amazonaws.com
+  description: AWS Lambda Regional Endpoint
+  variables:
+    region:
+      description: The AWS region for the Lambda service endpoint
+      default: us-east-1
+      enum:
+      - us-east-1
+      - us-east-2
+      - us-west-1
+      - us-west-2
+      - eu-west-1
+      - eu-west-2
+      - eu-west-3
+      - eu-central-1
+      - eu-north-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      - ap-northeast-2
+      - ap-south-1
+      - sa-east-1
+      - ca-central-1
+security:
+- sigv4: []
+tags:
+- name: Versions
+  description: Publish and manage immutable function versions
+paths:
+  /2015-03-31/functions/{FunctionName}/versions:
+    post:
+      operationId: publishVersion
+      summary: Aws Lambda Publish a Version
+      description: Creates a version from the current code and configuration of a function. Use versions to create a snapshot of your function code and configuration that does not change. Lambda does not publish a version if the function's configuration and code have not changed since the last version.
+      tags:
+      - Versions
+      parameters:
+      - $ref: '#/components/parameters/functionName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                CodeSha256:
+                  type: string
+                  description: Only publish a version if the hash value matches the value that is specified. Use this option to avoid publishing a version if the function code has changed since you last updated it.
+                Description:
+                  type: string
+                  description: Description for the version to override the function description
+                  maxLength: 256
+                RevisionId:
+                  type: string
+                  description: Only publish a version if the revision ID matches. Use this option to avoid publishing a version based on a stale configuration.
+            examples:
+              PublishversionRequestExample:
+                summary: Default publishVersion request
+                x-microcks-default: true
+                value:
+                  CodeSha256: example_value
+                  Description: A sample description.
+                  RevisionId: '500123'
+      responses:
+        '201':
+          description: Version published
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FunctionConfiguration'
+              examples:
+                Publishversion201Example:
+                  summary: Default publishVersion 201 response
+                  x-microcks-default: true
+                  value:
+                    FunctionName: example_value
+                    FunctionArn: example_value
+                    Runtime: nodejs18.x
+                    Role: example_value
+                    Handler: example_value
+                    CodeSize: 10
+                    Description: A sample description.
+                    Timeout: 10
+                    MemorySize: 10
+                    LastModified: example_value
+                    CodeSha256: example_value
+                    Version: example_value
+                    VpcConfig:
+                      SubnetIds:
+                      - {}
+                      SecurityGroupIds:
+                      - {}
+                      VpcId: '500123'
+                    DeadLetterConfig:
+                      TargetArn: example_value
+                    Environment:
+                      Variables: example_value
+                      Error:
+                        ErrorCode: example_value
+                        Message: example_value
+                    KMSKeyArn: example_value
+                    TracingConfig:
+                      Mode: Active
+                    MasterArn: example_value
+                    RevisionId: '500123'
+                    Layers:
+                    - Arn: example_value
+                      CodeSize: 10
+                      SigningProfileVersionArn: example_value
+                      SigningJobArn: example_value
+                    State: Pending
+                    StateReason: example_value
+                    StateReasonCode: Idle
+                    LastUpdateStatus: Successful
+                    LastUpdateStatusReason: example_value
+                    LastUpdateStatusReasonCode: example_value
+                    PackageType: Zip
+                    ImageConfigResponse:
+                      ImageConfig:
+                        EntryPoint:
+                        - {}
+                        Command:
+                        - {}
+                        WorkingDirectory: example_value
+                      Error:
+                        ErrorCode: example_value
+                        Message: example_value
+                    Architectures:
+                    - x86_64
+                    EphemeralStorage:
+                      Size: 10
+                    SnapStart:
+                      ApplyOn: PublishedVersions
+                      OptimizationStatus: true
+                    RuntimeVersionConfig:
+                      RuntimeVersionArn: example_value
+                      Error:
+                        ErrorCode: example_value
+                        Message: example_value
+                    LoggingConfig:
+                      LogFormat: JSON
+                      ApplicationLogLevel: TRACE
+                      SystemLogLevel: DEBUG
+                      LogGroup: example_value
+        '404':
+          description: Function not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Publishversion404Example:
+                  summary: Default publishVersion 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+        '409':
+          description: Resource conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Publishversion409Example:
+                  summary: Default publishVersion 409 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    get:
+      operationId: listVersionsByFunction
+      summary: Aws Lambda List Function Versions
+      description: Returns a list of versions with the version-specific configuration of each. Lambda returns up to 50 versions per call.
+      tags:
+      - Versions
+      parameters:
+      - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/marker'
+      - $ref: '#/components/parameters/maxItems'
+      responses:
+        '200':
+          description: List of function versions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVersionsResponse'
+              examples:
+                Listversionsbyfunction200Example:
+                  summary: Default listVersionsByFunction 200 response
+                  x-microcks-default: true
+                  value:
+                    NextMarker: example_value
+                    Versions:
+                    - FunctionName: example_value
+                      FunctionArn: example_value
+                      Runtime: nodejs18.x
+                      Role: example_value
+                      Handler: example_value
+                      CodeSize: 10
+                      Description: A sample description.
+                      Timeout: 10
+                      MemorySize: 10
+                      LastModified: example_value
+                      CodeSha256: example_value
+                      Version: example_value
+                      DeadLetterConfig: {}
+                      Environment: {}
+                      KMSKeyArn: example_value
+                      TracingConfig: {}
+                      MasterArn: example_value
+                      RevisionId: '500123'
+                      Layers: {}
+                      State: Pending
+                      StateReason: example_value
+                      StateReasonCode: Idle
+                      LastUpdateStatus: Successful
+                      LastUpdateStatusReason: example_value
+                      LastUpdateStatusReasonCode: example_value
+                      PackageType: Zip
+                      ImageConfigResponse: {}
+                      Architectures: {}
+                      EphemeralStorage: {}
+                      SnapStart: {}
+                      RuntimeVersionConfig: {}
+                      LoggingConfig: {}
+        '404':
+          description: Function not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listversionsbyfunction404Example:
+                  summary: Default listVersionsByFunction 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Layer:
+      type: object
+      description: An Lambda layer attached to a function
+      properties:
+        Arn:
+          type: string
+          description: The ARN of the function layer
+          example: example_value
+        CodeSize:
+          type: integer
+          description: The size of the layer archive in bytes
+          format: int64
+          example: 10
+        SigningProfileVersionArn:
+          type: string
+          description: The ARN of a signing profile version
+          example: example_value
+        SigningJobArn:
+          type: string
+          description: The ARN of a signing job
+          example: example_value
+    ErrorResponse:
+      type: object
+      description: Error response from the Lambda API
+      properties:
+        Type:
+          type: string
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
+          example: example_value
+    FunctionConfiguration:
+      type: object
+      description: A Lambda function's configuration and metadata
+      properties:
+        FunctionName:
+          type: string
+          description: The name of the function
+          example: example_value
+        FunctionArn:
+          type: string
+          description: The function's Amazon Resource Name (ARN)
+          example: example_value
+        Runtime:
+          type: string
+          description: The identifier of the function's runtime. Runtime is required if the deployment package is a .zip file archive.
+          enum:
+          - nodejs18.x
+          - nodejs20.x
+          - nodejs22.x
+          - python3.9
+          - python3.10
+          - python3.11
+          - python3.12
+          - python3.13
+          - java11
+          - java17
+          - java21
+          - dotnet6
+          - dotnet8
+          - ruby3.2
+          - ruby3.3
+          - provided
+          - provided.al2
+          - provided.al2023
+          example: nodejs18.x
+        Role:
+          type: string
+          description: The function's execution role ARN
+          example: example_value
+        Handler:
+          type: string
+          description: The function entrypoint in your code. The format includes the file name without extension and the handler function name (e.g. index.handler)
+          example: example_value
+        CodeSize:
+          type: integer
+          description: The size of the function's deployment package in bytes
+          format: int64
+          example: 10
+        Description:
+          type: string
+          description: The function's description
+          example: A sample description.
+        Timeout:
+          type: integer
+          description: The amount of time in seconds that Lambda allows a function to run before stopping it. Maximum is 900 seconds (15 minutes).
+          minimum: 1
+          maximum: 900
+          example: 10
+        MemorySize:
+          type: integer
+          description: The amount of memory available to the function at runtime in MB. Lambda allocates CPU power in proportion to the amount of memory configured.
+          minimum: 128
+          maximum: 10240
+          example: 10
+        LastModified:
+          type: string
+          description: The date and time the function was last updated in ISO 8601 format
+          example: example_value
+        CodeSha256:
+          type: string
+          description: The SHA-256 hash of the function's deployment package
+          example: example_value
+        Version:
+          type: string
+          description: The version of the Lambda function
+          example: example_value
+        VpcConfig:
+          $ref: '#/components/schemas/VpcConfigResponse'
+        DeadLetterConfig:
+          type: object
+          description: The function's dead-letter queue configuration
+          properties:
+            TargetArn:
+              type: string
+              description: The ARN of the SQS queue or SNS topic for failed events
+          example: example_value
+        Environment:
+          type: object
+          description: The function's environment variables
+          properties:
+            Variables:
+              type: object
+              additionalProperties:
+                type: string
+              description: Environment variable key-value pairs
+            Error:
+              type: object
+              description: Error if Lambda was unable to set up environment variables
+              properties:
+                ErrorCode:
+                  type: string
+                Message:
+                  type: string
+          example: example_value
+        KMSKeyArn:
+          type: string
+          description: The ARN of the KMS key used to encrypt the function's environment variables at rest
+          example: example_value
+        TracingConfig:
+          type: object
+          description: The function's X-Ray tracing configuration
+          properties:
+            Mode:
+              type: string
+              enum:
+              - Active
+              - PassThrough
+          example: example_value
+        MasterArn:
+          type: string
+          description: For Lambda@Edge functions, the ARN of the main function
+          example: example_value
+        RevisionId:
+          type: string
+          description: The latest updated revision of the function
+          example: '500123'
+        Layers:
+          type: array
+          description: The function's layers
+          items:
+            $ref: '#/components/schemas/Layer'
+          example: []
+        State:
+          type: string
+          description: The current state of the function
+          enum:
+          - Pending
+          - Active
+          - Inactive
+          - Failed
+          example: Pending
+        StateReason:
+          type: string
+          description: The reason for the function's current state
+          example: example_value
+        StateReasonCode:
+          type: string
+          description: The reason code for the function's current state
+          enum:
+          - Idle
+          - Creating
+          - Restoring
+          - EniLimitExceeded
+          - InsufficientRolePermissions
+          - InvalidConfiguration
+          - InternalError
+          - SubnetOutOfIPAddresses
+          - InvalidSubnet
+          - InvalidSecurityGroup
+          - ImageDeleted
+          - ImageAccessDenied
+          - InvalidImage
+          - KMSKeyAccessDenied
+          - KMSKeyNotFound
+          - InvalidStateKMSKey
+          - DisabledKMSKey
+          - EFSIOError
+          - EFSMountConnectivityError
+          - EFSMountFailure
+          - EFSMountTimeout
+          - InvalidRuntime
+          - InvalidZipFileException
+          - FunctionError
+          example: Idle
+        LastUpdateStatus:
+          type: string
+          description: The status of the last update that was performed on the function
+          enum:
+          - Successful
+          - Failed
+          - InProgress
+          example: Successful
+        LastUpdateStatusReason:
+          type: string
+          description: The reason for the last update that was performed on the function
+          example: example_value
+        LastUpdateStatusReasonCode:
+          type: string
+          description: The reason code for the last update
+          example: example_value
+        PackageType:
+          type: string
+          description: The type of deployment package
+          enum:
+          - Zip
+          - Image
+          example: Zip
+        ImageConfigResponse:
+          type: object
+          description: The function's image configuration values for container images
+          properties:
+            ImageConfig:
+              type: object
+              properties:
+                EntryPoint:
+                  type: array
+                  items:
+                    type: string
+                Command:
+                  type: array
+                  items:
+                    type: string
+                WorkingDirectory:
+                  type: string
+            Error:
+              type: object
+              properties:
+                ErrorCode:
+                  type: string
+                Message:
+                  type: string
+          example: example_value
+        Architectures:
+          type: array
+          description: The instruction set architecture that the function supports
+          items:
+            type: string
+            enum:
+            - x86_64
+            - arm64
+          maxItems: 1
+          example: []
+        EphemeralStorage:
+          type: object
+          description: The size of the function's /tmp directory in MB
+          properties:
+            Size:
+              type: integer
+              minimum: 512
+              maximum: 10240
+          example: example_value
+        SnapStart:
+          type: object
+          description: The function's SnapStart setting for reducing cold start latency
+          properties:
+            ApplyOn:
+              type: string
+              enum:
+              - PublishedVersions
+              - None
+            OptimizationStatus:
+              type: string
+              enum:
+              - true
+              - false
+          example: example_value
+        RuntimeVersionConfig:
+          type: object
+          description: The ARN of the runtime and any errors that occurred
+          properties:
+            RuntimeVersionArn:
+              type: string
+            Error:
+              type: object
+              properties:
+                ErrorCode:
+                  type: string
+                Message:
+                  type: string
+          example: example_value
+        LoggingConfig:
+          type: object
+          description: The function's Amazon CloudWatch Logs configuration
+          properties:
+            LogFormat:
+              type: string
+              enum:
+              - JSON
+              - Text
+            ApplicationLogLevel:
+              type: string
+              enum:
+              - TRACE
+              - DEBUG
+              - INFO
+              - WARN
+              - ERROR
+              - FATAL
+            SystemLogLevel:
+              type: string
+              enum:
+              - DEBUG
+              - INFO
+              - WARN
+            LogGroup:
+              type: string
+              description: The name of the CloudWatch log group
+          example: example_value
+    VpcConfigResponse:
+      type: object
+      description: VPC connectivity details returned by Lambda
+      properties:
+        SubnetIds:
+          type: array
+          items:
+            type: string
+          example: []
+        SecurityGroupIds:
+          type: array
+          items:
+            type: string
+          example: []
+        VpcId:
+          type: string
+          description: The VPC ID
+          example: '500123'
+    ListVersionsResponse:
+      type: object
+      description: Paginated list of function versions
+      properties:
+        NextMarker:
+          type: string
+          description: Pagination token for the next page
+          example: example_value
+        Versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/FunctionConfiguration'
+          example: []
+  parameters:
+    maxItems:
+      name: MaxItems
+      in: query
+      description: Maximum number of items to return (1-10000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+    marker:
+      name: Marker
+      in: query
+      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
+      schema:
+        type: string
+    functionName:
+      name: FunctionName
+      in: path
+      required: true
+      description: The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 170
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication. Requests must be signed with valid AWS credentials that have the appropriate Lambda IAM permissions.
+externalDocs:
+  description: AWS Lambda API Reference
+  url: https://docs.aws.amazon.com/lambda/latest/api/welcome.html

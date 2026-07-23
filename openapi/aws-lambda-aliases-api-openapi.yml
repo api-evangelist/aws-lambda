@@ -1,0 +1,470 @@
+openapi: 3.1.0
+info:
+  title: AWS Lambda Aliases API
+  description: The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.
+  version: '2015-03-31'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  termsOfService: https://aws.amazon.com/service-terms/
+servers:
+- url: https://lambda.{region}.amazonaws.com
+  description: AWS Lambda Regional Endpoint
+  variables:
+    region:
+      description: The AWS region for the Lambda service endpoint
+      default: us-east-1
+      enum:
+      - us-east-1
+      - us-east-2
+      - us-west-1
+      - us-west-2
+      - eu-west-1
+      - eu-west-2
+      - eu-west-3
+      - eu-central-1
+      - eu-north-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      - ap-northeast-2
+      - ap-south-1
+      - sa-east-1
+      - ca-central-1
+security:
+- sigv4: []
+tags:
+- name: Aliases
+  description: Create named pointers to function versions with routing configuration
+paths:
+  /2015-03-31/functions/{FunctionName}/aliases:
+    get:
+      operationId: listAliases
+      summary: Aws Lambda List Aliases
+      description: Returns a list of aliases for a Lambda function. Each alias points to a specific function version and can optionally route a percentage of traffic to a second version for canary deployments.
+      tags:
+      - Aliases
+      parameters:
+      - $ref: '#/components/parameters/functionName'
+      - name: FunctionVersion
+        in: query
+        description: Filter by the version that aliases point to
+        schema:
+          type: string
+        example: example_value
+      - $ref: '#/components/parameters/marker'
+      - $ref: '#/components/parameters/maxItems'
+      responses:
+        '200':
+          description: List of aliases
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAliasesResponse'
+              examples:
+                Listaliases200Example:
+                  summary: Default listAliases 200 response
+                  x-microcks-default: true
+                  value:
+                    NextMarker: example_value
+                    Aliases:
+                    - AliasArn: example_value
+                      Name: Example Title
+                      FunctionVersion: example_value
+                      Description: A sample description.
+                      RevisionId: '500123'
+        '404':
+          description: Function not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listaliases404Example:
+                  summary: Default listAliases 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createAlias
+      summary: Aws Lambda Create an Alias
+      description: Creates an alias for a Lambda function version. Use aliases to provide clients with a function identifier that you can update to invoke a different version. You can also map an alias to split invocation requests between two versions for weighted routing.
+      tags:
+      - Aliases
+      parameters:
+      - $ref: '#/components/parameters/functionName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAliasRequest'
+            examples:
+              CreatealiasRequestExample:
+                summary: Default createAlias request
+                x-microcks-default: true
+                value:
+                  Name: Example Title
+                  FunctionVersion: example_value
+                  Description: A sample description.
+                  RoutingConfig:
+                    AdditionalVersionWeights: example_value
+      responses:
+        '201':
+          description: Alias created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AliasConfiguration'
+              examples:
+                Createalias201Example:
+                  summary: Default createAlias 201 response
+                  x-microcks-default: true
+                  value:
+                    AliasArn: example_value
+                    Name: Example Title
+                    FunctionVersion: example_value
+                    Description: A sample description.
+                    RoutingConfig:
+                      AdditionalVersionWeights: example_value
+                    RevisionId: '500123'
+        '404':
+          description: Function or version not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createalias404Example:
+                  summary: Default createAlias 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+        '409':
+          description: Alias already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Createalias409Example:
+                  summary: Default createAlias 409 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /2015-03-31/functions/{FunctionName}/aliases/{AliasName}:
+    get:
+      operationId: getAlias
+      summary: Aws Lambda Get an Alias
+      description: Returns details about a Lambda function alias.
+      tags:
+      - Aliases
+      parameters:
+      - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/aliasName'
+      responses:
+        '200':
+          description: Alias details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AliasConfiguration'
+              examples:
+                Getalias200Example:
+                  summary: Default getAlias 200 response
+                  x-microcks-default: true
+                  value:
+                    AliasArn: example_value
+                    Name: Example Title
+                    FunctionVersion: example_value
+                    Description: A sample description.
+                    RoutingConfig:
+                      AdditionalVersionWeights: example_value
+                    RevisionId: '500123'
+        '404':
+          description: Alias not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getalias404Example:
+                  summary: Default getAlias 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: updateAlias
+      summary: Aws Lambda Update an Alias
+      description: Updates the configuration of a Lambda function alias. You can change the function version that the alias points to, or configure routing between two versions for weighted traffic shifting.
+      tags:
+      - Aliases
+      parameters:
+      - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/aliasName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAliasRequest'
+            examples:
+              UpdatealiasRequestExample:
+                summary: Default updateAlias request
+                x-microcks-default: true
+                value:
+                  FunctionVersion: example_value
+                  Description: A sample description.
+                  RoutingConfig:
+                    AdditionalVersionWeights: example_value
+                  RevisionId: '500123'
+      responses:
+        '200':
+          description: Updated alias
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AliasConfiguration'
+              examples:
+                Updatealias200Example:
+                  summary: Default updateAlias 200 response
+                  x-microcks-default: true
+                  value:
+                    AliasArn: example_value
+                    Name: Example Title
+                    FunctionVersion: example_value
+                    Description: A sample description.
+                    RoutingConfig:
+                      AdditionalVersionWeights: example_value
+                    RevisionId: '500123'
+        '404':
+          description: Alias not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatealias404Example:
+                  summary: Default updateAlias 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+        '409':
+          description: Resource conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Updatealias409Example:
+                  summary: Default updateAlias 409 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteAlias
+      summary: Aws Lambda Delete an Alias
+      description: Deletes a Lambda function alias.
+      tags:
+      - Aliases
+      parameters:
+      - $ref: '#/components/parameters/functionName'
+      - $ref: '#/components/parameters/aliasName'
+      responses:
+        '204':
+          description: Alias deleted
+        '404':
+          description: Alias not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deletealias404Example:
+                  summary: Default deleteAlias 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    CreateAliasRequest:
+      type: object
+      required:
+      - Name
+      - FunctionVersion
+      description: Request body for creating a function alias
+      properties:
+        Name:
+          type: string
+          description: The name of the alias
+          minLength: 1
+          maxLength: 128
+          example: Example Title
+        FunctionVersion:
+          type: string
+          description: The function version that the alias invokes
+          example: example_value
+        Description:
+          type: string
+          description: Description of the alias
+          maxLength: 256
+          example: A sample description.
+        RoutingConfig:
+          $ref: '#/components/schemas/AliasRoutingConfiguration'
+    AliasConfiguration:
+      type: object
+      description: Configuration of a Lambda function alias
+      properties:
+        AliasArn:
+          type: string
+          description: The ARN of the alias
+          example: example_value
+        Name:
+          type: string
+          description: The name of the alias
+          example: Example Title
+        FunctionVersion:
+          type: string
+          description: The function version that the alias invokes
+          example: example_value
+        Description:
+          type: string
+          description: Description of the alias
+          example: A sample description.
+        RoutingConfig:
+          $ref: '#/components/schemas/AliasRoutingConfiguration'
+        RevisionId:
+          type: string
+          description: A unique identifier that changes when you update the alias
+          example: '500123'
+    UpdateAliasRequest:
+      type: object
+      description: Request body for updating a function alias
+      properties:
+        FunctionVersion:
+          type: string
+          description: The function version that the alias invokes
+          example: example_value
+        Description:
+          type: string
+          description: Description of the alias
+          maxLength: 256
+          example: A sample description.
+        RoutingConfig:
+          $ref: '#/components/schemas/AliasRoutingConfiguration'
+        RevisionId:
+          type: string
+          description: Update only if the revision ID matches
+          example: '500123'
+    AliasRoutingConfiguration:
+      type: object
+      description: The traffic-shifting configuration of a Lambda function alias. Used for weighted alias routing to enable canary deployments.
+      properties:
+        AdditionalVersionWeights:
+          type: object
+          additionalProperties:
+            type: number
+            minimum: 0.0
+            maximum: 1.0
+          description: The secondary version weight. The key is the version number or alias name and the value is the percentage of traffic (0.0-1.0).
+          example: example_value
+    ErrorResponse:
+      type: object
+      description: Error response from the Lambda API
+      properties:
+        Type:
+          type: string
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
+          example: example_value
+    ListAliasesResponse:
+      type: object
+      description: Paginated list of aliases
+      properties:
+        NextMarker:
+          type: string
+          description: Pagination token for the next page
+          example: example_value
+        Aliases:
+          type: array
+          items:
+            $ref: '#/components/schemas/AliasConfiguration'
+          example: []
+  parameters:
+    marker:
+      name: Marker
+      in: query
+      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
+      schema:
+        type: string
+    maxItems:
+      name: MaxItems
+      in: query
+      description: Maximum number of items to return (1-10000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+    functionName:
+      name: FunctionName
+      in: path
+      required: true
+      description: The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 170
+    aliasName:
+      name: AliasName
+      in: path
+      required: true
+      description: The name of the alias
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 128
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication. Requests must be signed with valid AWS credentials that have the appropriate Lambda IAM permissions.
+externalDocs:
+  description: AWS Lambda API Reference
+  url: https://docs.aws.amazon.com/lambda/latest/api/welcome.html

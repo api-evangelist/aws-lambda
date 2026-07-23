@@ -1,0 +1,408 @@
+openapi: 3.1.0
+info:
+  title: AWS Lambda Aliases Concurrency API
+  description: The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.
+  version: '2015-03-31'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  termsOfService: https://aws.amazon.com/service-terms/
+servers:
+- url: https://lambda.{region}.amazonaws.com
+  description: AWS Lambda Regional Endpoint
+  variables:
+    region:
+      description: The AWS region for the Lambda service endpoint
+      default: us-east-1
+      enum:
+      - us-east-1
+      - us-east-2
+      - us-west-1
+      - us-west-2
+      - eu-west-1
+      - eu-west-2
+      - eu-west-3
+      - eu-central-1
+      - eu-north-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      - ap-northeast-2
+      - ap-south-1
+      - sa-east-1
+      - ca-central-1
+security:
+- sigv4: []
+tags:
+- name: Concurrency
+  description: Manage reserved and provisioned concurrency settings for functions
+paths:
+  /2015-03-31/functions/{FunctionName}/concurrency:
+    get:
+      operationId: getReservedConcurrency
+      summary: Aws Lambda Get Reserved Concurrency
+      description: Retrieves the reserved concurrency configuration for a function.
+      tags:
+      - Concurrency
+      parameters:
+      - $ref: '#/components/parameters/functionName'
+      responses:
+        '200':
+          description: Reserved concurrency configuration
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ReservedConcurrentExecutions:
+                    type: integer
+                    description: The number of concurrent executions reserved for this function
+              examples:
+                Getreservedconcurrency200Example:
+                  summary: Default getReservedConcurrency 200 response
+                  x-microcks-default: true
+                  value:
+                    ReservedConcurrentExecutions: 10
+        '404':
+          description: Function not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getreservedconcurrency404Example:
+                  summary: Default getReservedConcurrency 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: putFunctionConcurrency
+      summary: Aws Lambda Set Reserved Concurrency
+      description: Sets the maximum number of simultaneous executions for a function, and reserves capacity for that concurrency level. Use ReservedConcurrentExecutions to reserve a portion of your account's concurrency for a function.
+      tags:
+      - Concurrency
+      parameters:
+      - $ref: '#/components/parameters/functionName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - ReservedConcurrentExecutions
+              properties:
+                ReservedConcurrentExecutions:
+                  type: integer
+                  description: The number of simultaneous executions to reserve
+                  minimum: 0
+            examples:
+              PutfunctionconcurrencyRequestExample:
+                summary: Default putFunctionConcurrency request
+                x-microcks-default: true
+                value:
+                  ReservedConcurrentExecutions: 10
+      responses:
+        '200':
+          description: Reserved concurrency set
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ReservedConcurrentExecutions:
+                    type: integer
+              examples:
+                Putfunctionconcurrency200Example:
+                  summary: Default putFunctionConcurrency 200 response
+                  x-microcks-default: true
+                  value:
+                    ReservedConcurrentExecutions: 10
+        '404':
+          description: Function not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Putfunctionconcurrency404Example:
+                  summary: Default putFunctionConcurrency 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteFunctionConcurrency
+      summary: Aws Lambda Delete Reserved Concurrency
+      description: Removes a concurrency limit from a function. The function can then use unreserved account concurrency up to the account limit.
+      tags:
+      - Concurrency
+      parameters:
+      - $ref: '#/components/parameters/functionName'
+      responses:
+        '204':
+          description: Reserved concurrency removed
+        '404':
+          description: Function not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deletefunctionconcurrency404Example:
+                  summary: Default deleteFunctionConcurrency 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /2015-03-31/functions/{FunctionName}/provisioned-concurrency:
+    get:
+      operationId: getProvisionedConcurrencyConfig
+      summary: Aws Lambda Get Provisioned Concurrency
+      description: Retrieves the provisioned concurrency configuration for a function's alias or version.
+      tags:
+      - Concurrency
+      parameters:
+      - $ref: '#/components/parameters/functionName'
+      - name: Qualifier
+        in: query
+        required: true
+        description: The version number or alias name
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Provisioned concurrency configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProvisionedConcurrencyConfig'
+              examples:
+                Getprovisionedconcurrencyconfig200Example:
+                  summary: Default getProvisionedConcurrencyConfig 200 response
+                  x-microcks-default: true
+                  value:
+                    RequestedProvisionedConcurrentExecutions: 10
+                    AvailableProvisionedConcurrentExecutions: 10
+                    AllocatedProvisionedConcurrentExecutions: 10
+                    Status: IN_PROGRESS
+                    StatusReason: example_value
+                    LastModified: example_value
+        '404':
+          description: Configuration not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Getprovisionedconcurrencyconfig404Example:
+                  summary: Default getProvisionedConcurrencyConfig 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      operationId: putProvisionedConcurrencyConfig
+      summary: Aws Lambda Set Provisioned Concurrency
+      description: Adds a provisioned concurrency configuration to a function's alias or version. Lambda pre-initializes the specified number of execution environments so they are prepared to respond immediately.
+      tags:
+      - Concurrency
+      parameters:
+      - $ref: '#/components/parameters/functionName'
+      - name: Qualifier
+        in: query
+        required: true
+        description: The version number or alias name
+        schema:
+          type: string
+        example: example_value
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - ProvisionedConcurrentExecutions
+              properties:
+                ProvisionedConcurrentExecutions:
+                  type: integer
+                  description: The amount of provisioned concurrency to allocate
+                  minimum: 1
+            examples:
+              PutprovisionedconcurrencyconfigRequestExample:
+                summary: Default putProvisionedConcurrencyConfig request
+                x-microcks-default: true
+                value:
+                  ProvisionedConcurrentExecutions: 10
+      responses:
+        '202':
+          description: Provisioned concurrency configuration created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProvisionedConcurrencyConfig'
+              examples:
+                Putprovisionedconcurrencyconfig202Example:
+                  summary: Default putProvisionedConcurrencyConfig 202 response
+                  x-microcks-default: true
+                  value:
+                    RequestedProvisionedConcurrentExecutions: 10
+                    AvailableProvisionedConcurrentExecutions: 10
+                    AllocatedProvisionedConcurrentExecutions: 10
+                    Status: IN_PROGRESS
+                    StatusReason: example_value
+                    LastModified: example_value
+        '404':
+          description: Function or qualifier not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Putprovisionedconcurrencyconfig404Example:
+                  summary: Default putProvisionedConcurrencyConfig 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+        '409':
+          description: Resource conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Putprovisionedconcurrencyconfig409Example:
+                  summary: Default putProvisionedConcurrencyConfig 409 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteProvisionedConcurrencyConfig
+      summary: Aws Lambda Delete Provisioned Concurrency
+      description: Deletes the provisioned concurrency configuration for a function.
+      tags:
+      - Concurrency
+      parameters:
+      - $ref: '#/components/parameters/functionName'
+      - name: Qualifier
+        in: query
+        required: true
+        description: The version number or alias name
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '204':
+          description: Provisioned concurrency configuration deleted
+        '404':
+          description: Configuration not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Deleteprovisionedconcurrencyconfig404Example:
+                  summary: Default deleteProvisionedConcurrencyConfig 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      description: Error response from the Lambda API
+      properties:
+        Type:
+          type: string
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
+          example: example_value
+    ProvisionedConcurrencyConfig:
+      type: object
+      description: Provisioned concurrency configuration for a function
+      properties:
+        RequestedProvisionedConcurrentExecutions:
+          type: integer
+          description: The amount of provisioned concurrency requested
+          example: 10
+        AvailableProvisionedConcurrentExecutions:
+          type: integer
+          description: The amount of provisioned concurrency available
+          example: 10
+        AllocatedProvisionedConcurrentExecutions:
+          type: integer
+          description: The amount of provisioned concurrency allocated
+          example: 10
+        Status:
+          type: string
+          description: The status of the allocation
+          enum:
+          - IN_PROGRESS
+          - READY
+          - FAILED
+          example: IN_PROGRESS
+        StatusReason:
+          type: string
+          description: For failed allocations, the reason the status is FAILED
+          example: example_value
+        LastModified:
+          type: string
+          description: The date and time the configuration was last modified
+          example: example_value
+  parameters:
+    functionName:
+      name: FunctionName
+      in: path
+      required: true
+      description: The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 170
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication. Requests must be signed with valid AWS credentials that have the appropriate Lambda IAM permissions.
+externalDocs:
+  description: AWS Lambda API Reference
+  url: https://docs.aws.amazon.com/lambda/latest/api/welcome.html

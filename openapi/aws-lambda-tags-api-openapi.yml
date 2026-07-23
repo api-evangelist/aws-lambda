@@ -1,0 +1,212 @@
+openapi: 3.1.0
+info:
+  title: AWS Lambda Aliases Tags API
+  description: The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.
+  version: '2015-03-31'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/contact-us/
+  termsOfService: https://aws.amazon.com/service-terms/
+servers:
+- url: https://lambda.{region}.amazonaws.com
+  description: AWS Lambda Regional Endpoint
+  variables:
+    region:
+      description: The AWS region for the Lambda service endpoint
+      default: us-east-1
+      enum:
+      - us-east-1
+      - us-east-2
+      - us-west-1
+      - us-west-2
+      - eu-west-1
+      - eu-west-2
+      - eu-west-3
+      - eu-central-1
+      - eu-north-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      - ap-northeast-2
+      - ap-south-1
+      - sa-east-1
+      - ca-central-1
+security:
+- sigv4: []
+tags:
+- name: Tags
+paths:
+  /2015-03-31/tags/{ARN}:
+    get:
+      operationId: listTags
+      summary: Aws Lambda List Tags
+      description: Returns a function's tags. You can also view tags with GetFunction.
+      tags:
+      - Tags
+      parameters:
+      - name: ARN
+        in: path
+        required: true
+        description: The function's Amazon Resource Name (ARN)
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Tags for the resource
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Tags:
+                    type: object
+                    additionalProperties:
+                      type: string
+              examples:
+                Listtags200Example:
+                  summary: Default listTags 200 response
+                  x-microcks-default: true
+                  value:
+                    Tags: example_value
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Listtags404Example:
+                  summary: Default listTags 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: tagResource
+      summary: Aws Lambda Add Tags
+      description: Adds tags to a function. Tags are key-value pairs used for grouping and filtering resources.
+      tags:
+      - Tags
+      parameters:
+      - name: ARN
+        in: path
+        required: true
+        description: The function's Amazon Resource Name (ARN)
+        schema:
+          type: string
+        example: example_value
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - Tags
+              properties:
+                Tags:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  description: Key-value pairs to add as tags
+            examples:
+              TagresourceRequestExample:
+                summary: Default tagResource request
+                x-microcks-default: true
+                value:
+                  Tags: example_value
+      responses:
+        '204':
+          description: Tags added successfully
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Tagresource404Example:
+                  summary: Default tagResource 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: untagResource
+      summary: Aws Lambda Remove Tags
+      description: Removes tags from a function.
+      tags:
+      - Tags
+      parameters:
+      - name: ARN
+        in: path
+        required: true
+        description: The function's Amazon Resource Name (ARN)
+        schema:
+          type: string
+        example: example_value
+      - name: tagKeys
+        in: query
+        required: true
+        description: List of tag keys to remove
+        schema:
+          type: array
+          items:
+            type: string
+        example: []
+      responses:
+        '204':
+          description: Tags removed successfully
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Untagresource404Example:
+                  summary: Default untagResource 404 response
+                  x-microcks-default: true
+                  value:
+                    Type: example_value
+                    Message: example_value
+                    Code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      description: Error response from the Lambda API
+      properties:
+        Type:
+          type: string
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
+          example: example_value
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: AWS Signature Version 4 authentication. Requests must be signed with valid AWS credentials that have the appropriate Lambda IAM permissions.
+externalDocs:
+  description: AWS Lambda API Reference
+  url: https://docs.aws.amazon.com/lambda/latest/api/welcome.html
