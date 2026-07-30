@@ -5,6 +5,19 @@ description: >-
   or backend service without provisioning or managing servers. Lambda runs your code on high-availability compute
   infrastructure and performs all of the administration of the compute resources, including server and operating system
   maintenance, capacity provisioning and automatic scaling, and logging.
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
 url: https://raw.githubusercontent.com/api-evangelist/aws-lambda/refs/heads/main/apis.yml
 created: '2024-01-15'
@@ -12,156 +25,473 @@ modified: '2026-06-20'
 specificationVersion: '0.19'
 type: Index
 apis:
-  - aid: aws-lambda:aws-lambda-api
-    name: AWS Lambda API
-    description: >-
-      The AWS Lambda REST API enables you to create, manage, and invoke Lambda functions programmatically. Supports
-      function management, event source mappings, aliases, versions, and layer operations.
-    image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-    humanURL: https://aws.amazon.com/lambda/
-    baseURL: https://lambda.{region}.amazonaws.com
-    tags:
-      - Compute
-      - Event-Driven
-      - FaaS
-      - Functions
-      - Serverless
-    properties:
-      - type: Documentation
-        url: https://docs.aws.amazon.com/lambda/latest/dg/welcome.html
-      - type: OpenAPI
-        url: https://api.apis.guru/v2/specs/amazonaws.com/lambda/2015-03-31/openapi.json
-      - type: OpenAPI
-        url: openapi/aws-lambda-api-openapi.yml
-      - type: AsyncAPI
-        url: asyncapi/aws-lambda-event-triggers-asyncapi.yml
-      - type: JSONSchema
-        url: json-schema/aws-lambda-function-schema.json
-      - type: JSONLD
-        url: json-ld/aws-lambda-context.jsonld
-      - type: APIReference
-        url: https://docs.aws.amazon.com/lambda/latest/api/welcome.html
-      - type: Pricing
-        url: https://aws.amazon.com/lambda/pricing/
-      - type: GettingStarted
-        url: https://aws.amazon.com/lambda/getting-started/
-      - type: SDKs
-        url: https://aws.amazon.com/tools/
-      - type: Console
-        url: https://console.aws.amazon.com/lambda/
-      - type: StatusPage
-        url: https://health.aws.amazon.com/health/status
-      - type: RateLimits
-        url: https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
-      - type: BestPractices
-        url: https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html
-      - type: Security
-        url: https://docs.aws.amazon.com/lambda/latest/dg/lambda-security.html
-      - type: Tutorials
-        url: https://aws.amazon.com/lambda/resources/
-      - type: CLI
-        url: https://docs.aws.amazon.com/cli/latest/reference/lambda/
-      - type: CodeExamples
-        url: https://docs.aws.amazon.com/lambda/latest/dg/service_code_examples.html
-      - type: Versioning
-        url: https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html
-      - type: Troubleshooting
-        url: https://docs.aws.amazon.com/lambda/latest/dg/troubleshooting-deployment.html
-    contact:
-      - type: Support
-        url: https://aws.amazon.com/contact-us/
-      - type: X
-        url: https://twitter.com/awscloud
-  - aid: aws-lambda:aws-lambda-extensions-api
-    name: AWS Lambda Extensions API
-    description: >-
-      The Lambda Extensions API enables you to create extensions that integrate with the Lambda execution environment
-      lifecycle. Extensions can run as companion processes alongside your function, enabling use cases such as capturing
-      diagnostic information, sending telemetry data, and integrating with monitoring and observability tools.
-    image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-    humanURL: https://docs.aws.amazon.com/lambda/latest/dg/lambda-extensions.html
-    baseURL: https://lambda.{region}.amazonaws.com
-    tags:
-      - Extensions
-      - Monitoring
-      - Observability
-      - Serverless
-    properties:
-      - type: Documentation
-        url: https://docs.aws.amazon.com/lambda/latest/dg/lambda-extensions.html
-      - type: APIReference
-        url: https://docs.aws.amazon.com/lambda/latest/dg/runtimes-extensions-api.html
-      - type: Partners
-        url: https://docs.aws.amazon.com/lambda/latest/dg/extensions-api-partners.html
-      - type: CodeExamples
-        url: https://github.com/aws-samples/aws-lambda-extensions
-    contact:
-      - type: Support
-        url: https://aws.amazon.com/contact-us/
-  - aid: aws-lambda:aws-lambda-telemetry-api
-    name: AWS Lambda Telemetry API
-    description: >-
-      The Lambda Telemetry API lets you collect telemetry data directly from the Lambda execution environment.
-      Extensions can subscribe to telemetry streams for platform telemetry, function logs, and extension logs to send
-      data to custom destinations for monitoring and observability.
-    image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-    humanURL: https://docs.aws.amazon.com/lambda/latest/dg/telemetry-api.html
-    baseURL: https://lambda.{region}.amazonaws.com
-    tags:
-      - Logging
-      - Monitoring
-      - Observability
-      - Serverless
-      - Telemetry
-    properties:
-      - type: Documentation
-        url: https://docs.aws.amazon.com/lambda/latest/dg/telemetry-api.html
-      - type: APIReference
-        url: https://docs.aws.amazon.com/lambda/latest/dg/telemetry-api-reference.html
-    contact:
-      - type: Support
-        url: https://aws.amazon.com/contact-us/
-  - aid: aws-lambda:aws-lambda-runtime-api
-    name: AWS Lambda Runtime API
-    description: >-
-      The Lambda Runtime API enables you to use custom runtimes to run functions in any programming language. The
-      runtime API provides an HTTP API for custom runtimes to receive invocation events from Lambda and send response
-      data back within the Lambda execution environment.
-    image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-    humanURL: https://docs.aws.amazon.com/lambda/latest/dg/runtimes-api.html
-    baseURL: https://lambda.{region}.amazonaws.com
-    tags:
-      - Custom Runtime
-      - Functions
-      - Runtime
-      - Serverless
-    properties:
-      - type: Documentation
-        url: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
-      - type: APIReference
-        url: https://docs.aws.amazon.com/lambda/latest/dg/runtimes-api.html
-    contact:
-      - type: Support
-        url: https://aws.amazon.com/contact-us/
-  - aid: aws-lambda:aws-lambda-logs-api
-    name: AWS Lambda Logs API
-    description: >-
-      The Lambda Logs API enables extensions to subscribe to log streams generated by the Lambda platform, function
-      code, and extensions within the execution environment, providing access to log data for processing and forwarding.
-    image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
-    humanURL: https://docs.aws.amazon.com/lambda/latest/dg/runtimes-logs-api.html
-    baseURL: https://lambda.{region}.amazonaws.com
-    tags:
-      - Logging
-      - Monitoring
-      - Serverless
-    properties:
-      - type: Documentation
-        url: https://docs.aws.amazon.com/lambda/latest/dg/runtimes-logs-api.html
-    contact:
-      - type: Support
-        url: https://aws.amazon.com/contact-us/
+- aid: aws-lambda:aws-lambda-extensions-api
+  name: AWS Lambda Extensions API
+  description: >-
+    The Lambda Extensions API enables you to create extensions that integrate with the Lambda execution
+    environment lifecycle. Extensions can run as companion processes alongside your function, enabling
+    use cases such as capturing diagnostic information, sending telemetry data, and integrating with monitoring
+    and observability tools.
+  image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
+  humanURL: https://docs.aws.amazon.com/lambda/latest/dg/lambda-extensions.html
+  baseURL: https://lambda.{region}.amazonaws.com
+  tags:
+  - Extensions
+  - Monitoring
+  - Observability
+  - Serverless
+  properties:
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lambda/latest/dg/lambda-extensions.html
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lambda/latest/dg/runtimes-extensions-api.html
+  - type: Partners
+    url: https://docs.aws.amazon.com/lambda/latest/dg/extensions-api-partners.html
+  - type: CodeExamples
+    url: https://github.com/aws-samples/aws-lambda-extensions
+  contact:
+  - type: Support
+    url: https://aws.amazon.com/contact-us/
+- aid: aws-lambda:aws-lambda-telemetry-api
+  name: AWS Lambda Telemetry API
+  description: >-
+    The Lambda Telemetry API lets you collect telemetry data directly from the Lambda execution environment.
+    Extensions can subscribe to telemetry streams for platform telemetry, function logs, and extension
+    logs to send data to custom destinations for monitoring and observability.
+  image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
+  humanURL: https://docs.aws.amazon.com/lambda/latest/dg/telemetry-api.html
+  baseURL: https://lambda.{region}.amazonaws.com
+  tags:
+  - Logging
+  - Monitoring
+  - Observability
+  - Serverless
+  - Telemetry
+  properties:
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lambda/latest/dg/telemetry-api.html
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lambda/latest/dg/telemetry-api-reference.html
+  contact:
+  - type: Support
+    url: https://aws.amazon.com/contact-us/
+- aid: aws-lambda:aws-lambda-runtime-api
+  name: AWS Lambda Runtime API
+  description: >-
+    The Lambda Runtime API enables you to use custom runtimes to run functions in any programming language.
+    The runtime API provides an HTTP API for custom runtimes to receive invocation events from Lambda
+    and send response data back within the Lambda execution environment.
+  image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
+  humanURL: https://docs.aws.amazon.com/lambda/latest/dg/runtimes-api.html
+  baseURL: https://lambda.{region}.amazonaws.com
+  tags:
+  - Custom Runtime
+  - Functions
+  - Runtime
+  - Serverless
+  properties:
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lambda/latest/dg/runtimes-api.html
+  contact:
+  - type: Support
+    url: https://aws.amazon.com/contact-us/
+- aid: aws-lambda:aws-lambda-logs-api
+  name: AWS Lambda Logs API
+  description: >-
+    The Lambda Logs API enables extensions to subscribe to log streams generated by the Lambda platform,
+    function code, and extensions within the execution environment, providing access to log data for processing
+    and forwarding.
+  image: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
+  humanURL: https://docs.aws.amazon.com/lambda/latest/dg/runtimes-logs-api.html
+  baseURL: https://lambda.{region}.amazonaws.com
+  tags:
+  - Logging
+  - Monitoring
+  - Serverless
+  properties:
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lambda/latest/dg/runtimes-logs-api.html
+  contact:
+  - type: Support
+    url: https://aws.amazon.com/contact-us/
+- aid: aws-lambda:aws-lambda-aliases-api
+  name: AWS Lambda Aliases API
+  description: Create named pointers to function versions with routing configuration
+  humanURL: https://aws.amazon.com/lambda/
+  baseURL: https://lambda.{region}.amazonaws.com
+  tags:
+  - Aliases
+  properties:
+  - type: OpenAPI
+    url: openapi/aws-lambda-aliases-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lambda/latest/dg/welcome.html
+  - type: AsyncAPI
+    url: asyncapi/aws-lambda-event-triggers-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/aws-lambda-function-schema.json
+  - type: JSONLD
+    url: json-ld/aws-lambda-context.jsonld
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lambda/latest/api/welcome.html
+  - type: Pricing
+    url: https://aws.amazon.com/lambda/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lambda/getting-started/
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: Console
+    url: https://console.aws.amazon.com/lambda/
+  - type: StatusPage
+    url: https://health.aws.amazon.com/health/status
+  - type: RateLimits
+    url: https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html
+  - type: Security
+    url: https://docs.aws.amazon.com/lambda/latest/dg/lambda-security.html
+  - type: Tutorials
+    url: https://aws.amazon.com/lambda/resources/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/lambda/
+  - type: CodeExamples
+    url: https://docs.aws.amazon.com/lambda/latest/dg/service_code_examples.html
+  - type: Versioning
+    url: https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html
+  - type: Troubleshooting
+    url: https://docs.aws.amazon.com/lambda/latest/dg/troubleshooting-deployment.html
+- aid: aws-lambda:aws-lambda-concurrency-api
+  name: AWS Lambda Concurrency API
+  description: Manage reserved and provisioned concurrency settings for functions
+  humanURL: https://aws.amazon.com/lambda/
+  baseURL: https://lambda.{region}.amazonaws.com
+  tags:
+  - Concurrency
+  properties:
+  - type: OpenAPI
+    url: openapi/aws-lambda-concurrency-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lambda/latest/dg/welcome.html
+  - type: AsyncAPI
+    url: asyncapi/aws-lambda-event-triggers-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/aws-lambda-function-schema.json
+  - type: JSONLD
+    url: json-ld/aws-lambda-context.jsonld
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lambda/latest/api/welcome.html
+  - type: Pricing
+    url: https://aws.amazon.com/lambda/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lambda/getting-started/
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: Console
+    url: https://console.aws.amazon.com/lambda/
+  - type: StatusPage
+    url: https://health.aws.amazon.com/health/status
+  - type: RateLimits
+    url: https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html
+  - type: Security
+    url: https://docs.aws.amazon.com/lambda/latest/dg/lambda-security.html
+  - type: Tutorials
+    url: https://aws.amazon.com/lambda/resources/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/lambda/
+  - type: CodeExamples
+    url: https://docs.aws.amazon.com/lambda/latest/dg/service_code_examples.html
+  - type: Versioning
+    url: https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html
+  - type: Troubleshooting
+    url: https://docs.aws.amazon.com/lambda/latest/dg/troubleshooting-deployment.html
+- aid: aws-lambda:aws-lambda-event-source-mappings-api
+  name: AWS Lambda Event Source Mappings API
+  description: >-
+    Map event sources such as Amazon SQS, Kinesis, and DynamoDB Streams to Lambda functions for automatic
+    invocation
+  humanURL: https://aws.amazon.com/lambda/
+  baseURL: https://lambda.{region}.amazonaws.com
+  tags:
+  - Event Source Mappings
+  properties:
+  - type: OpenAPI
+    url: openapi/aws-lambda-event-source-mappings-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lambda/latest/dg/welcome.html
+  - type: AsyncAPI
+    url: asyncapi/aws-lambda-event-triggers-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/aws-lambda-function-schema.json
+  - type: JSONLD
+    url: json-ld/aws-lambda-context.jsonld
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lambda/latest/api/welcome.html
+  - type: Pricing
+    url: https://aws.amazon.com/lambda/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lambda/getting-started/
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: Console
+    url: https://console.aws.amazon.com/lambda/
+  - type: StatusPage
+    url: https://health.aws.amazon.com/health/status
+  - type: RateLimits
+    url: https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html
+  - type: Security
+    url: https://docs.aws.amazon.com/lambda/latest/dg/lambda-security.html
+  - type: Tutorials
+    url: https://aws.amazon.com/lambda/resources/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/lambda/
+  - type: CodeExamples
+    url: https://docs.aws.amazon.com/lambda/latest/dg/service_code_examples.html
+  - type: Versioning
+    url: https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html
+  - type: Troubleshooting
+    url: https://docs.aws.amazon.com/lambda/latest/dg/troubleshooting-deployment.html
+- aid: aws-lambda:aws-lambda-function-url-api
+  name: AWS Lambda Function URL API
+  description: >-
+    Configure dedicated HTTPS endpoints for Lambda functions that can be invoked directly via HTTP
+  humanURL: https://aws.amazon.com/lambda/
+  baseURL: https://lambda.{region}.amazonaws.com
+  tags:
+  - Function URL
+  properties:
+  - type: OpenAPI
+    url: openapi/aws-lambda-function-url-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lambda/latest/dg/welcome.html
+  - type: AsyncAPI
+    url: asyncapi/aws-lambda-event-triggers-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/aws-lambda-function-schema.json
+  - type: JSONLD
+    url: json-ld/aws-lambda-context.jsonld
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lambda/latest/api/welcome.html
+  - type: Pricing
+    url: https://aws.amazon.com/lambda/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lambda/getting-started/
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: Console
+    url: https://console.aws.amazon.com/lambda/
+  - type: StatusPage
+    url: https://health.aws.amazon.com/health/status
+  - type: RateLimits
+    url: https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html
+  - type: Security
+    url: https://docs.aws.amazon.com/lambda/latest/dg/lambda-security.html
+  - type: Tutorials
+    url: https://aws.amazon.com/lambda/resources/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/lambda/
+  - type: CodeExamples
+    url: https://docs.aws.amazon.com/lambda/latest/dg/service_code_examples.html
+  - type: Versioning
+    url: https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html
+  - type: Troubleshooting
+    url: https://docs.aws.amazon.com/lambda/latest/dg/troubleshooting-deployment.html
+- aid: aws-lambda:aws-lambda-functions-api
+  name: AWS Lambda Functions API
+  description: Create, configure, invoke, and manage Lambda functions
+  humanURL: https://aws.amazon.com/lambda/
+  baseURL: https://lambda.{region}.amazonaws.com
+  tags:
+  - Functions
+  properties:
+  - type: OpenAPI
+    url: openapi/aws-lambda-functions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lambda/latest/dg/welcome.html
+  - type: AsyncAPI
+    url: asyncapi/aws-lambda-event-triggers-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/aws-lambda-function-schema.json
+  - type: JSONLD
+    url: json-ld/aws-lambda-context.jsonld
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lambda/latest/api/welcome.html
+  - type: Pricing
+    url: https://aws.amazon.com/lambda/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lambda/getting-started/
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: Console
+    url: https://console.aws.amazon.com/lambda/
+  - type: StatusPage
+    url: https://health.aws.amazon.com/health/status
+  - type: RateLimits
+    url: https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html
+  - type: Security
+    url: https://docs.aws.amazon.com/lambda/latest/dg/lambda-security.html
+  - type: Tutorials
+    url: https://aws.amazon.com/lambda/resources/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/lambda/
+  - type: CodeExamples
+    url: https://docs.aws.amazon.com/lambda/latest/dg/service_code_examples.html
+  - type: Versioning
+    url: https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html
+  - type: Troubleshooting
+    url: https://docs.aws.amazon.com/lambda/latest/dg/troubleshooting-deployment.html
+- aid: aws-lambda:aws-lambda-layers-api
+  name: AWS Lambda Layers API
+  description: >-
+    Manage Lambda layers that package libraries, custom runtimes, and other dependencies for sharing across
+    functions
+  humanURL: https://aws.amazon.com/lambda/
+  baseURL: https://lambda.{region}.amazonaws.com
+  tags:
+  - Layers
+  properties:
+  - type: OpenAPI
+    url: openapi/aws-lambda-layers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lambda/latest/dg/welcome.html
+  - type: AsyncAPI
+    url: asyncapi/aws-lambda-event-triggers-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/aws-lambda-function-schema.json
+  - type: JSONLD
+    url: json-ld/aws-lambda-context.jsonld
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lambda/latest/api/welcome.html
+  - type: Pricing
+    url: https://aws.amazon.com/lambda/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lambda/getting-started/
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: Console
+    url: https://console.aws.amazon.com/lambda/
+  - type: StatusPage
+    url: https://health.aws.amazon.com/health/status
+  - type: RateLimits
+    url: https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html
+  - type: Security
+    url: https://docs.aws.amazon.com/lambda/latest/dg/lambda-security.html
+  - type: Tutorials
+    url: https://aws.amazon.com/lambda/resources/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/lambda/
+  - type: CodeExamples
+    url: https://docs.aws.amazon.com/lambda/latest/dg/service_code_examples.html
+  - type: Versioning
+    url: https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html
+  - type: Troubleshooting
+    url: https://docs.aws.amazon.com/lambda/latest/dg/troubleshooting-deployment.html
+- aid: aws-lambda:aws-lambda-tags-api
+  name: AWS Lambda Tags API
+  description: The Tags API from AWS Lambda — 1 operation(s) for tags.
+  humanURL: https://aws.amazon.com/lambda/
+  baseURL: https://lambda.{region}.amazonaws.com
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/aws-lambda-tags-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lambda/latest/dg/welcome.html
+  - type: AsyncAPI
+    url: asyncapi/aws-lambda-event-triggers-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/aws-lambda-function-schema.json
+  - type: JSONLD
+    url: json-ld/aws-lambda-context.jsonld
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lambda/latest/api/welcome.html
+  - type: Pricing
+    url: https://aws.amazon.com/lambda/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lambda/getting-started/
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: Console
+    url: https://console.aws.amazon.com/lambda/
+  - type: StatusPage
+    url: https://health.aws.amazon.com/health/status
+  - type: RateLimits
+    url: https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html
+  - type: Security
+    url: https://docs.aws.amazon.com/lambda/latest/dg/lambda-security.html
+  - type: Tutorials
+    url: https://aws.amazon.com/lambda/resources/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/lambda/
+  - type: CodeExamples
+    url: https://docs.aws.amazon.com/lambda/latest/dg/service_code_examples.html
+  - type: Versioning
+    url: https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html
+  - type: Troubleshooting
+    url: https://docs.aws.amazon.com/lambda/latest/dg/troubleshooting-deployment.html
+- aid: aws-lambda:aws-lambda-versions-api
+  name: AWS Lambda Versions API
+  description: Publish and manage immutable function versions
+  humanURL: https://aws.amazon.com/lambda/
+  baseURL: https://lambda.{region}.amazonaws.com
+  tags:
+  - Versions
+  properties:
+  - type: OpenAPI
+    url: openapi/aws-lambda-versions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aws.amazon.com/lambda/latest/dg/welcome.html
+  - type: AsyncAPI
+    url: asyncapi/aws-lambda-event-triggers-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/aws-lambda-function-schema.json
+  - type: JSONLD
+    url: json-ld/aws-lambda-context.jsonld
+  - type: APIReference
+    url: https://docs.aws.amazon.com/lambda/latest/api/welcome.html
+  - type: Pricing
+    url: https://aws.amazon.com/lambda/pricing/
+  - type: GettingStarted
+    url: https://aws.amazon.com/lambda/getting-started/
+  - type: SDKs
+    url: https://aws.amazon.com/tools/
+  - type: Console
+    url: https://console.aws.amazon.com/lambda/
+  - type: StatusPage
+    url: https://health.aws.amazon.com/health/status
+  - type: RateLimits
+    url: https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
+  - type: BestPractices
+    url: https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html
+  - type: Security
+    url: https://docs.aws.amazon.com/lambda/latest/dg/lambda-security.html
+  - type: Tutorials
+    url: https://aws.amazon.com/lambda/resources/
+  - type: CLI
+    url: https://docs.aws.amazon.com/cli/latest/reference/lambda/
+  - type: CodeExamples
+    url: https://docs.aws.amazon.com/lambda/latest/dg/service_code_examples.html
+  - type: Versioning
+    url: https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html
+  - type: Troubleshooting
+    url: https://docs.aws.amazon.com/lambda/latest/dg/troubleshooting-deployment.html
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/aws-lambda/overview
   - type: AgenticAccess
     url: agentic-access/aws-lambda-agentic-access.yml
   - type: Packages
