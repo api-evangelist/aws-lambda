@@ -1,0 +1,1034 @@
+{
+  "info": {
+    "_postman_id": "d771186a-62ec-4303-9564-6d5a8da98f02",
+    "name": "AWS Lambda Aliases Layers API",
+    "description": "The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.\n\nContact Support:\n Name: AWS Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:07:39.000Z",
+    "updatedAt": "2026-07-28T01:07:39.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d771186a-62ec-4303-9564-6d5a8da98f02"
+  },
+  "item": [
+    {
+      "name": "2015-03-31",
+      "item": [
+        {
+          "name": "layers",
+          "item": [
+            {
+              "name": "{LayerName}",
+              "item": [
+                {
+                  "name": "versions",
+                  "item": [
+                    {
+                      "name": "{VersionNumber}",
+                      "item": [
+                        {
+                          "name": "Aws Lambda Get a Layer Version",
+                          "id": "0f18a9b6-b27b-44f1-88ef-53de0954900b",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/layers/:LayerName/versions/:VersionNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "layers",
+                                ":LayerName",
+                                "versions",
+                                ":VersionNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "0015652a-68f2-441e-82fb-8c195adf141e",
+                                  "key": "LayerName",
+                                  "value": "<string>",
+                                  "description": "(Required) The name or ARN of the layer"
+                                },
+                                {
+                                  "id": "43923301-9ff1-42ef-b798-ddd4b82a99c2",
+                                  "key": "VersionNumber",
+                                  "value": "<integer>",
+                                  "description": "(Required) The version number"
+                                }
+                              ]
+                            },
+                            "description": "Returns information about a version of a Lambda layer, with a link to download the layer archive that is valid for 10 minutes."
+                          },
+                          "response": [
+                            {
+                              "id": "eb336d5e-7ca6-4a8a-ae5b-95366182483b",
+                              "name": "Layer version details",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Authorization",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/2015-03-31/layers/:LayerName/versions/:VersionNumber",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "2015-03-31",
+                                    "layers",
+                                    ":LayerName",
+                                    "versions",
+                                    ":VersionNumber"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "LayerName"
+                                    },
+                                    {
+                                      "key": "VersionNumber"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"Content\": {\n    \"Location\": \"<string>\",\n    \"CodeSha256\": \"<string>\",\n    \"CodeSize\": \"<long>\"\n  },\n  \"LayerArn\": \"<string>\",\n  \"LayerVersionArn\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"CreatedDate\": \"<string>\",\n  \"Version\": \"<integer>\",\n  \"CompatibleRuntimes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"LicenseInfo\": \"<string>\",\n  \"CompatibleArchitectures\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                              "createdAt": "2026-07-28T01:07:40.000Z",
+                              "updatedAt": "2026-07-28T01:07:40.000Z",
+                              "uid": "35240-eb336d5e-7ca6-4a8a-ae5b-95366182483b"
+                            },
+                            {
+                              "id": "855251bd-4e52-4245-bccf-aaf7a3f19b64",
+                              "name": "Layer version not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Authorization",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/2015-03-31/layers/:LayerName/versions/:VersionNumber",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "2015-03-31",
+                                    "layers",
+                                    ":LayerName",
+                                    "versions",
+                                    ":VersionNumber"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "LayerName"
+                                    },
+                                    {
+                                      "key": "VersionNumber"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T01:07:40.000Z",
+                              "updatedAt": "2026-07-28T01:07:40.000Z",
+                              "uid": "35240-855251bd-4e52-4245-bccf-aaf7a3f19b64"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:07:40.000Z",
+                          "updatedAt": "2026-07-28T01:07:40.000Z",
+                          "uid": "35240-0f18a9b6-b27b-44f1-88ef-53de0954900b"
+                        },
+                        {
+                          "name": "Aws Lambda Delete a Layer Version",
+                          "id": "a312ce66-317c-4be4-a55b-75d2423889c1",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/layers/:LayerName/versions/:VersionNumber",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "layers",
+                                ":LayerName",
+                                "versions",
+                                ":VersionNumber"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "4c9b1b40-62cf-4251-8046-f294047f244e",
+                                  "key": "LayerName",
+                                  "value": "<string>",
+                                  "description": "(Required) The name or ARN of the layer"
+                                },
+                                {
+                                  "id": "e7051e47-d238-4348-9490-61e150e0f967",
+                                  "key": "VersionNumber",
+                                  "value": "<integer>",
+                                  "description": "(Required) The version number"
+                                }
+                              ]
+                            },
+                            "description": "Deletes a version of an Lambda layer. Deleted versions can no longer be viewed or added to functions. However, a copy of the version remains in Lambda until no functions refer to it."
+                          },
+                          "response": [
+                            {
+                              "id": "f373cce5-6ff5-41fb-b2ef-5997b69eb7b7",
+                              "name": "Layer version deleted",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Authorization",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/2015-03-31/layers/:LayerName/versions/:VersionNumber",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "2015-03-31",
+                                    "layers",
+                                    ":LayerName",
+                                    "versions",
+                                    ":VersionNumber"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "LayerName"
+                                    },
+                                    {
+                                      "key": "VersionNumber"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T01:07:40.000Z",
+                              "updatedAt": "2026-07-28T01:07:40.000Z",
+                              "uid": "35240-f373cce5-6ff5-41fb-b2ef-5997b69eb7b7"
+                            },
+                            {
+                              "id": "ce5b42ba-d585-4ad5-87e5-cdfcdc2e87b9",
+                              "name": "Layer version not found",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Authorization",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/2015-03-31/layers/:LayerName/versions/:VersionNumber",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "2015-03-31",
+                                    "layers",
+                                    ":LayerName",
+                                    "versions",
+                                    ":VersionNumber"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "LayerName"
+                                    },
+                                    {
+                                      "key": "VersionNumber"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T01:07:40.000Z",
+                              "updatedAt": "2026-07-28T01:07:40.000Z",
+                              "uid": "35240-ce5b42ba-d585-4ad5-87e5-cdfcdc2e87b9"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:07:40.000Z",
+                          "updatedAt": "2026-07-28T01:07:40.000Z",
+                          "uid": "35240-a312ce66-317c-4be4-a55b-75d2423889c1"
+                        }
+                      ],
+                      "id": "0c6ef7ef-838d-4d02-863d-7ab287c4bec0",
+                      "createdAt": "2026-07-28T01:07:40.000Z",
+                      "updatedAt": "2026-07-28T01:07:40.000Z",
+                      "uid": "35240-0c6ef7ef-838d-4d02-863d-7ab287c4bec0"
+                    },
+                    {
+                      "name": "Aws Lambda List Layer Versions",
+                      "id": "fd1d3064-b19f-47f4-9b81-9d0439d590b4",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/layers/:LayerName/versions?CompatibleRuntime=<string>&CompatibleArchitecture=x86_64&Marker=<string>&MaxItems=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "layers",
+                            ":LayerName",
+                            "versions"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter by compatible runtime",
+                              "key": "CompatibleRuntime",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter by compatible architecture",
+                              "key": "CompatibleArchitecture",
+                              "value": "x86_64"
+                            },
+                            {
+                              "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results.",
+                              "key": "Marker",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Maximum number of items to return (1-10000)",
+                              "key": "MaxItems",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "d5d5a38f-cb8a-451d-9fa4-2752676869ab",
+                              "key": "LayerName",
+                              "value": "<string>",
+                              "description": "(Required) The name or ARN of the layer"
+                            }
+                          ]
+                        },
+                        "description": "Lists the versions of an Lambda layer. Versions that have been deleted are not listed. Specify a runtime identifier to list only versions compatible with that runtime."
+                      },
+                      "response": [
+                        {
+                          "id": "1440c6f4-7167-4d2f-8036-47a0bc94b0db",
+                          "name": "List of layer versions",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/layers/:LayerName/versions?CompatibleRuntime=<string>&CompatibleArchitecture=x86_64&Marker=<string>&MaxItems=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "layers",
+                                ":LayerName",
+                                "versions"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Filter by compatible runtime",
+                                  "key": "CompatibleRuntime",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter by compatible architecture",
+                                  "key": "CompatibleArchitecture",
+                                  "value": "x86_64"
+                                },
+                                {
+                                  "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results.",
+                                  "key": "Marker",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Maximum number of items to return (1-10000)",
+                                  "key": "MaxItems",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "LayerName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"NextMarker\": \"<string>\",\n  \"LayerVersions\": [\n    {\n      \"LayerVersionArn\": \"<string>\",\n      \"Version\": \"<integer>\",\n      \"Description\": \"<string>\",\n      \"CreatedDate\": \"<string>\",\n      \"CompatibleRuntimes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"LicenseInfo\": \"<string>\",\n      \"CompatibleArchitectures\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"LayerVersionArn\": \"<string>\",\n      \"Version\": \"<integer>\",\n      \"Description\": \"<string>\",\n      \"CreatedDate\": \"<string>\",\n      \"CompatibleRuntimes\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"LicenseInfo\": \"<string>\",\n      \"CompatibleArchitectures\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:07:40.000Z",
+                          "updatedAt": "2026-07-28T01:07:40.000Z",
+                          "uid": "35240-1440c6f4-7167-4d2f-8036-47a0bc94b0db"
+                        },
+                        {
+                          "id": "5ca93e56-b4a4-4f33-b767-67355ea1d8e6",
+                          "name": "Layer not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/layers/:LayerName/versions?CompatibleRuntime=<string>&CompatibleArchitecture=x86_64&Marker=<string>&MaxItems=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "layers",
+                                ":LayerName",
+                                "versions"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Filter by compatible runtime",
+                                  "key": "CompatibleRuntime",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Filter by compatible architecture",
+                                  "key": "CompatibleArchitecture",
+                                  "value": "x86_64"
+                                },
+                                {
+                                  "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results.",
+                                  "key": "Marker",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Maximum number of items to return (1-10000)",
+                                  "key": "MaxItems",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "LayerName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:40.000Z",
+                          "updatedAt": "2026-07-28T01:07:40.000Z",
+                          "uid": "35240-5ca93e56-b4a4-4f33-b767-67355ea1d8e6"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:07:40.000Z",
+                      "updatedAt": "2026-07-28T01:07:40.000Z",
+                      "uid": "35240-fd1d3064-b19f-47f4-9b81-9d0439d590b4"
+                    },
+                    {
+                      "name": "Aws Lambda Publish a Layer Version",
+                      "id": "b04c99dd-5a33-47ee-854e-4b09d2a80c83",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"Content\": {\n    \"S3Bucket\": \"<string>\",\n    \"S3Key\": \"<string>\",\n    \"S3ObjectVersion\": \"<string>\",\n    \"ZipFile\": \"<string>\"\n  },\n  \"Description\": \"<string>\",\n  \"CompatibleRuntimes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"LicenseInfo\": \"<string>\",\n  \"CompatibleArchitectures\": [\n    \"arm64\",\n    \"arm64\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/layers/:LayerName/versions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "layers",
+                            ":LayerName",
+                            "versions"
+                          ],
+                          "variable": [
+                            {
+                              "id": "314ef66b-7246-403e-a42d-a4f51464816e",
+                              "key": "LayerName",
+                              "value": "<string>",
+                              "description": "(Required) The name or ARN of the layer"
+                            }
+                          ]
+                        },
+                        "description": "Creates a Lambda layer from a ZIP archive. Each time you call PublishLayerVersion with the same layer name, a new version is created. Add layers to your function with CreateFunction or UpdateFunctionConfiguration."
+                      },
+                      "response": [
+                        {
+                          "id": "e5bc312e-7225-4885-9310-e5411c7b9f9f",
+                          "name": "Layer version published",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"Content\": {\n    \"S3Bucket\": \"<string>\",\n    \"S3Key\": \"<string>\",\n    \"S3ObjectVersion\": \"<string>\",\n    \"ZipFile\": \"<string>\"\n  },\n  \"Description\": \"<string>\",\n  \"CompatibleRuntimes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"LicenseInfo\": \"<string>\",\n  \"CompatibleArchitectures\": [\n    \"arm64\",\n    \"arm64\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/layers/:LayerName/versions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "layers",
+                                ":LayerName",
+                                "versions"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "LayerName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Content\": {\n    \"Location\": \"<string>\",\n    \"CodeSha256\": \"<string>\",\n    \"CodeSize\": \"<long>\",\n    \"SigningProfileVersionArn\": \"<string>\",\n    \"SigningJobArn\": \"<string>\"\n  },\n  \"LayerArn\": \"<string>\",\n  \"LayerVersionArn\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"CreatedDate\": \"<string>\",\n  \"Version\": \"<integer>\",\n  \"CompatibleRuntimes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"LicenseInfo\": \"<string>\",\n  \"CompatibleArchitectures\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                          "createdAt": "2026-07-28T01:07:40.000Z",
+                          "updatedAt": "2026-07-28T01:07:40.000Z",
+                          "uid": "35240-e5bc312e-7225-4885-9310-e5411c7b9f9f"
+                        },
+                        {
+                          "id": "34bb910c-8387-44cc-84d1-949ddf221846",
+                          "name": "Invalid parameter value",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"Content\": {\n    \"S3Bucket\": \"<string>\",\n    \"S3Key\": \"<string>\",\n    \"S3ObjectVersion\": \"<string>\",\n    \"ZipFile\": \"<string>\"\n  },\n  \"Description\": \"<string>\",\n  \"CompatibleRuntimes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"LicenseInfo\": \"<string>\",\n  \"CompatibleArchitectures\": [\n    \"arm64\",\n    \"arm64\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/layers/:LayerName/versions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "layers",
+                                ":LayerName",
+                                "versions"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "LayerName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:40.000Z",
+                          "updatedAt": "2026-07-28T01:07:40.000Z",
+                          "uid": "35240-34bb910c-8387-44cc-84d1-949ddf221846"
+                        },
+                        {
+                          "id": "e892c577-2a42-472c-88b8-abb0c5ef76a0",
+                          "name": "Too many requests",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"Content\": {\n    \"S3Bucket\": \"<string>\",\n    \"S3Key\": \"<string>\",\n    \"S3ObjectVersion\": \"<string>\",\n    \"ZipFile\": \"<string>\"\n  },\n  \"Description\": \"<string>\",\n  \"CompatibleRuntimes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"LicenseInfo\": \"<string>\",\n  \"CompatibleArchitectures\": [\n    \"arm64\",\n    \"arm64\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/layers/:LayerName/versions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "layers",
+                                ":LayerName",
+                                "versions"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "LayerName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:40.000Z",
+                          "updatedAt": "2026-07-28T01:07:40.000Z",
+                          "uid": "35240-e892c577-2a42-472c-88b8-abb0c5ef76a0"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:07:40.000Z",
+                      "updatedAt": "2026-07-28T01:07:40.000Z",
+                      "uid": "35240-b04c99dd-5a33-47ee-854e-4b09d2a80c83"
+                    }
+                  ],
+                  "id": "88c0927a-b42e-403d-a88a-7021fec4133d",
+                  "createdAt": "2026-07-28T01:07:40.000Z",
+                  "updatedAt": "2026-07-28T01:07:40.000Z",
+                  "uid": "35240-88c0927a-b42e-403d-a88a-7021fec4133d"
+                }
+              ],
+              "id": "2f11dd27-1a24-4e41-8a57-9900f5a1d03d",
+              "createdAt": "2026-07-28T01:07:40.000Z",
+              "updatedAt": "2026-07-28T01:07:40.000Z",
+              "uid": "35240-2f11dd27-1a24-4e41-8a57-9900f5a1d03d"
+            },
+            {
+              "name": "Aws Lambda List Layers",
+              "id": "d039bfd4-88d5-4878-96fb-35f1c7247073",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/2015-03-31/layers?CompatibleRuntime=provided.al2&CompatibleArchitecture=x86_64&Marker=<string>&MaxItems=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "2015-03-31",
+                    "layers"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter layers by compatible runtime",
+                      "key": "CompatibleRuntime",
+                      "value": "provided.al2"
+                    },
+                    {
+                      "description": "Filter layers by compatible instruction set architecture",
+                      "key": "CompatibleArchitecture",
+                      "value": "x86_64"
+                    },
+                    {
+                      "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results.",
+                      "key": "Marker",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of items to return (1-10000)",
+                      "key": "MaxItems",
+                      "value": "<integer>"
+                    }
+                  ]
+                },
+                "description": "Lists Lambda layers and shows information about the latest version of each. Specify a compatible runtime to list only layers that are compatible with that runtime. Specify a compatible architecture to include only layers that are compatible with that instruction set architecture."
+              },
+              "response": [
+                {
+                  "id": "07fe5b4a-52a9-4099-8ddd-379c3f298264",
+                  "name": "List of layers",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/2015-03-31/layers?CompatibleRuntime=provided.al2&CompatibleArchitecture=x86_64&Marker=<string>&MaxItems=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "2015-03-31",
+                        "layers"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter layers by compatible runtime",
+                          "key": "CompatibleRuntime",
+                          "value": "provided.al2"
+                        },
+                        {
+                          "description": "Filter layers by compatible instruction set architecture",
+                          "key": "CompatibleArchitecture",
+                          "value": "x86_64"
+                        },
+                        {
+                          "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results.",
+                          "key": "Marker",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of items to return (1-10000)",
+                          "key": "MaxItems",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"NextMarker\": \"<string>\",\n  \"Layers\": [\n    {\n      \"LayerName\": \"<string>\",\n      \"LayerArn\": \"<string>\",\n      \"LatestMatchingVersion\": {\n        \"LayerVersionArn\": \"<string>\",\n        \"Version\": \"<integer>\",\n        \"Description\": \"<string>\",\n        \"CreatedDate\": \"<string>\",\n        \"CompatibleRuntimes\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"LicenseInfo\": \"<string>\",\n        \"CompatibleArchitectures\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    },\n    {\n      \"LayerName\": \"<string>\",\n      \"LayerArn\": \"<string>\",\n      \"LatestMatchingVersion\": {\n        \"LayerVersionArn\": \"<string>\",\n        \"Version\": \"<integer>\",\n        \"Description\": \"<string>\",\n        \"CreatedDate\": \"<string>\",\n        \"CompatibleRuntimes\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"LicenseInfo\": \"<string>\",\n        \"CompatibleArchitectures\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:07:40.000Z",
+                  "updatedAt": "2026-07-28T01:07:40.000Z",
+                  "uid": "35240-07fe5b4a-52a9-4099-8ddd-379c3f298264"
+                },
+                {
+                  "id": "d9207003-a33b-4755-aedb-0ea84510ea3c",
+                  "name": "Too many requests",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/2015-03-31/layers?CompatibleRuntime=provided.al2&CompatibleArchitecture=x86_64&Marker=<string>&MaxItems=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "2015-03-31",
+                        "layers"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter layers by compatible runtime",
+                          "key": "CompatibleRuntime",
+                          "value": "provided.al2"
+                        },
+                        {
+                          "description": "Filter layers by compatible instruction set architecture",
+                          "key": "CompatibleArchitecture",
+                          "value": "x86_64"
+                        },
+                        {
+                          "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results.",
+                          "key": "Marker",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of items to return (1-10000)",
+                          "key": "MaxItems",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:07:40.000Z",
+                  "updatedAt": "2026-07-28T01:07:40.000Z",
+                  "uid": "35240-d9207003-a33b-4755-aedb-0ea84510ea3c"
+                }
+              ],
+              "createdAt": "2026-07-28T01:07:40.000Z",
+              "updatedAt": "2026-07-28T01:07:40.000Z",
+              "uid": "35240-d039bfd4-88d5-4878-96fb-35f1c7247073"
+            }
+          ],
+          "id": "7b9beb33-779c-4b3a-b62a-94bca5560736",
+          "createdAt": "2026-07-28T01:07:40.000Z",
+          "updatedAt": "2026-07-28T01:07:40.000Z",
+          "uid": "35240-7b9beb33-779c-4b3a-b62a-94bca5560736"
+        }
+      ],
+      "id": "3a688d08-946e-40a8-a91c-33de34873845",
+      "createdAt": "2026-07-28T01:07:40.000Z",
+      "updatedAt": "2026-07-28T01:07:40.000Z",
+      "uid": "35240-3a688d08-946e-40a8-a91c-33de34873845"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "region",
+      "value": "us-east-1"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://lambda.{{region}}.amazonaws.com"
+    }
+  ]
+}

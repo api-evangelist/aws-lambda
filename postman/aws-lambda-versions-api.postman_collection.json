@@ -1,0 +1,506 @@
+{
+  "info": {
+    "_postman_id": "410a56e0-fe3b-4942-b21f-c4e0abc26dbb",
+    "name": "AWS Lambda Aliases Versions API",
+    "description": "The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.\n\nContact Support:\n Name: AWS Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:07:42.000Z",
+    "updatedAt": "2026-07-28T01:07:43.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-410a56e0-fe3b-4942-b21f-c4e0abc26dbb"
+  },
+  "item": [
+    {
+      "name": "2015-03-31",
+      "item": [
+        {
+          "name": "functions",
+          "item": [
+            {
+              "name": "{FunctionName}",
+              "item": [
+                {
+                  "name": "versions",
+                  "item": [
+                    {
+                      "name": "Aws Lambda Publish a Version",
+                      "id": "c1166be8-89a6-4997-9c4b-e8704778c61f",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"CodeSha256\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"RevisionId\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/versions",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "functions",
+                            ":FunctionName",
+                            "versions"
+                          ],
+                          "variable": [
+                            {
+                              "id": "5537b04e-883f-4493-8092-01f7e078ef06",
+                              "key": "FunctionName",
+                              "value": "<string>",
+                              "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                            }
+                          ]
+                        },
+                        "description": "Creates a version from the current code and configuration of a function. Use versions to create a snapshot of your function code and configuration that does not change. Lambda does not publish a version if the function's configuration and code have not changed since the last version."
+                      },
+                      "response": [
+                        {
+                          "id": "b9aee372-0576-44f5-8be8-b8ee188e0046",
+                          "name": "Version published",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"CodeSha256\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"RevisionId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/versions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "versions"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"FunctionName\": \"<string>\",\n  \"FunctionArn\": \"<string>\",\n  \"Runtime\": \"python3.10\",\n  \"Role\": \"<string>\",\n  \"Handler\": \"<string>\",\n  \"CodeSize\": \"<long>\",\n  \"Description\": \"<string>\",\n  \"Timeout\": \"<integer>\",\n  \"MemorySize\": \"<integer>\",\n  \"LastModified\": \"<string>\",\n  \"CodeSha256\": \"<string>\",\n  \"Version\": \"<string>\",\n  \"VpcConfig\": {\n    \"SubnetIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"SecurityGroupIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"VpcId\": \"<string>\"\n  },\n  \"DeadLetterConfig\": {\n    \"TargetArn\": \"<string>\"\n  },\n  \"Environment\": {\n    \"Variables\": {\n      \"in_c2\": \"<string>\",\n      \"enime\": \"<string>\"\n    },\n    \"Error\": {\n      \"ErrorCode\": \"<string>\",\n      \"Message\": \"<string>\"\n    }\n  },\n  \"KMSKeyArn\": \"<string>\",\n  \"TracingConfig\": {\n    \"Mode\": \"Active\"\n  },\n  \"MasterArn\": \"<string>\",\n  \"RevisionId\": \"<string>\",\n  \"Layers\": [\n    {\n      \"Arn\": \"<string>\",\n      \"CodeSize\": \"<long>\",\n      \"SigningProfileVersionArn\": \"<string>\",\n      \"SigningJobArn\": \"<string>\"\n    },\n    {\n      \"Arn\": \"<string>\",\n      \"CodeSize\": \"<long>\",\n      \"SigningProfileVersionArn\": \"<string>\",\n      \"SigningJobArn\": \"<string>\"\n    }\n  ],\n  \"State\": \"Inactive\",\n  \"StateReason\": \"<string>\",\n  \"StateReasonCode\": \"InvalidStateKMSKey\",\n  \"LastUpdateStatus\": \"Failed\",\n  \"LastUpdateStatusReason\": \"<string>\",\n  \"LastUpdateStatusReasonCode\": \"<string>\",\n  \"PackageType\": \"Image\",\n  \"ImageConfigResponse\": {\n    \"ImageConfig\": {\n      \"EntryPoint\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"Command\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"WorkingDirectory\": \"<string>\"\n    },\n    \"Error\": {\n      \"ErrorCode\": \"<string>\",\n      \"Message\": \"<string>\"\n    }\n  },\n  \"Architectures\": [\n    \"arm64\"\n  ],\n  \"EphemeralStorage\": {\n    \"Size\": \"<integer>\"\n  },\n  \"SnapStart\": {\n    \"ApplyOn\": \"PublishedVersions\",\n    \"OptimizationStatus\": \"true\"\n  },\n  \"RuntimeVersionConfig\": {\n    \"RuntimeVersionArn\": \"<string>\",\n    \"Error\": {\n      \"ErrorCode\": \"<string>\",\n      \"Message\": \"<string>\"\n    }\n  },\n  \"LoggingConfig\": {\n    \"LogFormat\": \"Text\",\n    \"ApplicationLogLevel\": \"DEBUG\",\n    \"SystemLogLevel\": \"INFO\",\n    \"LogGroup\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-07-28T01:07:43.000Z",
+                          "updatedAt": "2026-07-28T01:07:43.000Z",
+                          "uid": "35240-b9aee372-0576-44f5-8be8-b8ee188e0046"
+                        },
+                        {
+                          "id": "0ea1ae1f-96d0-4cc5-be21-974f3b7a38b6",
+                          "name": "Function not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"CodeSha256\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"RevisionId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/versions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "versions"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:43.000Z",
+                          "updatedAt": "2026-07-28T01:07:43.000Z",
+                          "uid": "35240-0ea1ae1f-96d0-4cc5-be21-974f3b7a38b6"
+                        },
+                        {
+                          "id": "15a6af19-1ece-4313-a402-a1c094bcd898",
+                          "name": "Resource conflict",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"CodeSha256\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"RevisionId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/versions",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "versions"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Conflict",
+                          "code": 409,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:43.000Z",
+                          "updatedAt": "2026-07-28T01:07:43.000Z",
+                          "uid": "35240-15a6af19-1ece-4313-a402-a1c094bcd898"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:07:43.000Z",
+                      "updatedAt": "2026-07-28T01:07:43.000Z",
+                      "uid": "35240-c1166be8-89a6-4997-9c4b-e8704778c61f"
+                    },
+                    {
+                      "name": "Aws Lambda List Function Versions",
+                      "id": "7c227a2c-3f51-400c-909d-8676840ab212",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/versions?Marker=<string>&MaxItems=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "functions",
+                            ":FunctionName",
+                            "versions"
+                          ],
+                          "query": [
+                            {
+                              "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results.",
+                              "key": "Marker",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Maximum number of items to return (1-10000)",
+                              "key": "MaxItems",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "2827d0f8-dabb-4001-8ee7-83adf4a31c00",
+                              "key": "FunctionName",
+                              "value": "<string>",
+                              "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                            }
+                          ]
+                        },
+                        "description": "Returns a list of versions with the version-specific configuration of each. Lambda returns up to 50 versions per call."
+                      },
+                      "response": [
+                        {
+                          "id": "c605a7f5-acee-4708-b605-e97833e7042a",
+                          "name": "List of function versions",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/versions?Marker=<string>&MaxItems=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "versions"
+                              ],
+                              "query": [
+                                {
+                                  "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results.",
+                                  "key": "Marker",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Maximum number of items to return (1-10000)",
+                                  "key": "MaxItems",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"NextMarker\": \"<string>\",\n  \"Versions\": [\n    {\n      \"FunctionName\": \"<string>\",\n      \"FunctionArn\": \"<string>\",\n      \"Runtime\": \"java21\",\n      \"Role\": \"<string>\",\n      \"Handler\": \"<string>\",\n      \"CodeSize\": \"<long>\",\n      \"Description\": \"<string>\",\n      \"Timeout\": \"<integer>\",\n      \"MemorySize\": \"<integer>\",\n      \"LastModified\": \"<string>\",\n      \"CodeSha256\": \"<string>\",\n      \"Version\": \"<string>\",\n      \"VpcConfig\": {\n        \"SubnetIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"SecurityGroupIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"VpcId\": \"<string>\"\n      },\n      \"DeadLetterConfig\": {\n        \"TargetArn\": \"<string>\"\n      },\n      \"Environment\": {\n        \"Variables\": {\n          \"velit_d\": \"<string>\",\n          \"ipsum_8e\": \"<string>\",\n          \"reprehenderit9\": \"<string>\",\n          \"Ut_e8\": \"<string>\"\n        },\n        \"Error\": {\n          \"ErrorCode\": \"<string>\",\n          \"Message\": \"<string>\"\n        }\n      },\n      \"KMSKeyArn\": \"<string>\",\n      \"TracingConfig\": {\n        \"Mode\": \"PassThrough\"\n      },\n      \"MasterArn\": \"<string>\",\n      \"RevisionId\": \"<string>\",\n      \"Layers\": [\n        {\n          \"Arn\": \"<string>\",\n          \"CodeSize\": \"<long>\",\n          \"SigningProfileVersionArn\": \"<string>\",\n          \"SigningJobArn\": \"<string>\"\n        },\n        {\n          \"Arn\": \"<string>\",\n          \"CodeSize\": \"<long>\",\n          \"SigningProfileVersionArn\": \"<string>\",\n          \"SigningJobArn\": \"<string>\"\n        }\n      ],\n      \"State\": \"Failed\",\n      \"StateReason\": \"<string>\",\n      \"StateReasonCode\": \"InvalidZipFileException\",\n      \"LastUpdateStatus\": \"InProgress\",\n      \"LastUpdateStatusReason\": \"<string>\",\n      \"LastUpdateStatusReasonCode\": \"<string>\",\n      \"PackageType\": \"Image\",\n      \"ImageConfigResponse\": {\n        \"ImageConfig\": {\n          \"EntryPoint\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"Command\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"WorkingDirectory\": \"<string>\"\n        },\n        \"Error\": {\n          \"ErrorCode\": \"<string>\",\n          \"Message\": \"<string>\"\n        }\n      },\n      \"Architectures\": [\n        \"arm64\"\n      ],\n      \"EphemeralStorage\": {\n        \"Size\": \"<integer>\"\n      },\n      \"SnapStart\": {\n        \"ApplyOn\": \"PublishedVersions\",\n        \"OptimizationStatus\": \"false\"\n      },\n      \"RuntimeVersionConfig\": {\n        \"RuntimeVersionArn\": \"<string>\",\n        \"Error\": {\n          \"ErrorCode\": \"<string>\",\n          \"Message\": \"<string>\"\n        }\n      },\n      \"LoggingConfig\": {\n        \"LogFormat\": \"JSON\",\n        \"ApplicationLogLevel\": \"DEBUG\",\n        \"SystemLogLevel\": \"DEBUG\",\n        \"LogGroup\": \"<string>\"\n      }\n    },\n    {\n      \"FunctionName\": \"<string>\",\n      \"FunctionArn\": \"<string>\",\n      \"Runtime\": \"dotnet8\",\n      \"Role\": \"<string>\",\n      \"Handler\": \"<string>\",\n      \"CodeSize\": \"<long>\",\n      \"Description\": \"<string>\",\n      \"Timeout\": \"<integer>\",\n      \"MemorySize\": \"<integer>\",\n      \"LastModified\": \"<string>\",\n      \"CodeSha256\": \"<string>\",\n      \"Version\": \"<string>\",\n      \"VpcConfig\": {\n        \"SubnetIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"SecurityGroupIds\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"VpcId\": \"<string>\"\n      },\n      \"DeadLetterConfig\": {\n        \"TargetArn\": \"<string>\"\n      },\n      \"Environment\": {\n        \"Variables\": {\n          \"labore429\": \"<string>\"\n        },\n        \"Error\": {\n          \"ErrorCode\": \"<string>\",\n          \"Message\": \"<string>\"\n        }\n      },\n      \"KMSKeyArn\": \"<string>\",\n      \"TracingConfig\": {\n        \"Mode\": \"PassThrough\"\n      },\n      \"MasterArn\": \"<string>\",\n      \"RevisionId\": \"<string>\",\n      \"Layers\": [\n        {\n          \"Arn\": \"<string>\",\n          \"CodeSize\": \"<long>\",\n          \"SigningProfileVersionArn\": \"<string>\",\n          \"SigningJobArn\": \"<string>\"\n        },\n        {\n          \"Arn\": \"<string>\",\n          \"CodeSize\": \"<long>\",\n          \"SigningProfileVersionArn\": \"<string>\",\n          \"SigningJobArn\": \"<string>\"\n        }\n      ],\n      \"State\": \"Pending\",\n      \"StateReason\": \"<string>\",\n      \"StateReasonCode\": \"EniLimitExceeded\",\n      \"LastUpdateStatus\": \"InProgress\",\n      \"LastUpdateStatusReason\": \"<string>\",\n      \"LastUpdateStatusReasonCode\": \"<string>\",\n      \"PackageType\": \"Zip\",\n      \"ImageConfigResponse\": {\n        \"ImageConfig\": {\n          \"EntryPoint\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"Command\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"WorkingDirectory\": \"<string>\"\n        },\n        \"Error\": {\n          \"ErrorCode\": \"<string>\",\n          \"Message\": \"<string>\"\n        }\n      },\n      \"Architectures\": [\n        \"arm64\"\n      ],\n      \"EphemeralStorage\": {\n        \"Size\": \"<integer>\"\n      },\n      \"SnapStart\": {\n        \"ApplyOn\": \"None\",\n        \"OptimizationStatus\": \"false\"\n      },\n      \"RuntimeVersionConfig\": {\n        \"RuntimeVersionArn\": \"<string>\",\n        \"Error\": {\n          \"ErrorCode\": \"<string>\",\n          \"Message\": \"<string>\"\n        }\n      },\n      \"LoggingConfig\": {\n        \"LogFormat\": \"JSON\",\n        \"ApplicationLogLevel\": \"INFO\",\n        \"SystemLogLevel\": \"DEBUG\",\n        \"LogGroup\": \"<string>\"\n      }\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:07:43.000Z",
+                          "updatedAt": "2026-07-28T01:07:43.000Z",
+                          "uid": "35240-c605a7f5-acee-4708-b605-e97833e7042a"
+                        },
+                        {
+                          "id": "45bf1040-450a-4b56-bc3b-2f407e355d52",
+                          "name": "Function not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/versions?Marker=<string>&MaxItems=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "versions"
+                              ],
+                              "query": [
+                                {
+                                  "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results.",
+                                  "key": "Marker",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Maximum number of items to return (1-10000)",
+                                  "key": "MaxItems",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:43.000Z",
+                          "updatedAt": "2026-07-28T01:07:43.000Z",
+                          "uid": "35240-45bf1040-450a-4b56-bc3b-2f407e355d52"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:07:43.000Z",
+                      "updatedAt": "2026-07-28T01:07:43.000Z",
+                      "uid": "35240-7c227a2c-3f51-400c-909d-8676840ab212"
+                    }
+                  ],
+                  "id": "7232eaba-f5e0-4ea6-98e3-ad0432a87f31",
+                  "createdAt": "2026-07-28T01:07:43.000Z",
+                  "updatedAt": "2026-07-28T01:07:43.000Z",
+                  "uid": "35240-7232eaba-f5e0-4ea6-98e3-ad0432a87f31"
+                }
+              ],
+              "id": "7abf01a5-0192-4bac-8db7-61cd65833169",
+              "createdAt": "2026-07-28T01:07:43.000Z",
+              "updatedAt": "2026-07-28T01:07:43.000Z",
+              "uid": "35240-7abf01a5-0192-4bac-8db7-61cd65833169"
+            }
+          ],
+          "id": "7b623b48-1e6e-42ef-8c30-0c2de03444ac",
+          "createdAt": "2026-07-28T01:07:43.000Z",
+          "updatedAt": "2026-07-28T01:07:43.000Z",
+          "uid": "35240-7b623b48-1e6e-42ef-8c30-0c2de03444ac"
+        }
+      ],
+      "id": "40a58f6d-9a95-4e55-96f8-402e3c7887e3",
+      "createdAt": "2026-07-28T01:07:43.000Z",
+      "updatedAt": "2026-07-28T01:07:43.000Z",
+      "uid": "35240-40a58f6d-9a95-4e55-96f8-402e3c7887e3"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "region",
+      "value": "us-east-1"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://lambda.{{region}}.amazonaws.com"
+    }
+  ]
+}

@@ -1,0 +1,931 @@
+{
+  "info": {
+    "_postman_id": "06bca85a-f498-4b9d-af28-75fa1a82f956",
+    "name": "AWS Lambda Aliases Event Source Mappings API",
+    "description": "The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.\n\nContact Support:\n Name: AWS Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:07:30.000Z",
+    "updatedAt": "2026-07-28T01:07:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-06bca85a-f498-4b9d-af28-75fa1a82f956"
+  },
+  "item": [
+    {
+      "name": "2015-03-31",
+      "item": [
+        {
+          "name": "event-source-mappings",
+          "item": [
+            {
+              "name": "{UUID}",
+              "item": [
+                {
+                  "name": "Aws Lambda Get an Event Source Mapping",
+                  "id": "ba75a1b9-b19d-4d2f-996a-9b1d7c89c7c2",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/2015-03-31/event-source-mappings/:UUID",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "2015-03-31",
+                        "event-source-mappings",
+                        ":UUID"
+                      ],
+                      "variable": [
+                        {
+                          "id": "c49a3738-ecb7-498e-b067-4466e594a2f3",
+                          "key": "UUID",
+                          "value": "<string>",
+                          "description": "(Required) The identifier of the event source mapping"
+                        }
+                      ]
+                    },
+                    "description": "Returns details about an event source mapping."
+                  },
+                  "response": [
+                    {
+                      "id": "7e00d03c-7321-4155-9bd0-09637636c281",
+                      "name": "Event source mapping details",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/event-source-mappings/:UUID",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "event-source-mappings",
+                            ":UUID"
+                          ],
+                          "variable": [
+                            {
+                              "key": "UUID"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"UUID\": \"<string>\",\n  \"StartingPosition\": \"AT_TIMESTAMP\",\n  \"StartingPositionTimestamp\": \"<dateTime>\",\n  \"BatchSize\": \"<integer>\",\n  \"MaximumBatchingWindowInSeconds\": \"<integer>\",\n  \"ParallelizationFactor\": \"<integer>\",\n  \"EventSourceArn\": \"<string>\",\n  \"FunctionArn\": \"<string>\",\n  \"LastModified\": \"<dateTime>\",\n  \"LastProcessingResult\": \"<string>\",\n  \"State\": \"Disabled\",\n  \"StateTransitionReason\": \"<string>\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"<string>\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"<string>\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": \"<integer>\",\n  \"BisectBatchOnFunctionError\": \"<boolean>\",\n  \"MaximumRetryAttempts\": \"<integer>\",\n  \"TumblingWindowInSeconds\": \"<integer>\",\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\",\n    \"ReportBatchItemFailures\"\n  ],\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {\n        \"Pattern\": \"<string>\"\n      },\n      {\n        \"Pattern\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:07:30.000Z",
+                      "updatedAt": "2026-07-28T01:07:30.000Z",
+                      "uid": "35240-7e00d03c-7321-4155-9bd0-09637636c281"
+                    },
+                    {
+                      "id": "8a2cbc65-04e5-448b-849c-20b115de4104",
+                      "name": "Event source mapping not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/event-source-mappings/:UUID",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "event-source-mappings",
+                            ":UUID"
+                          ],
+                          "variable": [
+                            {
+                              "key": "UUID"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:07:30.000Z",
+                      "updatedAt": "2026-07-28T01:07:30.000Z",
+                      "uid": "35240-8a2cbc65-04e5-448b-849c-20b115de4104"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:07:30.000Z",
+                  "updatedAt": "2026-07-28T01:07:30.000Z",
+                  "uid": "35240-ba75a1b9-b19d-4d2f-996a-9b1d7c89c7c2"
+                },
+                {
+                  "name": "Aws Lambda Update an Event Source Mapping",
+                  "id": "05e5a6c9-7f87-437f-84d0-01913a4effcf",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"FunctionName\": \"<string>\",\n  \"Enabled\": \"<boolean>\",\n  \"BatchSize\": \"<integer>\",\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {\n        \"Pattern\": \"<string>\"\n      },\n      {\n        \"Pattern\": \"<string>\"\n      }\n    ]\n  },\n  \"MaximumBatchingWindowInSeconds\": \"<integer>\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"<string>\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"<string>\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": \"<integer>\",\n  \"BisectBatchOnFunctionError\": \"<boolean>\",\n  \"MaximumRetryAttempts\": \"<integer>\",\n  \"ParallelizationFactor\": \"<integer>\",\n  \"TumblingWindowInSeconds\": \"<integer>\",\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\",\n    \"ReportBatchItemFailures\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/2015-03-31/event-source-mappings/:UUID",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "2015-03-31",
+                        "event-source-mappings",
+                        ":UUID"
+                      ],
+                      "variable": [
+                        {
+                          "id": "aa4400d6-7857-4022-93f1-df4f59889545",
+                          "key": "UUID",
+                          "value": "<string>",
+                          "description": "(Required) The identifier of the event source mapping"
+                        }
+                      ]
+                    },
+                    "description": "Updates an event source mapping. You can change the function that Lambda invokes, or pause invocation and resume later from the same location."
+                  },
+                  "response": [
+                    {
+                      "id": "b4507a34-55b7-4679-b46f-1bcfa8c75d12",
+                      "name": "Event source mapping updated",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"FunctionName\": \"<string>\",\n  \"Enabled\": \"<boolean>\",\n  \"BatchSize\": \"<integer>\",\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {\n        \"Pattern\": \"<string>\"\n      },\n      {\n        \"Pattern\": \"<string>\"\n      }\n    ]\n  },\n  \"MaximumBatchingWindowInSeconds\": \"<integer>\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"<string>\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"<string>\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": \"<integer>\",\n  \"BisectBatchOnFunctionError\": \"<boolean>\",\n  \"MaximumRetryAttempts\": \"<integer>\",\n  \"ParallelizationFactor\": \"<integer>\",\n  \"TumblingWindowInSeconds\": \"<integer>\",\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\",\n    \"ReportBatchItemFailures\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/event-source-mappings/:UUID",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "event-source-mappings",
+                            ":UUID"
+                          ],
+                          "variable": [
+                            {
+                              "key": "UUID"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Accepted",
+                      "code": 202,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"UUID\": \"<string>\",\n  \"StartingPosition\": \"AT_TIMESTAMP\",\n  \"StartingPositionTimestamp\": \"<dateTime>\",\n  \"BatchSize\": \"<integer>\",\n  \"MaximumBatchingWindowInSeconds\": \"<integer>\",\n  \"ParallelizationFactor\": \"<integer>\",\n  \"EventSourceArn\": \"<string>\",\n  \"FunctionArn\": \"<string>\",\n  \"LastModified\": \"<dateTime>\",\n  \"LastProcessingResult\": \"<string>\",\n  \"State\": \"Disabled\",\n  \"StateTransitionReason\": \"<string>\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"<string>\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"<string>\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": \"<integer>\",\n  \"BisectBatchOnFunctionError\": \"<boolean>\",\n  \"MaximumRetryAttempts\": \"<integer>\",\n  \"TumblingWindowInSeconds\": \"<integer>\",\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\",\n    \"ReportBatchItemFailures\"\n  ],\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {\n        \"Pattern\": \"<string>\"\n      },\n      {\n        \"Pattern\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:07:30.000Z",
+                      "updatedAt": "2026-07-28T01:07:30.000Z",
+                      "uid": "35240-b4507a34-55b7-4679-b46f-1bcfa8c75d12"
+                    },
+                    {
+                      "id": "61b0c6cd-26e1-44c5-87b8-5f998fcc6c67",
+                      "name": "Event source mapping not found",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"FunctionName\": \"<string>\",\n  \"Enabled\": \"<boolean>\",\n  \"BatchSize\": \"<integer>\",\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {\n        \"Pattern\": \"<string>\"\n      },\n      {\n        \"Pattern\": \"<string>\"\n      }\n    ]\n  },\n  \"MaximumBatchingWindowInSeconds\": \"<integer>\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"<string>\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"<string>\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": \"<integer>\",\n  \"BisectBatchOnFunctionError\": \"<boolean>\",\n  \"MaximumRetryAttempts\": \"<integer>\",\n  \"ParallelizationFactor\": \"<integer>\",\n  \"TumblingWindowInSeconds\": \"<integer>\",\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\",\n    \"ReportBatchItemFailures\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/event-source-mappings/:UUID",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "event-source-mappings",
+                            ":UUID"
+                          ],
+                          "variable": [
+                            {
+                              "key": "UUID"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:07:30.000Z",
+                      "updatedAt": "2026-07-28T01:07:30.000Z",
+                      "uid": "35240-61b0c6cd-26e1-44c5-87b8-5f998fcc6c67"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:07:30.000Z",
+                  "updatedAt": "2026-07-28T01:07:30.000Z",
+                  "uid": "35240-05e5a6c9-7f87-437f-84d0-01913a4effcf"
+                },
+                {
+                  "name": "Aws Lambda Delete an Event Source Mapping",
+                  "id": "732187fd-e486-4e62-aaeb-aaf8a8cadd5f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/2015-03-31/event-source-mappings/:UUID",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "2015-03-31",
+                        "event-source-mappings",
+                        ":UUID"
+                      ],
+                      "variable": [
+                        {
+                          "id": "f22d13e7-186b-47d9-a0fd-7e17a03594f0",
+                          "key": "UUID",
+                          "value": "<string>",
+                          "description": "(Required) The identifier of the event source mapping"
+                        }
+                      ]
+                    },
+                    "description": "Deletes an event source mapping. Lambda stops polling the event source and deletes the mapping."
+                  },
+                  "response": [
+                    {
+                      "id": "dfc1c4f2-4665-4f2f-ace0-b573edf58fce",
+                      "name": "Event source mapping deleted",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/event-source-mappings/:UUID",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "event-source-mappings",
+                            ":UUID"
+                          ],
+                          "variable": [
+                            {
+                              "key": "UUID"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Accepted",
+                      "code": 202,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"UUID\": \"<string>\",\n  \"StartingPosition\": \"AT_TIMESTAMP\",\n  \"StartingPositionTimestamp\": \"<dateTime>\",\n  \"BatchSize\": \"<integer>\",\n  \"MaximumBatchingWindowInSeconds\": \"<integer>\",\n  \"ParallelizationFactor\": \"<integer>\",\n  \"EventSourceArn\": \"<string>\",\n  \"FunctionArn\": \"<string>\",\n  \"LastModified\": \"<dateTime>\",\n  \"LastProcessingResult\": \"<string>\",\n  \"State\": \"Disabled\",\n  \"StateTransitionReason\": \"<string>\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"<string>\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"<string>\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": \"<integer>\",\n  \"BisectBatchOnFunctionError\": \"<boolean>\",\n  \"MaximumRetryAttempts\": \"<integer>\",\n  \"TumblingWindowInSeconds\": \"<integer>\",\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\",\n    \"ReportBatchItemFailures\"\n  ],\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {\n        \"Pattern\": \"<string>\"\n      },\n      {\n        \"Pattern\": \"<string>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:07:30.000Z",
+                      "updatedAt": "2026-07-28T01:07:30.000Z",
+                      "uid": "35240-dfc1c4f2-4665-4f2f-ace0-b573edf58fce"
+                    },
+                    {
+                      "id": "92b7091c-fee0-48b1-b73f-c4923457d12f",
+                      "name": "Event source mapping not found",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/event-source-mappings/:UUID",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "event-source-mappings",
+                            ":UUID"
+                          ],
+                          "variable": [
+                            {
+                              "key": "UUID"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:07:30.000Z",
+                      "updatedAt": "2026-07-28T01:07:30.000Z",
+                      "uid": "35240-92b7091c-fee0-48b1-b73f-c4923457d12f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:07:30.000Z",
+                  "updatedAt": "2026-07-28T01:07:30.000Z",
+                  "uid": "35240-732187fd-e486-4e62-aaeb-aaf8a8cadd5f"
+                }
+              ],
+              "id": "c085115f-ce94-4859-832e-4e23e122fd94",
+              "createdAt": "2026-07-28T01:07:30.000Z",
+              "updatedAt": "2026-07-28T01:07:30.000Z",
+              "uid": "35240-c085115f-ce94-4859-832e-4e23e122fd94"
+            },
+            {
+              "name": "Aws Lambda List Event Source Mappings",
+              "id": "7d045457-1c29-4d3f-9e2b-4e5633031aa1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/2015-03-31/event-source-mappings?EventSourceArn=<string>&FunctionName=<string>&Marker=<string>&MaxItems=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "2015-03-31",
+                    "event-source-mappings"
+                  ],
+                  "query": [
+                    {
+                      "description": "The ARN of the event source (Amazon Kinesis stream, Amazon DynamoDB stream, Amazon SQS queue, Amazon MSK cluster, or self-managed Apache Kafka cluster)",
+                      "key": "EventSourceArn",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "The name, ARN, or partial ARN of the Lambda function to filter by",
+                      "key": "FunctionName",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results.",
+                      "key": "Marker",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of items to return (1-10000)",
+                      "key": "MaxItems",
+                      "value": "<integer>"
+                    }
+                  ]
+                },
+                "description": "Lists event source mappings. Specify an EventSourceArn to show only event source mappings for a single event source, or a FunctionName to show mappings for a single function."
+              },
+              "response": [
+                {
+                  "id": "06199b9d-bafb-4ee6-acaa-748732feab09",
+                  "name": "List of event source mappings",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/2015-03-31/event-source-mappings?EventSourceArn=<string>&FunctionName=<string>&Marker=<string>&MaxItems=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "2015-03-31",
+                        "event-source-mappings"
+                      ],
+                      "query": [
+                        {
+                          "description": "The ARN of the event source (Amazon Kinesis stream, Amazon DynamoDB stream, Amazon SQS queue, Amazon MSK cluster, or self-managed Apache Kafka cluster)",
+                          "key": "EventSourceArn",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The name, ARN, or partial ARN of the Lambda function to filter by",
+                          "key": "FunctionName",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results.",
+                          "key": "Marker",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of items to return (1-10000)",
+                          "key": "MaxItems",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"NextMarker\": \"<string>\",\n  \"EventSourceMappings\": [\n    {\n      \"UUID\": \"<string>\",\n      \"StartingPosition\": \"AT_TIMESTAMP\",\n      \"StartingPositionTimestamp\": \"<dateTime>\",\n      \"BatchSize\": \"<integer>\",\n      \"MaximumBatchingWindowInSeconds\": \"<integer>\",\n      \"ParallelizationFactor\": \"<integer>\",\n      \"EventSourceArn\": \"<string>\",\n      \"FunctionArn\": \"<string>\",\n      \"LastModified\": \"<dateTime>\",\n      \"LastProcessingResult\": \"<string>\",\n      \"State\": \"Disabled\",\n      \"StateTransitionReason\": \"<string>\",\n      \"DestinationConfig\": {\n        \"OnSuccess\": {\n          \"Destination\": \"<string>\"\n        },\n        \"OnFailure\": {\n          \"Destination\": \"<string>\"\n        }\n      },\n      \"MaximumRecordAgeInSeconds\": \"<integer>\",\n      \"BisectBatchOnFunctionError\": \"<boolean>\",\n      \"MaximumRetryAttempts\": \"<integer>\",\n      \"TumblingWindowInSeconds\": \"<integer>\",\n      \"FunctionResponseTypes\": [\n        \"ReportBatchItemFailures\",\n        \"ReportBatchItemFailures\"\n      ],\n      \"FilterCriteria\": {\n        \"Filters\": [\n          {\n            \"Pattern\": \"<string>\"\n          },\n          {\n            \"Pattern\": \"<string>\"\n          }\n        ]\n      }\n    },\n    {\n      \"UUID\": \"<string>\",\n      \"StartingPosition\": \"AT_TIMESTAMP\",\n      \"StartingPositionTimestamp\": \"<dateTime>\",\n      \"BatchSize\": \"<integer>\",\n      \"MaximumBatchingWindowInSeconds\": \"<integer>\",\n      \"ParallelizationFactor\": \"<integer>\",\n      \"EventSourceArn\": \"<string>\",\n      \"FunctionArn\": \"<string>\",\n      \"LastModified\": \"<dateTime>\",\n      \"LastProcessingResult\": \"<string>\",\n      \"State\": \"Enabled\",\n      \"StateTransitionReason\": \"<string>\",\n      \"DestinationConfig\": {\n        \"OnSuccess\": {\n          \"Destination\": \"<string>\"\n        },\n        \"OnFailure\": {\n          \"Destination\": \"<string>\"\n        }\n      },\n      \"MaximumRecordAgeInSeconds\": \"<integer>\",\n      \"BisectBatchOnFunctionError\": \"<boolean>\",\n      \"MaximumRetryAttempts\": \"<integer>\",\n      \"TumblingWindowInSeconds\": \"<integer>\",\n      \"FunctionResponseTypes\": [\n        \"ReportBatchItemFailures\",\n        \"ReportBatchItemFailures\"\n      ],\n      \"FilterCriteria\": {\n        \"Filters\": [\n          {\n            \"Pattern\": \"<string>\"\n          },\n          {\n            \"Pattern\": \"<string>\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:07:30.000Z",
+                  "updatedAt": "2026-07-28T01:07:30.000Z",
+                  "uid": "35240-06199b9d-bafb-4ee6-acaa-748732feab09"
+                },
+                {
+                  "id": "384722c9-fdd0-456a-a6e0-468e4b891d06",
+                  "name": "Function not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/2015-03-31/event-source-mappings?EventSourceArn=<string>&FunctionName=<string>&Marker=<string>&MaxItems=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "2015-03-31",
+                        "event-source-mappings"
+                      ],
+                      "query": [
+                        {
+                          "description": "The ARN of the event source (Amazon Kinesis stream, Amazon DynamoDB stream, Amazon SQS queue, Amazon MSK cluster, or self-managed Apache Kafka cluster)",
+                          "key": "EventSourceArn",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "The name, ARN, or partial ARN of the Lambda function to filter by",
+                          "key": "FunctionName",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results.",
+                          "key": "Marker",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Maximum number of items to return (1-10000)",
+                          "key": "MaxItems",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:07:30.000Z",
+                  "updatedAt": "2026-07-28T01:07:30.000Z",
+                  "uid": "35240-384722c9-fdd0-456a-a6e0-468e4b891d06"
+                }
+              ],
+              "createdAt": "2026-07-28T01:07:30.000Z",
+              "updatedAt": "2026-07-28T01:07:30.000Z",
+              "uid": "35240-7d045457-1c29-4d3f-9e2b-4e5633031aa1"
+            },
+            {
+              "name": "Aws Lambda Create an Event Source Mapping",
+              "id": "2f4bffc6-7243-4435-b592-4cf6c775f50b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"FunctionName\": \"<string>\",\n  \"EventSourceArn\": \"<string>\",\n  \"Enabled\": true,\n  \"BatchSize\": \"<integer>\",\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {\n        \"Pattern\": \"<string>\"\n      },\n      {\n        \"Pattern\": \"<string>\"\n      }\n    ]\n  },\n  \"MaximumBatchingWindowInSeconds\": \"<integer>\",\n  \"ParallelizationFactor\": \"<integer>\",\n  \"StartingPosition\": \"TRIM_HORIZON\",\n  \"StartingPositionTimestamp\": \"<dateTime>\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"<string>\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"<string>\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": \"<integer>\",\n  \"BisectBatchOnFunctionError\": \"<boolean>\",\n  \"MaximumRetryAttempts\": \"<integer>\",\n  \"TumblingWindowInSeconds\": \"<integer>\",\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\",\n    \"ReportBatchItemFailures\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/2015-03-31/event-source-mappings",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "2015-03-31",
+                    "event-source-mappings"
+                  ]
+                },
+                "description": "Creates a mapping between an event source and a Lambda function. Lambda reads items from the event source and invokes the function. Supported event sources include Amazon Kinesis, Amazon DynamoDB Streams, Amazon SQS, Amazon MQ, Amazon MSK, self-managed Apache Kafka, and Amazon DocumentDB."
+              },
+              "response": [
+                {
+                  "id": "f788cf12-6f1b-4884-9e0c-faa18db55500",
+                  "name": "Event source mapping created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"FunctionName\": \"<string>\",\n  \"EventSourceArn\": \"<string>\",\n  \"Enabled\": true,\n  \"BatchSize\": \"<integer>\",\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {\n        \"Pattern\": \"<string>\"\n      },\n      {\n        \"Pattern\": \"<string>\"\n      }\n    ]\n  },\n  \"MaximumBatchingWindowInSeconds\": \"<integer>\",\n  \"ParallelizationFactor\": \"<integer>\",\n  \"StartingPosition\": \"TRIM_HORIZON\",\n  \"StartingPositionTimestamp\": \"<dateTime>\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"<string>\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"<string>\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": \"<integer>\",\n  \"BisectBatchOnFunctionError\": \"<boolean>\",\n  \"MaximumRetryAttempts\": \"<integer>\",\n  \"TumblingWindowInSeconds\": \"<integer>\",\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\",\n    \"ReportBatchItemFailures\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/2015-03-31/event-source-mappings",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "2015-03-31",
+                        "event-source-mappings"
+                      ]
+                    }
+                  },
+                  "status": "Accepted",
+                  "code": 202,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"UUID\": \"<string>\",\n  \"StartingPosition\": \"AT_TIMESTAMP\",\n  \"StartingPositionTimestamp\": \"<dateTime>\",\n  \"BatchSize\": \"<integer>\",\n  \"MaximumBatchingWindowInSeconds\": \"<integer>\",\n  \"ParallelizationFactor\": \"<integer>\",\n  \"EventSourceArn\": \"<string>\",\n  \"FunctionArn\": \"<string>\",\n  \"LastModified\": \"<dateTime>\",\n  \"LastProcessingResult\": \"<string>\",\n  \"State\": \"Disabled\",\n  \"StateTransitionReason\": \"<string>\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"<string>\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"<string>\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": \"<integer>\",\n  \"BisectBatchOnFunctionError\": \"<boolean>\",\n  \"MaximumRetryAttempts\": \"<integer>\",\n  \"TumblingWindowInSeconds\": \"<integer>\",\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\",\n    \"ReportBatchItemFailures\"\n  ],\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {\n        \"Pattern\": \"<string>\"\n      },\n      {\n        \"Pattern\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T01:07:30.000Z",
+                  "updatedAt": "2026-07-28T01:07:30.000Z",
+                  "uid": "35240-f788cf12-6f1b-4884-9e0c-faa18db55500"
+                },
+                {
+                  "id": "f6fad0ce-bfcb-4047-b56c-9656d9bf80b5",
+                  "name": "Invalid parameter value",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"FunctionName\": \"<string>\",\n  \"EventSourceArn\": \"<string>\",\n  \"Enabled\": true,\n  \"BatchSize\": \"<integer>\",\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {\n        \"Pattern\": \"<string>\"\n      },\n      {\n        \"Pattern\": \"<string>\"\n      }\n    ]\n  },\n  \"MaximumBatchingWindowInSeconds\": \"<integer>\",\n  \"ParallelizationFactor\": \"<integer>\",\n  \"StartingPosition\": \"TRIM_HORIZON\",\n  \"StartingPositionTimestamp\": \"<dateTime>\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"<string>\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"<string>\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": \"<integer>\",\n  \"BisectBatchOnFunctionError\": \"<boolean>\",\n  \"MaximumRetryAttempts\": \"<integer>\",\n  \"TumblingWindowInSeconds\": \"<integer>\",\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\",\n    \"ReportBatchItemFailures\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/2015-03-31/event-source-mappings",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "2015-03-31",
+                        "event-source-mappings"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:07:30.000Z",
+                  "updatedAt": "2026-07-28T01:07:30.000Z",
+                  "uid": "35240-f6fad0ce-bfcb-4047-b56c-9656d9bf80b5"
+                },
+                {
+                  "id": "495c04f2-e350-42ec-8941-7e26713c6ff9",
+                  "name": "Resource already exists",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "Authorization",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"FunctionName\": \"<string>\",\n  \"EventSourceArn\": \"<string>\",\n  \"Enabled\": true,\n  \"BatchSize\": \"<integer>\",\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {\n        \"Pattern\": \"<string>\"\n      },\n      {\n        \"Pattern\": \"<string>\"\n      }\n    ]\n  },\n  \"MaximumBatchingWindowInSeconds\": \"<integer>\",\n  \"ParallelizationFactor\": \"<integer>\",\n  \"StartingPosition\": \"TRIM_HORIZON\",\n  \"StartingPositionTimestamp\": \"<dateTime>\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"<string>\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"<string>\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": \"<integer>\",\n  \"BisectBatchOnFunctionError\": \"<boolean>\",\n  \"MaximumRetryAttempts\": \"<integer>\",\n  \"TumblingWindowInSeconds\": \"<integer>\",\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\",\n    \"ReportBatchItemFailures\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/2015-03-31/event-source-mappings",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "2015-03-31",
+                        "event-source-mappings"
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:07:30.000Z",
+                  "updatedAt": "2026-07-28T01:07:30.000Z",
+                  "uid": "35240-495c04f2-e350-42ec-8941-7e26713c6ff9"
+                }
+              ],
+              "createdAt": "2026-07-28T01:07:30.000Z",
+              "updatedAt": "2026-07-28T01:07:30.000Z",
+              "uid": "35240-2f4bffc6-7243-4435-b592-4cf6c775f50b"
+            }
+          ],
+          "id": "c95a4745-51b6-4d9d-87bf-4e9a4558f095",
+          "createdAt": "2026-07-28T01:07:30.000Z",
+          "updatedAt": "2026-07-28T01:07:30.000Z",
+          "uid": "35240-c95a4745-51b6-4d9d-87bf-4e9a4558f095"
+        }
+      ],
+      "id": "a7b682d4-b063-4bc1-8620-0f8f33a7c552",
+      "createdAt": "2026-07-28T01:07:30.000Z",
+      "updatedAt": "2026-07-28T01:07:30.000Z",
+      "uid": "35240-a7b682d4-b063-4bc1-8620-0f8f33a7c552"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "region",
+      "value": "us-east-1"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://lambda.{{region}}.amazonaws.com"
+    }
+  ]
+}

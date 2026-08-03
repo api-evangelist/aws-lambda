@@ -1,0 +1,1141 @@
+{
+  "info": {
+    "_postman_id": "8852fc64-4d96-491d-ae23-9720cd06e9c2",
+    "name": "AWS Lambda Aliases Concurrency API",
+    "description": "The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.\n\nContact Support:\n Name: AWS Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:07:26.000Z",
+    "updatedAt": "2026-07-28T01:07:26.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8852fc64-4d96-491d-ae23-9720cd06e9c2"
+  },
+  "item": [
+    {
+      "name": "2015-03-31",
+      "item": [
+        {
+          "name": "functions",
+          "item": [
+            {
+              "name": "{FunctionName}",
+              "item": [
+                {
+                  "name": "concurrency",
+                  "item": [
+                    {
+                      "name": "Aws Lambda Get Reserved Concurrency",
+                      "id": "fb8059dd-ed5a-428a-8eb9-95461e906b4e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/concurrency",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "functions",
+                            ":FunctionName",
+                            "concurrency"
+                          ],
+                          "variable": [
+                            {
+                              "id": "01c94f70-0041-4c87-ba5e-b0259c7c4066",
+                              "key": "FunctionName",
+                              "value": "<string>",
+                              "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the reserved concurrency configuration for a function."
+                      },
+                      "response": [
+                        {
+                          "id": "00080a80-1840-40b4-8269-953c6fadd4c4",
+                          "name": "Reserved concurrency configuration",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/concurrency",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "concurrency"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"ReservedConcurrentExecutions\": \"<integer>\"\n}",
+                          "createdAt": "2026-07-28T01:07:27.000Z",
+                          "updatedAt": "2026-07-28T01:07:27.000Z",
+                          "uid": "35240-00080a80-1840-40b4-8269-953c6fadd4c4"
+                        },
+                        {
+                          "id": "e92cf8cf-ef89-4f43-985b-bc2cff326042",
+                          "name": "Function not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/concurrency",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "concurrency"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:27.000Z",
+                          "updatedAt": "2026-07-28T01:07:27.000Z",
+                          "uid": "35240-e92cf8cf-ef89-4f43-985b-bc2cff326042"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:07:26.000Z",
+                      "updatedAt": "2026-07-28T01:07:26.000Z",
+                      "uid": "35240-fb8059dd-ed5a-428a-8eb9-95461e906b4e"
+                    },
+                    {
+                      "name": "Aws Lambda Set Reserved Concurrency",
+                      "id": "611383ee-5bb0-4069-b676-6c913600e26d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"ReservedConcurrentExecutions\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/concurrency",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "functions",
+                            ":FunctionName",
+                            "concurrency"
+                          ],
+                          "variable": [
+                            {
+                              "id": "f8d8d532-f25d-4c1e-914d-708706093d00",
+                              "key": "FunctionName",
+                              "value": "<string>",
+                              "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                            }
+                          ]
+                        },
+                        "description": "Sets the maximum number of simultaneous executions for a function, and reserves capacity for that concurrency level. Use ReservedConcurrentExecutions to reserve a portion of your account's concurrency for a function."
+                      },
+                      "response": [
+                        {
+                          "id": "1cb7c3b4-144e-444b-a6cb-82894e0e3828",
+                          "name": "Reserved concurrency set",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"ReservedConcurrentExecutions\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/concurrency",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "concurrency"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"ReservedConcurrentExecutions\": \"<integer>\"\n}",
+                          "createdAt": "2026-07-28T01:07:27.000Z",
+                          "updatedAt": "2026-07-28T01:07:27.000Z",
+                          "uid": "35240-1cb7c3b4-144e-444b-a6cb-82894e0e3828"
+                        },
+                        {
+                          "id": "ea5bdede-0aab-4008-bc9b-bae780ad27b6",
+                          "name": "Function not found",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"ReservedConcurrentExecutions\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/concurrency",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "concurrency"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:27.000Z",
+                          "updatedAt": "2026-07-28T01:07:27.000Z",
+                          "uid": "35240-ea5bdede-0aab-4008-bc9b-bae780ad27b6"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:07:26.000Z",
+                      "updatedAt": "2026-07-28T01:07:26.000Z",
+                      "uid": "35240-611383ee-5bb0-4069-b676-6c913600e26d"
+                    },
+                    {
+                      "name": "Aws Lambda Delete Reserved Concurrency",
+                      "id": "f5edc395-fb4c-4cd5-8357-ee02e9a12ab1",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/concurrency",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "functions",
+                            ":FunctionName",
+                            "concurrency"
+                          ],
+                          "variable": [
+                            {
+                              "id": "dbc68548-156d-474a-b49c-0a4b7c102914",
+                              "key": "FunctionName",
+                              "value": "<string>",
+                              "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                            }
+                          ]
+                        },
+                        "description": "Removes a concurrency limit from a function. The function can then use unreserved account concurrency up to the account limit."
+                      },
+                      "response": [
+                        {
+                          "id": "568528a5-ce3d-4dc0-90dc-df5a5ccc7b93",
+                          "name": "Reserved concurrency removed",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/concurrency",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "concurrency"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:07:27.000Z",
+                          "updatedAt": "2026-07-28T01:07:27.000Z",
+                          "uid": "35240-568528a5-ce3d-4dc0-90dc-df5a5ccc7b93"
+                        },
+                        {
+                          "id": "c6a2c6ff-64a3-4078-a7c6-46f2d5724ab6",
+                          "name": "Function not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/concurrency",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "concurrency"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:27.000Z",
+                          "updatedAt": "2026-07-28T01:07:27.000Z",
+                          "uid": "35240-c6a2c6ff-64a3-4078-a7c6-46f2d5724ab6"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:07:26.000Z",
+                      "updatedAt": "2026-07-28T01:07:26.000Z",
+                      "uid": "35240-f5edc395-fb4c-4cd5-8357-ee02e9a12ab1"
+                    }
+                  ],
+                  "id": "444f99b9-73ea-4af2-ad6b-822866e7bc8e",
+                  "createdAt": "2026-07-28T01:07:26.000Z",
+                  "updatedAt": "2026-07-28T01:07:26.000Z",
+                  "uid": "35240-444f99b9-73ea-4af2-ad6b-822866e7bc8e"
+                },
+                {
+                  "name": "provisioned-concurrency",
+                  "item": [
+                    {
+                      "name": "Aws Lambda Get Provisioned Concurrency",
+                      "id": "d9f596a8-bdbb-4b71-bc55-0e638f7dfc30",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/provisioned-concurrency?Qualifier=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "functions",
+                            ":FunctionName",
+                            "provisioned-concurrency"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The version number or alias name",
+                              "key": "Qualifier",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "16559d30-5dd5-4f9d-9e9a-e81a3b24163e",
+                              "key": "FunctionName",
+                              "value": "<string>",
+                              "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                            }
+                          ]
+                        },
+                        "description": "Retrieves the provisioned concurrency configuration for a function's alias or version."
+                      },
+                      "response": [
+                        {
+                          "id": "a682cebd-3623-4ca3-9259-f35a0bafd0e8",
+                          "name": "Provisioned concurrency configuration",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/provisioned-concurrency?Qualifier=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "provisioned-concurrency"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The version number or alias name",
+                                  "key": "Qualifier",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"RequestedProvisionedConcurrentExecutions\": \"<integer>\",\n  \"AvailableProvisionedConcurrentExecutions\": \"<integer>\",\n  \"AllocatedProvisionedConcurrentExecutions\": \"<integer>\",\n  \"Status\": \"FAILED\",\n  \"StatusReason\": \"<string>\",\n  \"LastModified\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:27.000Z",
+                          "updatedAt": "2026-07-28T01:07:27.000Z",
+                          "uid": "35240-a682cebd-3623-4ca3-9259-f35a0bafd0e8"
+                        },
+                        {
+                          "id": "117885b6-d163-4fbd-bccf-ede67be800aa",
+                          "name": "Configuration not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/provisioned-concurrency?Qualifier=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "provisioned-concurrency"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The version number or alias name",
+                                  "key": "Qualifier",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:27.000Z",
+                          "updatedAt": "2026-07-28T01:07:27.000Z",
+                          "uid": "35240-117885b6-d163-4fbd-bccf-ede67be800aa"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:07:26.000Z",
+                      "updatedAt": "2026-07-28T01:07:26.000Z",
+                      "uid": "35240-d9f596a8-bdbb-4b71-bc55-0e638f7dfc30"
+                    },
+                    {
+                      "name": "Aws Lambda Set Provisioned Concurrency",
+                      "id": "26e07ab6-1c1f-4c29-973f-695c8e28fb4e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"ProvisionedConcurrentExecutions\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/provisioned-concurrency?Qualifier=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "functions",
+                            ":FunctionName",
+                            "provisioned-concurrency"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The version number or alias name",
+                              "key": "Qualifier",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "0c3d1116-f029-4082-bba1-814ea505bb80",
+                              "key": "FunctionName",
+                              "value": "<string>",
+                              "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                            }
+                          ]
+                        },
+                        "description": "Adds a provisioned concurrency configuration to a function's alias or version. Lambda pre-initializes the specified number of execution environments so they are prepared to respond immediately."
+                      },
+                      "response": [
+                        {
+                          "id": "cd06001c-0736-4281-b412-68e1ff7351b3",
+                          "name": "Provisioned concurrency configuration created",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"ProvisionedConcurrentExecutions\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/provisioned-concurrency?Qualifier=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "provisioned-concurrency"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The version number or alias name",
+                                  "key": "Qualifier",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Accepted",
+                          "code": 202,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"RequestedProvisionedConcurrentExecutions\": \"<integer>\",\n  \"AvailableProvisionedConcurrentExecutions\": \"<integer>\",\n  \"AllocatedProvisionedConcurrentExecutions\": \"<integer>\",\n  \"Status\": \"FAILED\",\n  \"StatusReason\": \"<string>\",\n  \"LastModified\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:27.000Z",
+                          "updatedAt": "2026-07-28T01:07:27.000Z",
+                          "uid": "35240-cd06001c-0736-4281-b412-68e1ff7351b3"
+                        },
+                        {
+                          "id": "a7ac6b4f-e92d-45b3-ad9a-6605845c2bc0",
+                          "name": "Function or qualifier not found",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"ProvisionedConcurrentExecutions\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/provisioned-concurrency?Qualifier=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "provisioned-concurrency"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The version number or alias name",
+                                  "key": "Qualifier",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:27.000Z",
+                          "updatedAt": "2026-07-28T01:07:27.000Z",
+                          "uid": "35240-a7ac6b4f-e92d-45b3-ad9a-6605845c2bc0"
+                        },
+                        {
+                          "id": "52fc3f4d-5299-47f8-bfae-6800a48a1a98",
+                          "name": "Resource conflict",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"ProvisionedConcurrentExecutions\": \"<integer>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/provisioned-concurrency?Qualifier=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "provisioned-concurrency"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The version number or alias name",
+                                  "key": "Qualifier",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Conflict",
+                          "code": 409,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:27.000Z",
+                          "updatedAt": "2026-07-28T01:07:27.000Z",
+                          "uid": "35240-52fc3f4d-5299-47f8-bfae-6800a48a1a98"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:07:26.000Z",
+                      "updatedAt": "2026-07-28T01:07:26.000Z",
+                      "uid": "35240-26e07ab6-1c1f-4c29-973f-695c8e28fb4e"
+                    },
+                    {
+                      "name": "Aws Lambda Delete Provisioned Concurrency",
+                      "id": "a261416e-4148-419a-88e9-a67d8c2d3a4e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/provisioned-concurrency?Qualifier=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "functions",
+                            ":FunctionName",
+                            "provisioned-concurrency"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) The version number or alias name",
+                              "key": "Qualifier",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "b6045a1a-0367-439c-a28e-e4d474f44615",
+                              "key": "FunctionName",
+                              "value": "<string>",
+                              "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                            }
+                          ]
+                        },
+                        "description": "Deletes the provisioned concurrency configuration for a function."
+                      },
+                      "response": [
+                        {
+                          "id": "28b4879b-9c76-42c0-a48b-122799119553",
+                          "name": "Provisioned concurrency configuration deleted",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/provisioned-concurrency?Qualifier=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "provisioned-concurrency"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The version number or alias name",
+                                  "key": "Qualifier",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:07:27.000Z",
+                          "updatedAt": "2026-07-28T01:07:27.000Z",
+                          "uid": "35240-28b4879b-9c76-42c0-a48b-122799119553"
+                        },
+                        {
+                          "id": "fbdc8379-ea02-4f46-b05d-16d576ea5336",
+                          "name": "Configuration not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/provisioned-concurrency?Qualifier=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "provisioned-concurrency"
+                              ],
+                              "query": [
+                                {
+                                  "description": "(Required) The version number or alias name",
+                                  "key": "Qualifier",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:27.000Z",
+                          "updatedAt": "2026-07-28T01:07:27.000Z",
+                          "uid": "35240-fbdc8379-ea02-4f46-b05d-16d576ea5336"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:07:26.000Z",
+                      "updatedAt": "2026-07-28T01:07:26.000Z",
+                      "uid": "35240-a261416e-4148-419a-88e9-a67d8c2d3a4e"
+                    }
+                  ],
+                  "id": "06dc8a67-fa22-4db4-8bf5-c610d88f30b7",
+                  "createdAt": "2026-07-28T01:07:26.000Z",
+                  "updatedAt": "2026-07-28T01:07:26.000Z",
+                  "uid": "35240-06dc8a67-fa22-4db4-8bf5-c610d88f30b7"
+                }
+              ],
+              "id": "a9edfeac-dcf1-4fa7-9af1-c292efce2b4b",
+              "createdAt": "2026-07-28T01:07:26.000Z",
+              "updatedAt": "2026-07-28T01:07:26.000Z",
+              "uid": "35240-a9edfeac-dcf1-4fa7-9af1-c292efce2b4b"
+            }
+          ],
+          "id": "811a55fe-b3d1-4daa-a6ad-ea7f3f0862df",
+          "createdAt": "2026-07-28T01:07:26.000Z",
+          "updatedAt": "2026-07-28T01:07:26.000Z",
+          "uid": "35240-811a55fe-b3d1-4daa-a6ad-ea7f3f0862df"
+        }
+      ],
+      "id": "1ff2d345-8917-42ca-9b46-4334ec7d0305",
+      "createdAt": "2026-07-28T01:07:26.000Z",
+      "updatedAt": "2026-07-28T01:07:26.000Z",
+      "uid": "35240-1ff2d345-8917-42ca-9b46-4334ec7d0305"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "region",
+      "value": "us-east-1"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://lambda.{{region}}.amazonaws.com"
+    }
+  ]
+}

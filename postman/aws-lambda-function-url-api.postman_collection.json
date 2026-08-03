@@ -1,0 +1,878 @@
+{
+  "info": {
+    "_postman_id": "96e5d9b8-5ec0-400e-ba06-fc040e3e895d",
+    "name": "AWS Lambda Aliases Function URL API",
+    "description": "The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.\n\nContact Support:\n Name: AWS Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:07:36.000Z",
+    "updatedAt": "2026-07-28T01:07:36.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-96e5d9b8-5ec0-400e-ba06-fc040e3e895d"
+  },
+  "item": [
+    {
+      "name": "2021-10-31",
+      "item": [
+        {
+          "name": "functions",
+          "item": [
+            {
+              "name": "{FunctionName}",
+              "item": [
+                {
+                  "name": "url",
+                  "item": [
+                    {
+                      "name": "Aws Lambda Get Function Url Configuration",
+                      "id": "ac36f4a0-ccb7-4c90-aa1e-3d0ca76d52b8",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/2021-10-31/functions/:FunctionName/url?Qualifier=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2021-10-31",
+                            "functions",
+                            ":FunctionName",
+                            "url"
+                          ],
+                          "query": [
+                            {
+                              "description": "A version number or alias name",
+                              "key": "Qualifier",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "00096079-11f5-4f17-813d-790c04a9bc72",
+                              "key": "FunctionName",
+                              "value": "<string>",
+                              "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                            }
+                          ]
+                        },
+                        "description": "Returns details about a Lambda function URL, including the function URL itself, the authorization type, CORS settings, creation and modification timestamps, and the invoke mode."
+                      },
+                      "response": [
+                        {
+                          "id": "00524e8d-ef7a-4d25-9f2f-afb15554e94d",
+                          "name": "Function URL configuration",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2021-10-31/functions/:FunctionName/url?Qualifier=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2021-10-31",
+                                "functions",
+                                ":FunctionName",
+                                "url"
+                              ],
+                              "query": [
+                                {
+                                  "description": "A version number or alias name",
+                                  "key": "Qualifier",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"FunctionUrl\": \"<string>\",\n  \"FunctionArn\": \"<string>\",\n  \"AuthType\": \"NONE\",\n  \"Cors\": {\n    \"AllowCredentials\": \"<boolean>\",\n    \"AllowHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowMethods\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowOrigins\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ExposeHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"MaxAge\": \"<integer>\"\n  },\n  \"CreationTime\": \"<string>\",\n  \"LastModifiedTime\": \"<string>\",\n  \"InvokeMode\": \"BUFFERED\"\n}",
+                          "createdAt": "2026-07-28T01:07:37.000Z",
+                          "updatedAt": "2026-07-28T01:07:37.000Z",
+                          "uid": "35240-00524e8d-ef7a-4d25-9f2f-afb15554e94d"
+                        },
+                        {
+                          "id": "1acc148d-4829-43a7-9df1-6b2f5101b786",
+                          "name": "Function URL configuration not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2021-10-31/functions/:FunctionName/url?Qualifier=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2021-10-31",
+                                "functions",
+                                ":FunctionName",
+                                "url"
+                              ],
+                              "query": [
+                                {
+                                  "description": "A version number or alias name",
+                                  "key": "Qualifier",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:37.000Z",
+                          "updatedAt": "2026-07-28T01:07:37.000Z",
+                          "uid": "35240-1acc148d-4829-43a7-9df1-6b2f5101b786"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:07:37.000Z",
+                      "updatedAt": "2026-07-28T01:07:37.000Z",
+                      "uid": "35240-ac36f4a0-ccb7-4c90-aa1e-3d0ca76d52b8"
+                    },
+                    {
+                      "name": "Aws Lambda Create a Function Url",
+                      "id": "aaaab46e-d3f0-4b16-9952-b80b36b73ce0",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"AuthType\": \"AWS_IAM\",\n  \"Cors\": {\n    \"AllowCredentials\": \"<boolean>\",\n    \"AllowHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowMethods\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowOrigins\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ExposeHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"MaxAge\": \"<integer>\"\n  },\n  \"InvokeMode\": \"RESPONSE_STREAM\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/2021-10-31/functions/:FunctionName/url?Qualifier=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2021-10-31",
+                            "functions",
+                            ":FunctionName",
+                            "url"
+                          ],
+                          "query": [
+                            {
+                              "description": "A version number or alias name",
+                              "key": "Qualifier",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "763596b9-bfe0-4803-9d5f-63a720e989be",
+                              "key": "FunctionName",
+                              "value": "<string>",
+                              "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                            }
+                          ]
+                        },
+                        "description": "Creates a Lambda function URL with the specified authorization type. A function URL is a dedicated HTTP(S) endpoint that you can use to invoke your function. You can create a function URL for the $LATEST unpublished version or for any function alias."
+                      },
+                      "response": [
+                        {
+                          "id": "2d1f3677-1bd3-405c-952a-a428acffb1fb",
+                          "name": "Function URL created",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"AuthType\": \"AWS_IAM\",\n  \"Cors\": {\n    \"AllowCredentials\": \"<boolean>\",\n    \"AllowHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowMethods\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowOrigins\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ExposeHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"MaxAge\": \"<integer>\"\n  },\n  \"InvokeMode\": \"RESPONSE_STREAM\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2021-10-31/functions/:FunctionName/url?Qualifier=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2021-10-31",
+                                "functions",
+                                ":FunctionName",
+                                "url"
+                              ],
+                              "query": [
+                                {
+                                  "description": "A version number or alias name",
+                                  "key": "Qualifier",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"FunctionUrl\": \"<string>\",\n  \"FunctionArn\": \"<string>\",\n  \"AuthType\": \"NONE\",\n  \"Cors\": {\n    \"AllowCredentials\": \"<boolean>\",\n    \"AllowHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowMethods\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowOrigins\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ExposeHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"MaxAge\": \"<integer>\"\n  },\n  \"CreationTime\": \"<string>\",\n  \"LastModifiedTime\": \"<string>\",\n  \"InvokeMode\": \"BUFFERED\"\n}",
+                          "createdAt": "2026-07-28T01:07:37.000Z",
+                          "updatedAt": "2026-07-28T01:07:37.000Z",
+                          "uid": "35240-2d1f3677-1bd3-405c-952a-a428acffb1fb"
+                        },
+                        {
+                          "id": "06ef54d1-1f58-43a8-af05-1641d5ed4a53",
+                          "name": "Function not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"AuthType\": \"AWS_IAM\",\n  \"Cors\": {\n    \"AllowCredentials\": \"<boolean>\",\n    \"AllowHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowMethods\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowOrigins\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ExposeHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"MaxAge\": \"<integer>\"\n  },\n  \"InvokeMode\": \"RESPONSE_STREAM\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2021-10-31/functions/:FunctionName/url?Qualifier=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2021-10-31",
+                                "functions",
+                                ":FunctionName",
+                                "url"
+                              ],
+                              "query": [
+                                {
+                                  "description": "A version number or alias name",
+                                  "key": "Qualifier",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:37.000Z",
+                          "updatedAt": "2026-07-28T01:07:37.000Z",
+                          "uid": "35240-06ef54d1-1f58-43a8-af05-1641d5ed4a53"
+                        },
+                        {
+                          "id": "831a0ba7-49ac-4f3e-a6f7-83bf6d6fe096",
+                          "name": "Function URL already exists",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"AuthType\": \"AWS_IAM\",\n  \"Cors\": {\n    \"AllowCredentials\": \"<boolean>\",\n    \"AllowHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowMethods\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowOrigins\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ExposeHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"MaxAge\": \"<integer>\"\n  },\n  \"InvokeMode\": \"RESPONSE_STREAM\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2021-10-31/functions/:FunctionName/url?Qualifier=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2021-10-31",
+                                "functions",
+                                ":FunctionName",
+                                "url"
+                              ],
+                              "query": [
+                                {
+                                  "description": "A version number or alias name",
+                                  "key": "Qualifier",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Conflict",
+                          "code": 409,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:37.000Z",
+                          "updatedAt": "2026-07-28T01:07:37.000Z",
+                          "uid": "35240-831a0ba7-49ac-4f3e-a6f7-83bf6d6fe096"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:07:37.000Z",
+                      "updatedAt": "2026-07-28T01:07:37.000Z",
+                      "uid": "35240-aaaab46e-d3f0-4b16-9952-b80b36b73ce0"
+                    },
+                    {
+                      "name": "Aws Lambda Update a Function Url",
+                      "id": "e3856129-c699-40ac-ab62-8452c9db5f25",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"AuthType\": \"NONE\",\n  \"Cors\": {\n    \"AllowCredentials\": \"<boolean>\",\n    \"AllowHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowMethods\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowOrigins\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ExposeHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"MaxAge\": \"<integer>\"\n  },\n  \"InvokeMode\": \"RESPONSE_STREAM\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/2021-10-31/functions/:FunctionName/url?Qualifier=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2021-10-31",
+                            "functions",
+                            ":FunctionName",
+                            "url"
+                          ],
+                          "query": [
+                            {
+                              "description": "A version number or alias name",
+                              "key": "Qualifier",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "60176e03-7fb0-4d14-a776-6ae0dcd2d266",
+                              "key": "FunctionName",
+                              "value": "<string>",
+                              "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                            }
+                          ]
+                        },
+                        "description": "Updates the configuration for a Lambda function URL."
+                      },
+                      "response": [
+                        {
+                          "id": "f589028b-9850-4533-98d3-cd4b9a334a26",
+                          "name": "Function URL updated",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"AuthType\": \"NONE\",\n  \"Cors\": {\n    \"AllowCredentials\": \"<boolean>\",\n    \"AllowHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowMethods\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowOrigins\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ExposeHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"MaxAge\": \"<integer>\"\n  },\n  \"InvokeMode\": \"RESPONSE_STREAM\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2021-10-31/functions/:FunctionName/url?Qualifier=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2021-10-31",
+                                "functions",
+                                ":FunctionName",
+                                "url"
+                              ],
+                              "query": [
+                                {
+                                  "description": "A version number or alias name",
+                                  "key": "Qualifier",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"FunctionUrl\": \"<string>\",\n  \"FunctionArn\": \"<string>\",\n  \"AuthType\": \"NONE\",\n  \"Cors\": {\n    \"AllowCredentials\": \"<boolean>\",\n    \"AllowHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowMethods\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowOrigins\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ExposeHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"MaxAge\": \"<integer>\"\n  },\n  \"CreationTime\": \"<string>\",\n  \"LastModifiedTime\": \"<string>\",\n  \"InvokeMode\": \"BUFFERED\"\n}",
+                          "createdAt": "2026-07-28T01:07:37.000Z",
+                          "updatedAt": "2026-07-28T01:07:37.000Z",
+                          "uid": "35240-f589028b-9850-4533-98d3-cd4b9a334a26"
+                        },
+                        {
+                          "id": "6af8a9ed-515a-43c1-9682-5d915d6df74a",
+                          "name": "Function URL not found",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"AuthType\": \"NONE\",\n  \"Cors\": {\n    \"AllowCredentials\": \"<boolean>\",\n    \"AllowHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowMethods\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowOrigins\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ExposeHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"MaxAge\": \"<integer>\"\n  },\n  \"InvokeMode\": \"RESPONSE_STREAM\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2021-10-31/functions/:FunctionName/url?Qualifier=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2021-10-31",
+                                "functions",
+                                ":FunctionName",
+                                "url"
+                              ],
+                              "query": [
+                                {
+                                  "description": "A version number or alias name",
+                                  "key": "Qualifier",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:37.000Z",
+                          "updatedAt": "2026-07-28T01:07:37.000Z",
+                          "uid": "35240-6af8a9ed-515a-43c1-9682-5d915d6df74a"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:07:37.000Z",
+                      "updatedAt": "2026-07-28T01:07:37.000Z",
+                      "uid": "35240-e3856129-c699-40ac-ab62-8452c9db5f25"
+                    },
+                    {
+                      "name": "Aws Lambda Delete a Function Url",
+                      "id": "63b06f20-3edd-4d2e-9ad8-0d06034eb0ba",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/2021-10-31/functions/:FunctionName/url?Qualifier=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2021-10-31",
+                            "functions",
+                            ":FunctionName",
+                            "url"
+                          ],
+                          "query": [
+                            {
+                              "description": "A version number or alias name",
+                              "key": "Qualifier",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "0c446477-93ba-4ee8-b269-6bd2d6da23fe",
+                              "key": "FunctionName",
+                              "value": "<string>",
+                              "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                            }
+                          ]
+                        },
+                        "description": "Deletes a Lambda function URL."
+                      },
+                      "response": [
+                        {
+                          "id": "7a9e8c42-8017-46ce-8ef6-c7a4d6dd8208",
+                          "name": "Function URL deleted",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2021-10-31/functions/:FunctionName/url?Qualifier=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2021-10-31",
+                                "functions",
+                                ":FunctionName",
+                                "url"
+                              ],
+                              "query": [
+                                {
+                                  "description": "A version number or alias name",
+                                  "key": "Qualifier",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:07:37.000Z",
+                          "updatedAt": "2026-07-28T01:07:37.000Z",
+                          "uid": "35240-7a9e8c42-8017-46ce-8ef6-c7a4d6dd8208"
+                        },
+                        {
+                          "id": "f5f1ae07-6296-469d-9915-2f9a3155f15b",
+                          "name": "Function URL not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2021-10-31/functions/:FunctionName/url?Qualifier=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2021-10-31",
+                                "functions",
+                                ":FunctionName",
+                                "url"
+                              ],
+                              "query": [
+                                {
+                                  "description": "A version number or alias name",
+                                  "key": "Qualifier",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:37.000Z",
+                          "updatedAt": "2026-07-28T01:07:37.000Z",
+                          "uid": "35240-f5f1ae07-6296-469d-9915-2f9a3155f15b"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:07:37.000Z",
+                      "updatedAt": "2026-07-28T01:07:37.000Z",
+                      "uid": "35240-63b06f20-3edd-4d2e-9ad8-0d06034eb0ba"
+                    }
+                  ],
+                  "id": "3c5c14a9-964b-4907-aa3b-34023e31755e",
+                  "createdAt": "2026-07-28T01:07:37.000Z",
+                  "updatedAt": "2026-07-28T01:07:37.000Z",
+                  "uid": "35240-3c5c14a9-964b-4907-aa3b-34023e31755e"
+                }
+              ],
+              "id": "d7be83e2-d543-45c0-bca6-fc7aef55dc91",
+              "createdAt": "2026-07-28T01:07:37.000Z",
+              "updatedAt": "2026-07-28T01:07:37.000Z",
+              "uid": "35240-d7be83e2-d543-45c0-bca6-fc7aef55dc91"
+            }
+          ],
+          "id": "567b89a3-b141-439a-bc7f-1fb69add3469",
+          "createdAt": "2026-07-28T01:07:37.000Z",
+          "updatedAt": "2026-07-28T01:07:37.000Z",
+          "uid": "35240-567b89a3-b141-439a-bc7f-1fb69add3469"
+        }
+      ],
+      "id": "014a31c1-ef60-4942-893b-fc38c9b479ba",
+      "createdAt": "2026-07-28T01:07:37.000Z",
+      "updatedAt": "2026-07-28T01:07:37.000Z",
+      "uid": "35240-014a31c1-ef60-4942-893b-fc38c9b479ba"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "region",
+      "value": "us-east-1"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://lambda.{{region}}.amazonaws.com"
+    }
+  ]
+}

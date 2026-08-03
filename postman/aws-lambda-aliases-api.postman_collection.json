@@ -1,0 +1,1102 @@
+{
+  "info": {
+    "_postman_id": "d2cfaf98-8ab8-4e66-892e-9bc2975b4a31",
+    "name": "AWS Lambda Aliases API",
+    "description": "The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.\n\nContact Support:\n Name: AWS Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:07:25.000Z",
+    "updatedAt": "2026-07-28T01:07:25.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d2cfaf98-8ab8-4e66-892e-9bc2975b4a31"
+  },
+  "item": [
+    {
+      "name": "2015-03-31",
+      "item": [
+        {
+          "name": "functions",
+          "item": [
+            {
+              "name": "{FunctionName}",
+              "item": [
+                {
+                  "name": "aliases",
+                  "item": [
+                    {
+                      "name": "{AliasName}",
+                      "item": [
+                        {
+                          "name": "Aws Lambda Get an Alias",
+                          "id": "16c7c6e5-8a5d-4096-9651-dd7d29d1caac",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/aliases/:AliasName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "aliases",
+                                ":AliasName"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "a234177a-da24-4350-82ea-f1f82ff9abb4",
+                                  "key": "FunctionName",
+                                  "value": "<string>",
+                                  "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                                },
+                                {
+                                  "id": "e75b8efe-e764-4b2b-a85c-060d780f1a1d",
+                                  "key": "AliasName",
+                                  "value": "<string>",
+                                  "description": "(Required) The name of the alias"
+                                }
+                              ]
+                            },
+                            "description": "Returns details about a Lambda function alias."
+                          },
+                          "response": [
+                            {
+                              "id": "ff62c192-b4de-4e86-96cf-ebff67009b0f",
+                              "name": "Alias details",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Authorization",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/aliases/:AliasName",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "2015-03-31",
+                                    "functions",
+                                    ":FunctionName",
+                                    "aliases",
+                                    ":AliasName"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "FunctionName"
+                                    },
+                                    {
+                                      "key": "AliasName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"AliasArn\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"FunctionVersion\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"RoutingConfig\": {\n    \"AdditionalVersionWeights\": {\n      \"Lorema0c\": \"<number>\",\n      \"commodoa\": \"<number>\",\n      \"irure_d8b\": \"<number>\",\n      \"deserunt0\": \"<number>\"\n    }\n  },\n  \"RevisionId\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T01:07:25.000Z",
+                              "updatedAt": "2026-07-28T01:07:25.000Z",
+                              "uid": "35240-ff62c192-b4de-4e86-96cf-ebff67009b0f"
+                            },
+                            {
+                              "id": "26308e99-aca4-4572-b375-dc845ff84c14",
+                              "name": "Alias not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Authorization",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/aliases/:AliasName",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "2015-03-31",
+                                    "functions",
+                                    ":FunctionName",
+                                    "aliases",
+                                    ":AliasName"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "FunctionName"
+                                    },
+                                    {
+                                      "key": "AliasName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T01:07:25.000Z",
+                              "updatedAt": "2026-07-28T01:07:25.000Z",
+                              "uid": "35240-26308e99-aca4-4572-b375-dc845ff84c14"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:07:25.000Z",
+                          "updatedAt": "2026-07-28T01:07:25.000Z",
+                          "uid": "35240-16c7c6e5-8a5d-4096-9651-dd7d29d1caac"
+                        },
+                        {
+                          "name": "Aws Lambda Update an Alias",
+                          "id": "db0f5cb7-1b86-41fc-91c3-5826b447fb8d",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"FunctionVersion\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"RoutingConfig\": {\n    \"AdditionalVersionWeights\": {\n      \"adipisicing_60\": \"<number>\",\n      \"elit_302\": \"<number>\"\n    }\n  },\n  \"RevisionId\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/aliases/:AliasName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "aliases",
+                                ":AliasName"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "dc631e07-eea7-462e-baae-4f3e4d1a0571",
+                                  "key": "FunctionName",
+                                  "value": "<string>",
+                                  "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                                },
+                                {
+                                  "id": "3858b318-ef65-4c9b-94fc-197bc1d7bb53",
+                                  "key": "AliasName",
+                                  "value": "<string>",
+                                  "description": "(Required) The name of the alias"
+                                }
+                              ]
+                            },
+                            "description": "Updates the configuration of a Lambda function alias. You can change the function version that the alias points to, or configure routing between two versions for weighted traffic shifting."
+                          },
+                          "response": [
+                            {
+                              "id": "b4ea9209-0845-410d-b134-f7a0679c9fae",
+                              "name": "Updated alias",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Authorization",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"FunctionVersion\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"RoutingConfig\": {\n    \"AdditionalVersionWeights\": {\n      \"adipisicing_60\": \"<number>\",\n      \"elit_302\": \"<number>\"\n    }\n  },\n  \"RevisionId\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/aliases/:AliasName",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "2015-03-31",
+                                    "functions",
+                                    ":FunctionName",
+                                    "aliases",
+                                    ":AliasName"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "FunctionName"
+                                    },
+                                    {
+                                      "key": "AliasName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"AliasArn\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"FunctionVersion\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"RoutingConfig\": {\n    \"AdditionalVersionWeights\": {\n      \"Lorema0c\": \"<number>\",\n      \"commodoa\": \"<number>\",\n      \"irure_d8b\": \"<number>\",\n      \"deserunt0\": \"<number>\"\n    }\n  },\n  \"RevisionId\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T01:07:25.000Z",
+                              "updatedAt": "2026-07-28T01:07:25.000Z",
+                              "uid": "35240-b4ea9209-0845-410d-b134-f7a0679c9fae"
+                            },
+                            {
+                              "id": "da56abb9-a5b5-457d-9e27-1000a93c9ff9",
+                              "name": "Alias not found",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Authorization",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"FunctionVersion\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"RoutingConfig\": {\n    \"AdditionalVersionWeights\": {\n      \"adipisicing_60\": \"<number>\",\n      \"elit_302\": \"<number>\"\n    }\n  },\n  \"RevisionId\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/aliases/:AliasName",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "2015-03-31",
+                                    "functions",
+                                    ":FunctionName",
+                                    "aliases",
+                                    ":AliasName"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "FunctionName"
+                                    },
+                                    {
+                                      "key": "AliasName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T01:07:25.000Z",
+                              "updatedAt": "2026-07-28T01:07:25.000Z",
+                              "uid": "35240-da56abb9-a5b5-457d-9e27-1000a93c9ff9"
+                            },
+                            {
+                              "id": "09dbf718-ff1b-47a3-b756-75e3d664666c",
+                              "name": "Resource conflict",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Authorization",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"FunctionVersion\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"RoutingConfig\": {\n    \"AdditionalVersionWeights\": {\n      \"adipisicing_60\": \"<number>\",\n      \"elit_302\": \"<number>\"\n    }\n  },\n  \"RevisionId\": \"<string>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/aliases/:AliasName",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "2015-03-31",
+                                    "functions",
+                                    ":FunctionName",
+                                    "aliases",
+                                    ":AliasName"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "FunctionName"
+                                    },
+                                    {
+                                      "key": "AliasName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Conflict",
+                              "code": 409,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T01:07:25.000Z",
+                              "updatedAt": "2026-07-28T01:07:25.000Z",
+                              "uid": "35240-09dbf718-ff1b-47a3-b756-75e3d664666c"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:07:25.000Z",
+                          "updatedAt": "2026-07-28T01:07:25.000Z",
+                          "uid": "35240-db0f5cb7-1b86-41fc-91c3-5826b447fb8d"
+                        },
+                        {
+                          "name": "Aws Lambda Delete an Alias",
+                          "id": "2e94a4f2-ebb6-4eef-8a01-4309bc0c1471",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/aliases/:AliasName",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "aliases",
+                                ":AliasName"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "59fd4cdc-7612-4e04-a0f9-0576ba2874eb",
+                                  "key": "FunctionName",
+                                  "value": "<string>",
+                                  "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                                },
+                                {
+                                  "id": "d6d23e0c-264d-4970-a150-74bcbadc0191",
+                                  "key": "AliasName",
+                                  "value": "<string>",
+                                  "description": "(Required) The name of the alias"
+                                }
+                              ]
+                            },
+                            "description": "Deletes a Lambda function alias."
+                          },
+                          "response": [
+                            {
+                              "id": "a979bdec-8b37-47e2-8270-27ec7620a922",
+                              "name": "Alias deleted",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Authorization",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/aliases/:AliasName",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "2015-03-31",
+                                    "functions",
+                                    ":FunctionName",
+                                    "aliases",
+                                    ":AliasName"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "FunctionName"
+                                    },
+                                    {
+                                      "key": "AliasName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T01:07:25.000Z",
+                              "updatedAt": "2026-07-28T01:07:25.000Z",
+                              "uid": "35240-a979bdec-8b37-47e2-8270-27ec7620a922"
+                            },
+                            {
+                              "id": "450ed530-2077-413b-a542-c2b4d22da579",
+                              "name": "Alias not found",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: apikey",
+                                    "key": "Authorization",
+                                    "value": "<API Key>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/aliases/:AliasName",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "2015-03-31",
+                                    "functions",
+                                    ":FunctionName",
+                                    "aliases",
+                                    ":AliasName"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "FunctionName"
+                                    },
+                                    {
+                                      "key": "AliasName"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T01:07:25.000Z",
+                              "updatedAt": "2026-07-28T01:07:25.000Z",
+                              "uid": "35240-450ed530-2077-413b-a542-c2b4d22da579"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:07:25.000Z",
+                          "updatedAt": "2026-07-28T01:07:25.000Z",
+                          "uid": "35240-2e94a4f2-ebb6-4eef-8a01-4309bc0c1471"
+                        }
+                      ],
+                      "id": "fa7041a0-4516-4071-a6d5-79745b87bea4",
+                      "createdAt": "2026-07-28T01:07:25.000Z",
+                      "updatedAt": "2026-07-28T01:07:25.000Z",
+                      "uid": "35240-fa7041a0-4516-4071-a6d5-79745b87bea4"
+                    },
+                    {
+                      "name": "Aws Lambda List Aliases",
+                      "id": "0ac3cc8d-ac9f-4b05-934f-eb65d6766e1f",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/aliases?FunctionVersion=<string>&Marker=<string>&MaxItems=<integer>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "functions",
+                            ":FunctionName",
+                            "aliases"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter by the version that aliases point to",
+                              "key": "FunctionVersion",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results.",
+                              "key": "Marker",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Maximum number of items to return (1-10000)",
+                              "key": "MaxItems",
+                              "value": "<integer>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "3749b627-7786-4fb9-a1a7-604158e71e20",
+                              "key": "FunctionName",
+                              "value": "<string>",
+                              "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                            }
+                          ]
+                        },
+                        "description": "Returns a list of aliases for a Lambda function. Each alias points to a specific function version and can optionally route a percentage of traffic to a second version for canary deployments."
+                      },
+                      "response": [
+                        {
+                          "id": "9dfb73cb-dfd3-4868-90ba-e342bb6865b9",
+                          "name": "List of aliases",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/aliases?FunctionVersion=<string>&Marker=<string>&MaxItems=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "aliases"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Filter by the version that aliases point to",
+                                  "key": "FunctionVersion",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results.",
+                                  "key": "Marker",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Maximum number of items to return (1-10000)",
+                                  "key": "MaxItems",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"NextMarker\": \"<string>\",\n  \"Aliases\": [\n    {\n      \"AliasArn\": \"<string>\",\n      \"Name\": \"<string>\",\n      \"FunctionVersion\": \"<string>\",\n      \"Description\": \"<string>\",\n      \"RoutingConfig\": {\n        \"AdditionalVersionWeights\": {\n          \"aute045\": \"<number>\"\n        }\n      },\n      \"RevisionId\": \"<string>\"\n    },\n    {\n      \"AliasArn\": \"<string>\",\n      \"Name\": \"<string>\",\n      \"FunctionVersion\": \"<string>\",\n      \"Description\": \"<string>\",\n      \"RoutingConfig\": {\n        \"AdditionalVersionWeights\": {\n          \"eu_74\": \"<number>\"\n        }\n      },\n      \"RevisionId\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T01:07:25.000Z",
+                          "updatedAt": "2026-07-28T01:07:25.000Z",
+                          "uid": "35240-9dfb73cb-dfd3-4868-90ba-e342bb6865b9"
+                        },
+                        {
+                          "id": "9dcb6675-1b6f-40a7-903c-d12781c5b5e3",
+                          "name": "Function not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/aliases?FunctionVersion=<string>&Marker=<string>&MaxItems=<integer>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "aliases"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Filter by the version that aliases point to",
+                                  "key": "FunctionVersion",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results.",
+                                  "key": "Marker",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Maximum number of items to return (1-10000)",
+                                  "key": "MaxItems",
+                                  "value": "<integer>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:25.000Z",
+                          "updatedAt": "2026-07-28T01:07:25.000Z",
+                          "uid": "35240-9dcb6675-1b6f-40a7-903c-d12781c5b5e3"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:07:25.000Z",
+                      "updatedAt": "2026-07-28T01:07:25.000Z",
+                      "uid": "35240-0ac3cc8d-ac9f-4b05-934f-eb65d6766e1f"
+                    },
+                    {
+                      "name": "Aws Lambda Create an Alias",
+                      "id": "803ed761-f525-4bd7-af28-980135dfd884",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"Name\": \"<string>\",\n  \"FunctionVersion\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"RoutingConfig\": {\n    \"AdditionalVersionWeights\": {\n      \"commodob\": \"<number>\",\n      \"occaecat_2\": \"<number>\",\n      \"esse03\": \"<number>\"\n    }\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/aliases",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "functions",
+                            ":FunctionName",
+                            "aliases"
+                          ],
+                          "variable": [
+                            {
+                              "id": "eeaf83cc-23cd-4a04-bd3d-74a323c8fd2e",
+                              "key": "FunctionName",
+                              "value": "<string>",
+                              "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                            }
+                          ]
+                        },
+                        "description": "Creates an alias for a Lambda function version. Use aliases to provide clients with a function identifier that you can update to invoke a different version. You can also map an alias to split invocation requests between two versions for weighted routing."
+                      },
+                      "response": [
+                        {
+                          "id": "262a706d-9c1b-4692-8858-05010ca65704",
+                          "name": "Alias created",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"Name\": \"<string>\",\n  \"FunctionVersion\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"RoutingConfig\": {\n    \"AdditionalVersionWeights\": {\n      \"commodob\": \"<number>\",\n      \"occaecat_2\": \"<number>\",\n      \"esse03\": \"<number>\"\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/aliases",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "aliases"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"AliasArn\": \"<string>\",\n  \"Name\": \"<string>\",\n  \"FunctionVersion\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"RoutingConfig\": {\n    \"AdditionalVersionWeights\": {\n      \"Lorema0c\": \"<number>\",\n      \"commodoa\": \"<number>\",\n      \"irure_d8b\": \"<number>\",\n      \"deserunt0\": \"<number>\"\n    }\n  },\n  \"RevisionId\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:25.000Z",
+                          "updatedAt": "2026-07-28T01:07:25.000Z",
+                          "uid": "35240-262a706d-9c1b-4692-8858-05010ca65704"
+                        },
+                        {
+                          "id": "398bb01f-24b2-446d-af9b-d138a7632941",
+                          "name": "Function or version not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"Name\": \"<string>\",\n  \"FunctionVersion\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"RoutingConfig\": {\n    \"AdditionalVersionWeights\": {\n      \"commodob\": \"<number>\",\n      \"occaecat_2\": \"<number>\",\n      \"esse03\": \"<number>\"\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/aliases",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "aliases"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:25.000Z",
+                          "updatedAt": "2026-07-28T01:07:25.000Z",
+                          "uid": "35240-398bb01f-24b2-446d-af9b-d138a7632941"
+                        },
+                        {
+                          "id": "f5a9dc64-77e0-4564-92d7-964c01f2cf75",
+                          "name": "Alias already exists",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "Authorization",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"Name\": \"<string>\",\n  \"FunctionVersion\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"RoutingConfig\": {\n    \"AdditionalVersionWeights\": {\n      \"commodob\": \"<number>\",\n      \"occaecat_2\": \"<number>\",\n      \"esse03\": \"<number>\"\n    }\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/2015-03-31/functions/:FunctionName/aliases",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "2015-03-31",
+                                "functions",
+                                ":FunctionName",
+                                "aliases"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "FunctionName"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Conflict",
+                          "code": 409,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:07:25.000Z",
+                          "updatedAt": "2026-07-28T01:07:25.000Z",
+                          "uid": "35240-f5a9dc64-77e0-4564-92d7-964c01f2cf75"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:07:25.000Z",
+                      "updatedAt": "2026-07-28T01:07:25.000Z",
+                      "uid": "35240-803ed761-f525-4bd7-af28-980135dfd884"
+                    }
+                  ],
+                  "id": "5956663a-6903-4516-b600-a2b915235781",
+                  "createdAt": "2026-07-28T01:07:25.000Z",
+                  "updatedAt": "2026-07-28T01:07:25.000Z",
+                  "uid": "35240-5956663a-6903-4516-b600-a2b915235781"
+                }
+              ],
+              "id": "89b8b689-73fb-40f4-b3f5-0ac734335f6d",
+              "createdAt": "2026-07-28T01:07:25.000Z",
+              "updatedAt": "2026-07-28T01:07:25.000Z",
+              "uid": "35240-89b8b689-73fb-40f4-b3f5-0ac734335f6d"
+            }
+          ],
+          "id": "7ec4ab6a-6bf0-49cf-82ba-2297affb1eeb",
+          "createdAt": "2026-07-28T01:07:25.000Z",
+          "updatedAt": "2026-07-28T01:07:25.000Z",
+          "uid": "35240-7ec4ab6a-6bf0-49cf-82ba-2297affb1eeb"
+        }
+      ],
+      "id": "f00ceee1-eda4-485e-a9be-d1975154d21e",
+      "createdAt": "2026-07-28T01:07:25.000Z",
+      "updatedAt": "2026-07-28T01:07:25.000Z",
+      "uid": "35240-f00ceee1-eda4-485e-a9be-d1975154d21e"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "region",
+      "value": "us-east-1"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://lambda.{{region}}.amazonaws.com"
+    }
+  ]
+}

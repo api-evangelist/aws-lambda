@@ -1,0 +1,538 @@
+{
+  "info": {
+    "_postman_id": "8821d00b-537f-4ed1-b6a3-c60371c7cf0b",
+    "name": "AWS Lambda Aliases Tags API",
+    "description": "The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.\n\nContact Support:\n Name: AWS Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:07:40.000Z",
+    "updatedAt": "2026-07-28T01:07:40.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8821d00b-537f-4ed1-b6a3-c60371c7cf0b"
+  },
+  "item": [
+    {
+      "name": "2015-03-31",
+      "item": [
+        {
+          "name": "tags",
+          "item": [
+            {
+              "name": "{ARN}",
+              "item": [
+                {
+                  "name": "Aws Lambda List Tags",
+                  "id": "7dbf78e9-381e-4894-8e64-97694042a12b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/2015-03-31/tags/:ARN",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "2015-03-31",
+                        "tags",
+                        ":ARN"
+                      ],
+                      "variable": [
+                        {
+                          "id": "75252456-7a20-4ae5-8210-ce92f15a6857",
+                          "key": "ARN",
+                          "value": "<string>",
+                          "description": "(Required) The function's Amazon Resource Name (ARN)"
+                        }
+                      ]
+                    },
+                    "description": "Returns a function's tags. You can also view tags with GetFunction."
+                  },
+                  "response": [
+                    {
+                      "id": "e5cd5977-666f-4806-87f0-2d0ccf792e04",
+                      "name": "Tags for the resource",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/tags/:ARN",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "tags",
+                            ":ARN"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ARN"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"Tags\": {\n    \"iruree0\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:07:41.000Z",
+                      "updatedAt": "2026-07-28T01:07:41.000Z",
+                      "uid": "35240-e5cd5977-666f-4806-87f0-2d0ccf792e04"
+                    },
+                    {
+                      "id": "6131a2bb-c0d7-4be0-9cfe-7e0015e1bc23",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/tags/:ARN",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "tags",
+                            ":ARN"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ARN"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:07:41.000Z",
+                      "updatedAt": "2026-07-28T01:07:41.000Z",
+                      "uid": "35240-6131a2bb-c0d7-4be0-9cfe-7e0015e1bc23"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:07:41.000Z",
+                  "updatedAt": "2026-07-28T01:07:41.000Z",
+                  "uid": "35240-7dbf78e9-381e-4894-8e64-97694042a12b"
+                },
+                {
+                  "name": "Aws Lambda Add Tags",
+                  "id": "b9faf902-bf1e-486c-9e3a-40c921fe26c0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"Tags\": {\n    \"sunt_3f\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/2015-03-31/tags/:ARN",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "2015-03-31",
+                        "tags",
+                        ":ARN"
+                      ],
+                      "variable": [
+                        {
+                          "id": "7d86feb3-66a5-4cdd-8436-d6c2d58fe144",
+                          "key": "ARN",
+                          "value": "<string>",
+                          "description": "(Required) The function's Amazon Resource Name (ARN)"
+                        }
+                      ]
+                    },
+                    "description": "Adds tags to a function. Tags are key-value pairs used for grouping and filtering resources."
+                  },
+                  "response": [
+                    {
+                      "id": "65327f9c-146f-485b-a0b8-41ca2a635455",
+                      "name": "Tags added successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"Tags\": {\n    \"sunt_3f\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/tags/:ARN",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "tags",
+                            ":ARN"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ARN"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:07:41.000Z",
+                      "updatedAt": "2026-07-28T01:07:41.000Z",
+                      "uid": "35240-65327f9c-146f-485b-a0b8-41ca2a635455"
+                    },
+                    {
+                      "id": "51ecedb5-cf4a-4a8f-9823-7ab659e955ae",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"Tags\": {\n    \"sunt_3f\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/tags/:ARN",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "tags",
+                            ":ARN"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ARN"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:07:41.000Z",
+                      "updatedAt": "2026-07-28T01:07:41.000Z",
+                      "uid": "35240-51ecedb5-cf4a-4a8f-9823-7ab659e955ae"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:07:41.000Z",
+                  "updatedAt": "2026-07-28T01:07:41.000Z",
+                  "uid": "35240-b9faf902-bf1e-486c-9e3a-40c921fe26c0"
+                },
+                {
+                  "name": "Aws Lambda Remove Tags",
+                  "id": "44720769-caf6-433f-a194-3e8db85d8392",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/2015-03-31/tags/:ARN?tagKeys=<string>&tagKeys=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "2015-03-31",
+                        "tags",
+                        ":ARN"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) List of tag keys to remove",
+                          "key": "tagKeys",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) List of tag keys to remove",
+                          "key": "tagKeys",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "8e793bad-015f-405b-8315-61169062db49",
+                          "key": "ARN",
+                          "value": "<string>",
+                          "description": "(Required) The function's Amazon Resource Name (ARN)"
+                        }
+                      ]
+                    },
+                    "description": "Removes tags from a function."
+                  },
+                  "response": [
+                    {
+                      "id": "806260f2-9a19-4b8d-b768-1d4aaf83340d",
+                      "name": "Tags removed successfully",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/tags/:ARN?tagKeys=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "tags",
+                            ":ARN"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) List of tag keys to remove",
+                              "key": "tagKeys",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "ARN"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:07:41.000Z",
+                      "updatedAt": "2026-07-28T01:07:41.000Z",
+                      "uid": "35240-806260f2-9a19-4b8d-b768-1d4aaf83340d"
+                    },
+                    {
+                      "id": "317fb614-9836-4d5f-a788-beaf5dacce73",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "Authorization",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/2015-03-31/tags/:ARN?tagKeys=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "2015-03-31",
+                            "tags",
+                            ":ARN"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) List of tag keys to remove",
+                              "key": "tagKeys",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "ARN"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"Type\": \"<string>\",\n  \"Message\": \"<string>\",\n  \"Code\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:07:41.000Z",
+                      "updatedAt": "2026-07-28T01:07:41.000Z",
+                      "uid": "35240-317fb614-9836-4d5f-a788-beaf5dacce73"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:07:41.000Z",
+                  "updatedAt": "2026-07-28T01:07:41.000Z",
+                  "uid": "35240-44720769-caf6-433f-a194-3e8db85d8392"
+                }
+              ],
+              "id": "a518defe-d4c7-4b5f-a550-bb7d3f86f11e",
+              "createdAt": "2026-07-28T01:07:41.000Z",
+              "updatedAt": "2026-07-28T01:07:41.000Z",
+              "uid": "35240-a518defe-d4c7-4b5f-a550-bb7d3f86f11e"
+            }
+          ],
+          "id": "5a77252e-5215-431b-968e-46a77fe879c4",
+          "createdAt": "2026-07-28T01:07:41.000Z",
+          "updatedAt": "2026-07-28T01:07:41.000Z",
+          "uid": "35240-5a77252e-5215-431b-968e-46a77fe879c4"
+        }
+      ],
+      "id": "c9338d85-86c6-46f9-88a3-8846614d48a8",
+      "createdAt": "2026-07-28T01:07:41.000Z",
+      "updatedAt": "2026-07-28T01:07:41.000Z",
+      "uid": "35240-c9338d85-86c6-46f9-88a3-8846614d48a8"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "region",
+      "value": "us-east-1"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://lambda.{{region}}.amazonaws.com"
+    }
+  ]
+}

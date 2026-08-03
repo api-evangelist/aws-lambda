@@ -1,0 +1,28 @@
+{
+  "provider": "aws-lambda",
+  "sources": [
+    "aws-lambda-aliases-api-openapi.yml",
+    "aws-lambda-concurrency-api-openapi.yml",
+    "aws-lambda-event-source-mappings-api-openapi.yml",
+    "aws-lambda-function-url-api-openapi.yml",
+    "aws-lambda-functions-api-openapi.yml",
+    "aws-lambda-layers-api-openapi.yml",
+    "aws-lambda-tags-api-openapi.yml",
+    "aws-lambda-versions-api-openapi.yml"
+  ],
+  "outputs": [
+    "aws-lambda-aliases-api-openapi.yml",
+    "aws-lambda-concurrency-api-openapi.yml",
+    "aws-lambda-event-source-mappings-api-openapi.yml",
+    "aws-lambda-function-url-api-openapi.yml",
+    "aws-lambda-functions-api-openapi.yml",
+    "aws-lambda-layers-api-openapi.yml",
+    "aws-lambda-tags-api-openapi.yml",
+    "aws-lambda-versions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
