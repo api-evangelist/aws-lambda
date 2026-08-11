@@ -490,6 +490,15 @@ apis:
   - type: Troubleshooting
     url: https://docs.aws.amazon.com/lambda/latest/dg/troubleshooting-deployment.html
 common:
+  - type: IssueTracker
+    url: https://github.com/awsdocs/aws-lambda-developer-guide/issues
+  - type: CodeOfConduct
+    url: https://github.com/awsdocs/.github/blob/master/CODE_OF_CONDUCT.md
+  - type: ContributionGuide
+    url: https://github.com/awsdocs/aws-lambda-developer-guide/blob/main/CONTRIBUTING.md
+  - type: License
+    name: MIT-0
+    url: https://github.com/awsdocs/aws-lambda-developer-guide/blob/main/LICENSE
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/aws-lambda/overview
   - type: AgenticAccess
