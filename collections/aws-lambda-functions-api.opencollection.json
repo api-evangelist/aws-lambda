@@ -1,0 +1,242 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AWS Lambda Aliases Functions API",
+    "version": "2015-03-31"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Functions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aws Lambda List Functions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions",
+            "params": [
+              {
+                "name": "MasterRegion",
+                "value": "",
+                "type": "query",
+                "description": "For Lambda@Edge functions, the AWS Region of the master function"
+              },
+              {
+                "name": "FunctionVersion",
+                "value": "",
+                "type": "query",
+                "description": "Set to ALL to include entries for all published versions"
+              },
+              {
+                "name": "Marker",
+                "value": "",
+                "type": "query",
+                "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results."
+              },
+              {
+                "name": "MaxItems",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return (1-10000)"
+              }
+            ]
+          },
+          "docs": "Returns a list of Lambda functions with the version-specific configuration of each. Set FunctionVersion to ALL to include all published versions of each function in addition to the unpublished version. The response includes the function configuration for each version along with the function ARN and name."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Create a Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Lambda function. To create a function, you need a deployment package and an execution role. The deployment package is a ZIP archive or container image that contains your function code. The execution role grants the function permission to use AWS services. You can configure the function's memory, timeout, environment variables, VPC settings, layers, and other options."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Get a Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "",
+                "type": "query",
+                "description": "A version number or alias name"
+              }
+            ]
+          },
+          "docs": "Returns information about the function or function version, with a link to download the deployment package that is valid for 10 minutes. If you specify a function version, only details specific to that version are returned. The response includes the function configuration, code location, tags, and concurrency settings."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Delete a Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "",
+                "type": "query",
+                "description": "A version number or alias name"
+              }
+            ]
+          },
+          "docs": "Deletes a Lambda function. To delete a specific function version, use the Qualifier parameter. Otherwise, all versions and aliases are deleted. To delete Lambda event source mappings that invoke a function, use DeleteEventSourceMapping."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Get Function Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/configuration",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "",
+                "type": "query",
+                "description": "A version number or alias name"
+              }
+            ]
+          },
+          "docs": "Returns the version-specific settings of a Lambda function or version. The output includes the function name, runtime, role, handler, description, code size, memory, timeout, last modified date, code SHA-256 hash, version, VPC configuration, dead-letter queue configuration, environment variables, KMS key, tracing configuration, layers, state, state reason, and last update status."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Update Function Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/configuration",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modify the version-specific settings of a Lambda function. When you update a function, Lambda provisions an instance of the function and its supporting resources. After the update completes, subsequent invocations use the new configuration. Settings include memory, timeout, runtime, handler, environment variables, VPC, layers, and more."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Update Function Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/code",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a Lambda function's code. If code signing is enabled for the function, the code package must be signed by a trusted publisher. The function's code is locked when you publish a version. You cannot modify the code of a published version, only the unpublished version."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Invoke a Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/invocations",
+            "headers": [
+              {
+                "name": "X-Amz-Invocation-Type",
+                "value": "RequestResponse"
+              },
+              {
+                "name": "X-Amz-Log-Type",
+                "value": "None"
+              },
+              {
+                "name": "X-Amz-Client-Context",
+                "value": "example_value"
+              }
+            ],
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "",
+                "type": "query",
+                "description": "A version number or alias name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invokes a Lambda function. You can invoke a function synchronously and wait for the response, or asynchronously. By default, Lambda invokes your function synchronously. To invoke a function asynchronously, set InvocationType to Event. For asynchronous invocation, Lambda adds the event to a queue and returns a success response without additional information. For a DryRun invocation type, verify parameter values and permissions without running the function."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

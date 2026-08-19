@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AWS Lambda Aliases Function URL API",
+    "version": "2015-03-31"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Function URL",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aws Lambda Get Function Url Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2021-10-31/functions/:FunctionName/url",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "",
+                "type": "query",
+                "description": "A version number or alias name"
+              }
+            ]
+          },
+          "docs": "Returns details about a Lambda function URL, including the function URL itself, the authorization type, CORS settings, creation and modification timestamps, and the invoke mode."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Create a Function Url",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lambda.{region}.amazonaws.com/2021-10-31/functions/:FunctionName/url",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "",
+                "type": "query",
+                "description": "A version number or alias name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Lambda function URL with the specified authorization type. A function URL is a dedicated HTTP(S) endpoint that you can use to invoke your function. You can create a function URL for the $LATEST unpublished version or for any function alias."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Update a Function Url",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lambda.{region}.amazonaws.com/2021-10-31/functions/:FunctionName/url",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "",
+                "type": "query",
+                "description": "A version number or alias name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration for a Lambda function URL."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Delete a Function Url",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lambda.{region}.amazonaws.com/2021-10-31/functions/:FunctionName/url",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "",
+                "type": "query",
+                "description": "A version number or alias name"
+              }
+            ]
+          },
+          "docs": "Deletes a Lambda function URL."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AWS Lambda Aliases Tags API",
+    "version": "2015-03-31"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aws Lambda List Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/tags/:ARN",
+            "params": [
+              {
+                "name": "ARN",
+                "value": "example_value",
+                "type": "path",
+                "description": "The function's Amazon Resource Name (ARN)"
+              }
+            ]
+          },
+          "docs": "Returns a function's tags. You can also view tags with GetFunction."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Add Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/tags/:ARN",
+            "params": [
+              {
+                "name": "ARN",
+                "value": "example_value",
+                "type": "path",
+                "description": "The function's Amazon Resource Name (ARN)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds tags to a function. Tags are key-value pairs used for grouping and filtering resources."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Remove Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/tags/:ARN",
+            "params": [
+              {
+                "name": "ARN",
+                "value": "example_value",
+                "type": "path",
+                "description": "The function's Amazon Resource Name (ARN)"
+              },
+              {
+                "name": "tagKeys",
+                "value": "",
+                "type": "query",
+                "description": "List of tag keys to remove"
+              }
+            ]
+          },
+          "docs": "Removes tags from a function."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

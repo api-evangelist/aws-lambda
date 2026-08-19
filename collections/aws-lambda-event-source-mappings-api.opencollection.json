@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AWS Lambda Aliases Event Source Mappings API",
+    "version": "2015-03-31"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Event Source Mappings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aws Lambda List Event Source Mappings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/event-source-mappings",
+            "params": [
+              {
+                "name": "EventSourceArn",
+                "value": "example_value",
+                "type": "query",
+                "description": "The ARN of the event source (Amazon Kinesis stream, Amazon DynamoDB stream, Amazon SQS queue, Amazon MSK cluster, or self-managed Apache Kafka cluster)"
+              },
+              {
+                "name": "FunctionName",
+                "value": "example_value",
+                "type": "query",
+                "description": "The name, ARN, or partial ARN of the Lambda function to filter by"
+              },
+              {
+                "name": "Marker",
+                "value": "",
+                "type": "query",
+                "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results."
+              },
+              {
+                "name": "MaxItems",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return (1-10000)"
+              }
+            ]
+          },
+          "docs": "Lists event source mappings. Specify an EventSourceArn to show only event source mappings for a single event source, or a FunctionName to show mappings for a single function."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Create an Event Source Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/event-source-mappings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a mapping between an event source and a Lambda function. Lambda reads items from the event source and invokes the function. Supported event sources include Amazon Kinesis, Amazon DynamoDB Streams, Amazon SQS, Amazon MQ, Amazon MSK, self-managed Apache Kafka, and Amazon DocumentDB."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Get an Event Source Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/event-source-mappings/:UUID",
+            "params": [
+              {
+                "name": "UUID",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the event source mapping"
+              }
+            ]
+          },
+          "docs": "Returns details about an event source mapping."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Update an Event Source Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/event-source-mappings/:UUID",
+            "params": [
+              {
+                "name": "UUID",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the event source mapping"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an event source mapping. You can change the function that Lambda invokes, or pause invocation and resume later from the same location."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Delete an Event Source Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/event-source-mappings/:UUID",
+            "params": [
+              {
+                "name": "UUID",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the event source mapping"
+              }
+            ]
+          },
+          "docs": "Deletes an event source mapping. Lambda stops polling the event source and deletes the mapping."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

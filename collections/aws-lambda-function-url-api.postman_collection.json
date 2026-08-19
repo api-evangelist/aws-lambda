@@ -1,0 +1,941 @@
+{
+  "item": [
+    {
+      "id": "76639ef3-43ef-487b-85a1-73ffbc0bc72e",
+      "name": "Function URL",
+      "description": {
+        "content": "Configure dedicated HTTPS endpoints for Lambda functions that can be invoked directly via HTTP",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "67fed801-de2f-4c03-9ece-50ead186bc09",
+          "name": "Aws Lambda Get Function Url Configuration",
+          "request": {
+            "name": "Aws Lambda Get Function Url Configuration",
+            "description": {
+              "content": "Returns details about a Lambda function URL, including the function URL itself, the authorization type, CORS settings, creation and modification timestamps, and the invoke mode.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2021-10-31",
+                "functions",
+                ":FunctionName",
+                "url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "Qualifier",
+                  "value": "<string>",
+                  "description": "A version number or alias name"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "FunctionName",
+                  "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                },
+                {
+                  "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8d00eb6b-29ae-4ffe-b7c0-7dda80640d03",
+              "name": "Function URL configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2021-10-31",
+                    "functions",
+                    ":FunctionName",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"FunctionUrl\": \"https://www.example.com\",\n  \"FunctionArn\": \"example_value\",\n  \"AuthType\": \"NONE\",\n  \"Cors\": {\n    \"AllowCredentials\": true,\n    \"AllowHeaders\": [\n      {}\n    ],\n    \"AllowMethods\": [\n      {}\n    ],\n    \"AllowOrigins\": [\n      {}\n    ],\n    \"ExposeHeaders\": [\n      {}\n    ],\n    \"MaxAge\": 10\n  },\n  \"CreationTime\": \"example_value\",\n  \"LastModifiedTime\": \"example_value\",\n  \"InvokeMode\": \"BUFFERED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3689558f-6034-4975-b392-07aa016e67f2",
+              "name": "Function URL configuration not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2021-10-31",
+                    "functions",
+                    ":FunctionName",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8c73d967-2a07-40a7-b277-87a92e72a74f",
+          "name": "Aws Lambda Create a Function Url",
+          "request": {
+            "name": "Aws Lambda Create a Function Url",
+            "description": {
+              "content": "Creates a Lambda function URL with the specified authorization type. A function URL is a dedicated HTTP(S) endpoint that you can use to invoke your function. You can create a function URL for the $LATEST unpublished version or for any function alias.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2021-10-31",
+                "functions",
+                ":FunctionName",
+                "url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "Qualifier",
+                  "value": "<string>",
+                  "description": "A version number or alias name"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "FunctionName",
+                  "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                },
+                {
+                  "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"AuthType\": \"<string>\",\n  \"Cors\": {\n    \"AllowCredentials\": \"<boolean>\",\n    \"AllowHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowMethods\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowOrigins\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ExposeHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"MaxAge\": \"<integer>\"\n  },\n  \"InvokeMode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6392636c-2bd6-44a3-8b00-68362b38c8ff",
+              "name": "Function URL created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2021-10-31",
+                    "functions",
+                    ":FunctionName",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"AuthType\": \"NONE\",\n  \"Cors\": {\n    \"AllowCredentials\": true,\n    \"AllowHeaders\": [\n      {}\n    ],\n    \"AllowMethods\": [\n      {}\n    ],\n    \"AllowOrigins\": [\n      {}\n    ],\n    \"ExposeHeaders\": [\n      {}\n    ],\n    \"MaxAge\": 10\n  },\n  \"InvokeMode\": \"BUFFERED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"FunctionUrl\": \"https://www.example.com\",\n  \"FunctionArn\": \"example_value\",\n  \"AuthType\": \"NONE\",\n  \"Cors\": {\n    \"AllowCredentials\": true,\n    \"AllowHeaders\": [\n      {}\n    ],\n    \"AllowMethods\": [\n      {}\n    ],\n    \"AllowOrigins\": [\n      {}\n    ],\n    \"ExposeHeaders\": [\n      {}\n    ],\n    \"MaxAge\": 10\n  },\n  \"CreationTime\": \"example_value\",\n  \"LastModifiedTime\": \"example_value\",\n  \"InvokeMode\": \"BUFFERED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71fec1ff-af7c-4a4c-adb6-1399eaf4dc47",
+              "name": "Function not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2021-10-31",
+                    "functions",
+                    ":FunctionName",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"AuthType\": \"NONE\",\n  \"Cors\": {\n    \"AllowCredentials\": true,\n    \"AllowHeaders\": [\n      {}\n    ],\n    \"AllowMethods\": [\n      {}\n    ],\n    \"AllowOrigins\": [\n      {}\n    ],\n    \"ExposeHeaders\": [\n      {}\n    ],\n    \"MaxAge\": 10\n  },\n  \"InvokeMode\": \"BUFFERED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "16363085-35df-476b-ad8b-02bed1b71269",
+              "name": "Function URL already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2021-10-31",
+                    "functions",
+                    ":FunctionName",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"AuthType\": \"NONE\",\n  \"Cors\": {\n    \"AllowCredentials\": true,\n    \"AllowHeaders\": [\n      {}\n    ],\n    \"AllowMethods\": [\n      {}\n    ],\n    \"AllowOrigins\": [\n      {}\n    ],\n    \"ExposeHeaders\": [\n      {}\n    ],\n    \"MaxAge\": 10\n  },\n  \"InvokeMode\": \"BUFFERED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c45d84de-ba01-49e5-951a-df9d1ade6932",
+          "name": "Aws Lambda Update a Function Url",
+          "request": {
+            "name": "Aws Lambda Update a Function Url",
+            "description": {
+              "content": "Updates the configuration for a Lambda function URL.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2021-10-31",
+                "functions",
+                ":FunctionName",
+                "url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "Qualifier",
+                  "value": "<string>",
+                  "description": "A version number or alias name"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "FunctionName",
+                  "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                },
+                {
+                  "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"AuthType\": \"<string>\",\n  \"Cors\": {\n    \"AllowCredentials\": \"<boolean>\",\n    \"AllowHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowMethods\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"AllowOrigins\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"ExposeHeaders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"MaxAge\": \"<integer>\"\n  },\n  \"InvokeMode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "41286cbf-e2e6-495c-928f-106785aa3df5",
+              "name": "Function URL updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2021-10-31",
+                    "functions",
+                    ":FunctionName",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"AuthType\": \"NONE\",\n  \"Cors\": {\n    \"AllowCredentials\": true,\n    \"AllowHeaders\": [\n      {}\n    ],\n    \"AllowMethods\": [\n      {}\n    ],\n    \"AllowOrigins\": [\n      {}\n    ],\n    \"ExposeHeaders\": [\n      {}\n    ],\n    \"MaxAge\": 10\n  },\n  \"InvokeMode\": \"BUFFERED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"FunctionUrl\": \"https://www.example.com\",\n  \"FunctionArn\": \"example_value\",\n  \"AuthType\": \"NONE\",\n  \"Cors\": {\n    \"AllowCredentials\": true,\n    \"AllowHeaders\": [\n      {}\n    ],\n    \"AllowMethods\": [\n      {}\n    ],\n    \"AllowOrigins\": [\n      {}\n    ],\n    \"ExposeHeaders\": [\n      {}\n    ],\n    \"MaxAge\": 10\n  },\n  \"CreationTime\": \"example_value\",\n  \"LastModifiedTime\": \"example_value\",\n  \"InvokeMode\": \"BUFFERED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7566ffb6-f0a0-48d9-a75c-88722f5f994a",
+              "name": "Function URL not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2021-10-31",
+                    "functions",
+                    ":FunctionName",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"AuthType\": \"NONE\",\n  \"Cors\": {\n    \"AllowCredentials\": true,\n    \"AllowHeaders\": [\n      {}\n    ],\n    \"AllowMethods\": [\n      {}\n    ],\n    \"AllowOrigins\": [\n      {}\n    ],\n    \"ExposeHeaders\": [\n      {}\n    ],\n    \"MaxAge\": 10\n  },\n  \"InvokeMode\": \"BUFFERED\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "173d7371-663d-4efa-aa90-e071fe9f64aa",
+          "name": "Aws Lambda Delete a Function Url",
+          "request": {
+            "name": "Aws Lambda Delete a Function Url",
+            "description": {
+              "content": "Deletes a Lambda function URL.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2021-10-31",
+                "functions",
+                ":FunctionName",
+                "url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "Qualifier",
+                  "value": "<string>",
+                  "description": "A version number or alias name"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "FunctionName",
+                  "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                },
+                {
+                  "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "985814e3-b510-4e8d-bb11-a420a69a3e68",
+              "name": "Function URL deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2021-10-31",
+                    "functions",
+                    ":FunctionName",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "13c58b8f-bbd1-4c78-aa2d-259293c51ad6",
+              "name": "Function URL not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2021-10-31",
+                    "functions",
+                    ":FunctionName",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "us-east-1",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://lambda.{{region}}.amazonaws.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d51e4444-313d-4d2d-9668-f8bf29eea6ce",
+    "name": "AWS Lambda Aliases Function URL API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.\n\nContact Support:\n Name: AWS Support",
+      "type": "text/plain"
+    }
+  }
+}

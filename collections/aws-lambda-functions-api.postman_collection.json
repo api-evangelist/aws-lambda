@@ -1,0 +1,2591 @@
+{
+  "item": [
+    {
+      "id": "c7d625c5-22f4-4d71-8eaf-23c5fcfa7809",
+      "name": "Functions",
+      "description": {
+        "content": "Create, configure, invoke, and manage Lambda functions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bf581c27-62d9-4a53-af2a-f16270371c1e",
+          "name": "Aws Lambda List Functions",
+          "request": {
+            "name": "Aws Lambda List Functions",
+            "description": {
+              "content": "Returns a list of Lambda functions with the version-specific configuration of each. Set FunctionVersion to ALL to include all published versions of each function in addition to the unpublished version. The response includes the function configuration for each version along with the function ARN and name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2015-03-31",
+                "functions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "MasterRegion",
+                  "value": "<string>",
+                  "description": "For Lambda@Edge functions, the AWS Region of the master function"
+                },
+                {
+                  "disabled": false,
+                  "key": "FunctionVersion",
+                  "value": "<string>",
+                  "description": "Set to ALL to include entries for all published versions"
+                },
+                {
+                  "disabled": false,
+                  "key": "Marker",
+                  "value": "<string>",
+                  "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results."
+                },
+                {
+                  "disabled": false,
+                  "key": "MaxItems",
+                  "value": "<integer>",
+                  "description": "Maximum number of items to return (1-10000)"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "17b1d537-afee-4ebc-b2da-75eac20c462b",
+              "name": "List of functions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "MasterRegion",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "FunctionVersion",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Marker",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "MaxItems",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"NextMarker\": \"example_value\",\n  \"Functions\": [\n    {\n      \"FunctionName\": \"example_value\",\n      \"FunctionArn\": \"example_value\",\n      \"Runtime\": \"nodejs18.x\",\n      \"Role\": \"example_value\",\n      \"Handler\": \"example_value\",\n      \"CodeSize\": 10,\n      \"Description\": \"A sample description.\",\n      \"Timeout\": 10,\n      \"MemorySize\": 10,\n      \"LastModified\": \"example_value\",\n      \"CodeSha256\": \"example_value\",\n      \"Version\": \"example_value\",\n      \"DeadLetterConfig\": {},\n      \"Environment\": {},\n      \"KMSKeyArn\": \"example_value\",\n      \"TracingConfig\": {},\n      \"MasterArn\": \"example_value\",\n      \"RevisionId\": \"500123\",\n      \"Layers\": {},\n      \"State\": \"Pending\",\n      \"StateReason\": \"example_value\",\n      \"StateReasonCode\": \"Idle\",\n      \"LastUpdateStatus\": \"Successful\",\n      \"LastUpdateStatusReason\": \"example_value\",\n      \"LastUpdateStatusReasonCode\": \"example_value\",\n      \"PackageType\": \"Zip\",\n      \"ImageConfigResponse\": {},\n      \"Architectures\": {},\n      \"EphemeralStorage\": {},\n      \"SnapStart\": {},\n      \"RuntimeVersionConfig\": {},\n      \"LoggingConfig\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "336c77d5-cb7c-41f6-85e1-6064f1a17dfa",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "MasterRegion",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "FunctionVersion",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "Marker",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "MaxItems",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f0ea1eca-ee0b-4a4d-aa13-16bed2ec6fa9",
+          "name": "Aws Lambda Create a Function",
+          "request": {
+            "name": "Aws Lambda Create a Function",
+            "description": {
+              "content": "Creates a Lambda function. To create a function, you need a deployment package and an execution role. The deployment package is a ZIP archive or container image that contains your function code. The execution role grants the function permission to use AWS services. You can configure the function's memory, timeout, environment variables, VPC settings, layers, and other options.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2015-03-31",
+                "functions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"FunctionName\": \"<string>\",\n  \"Role\": \"<string>\",\n  \"Code\": {\n    \"ZipFile\": \"<byte>\",\n    \"S3Bucket\": \"<string>\",\n    \"S3Key\": \"<string>\",\n    \"S3ObjectVersion\": \"<string>\",\n    \"ImageUri\": \"<string>\"\n  },\n  \"Runtime\": \"<string>\",\n  \"Handler\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Timeout\": 3,\n  \"MemorySize\": 128,\n  \"Publish\": false,\n  \"VpcConfig\": {\n    \"SubnetIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"SecurityGroupIds\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"PackageType\": \"Zip\",\n  \"DeadLetterConfig\": {\n    \"TargetArn\": \"<string>\"\n  },\n  \"Environment\": {\n    \"Variables\": {\n      \"key_0\": \"<string>\"\n    }\n  },\n  \"KMSKeyArn\": \"<string>\",\n  \"TracingConfig\": {\n    \"Mode\": \"<string>\"\n  },\n  \"Tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"Layers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"Architectures\": [\n    \"<string>\"\n  ],\n  \"EphemeralStorage\": {\n    \"Size\": \"<integer>\"\n  },\n  \"SnapStart\": {\n    \"ApplyOn\": \"<string>\"\n  },\n  \"LoggingConfig\": {\n    \"LogFormat\": \"<string>\",\n    \"ApplicationLogLevel\": \"<string>\",\n    \"SystemLogLevel\": \"<string>\",\n    \"LogGroup\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "970141ee-97d6-41b3-8284-4cb48afa6b39",
+              "name": "Function created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"FunctionName\": \"example_value\",\n  \"Runtime\": \"example_value\",\n  \"Role\": \"example_value\",\n  \"Handler\": \"example_value\",\n  \"Code\": {\n    \"ZipFile\": \"example_value\",\n    \"S3Bucket\": \"example_value\",\n    \"S3Key\": \"example_value\",\n    \"S3ObjectVersion\": \"example_value\",\n    \"ImageUri\": \"example_value\"\n  },\n  \"Description\": \"A sample description.\",\n  \"Timeout\": 10,\n  \"MemorySize\": 10,\n  \"Publish\": true,\n  \"VpcConfig\": {\n    \"SubnetIds\": [\n      {}\n    ],\n    \"SecurityGroupIds\": [\n      {}\n    ]\n  },\n  \"PackageType\": \"Zip\",\n  \"DeadLetterConfig\": {\n    \"TargetArn\": \"example_value\"\n  },\n  \"Environment\": {\n    \"Variables\": \"example_value\"\n  },\n  \"KMSKeyArn\": \"example_value\",\n  \"TracingConfig\": {\n    \"Mode\": \"Active\"\n  },\n  \"Tags\": \"example_value\",\n  \"Layers\": [\n    \"example_value\"\n  ],\n  \"Architectures\": [\n    \"x86_64\"\n  ],\n  \"EphemeralStorage\": {\n    \"Size\": 10\n  },\n  \"SnapStart\": {\n    \"ApplyOn\": \"PublishedVersions\"\n  },\n  \"LoggingConfig\": {\n    \"LogFormat\": \"JSON\",\n    \"ApplicationLogLevel\": \"example_value\",\n    \"SystemLogLevel\": \"example_value\",\n    \"LogGroup\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"FunctionName\": \"example_value\",\n  \"FunctionArn\": \"example_value\",\n  \"Runtime\": \"nodejs18.x\",\n  \"Role\": \"example_value\",\n  \"Handler\": \"example_value\",\n  \"CodeSize\": 10,\n  \"Description\": \"A sample description.\",\n  \"Timeout\": 10,\n  \"MemorySize\": 10,\n  \"LastModified\": \"example_value\",\n  \"CodeSha256\": \"example_value\",\n  \"Version\": \"example_value\",\n  \"VpcConfig\": {\n    \"SubnetIds\": [\n      {}\n    ],\n    \"SecurityGroupIds\": [\n      {}\n    ],\n    \"VpcId\": \"500123\"\n  },\n  \"DeadLetterConfig\": {\n    \"TargetArn\": \"example_value\"\n  },\n  \"Environment\": {\n    \"Variables\": \"example_value\",\n    \"Error\": {\n      \"ErrorCode\": \"example_value\",\n      \"Message\": \"example_value\"\n    }\n  },\n  \"KMSKeyArn\": \"example_value\",\n  \"TracingConfig\": {\n    \"Mode\": \"Active\"\n  },\n  \"MasterArn\": \"example_value\",\n  \"RevisionId\": \"500123\",\n  \"Layers\": [\n    {\n      \"Arn\": \"example_value\",\n      \"CodeSize\": 10,\n      \"SigningProfileVersionArn\": \"example_value\",\n      \"SigningJobArn\": \"example_value\"\n    }\n  ],\n  \"State\": \"Pending\",\n  \"StateReason\": \"example_value\",\n  \"StateReasonCode\": \"Idle\",\n  \"LastUpdateStatus\": \"Successful\",\n  \"LastUpdateStatusReason\": \"example_value\",\n  \"LastUpdateStatusReasonCode\": \"example_value\",\n  \"PackageType\": \"Zip\",\n  \"ImageConfigResponse\": {\n    \"ImageConfig\": {\n      \"EntryPoint\": [\n        {}\n      ],\n      \"Command\": [\n        {}\n      ],\n      \"WorkingDirectory\": \"example_value\"\n    },\n    \"Error\": {\n      \"ErrorCode\": \"example_value\",\n      \"Message\": \"example_value\"\n    }\n  },\n  \"Architectures\": [\n    \"x86_64\"\n  ],\n  \"EphemeralStorage\": {\n    \"Size\": 10\n  },\n  \"SnapStart\": {\n    \"ApplyOn\": \"PublishedVersions\",\n    \"OptimizationStatus\": true\n  },\n  \"RuntimeVersionConfig\": {\n    \"RuntimeVersionArn\": \"example_value\",\n    \"Error\": {\n      \"ErrorCode\": \"example_value\",\n      \"Message\": \"example_value\"\n    }\n  },\n  \"LoggingConfig\": {\n    \"LogFormat\": \"JSON\",\n    \"ApplicationLogLevel\": \"TRACE\",\n    \"SystemLogLevel\": \"DEBUG\",\n    \"LogGroup\": \"example_value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c6d3b83c-84d2-4444-adfd-d185ec5f41ea",
+              "name": "Invalid parameter value or missing required parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"FunctionName\": \"example_value\",\n  \"Runtime\": \"example_value\",\n  \"Role\": \"example_value\",\n  \"Handler\": \"example_value\",\n  \"Code\": {\n    \"ZipFile\": \"example_value\",\n    \"S3Bucket\": \"example_value\",\n    \"S3Key\": \"example_value\",\n    \"S3ObjectVersion\": \"example_value\",\n    \"ImageUri\": \"example_value\"\n  },\n  \"Description\": \"A sample description.\",\n  \"Timeout\": 10,\n  \"MemorySize\": 10,\n  \"Publish\": true,\n  \"VpcConfig\": {\n    \"SubnetIds\": [\n      {}\n    ],\n    \"SecurityGroupIds\": [\n      {}\n    ]\n  },\n  \"PackageType\": \"Zip\",\n  \"DeadLetterConfig\": {\n    \"TargetArn\": \"example_value\"\n  },\n  \"Environment\": {\n    \"Variables\": \"example_value\"\n  },\n  \"KMSKeyArn\": \"example_value\",\n  \"TracingConfig\": {\n    \"Mode\": \"Active\"\n  },\n  \"Tags\": \"example_value\",\n  \"Layers\": [\n    \"example_value\"\n  ],\n  \"Architectures\": [\n    \"x86_64\"\n  ],\n  \"EphemeralStorage\": {\n    \"Size\": 10\n  },\n  \"SnapStart\": {\n    \"ApplyOn\": \"PublishedVersions\"\n  },\n  \"LoggingConfig\": {\n    \"LogFormat\": \"JSON\",\n    \"ApplicationLogLevel\": \"example_value\",\n    \"SystemLogLevel\": \"example_value\",\n    \"LogGroup\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03dd21d8-1325-4ad3-b175-9abb3dfd492b",
+              "name": "Access denied or code signing validation failure",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"FunctionName\": \"example_value\",\n  \"Runtime\": \"example_value\",\n  \"Role\": \"example_value\",\n  \"Handler\": \"example_value\",\n  \"Code\": {\n    \"ZipFile\": \"example_value\",\n    \"S3Bucket\": \"example_value\",\n    \"S3Key\": \"example_value\",\n    \"S3ObjectVersion\": \"example_value\",\n    \"ImageUri\": \"example_value\"\n  },\n  \"Description\": \"A sample description.\",\n  \"Timeout\": 10,\n  \"MemorySize\": 10,\n  \"Publish\": true,\n  \"VpcConfig\": {\n    \"SubnetIds\": [\n      {}\n    ],\n    \"SecurityGroupIds\": [\n      {}\n    ]\n  },\n  \"PackageType\": \"Zip\",\n  \"DeadLetterConfig\": {\n    \"TargetArn\": \"example_value\"\n  },\n  \"Environment\": {\n    \"Variables\": \"example_value\"\n  },\n  \"KMSKeyArn\": \"example_value\",\n  \"TracingConfig\": {\n    \"Mode\": \"Active\"\n  },\n  \"Tags\": \"example_value\",\n  \"Layers\": [\n    \"example_value\"\n  ],\n  \"Architectures\": [\n    \"x86_64\"\n  ],\n  \"EphemeralStorage\": {\n    \"Size\": 10\n  },\n  \"SnapStart\": {\n    \"ApplyOn\": \"PublishedVersions\"\n  },\n  \"LoggingConfig\": {\n    \"LogFormat\": \"JSON\",\n    \"ApplicationLogLevel\": \"example_value\",\n    \"SystemLogLevel\": \"example_value\",\n    \"LogGroup\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23243410-bf93-4c58-a2a4-1887645acb7f",
+              "name": "Resource already exists or is in use",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"FunctionName\": \"example_value\",\n  \"Runtime\": \"example_value\",\n  \"Role\": \"example_value\",\n  \"Handler\": \"example_value\",\n  \"Code\": {\n    \"ZipFile\": \"example_value\",\n    \"S3Bucket\": \"example_value\",\n    \"S3Key\": \"example_value\",\n    \"S3ObjectVersion\": \"example_value\",\n    \"ImageUri\": \"example_value\"\n  },\n  \"Description\": \"A sample description.\",\n  \"Timeout\": 10,\n  \"MemorySize\": 10,\n  \"Publish\": true,\n  \"VpcConfig\": {\n    \"SubnetIds\": [\n      {}\n    ],\n    \"SecurityGroupIds\": [\n      {}\n    ]\n  },\n  \"PackageType\": \"Zip\",\n  \"DeadLetterConfig\": {\n    \"TargetArn\": \"example_value\"\n  },\n  \"Environment\": {\n    \"Variables\": \"example_value\"\n  },\n  \"KMSKeyArn\": \"example_value\",\n  \"TracingConfig\": {\n    \"Mode\": \"Active\"\n  },\n  \"Tags\": \"example_value\",\n  \"Layers\": [\n    \"example_value\"\n  ],\n  \"Architectures\": [\n    \"x86_64\"\n  ],\n  \"EphemeralStorage\": {\n    \"Size\": 10\n  },\n  \"SnapStart\": {\n    \"ApplyOn\": \"PublishedVersions\"\n  },\n  \"LoggingConfig\": {\n    \"LogFormat\": \"JSON\",\n    \"ApplicationLogLevel\": \"example_value\",\n    \"SystemLogLevel\": \"example_value\",\n    \"LogGroup\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37ca0d8a-c020-4897-9bd4-05022c498553",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"FunctionName\": \"example_value\",\n  \"Runtime\": \"example_value\",\n  \"Role\": \"example_value\",\n  \"Handler\": \"example_value\",\n  \"Code\": {\n    \"ZipFile\": \"example_value\",\n    \"S3Bucket\": \"example_value\",\n    \"S3Key\": \"example_value\",\n    \"S3ObjectVersion\": \"example_value\",\n    \"ImageUri\": \"example_value\"\n  },\n  \"Description\": \"A sample description.\",\n  \"Timeout\": 10,\n  \"MemorySize\": 10,\n  \"Publish\": true,\n  \"VpcConfig\": {\n    \"SubnetIds\": [\n      {}\n    ],\n    \"SecurityGroupIds\": [\n      {}\n    ]\n  },\n  \"PackageType\": \"Zip\",\n  \"DeadLetterConfig\": {\n    \"TargetArn\": \"example_value\"\n  },\n  \"Environment\": {\n    \"Variables\": \"example_value\"\n  },\n  \"KMSKeyArn\": \"example_value\",\n  \"TracingConfig\": {\n    \"Mode\": \"Active\"\n  },\n  \"Tags\": \"example_value\",\n  \"Layers\": [\n    \"example_value\"\n  ],\n  \"Architectures\": [\n    \"x86_64\"\n  ],\n  \"EphemeralStorage\": {\n    \"Size\": 10\n  },\n  \"SnapStart\": {\n    \"ApplyOn\": \"PublishedVersions\"\n  },\n  \"LoggingConfig\": {\n    \"LogFormat\": \"JSON\",\n    \"ApplicationLogLevel\": \"example_value\",\n    \"SystemLogLevel\": \"example_value\",\n    \"LogGroup\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4854ea9b-550f-4aee-b343-75ae51e1f79b",
+          "name": "Aws Lambda Get a Function",
+          "request": {
+            "name": "Aws Lambda Get a Function",
+            "description": {
+              "content": "Returns information about the function or function version, with a link to download the deployment package that is valid for 10 minutes. If you specify a function version, only details specific to that version are returned. The response includes the function configuration, code location, tags, and concurrency settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2015-03-31",
+                "functions",
+                ":FunctionName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "Qualifier",
+                  "value": "<string>",
+                  "description": "A version number or alias name"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "FunctionName",
+                  "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                },
+                {
+                  "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b92c2286-c836-44b8-ab91-390333e99b2f",
+              "name": "Function details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Configuration\": {\n    \"FunctionName\": \"example_value\",\n    \"FunctionArn\": \"example_value\",\n    \"Runtime\": \"nodejs18.x\",\n    \"Role\": \"example_value\",\n    \"Handler\": \"example_value\",\n    \"CodeSize\": 10,\n    \"Description\": \"A sample description.\",\n    \"Timeout\": 10,\n    \"MemorySize\": 10,\n    \"LastModified\": \"example_value\",\n    \"CodeSha256\": \"example_value\",\n    \"Version\": \"example_value\",\n    \"DeadLetterConfig\": {\n      \"TargetArn\": \"example_value\"\n    },\n    \"Environment\": {\n      \"Variables\": \"example_value\",\n      \"Error\": {}\n    },\n    \"KMSKeyArn\": \"example_value\",\n    \"TracingConfig\": {\n      \"Mode\": \"Active\"\n    },\n    \"MasterArn\": \"example_value\",\n    \"RevisionId\": \"500123\",\n    \"Layers\": [\n      {}\n    ],\n    \"State\": \"Pending\",\n    \"StateReason\": \"example_value\",\n    \"StateReasonCode\": \"Idle\",\n    \"LastUpdateStatus\": \"Successful\",\n    \"LastUpdateStatusReason\": \"example_value\",\n    \"LastUpdateStatusReasonCode\": \"example_value\",\n    \"PackageType\": \"Zip\",\n    \"ImageConfigResponse\": {\n      \"ImageConfig\": {},\n      \"Error\": {}\n    },\n    \"Architectures\": [\n      {}\n    ],\n    \"EphemeralStorage\": {\n      \"Size\": 10\n    },\n    \"SnapStart\": {\n      \"ApplyOn\": \"PublishedVersions\",\n      \"OptimizationStatus\": true\n    },\n    \"RuntimeVersionConfig\": {\n      \"RuntimeVersionArn\": \"example_value\",\n      \"Error\": {}\n    },\n    \"LoggingConfig\": {\n      \"LogFormat\": \"JSON\",\n      \"ApplicationLogLevel\": \"TRACE\",\n      \"SystemLogLevel\": \"DEBUG\",\n      \"LogGroup\": \"example_value\"\n    }\n  },\n  \"Code\": {\n    \"RepositoryType\": \"example_value\",\n    \"Location\": \"example_value\",\n    \"ImageUri\": \"example_value\",\n    \"ResolvedImageUri\": \"example_value\"\n  },\n  \"Tags\": \"example_value\",\n  \"Concurrency\": {\n    \"ReservedConcurrentExecutions\": 10\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9cc630c8-967a-4dbe-8953-195fce1935b2",
+              "name": "Function not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da1d0243-bf4f-4bbd-847f-452ee01ec20c",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac1f5854-d1d3-42d6-886c-fd9a7db2b0b5",
+          "name": "Aws Lambda Delete a Function",
+          "request": {
+            "name": "Aws Lambda Delete a Function",
+            "description": {
+              "content": "Deletes a Lambda function. To delete a specific function version, use the Qualifier parameter. Otherwise, all versions and aliases are deleted. To delete Lambda event source mappings that invoke a function, use DeleteEventSourceMapping.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2015-03-31",
+                "functions",
+                ":FunctionName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "Qualifier",
+                  "value": "<string>",
+                  "description": "A version number or alias name"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "FunctionName",
+                  "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                },
+                {
+                  "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3f51f534-19bb-4d48-b9f3-4a27f5195fbf",
+              "name": "Function deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b177aa39-96de-4ba2-8e7d-8ca96cd13665",
+              "name": "Function not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04fab852-0295-4e2e-b2d3-a02011740579",
+              "name": "Resource is in use",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc3c4b6b-99e4-41bf-b9eb-65fcdfccad31",
+              "name": "Too many requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d77feff-7cb4-4267-b8e1-02c9f23ed5b9",
+          "name": "Aws Lambda Get Function Configuration",
+          "request": {
+            "name": "Aws Lambda Get Function Configuration",
+            "description": {
+              "content": "Returns the version-specific settings of a Lambda function or version. The output includes the function name, runtime, role, handler, description, code size, memory, timeout, last modified date, code SHA-256 hash, version, VPC configuration, dead-letter queue configuration, environment variables, KMS key, tracing configuration, layers, state, state reason, and last update status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2015-03-31",
+                "functions",
+                ":FunctionName",
+                "configuration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "Qualifier",
+                  "value": "<string>",
+                  "description": "A version number or alias name"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "FunctionName",
+                  "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                },
+                {
+                  "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3d60d783-d8a7-4677-91c2-a962957fca18",
+              "name": "Function configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"FunctionName\": \"example_value\",\n  \"FunctionArn\": \"example_value\",\n  \"Runtime\": \"nodejs18.x\",\n  \"Role\": \"example_value\",\n  \"Handler\": \"example_value\",\n  \"CodeSize\": 10,\n  \"Description\": \"A sample description.\",\n  \"Timeout\": 10,\n  \"MemorySize\": 10,\n  \"LastModified\": \"example_value\",\n  \"CodeSha256\": \"example_value\",\n  \"Version\": \"example_value\",\n  \"VpcConfig\": {\n    \"SubnetIds\": [\n      {}\n    ],\n    \"SecurityGroupIds\": [\n      {}\n    ],\n    \"VpcId\": \"500123\"\n  },\n  \"DeadLetterConfig\": {\n    \"TargetArn\": \"example_value\"\n  },\n  \"Environment\": {\n    \"Variables\": \"example_value\",\n    \"Error\": {\n      \"ErrorCode\": \"example_value\",\n      \"Message\": \"example_value\"\n    }\n  },\n  \"KMSKeyArn\": \"example_value\",\n  \"TracingConfig\": {\n    \"Mode\": \"Active\"\n  },\n  \"MasterArn\": \"example_value\",\n  \"RevisionId\": \"500123\",\n  \"Layers\": [\n    {\n      \"Arn\": \"example_value\",\n      \"CodeSize\": 10,\n      \"SigningProfileVersionArn\": \"example_value\",\n      \"SigningJobArn\": \"example_value\"\n    }\n  ],\n  \"State\": \"Pending\",\n  \"StateReason\": \"example_value\",\n  \"StateReasonCode\": \"Idle\",\n  \"LastUpdateStatus\": \"Successful\",\n  \"LastUpdateStatusReason\": \"example_value\",\n  \"LastUpdateStatusReasonCode\": \"example_value\",\n  \"PackageType\": \"Zip\",\n  \"ImageConfigResponse\": {\n    \"ImageConfig\": {\n      \"EntryPoint\": [\n        {}\n      ],\n      \"Command\": [\n        {}\n      ],\n      \"WorkingDirectory\": \"example_value\"\n    },\n    \"Error\": {\n      \"ErrorCode\": \"example_value\",\n      \"Message\": \"example_value\"\n    }\n  },\n  \"Architectures\": [\n    \"x86_64\"\n  ],\n  \"EphemeralStorage\": {\n    \"Size\": 10\n  },\n  \"SnapStart\": {\n    \"ApplyOn\": \"PublishedVersions\",\n    \"OptimizationStatus\": true\n  },\n  \"RuntimeVersionConfig\": {\n    \"RuntimeVersionArn\": \"example_value\",\n    \"Error\": {\n      \"ErrorCode\": \"example_value\",\n      \"Message\": \"example_value\"\n    }\n  },\n  \"LoggingConfig\": {\n    \"LogFormat\": \"JSON\",\n    \"ApplicationLogLevel\": \"TRACE\",\n    \"SystemLogLevel\": \"DEBUG\",\n    \"LogGroup\": \"example_value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1c71aa3-6a31-455d-a5fa-b6a398aee460",
+              "name": "Function not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "989bed3a-3323-4db4-ad8c-7bbecf983b15",
+          "name": "Aws Lambda Update Function Configuration",
+          "request": {
+            "name": "Aws Lambda Update Function Configuration",
+            "description": {
+              "content": "Modify the version-specific settings of a Lambda function. When you update a function, Lambda provisions an instance of the function and its supporting resources. After the update completes, subsequent invocations use the new configuration. Settings include memory, timeout, runtime, handler, environment variables, VPC, layers, and more.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2015-03-31",
+                "functions",
+                ":FunctionName",
+                "configuration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "FunctionName",
+                  "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                },
+                {
+                  "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Role\": \"<string>\",\n  \"Handler\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Timeout\": \"<integer>\",\n  \"MemorySize\": \"<integer>\",\n  \"VpcConfig\": {\n    \"SubnetIds\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"SecurityGroupIds\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"Environment\": {\n    \"Variables\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"Runtime\": \"<string>\",\n  \"DeadLetterConfig\": {\n    \"TargetArn\": \"<string>\"\n  },\n  \"KMSKeyArn\": \"<string>\",\n  \"TracingConfig\": {\n    \"Mode\": \"<string>\"\n  },\n  \"RevisionId\": \"<string>\",\n  \"Layers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"EphemeralStorage\": {\n    \"Size\": \"<integer>\"\n  },\n  \"SnapStart\": {\n    \"ApplyOn\": \"<string>\"\n  },\n  \"LoggingConfig\": {\n    \"LogFormat\": \"<string>\",\n    \"ApplicationLogLevel\": \"<string>\",\n    \"SystemLogLevel\": \"<string>\",\n    \"LogGroup\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "899adf24-5e17-4af3-971c-231a09a83066",
+              "name": "Updated function configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Role\": \"example_value\",\n  \"Handler\": \"example_value\",\n  \"Description\": \"A sample description.\",\n  \"Timeout\": 10,\n  \"MemorySize\": 10,\n  \"VpcConfig\": {\n    \"SubnetIds\": [\n      {}\n    ],\n    \"SecurityGroupIds\": [\n      {}\n    ]\n  },\n  \"Environment\": {\n    \"Variables\": \"example_value\"\n  },\n  \"Runtime\": \"example_value\",\n  \"DeadLetterConfig\": {\n    \"TargetArn\": \"example_value\"\n  },\n  \"KMSKeyArn\": \"example_value\",\n  \"TracingConfig\": {\n    \"Mode\": \"Active\"\n  },\n  \"RevisionId\": \"500123\",\n  \"Layers\": [\n    \"example_value\"\n  ],\n  \"EphemeralStorage\": {\n    \"Size\": 10\n  },\n  \"SnapStart\": {\n    \"ApplyOn\": \"PublishedVersions\"\n  },\n  \"LoggingConfig\": {\n    \"LogFormat\": \"JSON\",\n    \"ApplicationLogLevel\": \"example_value\",\n    \"SystemLogLevel\": \"example_value\",\n    \"LogGroup\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"FunctionName\": \"example_value\",\n  \"FunctionArn\": \"example_value\",\n  \"Runtime\": \"nodejs18.x\",\n  \"Role\": \"example_value\",\n  \"Handler\": \"example_value\",\n  \"CodeSize\": 10,\n  \"Description\": \"A sample description.\",\n  \"Timeout\": 10,\n  \"MemorySize\": 10,\n  \"LastModified\": \"example_value\",\n  \"CodeSha256\": \"example_value\",\n  \"Version\": \"example_value\",\n  \"VpcConfig\": {\n    \"SubnetIds\": [\n      {}\n    ],\n    \"SecurityGroupIds\": [\n      {}\n    ],\n    \"VpcId\": \"500123\"\n  },\n  \"DeadLetterConfig\": {\n    \"TargetArn\": \"example_value\"\n  },\n  \"Environment\": {\n    \"Variables\": \"example_value\",\n    \"Error\": {\n      \"ErrorCode\": \"example_value\",\n      \"Message\": \"example_value\"\n    }\n  },\n  \"KMSKeyArn\": \"example_value\",\n  \"TracingConfig\": {\n    \"Mode\": \"Active\"\n  },\n  \"MasterArn\": \"example_value\",\n  \"RevisionId\": \"500123\",\n  \"Layers\": [\n    {\n      \"Arn\": \"example_value\",\n      \"CodeSize\": 10,\n      \"SigningProfileVersionArn\": \"example_value\",\n      \"SigningJobArn\": \"example_value\"\n    }\n  ],\n  \"State\": \"Pending\",\n  \"StateReason\": \"example_value\",\n  \"StateReasonCode\": \"Idle\",\n  \"LastUpdateStatus\": \"Successful\",\n  \"LastUpdateStatusReason\": \"example_value\",\n  \"LastUpdateStatusReasonCode\": \"example_value\",\n  \"PackageType\": \"Zip\",\n  \"ImageConfigResponse\": {\n    \"ImageConfig\": {\n      \"EntryPoint\": [\n        {}\n      ],\n      \"Command\": [\n        {}\n      ],\n      \"WorkingDirectory\": \"example_value\"\n    },\n    \"Error\": {\n      \"ErrorCode\": \"example_value\",\n      \"Message\": \"example_value\"\n    }\n  },\n  \"Architectures\": [\n    \"x86_64\"\n  ],\n  \"EphemeralStorage\": {\n    \"Size\": 10\n  },\n  \"SnapStart\": {\n    \"ApplyOn\": \"PublishedVersions\",\n    \"OptimizationStatus\": true\n  },\n  \"RuntimeVersionConfig\": {\n    \"RuntimeVersionArn\": \"example_value\",\n    \"Error\": {\n      \"ErrorCode\": \"example_value\",\n      \"Message\": \"example_value\"\n    }\n  },\n  \"LoggingConfig\": {\n    \"LogFormat\": \"JSON\",\n    \"ApplicationLogLevel\": \"TRACE\",\n    \"SystemLogLevel\": \"DEBUG\",\n    \"LogGroup\": \"example_value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "600d6d42-68b9-40ad-8439-e5c31afd5056",
+              "name": "Invalid parameter value",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Role\": \"example_value\",\n  \"Handler\": \"example_value\",\n  \"Description\": \"A sample description.\",\n  \"Timeout\": 10,\n  \"MemorySize\": 10,\n  \"VpcConfig\": {\n    \"SubnetIds\": [\n      {}\n    ],\n    \"SecurityGroupIds\": [\n      {}\n    ]\n  },\n  \"Environment\": {\n    \"Variables\": \"example_value\"\n  },\n  \"Runtime\": \"example_value\",\n  \"DeadLetterConfig\": {\n    \"TargetArn\": \"example_value\"\n  },\n  \"KMSKeyArn\": \"example_value\",\n  \"TracingConfig\": {\n    \"Mode\": \"Active\"\n  },\n  \"RevisionId\": \"500123\",\n  \"Layers\": [\n    \"example_value\"\n  ],\n  \"EphemeralStorage\": {\n    \"Size\": 10\n  },\n  \"SnapStart\": {\n    \"ApplyOn\": \"PublishedVersions\"\n  },\n  \"LoggingConfig\": {\n    \"LogFormat\": \"JSON\",\n    \"ApplicationLogLevel\": \"example_value\",\n    \"SystemLogLevel\": \"example_value\",\n    \"LogGroup\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87de83e7-7576-45a2-b368-6ec97802e139",
+              "name": "Function not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Role\": \"example_value\",\n  \"Handler\": \"example_value\",\n  \"Description\": \"A sample description.\",\n  \"Timeout\": 10,\n  \"MemorySize\": 10,\n  \"VpcConfig\": {\n    \"SubnetIds\": [\n      {}\n    ],\n    \"SecurityGroupIds\": [\n      {}\n    ]\n  },\n  \"Environment\": {\n    \"Variables\": \"example_value\"\n  },\n  \"Runtime\": \"example_value\",\n  \"DeadLetterConfig\": {\n    \"TargetArn\": \"example_value\"\n  },\n  \"KMSKeyArn\": \"example_value\",\n  \"TracingConfig\": {\n    \"Mode\": \"Active\"\n  },\n  \"RevisionId\": \"500123\",\n  \"Layers\": [\n    \"example_value\"\n  ],\n  \"EphemeralStorage\": {\n    \"Size\": 10\n  },\n  \"SnapStart\": {\n    \"ApplyOn\": \"PublishedVersions\"\n  },\n  \"LoggingConfig\": {\n    \"LogFormat\": \"JSON\",\n    \"ApplicationLogLevel\": \"example_value\",\n    \"SystemLogLevel\": \"example_value\",\n    \"LogGroup\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cea7a184-3698-4d9b-8c2c-1aa50cb7d9ef",
+              "name": "Resource is in use or conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName",
+                    "configuration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Role\": \"example_value\",\n  \"Handler\": \"example_value\",\n  \"Description\": \"A sample description.\",\n  \"Timeout\": 10,\n  \"MemorySize\": 10,\n  \"VpcConfig\": {\n    \"SubnetIds\": [\n      {}\n    ],\n    \"SecurityGroupIds\": [\n      {}\n    ]\n  },\n  \"Environment\": {\n    \"Variables\": \"example_value\"\n  },\n  \"Runtime\": \"example_value\",\n  \"DeadLetterConfig\": {\n    \"TargetArn\": \"example_value\"\n  },\n  \"KMSKeyArn\": \"example_value\",\n  \"TracingConfig\": {\n    \"Mode\": \"Active\"\n  },\n  \"RevisionId\": \"500123\",\n  \"Layers\": [\n    \"example_value\"\n  ],\n  \"EphemeralStorage\": {\n    \"Size\": 10\n  },\n  \"SnapStart\": {\n    \"ApplyOn\": \"PublishedVersions\"\n  },\n  \"LoggingConfig\": {\n    \"LogFormat\": \"JSON\",\n    \"ApplicationLogLevel\": \"example_value\",\n    \"SystemLogLevel\": \"example_value\",\n    \"LogGroup\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf88a41d-7063-4949-8252-70b568c68f7e",
+          "name": "Aws Lambda Update Function Code",
+          "request": {
+            "name": "Aws Lambda Update Function Code",
+            "description": {
+              "content": "Updates a Lambda function's code. If code signing is enabled for the function, the code package must be signed by a trusted publisher. The function's code is locked when you publish a version. You cannot modify the code of a published version, only the unpublished version.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2015-03-31",
+                "functions",
+                ":FunctionName",
+                "code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "FunctionName",
+                  "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                },
+                {
+                  "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ZipFile\": \"<byte>\",\n  \"S3Bucket\": \"<string>\",\n  \"S3Key\": \"<string>\",\n  \"S3ObjectVersion\": \"<string>\",\n  \"ImageUri\": \"<string>\",\n  \"Publish\": false,\n  \"DryRun\": false,\n  \"RevisionId\": \"<string>\",\n  \"Architectures\": [\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "add76904-a55c-404f-8744-bff1c1e9c37e",
+              "name": "Updated function configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName",
+                    "code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ZipFile\": \"example_value\",\n  \"S3Bucket\": \"example_value\",\n  \"S3Key\": \"example_value\",\n  \"S3ObjectVersion\": \"example_value\",\n  \"ImageUri\": \"example_value\",\n  \"Publish\": true,\n  \"DryRun\": true,\n  \"RevisionId\": \"500123\",\n  \"Architectures\": [\n    \"x86_64\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"FunctionName\": \"example_value\",\n  \"FunctionArn\": \"example_value\",\n  \"Runtime\": \"nodejs18.x\",\n  \"Role\": \"example_value\",\n  \"Handler\": \"example_value\",\n  \"CodeSize\": 10,\n  \"Description\": \"A sample description.\",\n  \"Timeout\": 10,\n  \"MemorySize\": 10,\n  \"LastModified\": \"example_value\",\n  \"CodeSha256\": \"example_value\",\n  \"Version\": \"example_value\",\n  \"VpcConfig\": {\n    \"SubnetIds\": [\n      {}\n    ],\n    \"SecurityGroupIds\": [\n      {}\n    ],\n    \"VpcId\": \"500123\"\n  },\n  \"DeadLetterConfig\": {\n    \"TargetArn\": \"example_value\"\n  },\n  \"Environment\": {\n    \"Variables\": \"example_value\",\n    \"Error\": {\n      \"ErrorCode\": \"example_value\",\n      \"Message\": \"example_value\"\n    }\n  },\n  \"KMSKeyArn\": \"example_value\",\n  \"TracingConfig\": {\n    \"Mode\": \"Active\"\n  },\n  \"MasterArn\": \"example_value\",\n  \"RevisionId\": \"500123\",\n  \"Layers\": [\n    {\n      \"Arn\": \"example_value\",\n      \"CodeSize\": 10,\n      \"SigningProfileVersionArn\": \"example_value\",\n      \"SigningJobArn\": \"example_value\"\n    }\n  ],\n  \"State\": \"Pending\",\n  \"StateReason\": \"example_value\",\n  \"StateReasonCode\": \"Idle\",\n  \"LastUpdateStatus\": \"Successful\",\n  \"LastUpdateStatusReason\": \"example_value\",\n  \"LastUpdateStatusReasonCode\": \"example_value\",\n  \"PackageType\": \"Zip\",\n  \"ImageConfigResponse\": {\n    \"ImageConfig\": {\n      \"EntryPoint\": [\n        {}\n      ],\n      \"Command\": [\n        {}\n      ],\n      \"WorkingDirectory\": \"example_value\"\n    },\n    \"Error\": {\n      \"ErrorCode\": \"example_value\",\n      \"Message\": \"example_value\"\n    }\n  },\n  \"Architectures\": [\n    \"x86_64\"\n  ],\n  \"EphemeralStorage\": {\n    \"Size\": 10\n  },\n  \"SnapStart\": {\n    \"ApplyOn\": \"PublishedVersions\",\n    \"OptimizationStatus\": true\n  },\n  \"RuntimeVersionConfig\": {\n    \"RuntimeVersionArn\": \"example_value\",\n    \"Error\": {\n      \"ErrorCode\": \"example_value\",\n      \"Message\": \"example_value\"\n    }\n  },\n  \"LoggingConfig\": {\n    \"LogFormat\": \"JSON\",\n    \"ApplicationLogLevel\": \"TRACE\",\n    \"SystemLogLevel\": \"DEBUG\",\n    \"LogGroup\": \"example_value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c59c2f3-1e68-4c39-99e9-825331a38ab8",
+              "name": "Invalid parameter value",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName",
+                    "code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ZipFile\": \"example_value\",\n  \"S3Bucket\": \"example_value\",\n  \"S3Key\": \"example_value\",\n  \"S3ObjectVersion\": \"example_value\",\n  \"ImageUri\": \"example_value\",\n  \"Publish\": true,\n  \"DryRun\": true,\n  \"RevisionId\": \"500123\",\n  \"Architectures\": [\n    \"x86_64\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "570775e9-7d90-44fa-87f6-3e05622580b6",
+              "name": "Function not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName",
+                    "code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ZipFile\": \"example_value\",\n  \"S3Bucket\": \"example_value\",\n  \"S3Key\": \"example_value\",\n  \"S3ObjectVersion\": \"example_value\",\n  \"ImageUri\": \"example_value\",\n  \"Publish\": true,\n  \"DryRun\": true,\n  \"RevisionId\": \"500123\",\n  \"Architectures\": [\n    \"x86_64\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a5aa15b-a83c-4d1d-87ea-dc61ba87421a",
+              "name": "Resource is in use",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName",
+                    "code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ZipFile\": \"example_value\",\n  \"S3Bucket\": \"example_value\",\n  \"S3Key\": \"example_value\",\n  \"S3ObjectVersion\": \"example_value\",\n  \"ImageUri\": \"example_value\",\n  \"Publish\": true,\n  \"DryRun\": true,\n  \"RevisionId\": \"500123\",\n  \"Architectures\": [\n    \"x86_64\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c3078b5-a57f-401b-b8a1-af0714b8a4ed",
+          "name": "Aws Lambda Invoke a Function",
+          "request": {
+            "name": "Aws Lambda Invoke a Function",
+            "description": {
+              "content": "Invokes a Lambda function. You can invoke a function synchronously and wait for the response, or asynchronously. By default, Lambda invokes your function synchronously. To invoke a function asynchronously, set InvocationType to Event. For asynchronous invocation, Lambda adds the event to a queue and returns a success response without additional information. For a DryRun invocation type, verify parameter values and permissions without running the function.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2015-03-31",
+                "functions",
+                ":FunctionName",
+                "invocations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "Qualifier",
+                  "value": "<string>",
+                  "description": "A version number or alias name"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "FunctionName",
+                  "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                },
+                {
+                  "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Choose from RequestResponse (synchronous, default), Event (asynchronous), or DryRun (validate parameters and permissions)",
+                "key": "X-Amz-Invocation-Type",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Set to Tail to include the execution log in the response",
+                "key": "X-Amz-Log-Type",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Base64-encoded client context data to pass to the function in the context object. Maximum 3583 bytes of base64-encoded data.",
+                "key": "X-Amz-Client-Context",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8fc27d1e-4166-449e-bb4a-7b4c3f6e4305",
+              "name": "Function invoked successfully (synchronous)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName",
+                    "invocations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Choose from RequestResponse (synchronous, default), Event (asynchronous), or DryRun (validate parameters and permissions)",
+                    "key": "X-Amz-Invocation-Type",
+                    "value": "RequestResponse"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Set to Tail to include the execution log in the response",
+                    "key": "X-Amz-Log-Type",
+                    "value": "None"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Base64-encoded client context data to pass to the function in the context object. Maximum 3583 bytes of base64-encoded data.",
+                    "key": "X-Amz-Client-Context",
+                    "value": "example_value"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "If present, indicates the function returned an error. Contains Handled or Unhandled.",
+                  "key": "X-Amz-Function-Error",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Last 4 KB of the base64-encoded execution log, included when X-Amz-Log-Type is Tail",
+                  "key": "X-Amz-Log-Result",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "The version of the function that executed",
+                  "key": "X-Amz-Executed-Version",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54cb2e33-d016-43aa-9976-a9b161b70065",
+              "name": "Function invoked successfully (asynchronous)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName",
+                    "invocations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Choose from RequestResponse (synchronous, default), Event (asynchronous), or DryRun (validate parameters and permissions)",
+                    "key": "X-Amz-Invocation-Type",
+                    "value": "RequestResponse"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Set to Tail to include the execution log in the response",
+                    "key": "X-Amz-Log-Type",
+                    "value": "None"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Base64-encoded client context data to pass to the function in the context object. Maximum 3583 bytes of base64-encoded data.",
+                    "key": "X-Amz-Client-Context",
+                    "value": "example_value"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b7e32ffa-e31a-4d38-94eb-ee6b1ffca931",
+              "name": "Dry run successful (permissions verified)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName",
+                    "invocations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Choose from RequestResponse (synchronous, default), Event (asynchronous), or DryRun (validate parameters and permissions)",
+                    "key": "X-Amz-Invocation-Type",
+                    "value": "RequestResponse"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Set to Tail to include the execution log in the response",
+                    "key": "X-Amz-Log-Type",
+                    "value": "None"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Base64-encoded client context data to pass to the function in the context object. Maximum 3583 bytes of base64-encoded data.",
+                    "key": "X-Amz-Client-Context",
+                    "value": "example_value"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a0d42782-d04e-42a0-8a96-13febc659bc7",
+              "name": "Function not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName",
+                    "invocations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Choose from RequestResponse (synchronous, default), Event (asynchronous), or DryRun (validate parameters and permissions)",
+                    "key": "X-Amz-Invocation-Type",
+                    "value": "RequestResponse"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Set to Tail to include the execution log in the response",
+                    "key": "X-Amz-Log-Type",
+                    "value": "None"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Base64-encoded client context data to pass to the function in the context object. Maximum 3583 bytes of base64-encoded data.",
+                    "key": "X-Amz-Client-Context",
+                    "value": "example_value"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "097a10fe-54c5-40d7-be60-66d59a3b01a3",
+              "name": "Too many requests or concurrency limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "functions",
+                    ":FunctionName",
+                    "invocations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "Qualifier",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "FunctionName",
+                      "description": "(Required) The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Choose from RequestResponse (synchronous, default), Event (asynchronous), or DryRun (validate parameters and permissions)",
+                    "key": "X-Amz-Invocation-Type",
+                    "value": "RequestResponse"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Set to Tail to include the execution log in the response",
+                    "key": "X-Amz-Log-Type",
+                    "value": "None"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Base64-encoded client context data to pass to the function in the context object. Maximum 3583 bytes of base64-encoded data.",
+                    "key": "X-Amz-Client-Context",
+                    "value": "example_value"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "us-east-1",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://lambda.{{region}}.amazonaws.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "cf695b06-ce8d-4896-92a9-2f6b122c29f6",
+    "name": "AWS Lambda Aliases Functions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.\n\nContact Support:\n Name: AWS Support",
+      "type": "text/plain"
+    }
+  }
+}

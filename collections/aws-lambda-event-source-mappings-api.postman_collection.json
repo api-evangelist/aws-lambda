@@ -1,0 +1,1031 @@
+{
+  "item": [
+    {
+      "id": "ed1b232d-5c38-485f-a879-87264b3be2cc",
+      "name": "Event Source Mappings",
+      "description": {
+        "content": "Map event sources such as Amazon SQS, Kinesis, and DynamoDB Streams to Lambda functions for automatic invocation",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2670ed5f-787c-4ef0-80ef-e72c5baf2375",
+          "name": "Aws Lambda List Event Source Mappings",
+          "request": {
+            "name": "Aws Lambda List Event Source Mappings",
+            "description": {
+              "content": "Lists event source mappings. Specify an EventSourceArn to show only event source mappings for a single event source, or a FunctionName to show mappings for a single function.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2015-03-31",
+                "event-source-mappings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "EventSourceArn",
+                  "value": "<string>",
+                  "description": "The ARN of the event source (Amazon Kinesis stream, Amazon DynamoDB stream, Amazon SQS queue, Amazon MSK cluster, or self-managed Apache Kafka cluster)"
+                },
+                {
+                  "disabled": false,
+                  "key": "FunctionName",
+                  "value": "<string>",
+                  "description": "The name, ARN, or partial ARN of the Lambda function to filter by"
+                },
+                {
+                  "disabled": false,
+                  "key": "Marker",
+                  "value": "<string>",
+                  "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results."
+                },
+                {
+                  "disabled": false,
+                  "key": "MaxItems",
+                  "value": "<integer>",
+                  "description": "Maximum number of items to return (1-10000)"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d3244533-bc59-47a7-bc89-1f2adf3ef699",
+              "name": "List of event source mappings",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "event-source-mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "EventSourceArn",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "FunctionName",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "Marker",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "MaxItems",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"NextMarker\": \"example_value\",\n  \"EventSourceMappings\": [\n    {\n      \"UUID\": \"500123\",\n      \"StartingPosition\": \"TRIM_HORIZON\",\n      \"StartingPositionTimestamp\": \"2026-01-15T10:30:00Z\",\n      \"BatchSize\": 10,\n      \"MaximumBatchingWindowInSeconds\": 10,\n      \"ParallelizationFactor\": 10,\n      \"EventSourceArn\": \"example_value\",\n      \"FunctionArn\": \"example_value\",\n      \"LastModified\": \"2026-01-15T10:30:00Z\",\n      \"LastProcessingResult\": \"example_value\",\n      \"State\": \"Creating\",\n      \"StateTransitionReason\": \"example_value\",\n      \"MaximumRecordAgeInSeconds\": 10,\n      \"BisectBatchOnFunctionError\": true,\n      \"MaximumRetryAttempts\": 10,\n      \"TumblingWindowInSeconds\": 10,\n      \"FunctionResponseTypes\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8afb16fa-d6fc-4825-81de-046989c56735",
+              "name": "Function not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "event-source-mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "EventSourceArn",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "FunctionName",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "Marker",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "MaxItems",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5325bbc2-7cde-4db3-9eaa-9ca12d77f90d",
+          "name": "Aws Lambda Create an Event Source Mapping",
+          "request": {
+            "name": "Aws Lambda Create an Event Source Mapping",
+            "description": {
+              "content": "Creates a mapping between an event source and a Lambda function. Lambda reads items from the event source and invokes the function. Supported event sources include Amazon Kinesis, Amazon DynamoDB Streams, Amazon SQS, Amazon MQ, Amazon MSK, self-managed Apache Kafka, and Amazon DocumentDB.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2015-03-31",
+                "event-source-mappings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"FunctionName\": \"<string>\",\n  \"EventSourceArn\": \"<string>\",\n  \"Enabled\": true,\n  \"BatchSize\": \"<integer>\",\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {\n        \"Pattern\": \"<string>\"\n      },\n      {\n        \"Pattern\": \"<string>\"\n      }\n    ]\n  },\n  \"MaximumBatchingWindowInSeconds\": \"<integer>\",\n  \"ParallelizationFactor\": \"<integer>\",\n  \"StartingPosition\": \"<string>\",\n  \"StartingPositionTimestamp\": \"<dateTime>\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"<string>\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"<string>\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": \"<integer>\",\n  \"BisectBatchOnFunctionError\": \"<boolean>\",\n  \"MaximumRetryAttempts\": \"<integer>\",\n  \"TumblingWindowInSeconds\": \"<integer>\",\n  \"FunctionResponseTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b0a96e1e-56e2-4f7a-979c-baf0cd00c4ef",
+              "name": "Event source mapping created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "event-source-mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"EventSourceArn\": \"example_value\",\n  \"FunctionName\": \"example_value\",\n  \"Enabled\": true,\n  \"BatchSize\": 10,\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {}\n    ]\n  },\n  \"MaximumBatchingWindowInSeconds\": 10,\n  \"ParallelizationFactor\": 10,\n  \"StartingPosition\": \"TRIM_HORIZON\",\n  \"StartingPositionTimestamp\": \"2026-01-15T10:30:00Z\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"example_value\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"example_value\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": 10,\n  \"BisectBatchOnFunctionError\": true,\n  \"MaximumRetryAttempts\": 10,\n  \"TumblingWindowInSeconds\": 10,\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"UUID\": \"500123\",\n  \"StartingPosition\": \"TRIM_HORIZON\",\n  \"StartingPositionTimestamp\": \"2026-01-15T10:30:00Z\",\n  \"BatchSize\": 10,\n  \"MaximumBatchingWindowInSeconds\": 10,\n  \"ParallelizationFactor\": 10,\n  \"EventSourceArn\": \"example_value\",\n  \"FunctionArn\": \"example_value\",\n  \"LastModified\": \"2026-01-15T10:30:00Z\",\n  \"LastProcessingResult\": \"example_value\",\n  \"State\": \"Creating\",\n  \"StateTransitionReason\": \"example_value\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"example_value\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"example_value\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": 10,\n  \"BisectBatchOnFunctionError\": true,\n  \"MaximumRetryAttempts\": 10,\n  \"TumblingWindowInSeconds\": 10,\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\"\n  ],\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {}\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57f6655f-6338-4abc-b8b0-db3a32dbce28",
+              "name": "Invalid parameter value",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "event-source-mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"EventSourceArn\": \"example_value\",\n  \"FunctionName\": \"example_value\",\n  \"Enabled\": true,\n  \"BatchSize\": 10,\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {}\n    ]\n  },\n  \"MaximumBatchingWindowInSeconds\": 10,\n  \"ParallelizationFactor\": 10,\n  \"StartingPosition\": \"TRIM_HORIZON\",\n  \"StartingPositionTimestamp\": \"2026-01-15T10:30:00Z\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"example_value\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"example_value\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": 10,\n  \"BisectBatchOnFunctionError\": true,\n  \"MaximumRetryAttempts\": 10,\n  \"TumblingWindowInSeconds\": 10,\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dfb82ecf-72ba-4337-8ac0-d13ca228ee55",
+              "name": "Resource already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "event-source-mappings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"EventSourceArn\": \"example_value\",\n  \"FunctionName\": \"example_value\",\n  \"Enabled\": true,\n  \"BatchSize\": 10,\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {}\n    ]\n  },\n  \"MaximumBatchingWindowInSeconds\": 10,\n  \"ParallelizationFactor\": 10,\n  \"StartingPosition\": \"TRIM_HORIZON\",\n  \"StartingPositionTimestamp\": \"2026-01-15T10:30:00Z\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"example_value\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"example_value\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": 10,\n  \"BisectBatchOnFunctionError\": true,\n  \"MaximumRetryAttempts\": 10,\n  \"TumblingWindowInSeconds\": 10,\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f6ce861f-ebe4-48af-a3de-1914ec69191b",
+          "name": "Aws Lambda Get an Event Source Mapping",
+          "request": {
+            "name": "Aws Lambda Get an Event Source Mapping",
+            "description": {
+              "content": "Returns details about an event source mapping.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2015-03-31",
+                "event-source-mappings",
+                ":UUID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "UUID",
+                  "description": "(Required) The identifier of the event source mapping"
+                },
+                {
+                  "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b30fc22a-21ed-43b7-8ce9-ae7455b08b19",
+              "name": "Event source mapping details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "event-source-mappings",
+                    ":UUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "UUID",
+                      "description": "(Required) The identifier of the event source mapping"
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"UUID\": \"500123\",\n  \"StartingPosition\": \"TRIM_HORIZON\",\n  \"StartingPositionTimestamp\": \"2026-01-15T10:30:00Z\",\n  \"BatchSize\": 10,\n  \"MaximumBatchingWindowInSeconds\": 10,\n  \"ParallelizationFactor\": 10,\n  \"EventSourceArn\": \"example_value\",\n  \"FunctionArn\": \"example_value\",\n  \"LastModified\": \"2026-01-15T10:30:00Z\",\n  \"LastProcessingResult\": \"example_value\",\n  \"State\": \"Creating\",\n  \"StateTransitionReason\": \"example_value\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"example_value\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"example_value\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": 10,\n  \"BisectBatchOnFunctionError\": true,\n  \"MaximumRetryAttempts\": 10,\n  \"TumblingWindowInSeconds\": 10,\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\"\n  ],\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {}\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "808e332d-37c0-421a-8621-f068edf9de96",
+              "name": "Event source mapping not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "event-source-mappings",
+                    ":UUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "UUID",
+                      "description": "(Required) The identifier of the event source mapping"
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "527163b4-c246-4a8d-83ee-58c492401d6c",
+          "name": "Aws Lambda Update an Event Source Mapping",
+          "request": {
+            "name": "Aws Lambda Update an Event Source Mapping",
+            "description": {
+              "content": "Updates an event source mapping. You can change the function that Lambda invokes, or pause invocation and resume later from the same location.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2015-03-31",
+                "event-source-mappings",
+                ":UUID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "UUID",
+                  "description": "(Required) The identifier of the event source mapping"
+                },
+                {
+                  "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"FunctionName\": \"<string>\",\n  \"Enabled\": \"<boolean>\",\n  \"BatchSize\": \"<integer>\",\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {\n        \"Pattern\": \"<string>\"\n      },\n      {\n        \"Pattern\": \"<string>\"\n      }\n    ]\n  },\n  \"MaximumBatchingWindowInSeconds\": \"<integer>\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"<string>\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"<string>\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": \"<integer>\",\n  \"BisectBatchOnFunctionError\": \"<boolean>\",\n  \"MaximumRetryAttempts\": \"<integer>\",\n  \"ParallelizationFactor\": \"<integer>\",\n  \"TumblingWindowInSeconds\": \"<integer>\",\n  \"FunctionResponseTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "96d8b3c5-39ef-48a5-a908-b8a26b5ca6b0",
+              "name": "Event source mapping updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "event-source-mappings",
+                    ":UUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "UUID",
+                      "description": "(Required) The identifier of the event source mapping"
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"FunctionName\": \"example_value\",\n  \"Enabled\": true,\n  \"BatchSize\": 10,\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {}\n    ]\n  },\n  \"MaximumBatchingWindowInSeconds\": 10,\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"example_value\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"example_value\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": 10,\n  \"BisectBatchOnFunctionError\": true,\n  \"MaximumRetryAttempts\": 10,\n  \"ParallelizationFactor\": 10,\n  \"TumblingWindowInSeconds\": 10,\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"UUID\": \"500123\",\n  \"StartingPosition\": \"TRIM_HORIZON\",\n  \"StartingPositionTimestamp\": \"2026-01-15T10:30:00Z\",\n  \"BatchSize\": 10,\n  \"MaximumBatchingWindowInSeconds\": 10,\n  \"ParallelizationFactor\": 10,\n  \"EventSourceArn\": \"example_value\",\n  \"FunctionArn\": \"example_value\",\n  \"LastModified\": \"2026-01-15T10:30:00Z\",\n  \"LastProcessingResult\": \"example_value\",\n  \"State\": \"Creating\",\n  \"StateTransitionReason\": \"example_value\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"example_value\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"example_value\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": 10,\n  \"BisectBatchOnFunctionError\": true,\n  \"MaximumRetryAttempts\": 10,\n  \"TumblingWindowInSeconds\": 10,\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\"\n  ],\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {}\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60b7a5fc-b5ed-4b6c-824f-311ff3ff8101",
+              "name": "Event source mapping not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "event-source-mappings",
+                    ":UUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "UUID",
+                      "description": "(Required) The identifier of the event source mapping"
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"FunctionName\": \"example_value\",\n  \"Enabled\": true,\n  \"BatchSize\": 10,\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {}\n    ]\n  },\n  \"MaximumBatchingWindowInSeconds\": 10,\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"example_value\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"example_value\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": 10,\n  \"BisectBatchOnFunctionError\": true,\n  \"MaximumRetryAttempts\": 10,\n  \"ParallelizationFactor\": 10,\n  \"TumblingWindowInSeconds\": 10,\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a5a1275-a710-4f9d-b7c2-8605e5c858dc",
+          "name": "Aws Lambda Delete an Event Source Mapping",
+          "request": {
+            "name": "Aws Lambda Delete an Event Source Mapping",
+            "description": {
+              "content": "Deletes an event source mapping. Lambda stops polling the event source and deletes the mapping.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2015-03-31",
+                "event-source-mappings",
+                ":UUID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "UUID",
+                  "description": "(Required) The identifier of the event source mapping"
+                },
+                {
+                  "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                  "type": "any",
+                  "value": "{{region}}",
+                  "key": "region"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a9f6d40d-990d-44bc-a341-a3761dafe5b7",
+              "name": "Event source mapping deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "event-source-mappings",
+                    ":UUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "UUID",
+                      "description": "(Required) The identifier of the event source mapping"
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"UUID\": \"500123\",\n  \"StartingPosition\": \"TRIM_HORIZON\",\n  \"StartingPositionTimestamp\": \"2026-01-15T10:30:00Z\",\n  \"BatchSize\": 10,\n  \"MaximumBatchingWindowInSeconds\": 10,\n  \"ParallelizationFactor\": 10,\n  \"EventSourceArn\": \"example_value\",\n  \"FunctionArn\": \"example_value\",\n  \"LastModified\": \"2026-01-15T10:30:00Z\",\n  \"LastProcessingResult\": \"example_value\",\n  \"State\": \"Creating\",\n  \"StateTransitionReason\": \"example_value\",\n  \"DestinationConfig\": {\n    \"OnSuccess\": {\n      \"Destination\": \"example_value\"\n    },\n    \"OnFailure\": {\n      \"Destination\": \"example_value\"\n    }\n  },\n  \"MaximumRecordAgeInSeconds\": 10,\n  \"BisectBatchOnFunctionError\": true,\n  \"MaximumRetryAttempts\": 10,\n  \"TumblingWindowInSeconds\": 10,\n  \"FunctionResponseTypes\": [\n    \"ReportBatchItemFailures\"\n  ],\n  \"FilterCriteria\": {\n    \"Filters\": [\n      {}\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8b27f4f-7162-4b40-810d-d0d7d7e19e71",
+              "name": "Event source mapping not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2015-03-31",
+                    "event-source-mappings",
+                    ":UUID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "UUID",
+                      "description": "(Required) The identifier of the event source mapping"
+                    },
+                    {
+                      "description": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+                      "type": "any",
+                      "value": "{{region}}",
+                      "key": "region"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Type\": \"example_value\",\n  \"Message\": \"example_value\",\n  \"Code\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The AWS region for the Lambda service endpoint (This can only be one of us-east-1,us-east-2,us-west-1,us-west-2,eu-west-1,eu-west-2,eu-west-3,eu-central-1,eu-north-1,ap-southeast-1,ap-southeast-2,ap-northeast-1,ap-northeast-2,ap-south-1,sa-east-1,ca-central-1)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "us-east-1",
+      "key": "region"
+    },
+    {
+      "type": "string",
+      "value": "https://lambda.{{region}}.amazonaws.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "99ec20a1-159d-4c45-9912-59bbc313553f",
+    "name": "AWS Lambda Aliases Event Source Mappings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.\n\nContact Support:\n Name: AWS Support",
+      "type": "text/plain"
+    }
+  }
+}

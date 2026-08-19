@@ -1,0 +1,166 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AWS Lambda Aliases Concurrency API",
+    "version": "2015-03-31"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Concurrency",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aws Lambda Get Reserved Concurrency",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/concurrency",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              }
+            ]
+          },
+          "docs": "Retrieves the reserved concurrency configuration for a function."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Set Reserved Concurrency",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/concurrency",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets the maximum number of simultaneous executions for a function, and reserves capacity for that concurrency level. Use ReservedConcurrentExecutions to reserve a portion of your account's concurrency for a function."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Delete Reserved Concurrency",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/concurrency",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              }
+            ]
+          },
+          "docs": "Removes a concurrency limit from a function. The function can then use unreserved account concurrency up to the account limit."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Get Provisioned Concurrency",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/provisioned-concurrency",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "example_value",
+                "type": "query",
+                "description": "The version number or alias name"
+              }
+            ]
+          },
+          "docs": "Retrieves the provisioned concurrency configuration for a function's alias or version."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Set Provisioned Concurrency",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/provisioned-concurrency",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "example_value",
+                "type": "query",
+                "description": "The version number or alias name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds a provisioned concurrency configuration to a function's alias or version. Lambda pre-initializes the specified number of execution environments so they are prepared to respond immediately."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Delete Provisioned Concurrency",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/provisioned-concurrency",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Qualifier",
+                "value": "example_value",
+                "type": "query",
+                "description": "The version number or alias name"
+              }
+            ]
+          },
+          "docs": "Deletes the provisioned concurrency configuration for a function."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

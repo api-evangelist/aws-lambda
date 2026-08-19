@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AWS Lambda Aliases Versions API",
+    "version": "2015-03-31"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Versions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aws Lambda List Function Versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/versions",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              },
+              {
+                "name": "Marker",
+                "value": "",
+                "type": "query",
+                "description": "A pagination token returned by a previous call. Use this token to retrieve the next page of results."
+              },
+              {
+                "name": "MaxItems",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return (1-10000)"
+              }
+            ]
+          },
+          "docs": "Returns a list of versions with the version-specific configuration of each. Lambda returns up to 50 versions per call."
+        },
+        {
+          "info": {
+            "name": "Aws Lambda Publish a Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://lambda.{region}.amazonaws.com/2015-03-31/functions/:FunctionName/versions",
+            "params": [
+              {
+                "name": "FunctionName",
+                "value": "",
+                "type": "path",
+                "description": "The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a version from the current code and configuration of a function. Use versions to create a snapshot of your function code and configuration that does not change. Lambda does not publish a version if the function's configuration and code have not changed since the last version."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
