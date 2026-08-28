@@ -14,8 +14,11 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: lambdaApi
-  url: ../openapi/aws-lambda-api-openapi.yml
+- name: functionsApi
+  url: ../openapi/aws-lambda-functions-api-openapi.yml
+  type: openapi
+- name: layersApi
+  url: ../openapi/aws-lambda-layers-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: publish-layer-and-attach

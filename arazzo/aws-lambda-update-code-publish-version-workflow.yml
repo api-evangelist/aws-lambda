@@ -14,8 +14,11 @@ info:
     read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: lambdaApi
-  url: ../openapi/aws-lambda-api-openapi.yml
+- name: functionsApi
+  url: ../openapi/aws-lambda-functions-api-openapi.yml
+  type: openapi
+- name: versionsApi
+  url: ../openapi/aws-lambda-versions-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: update-code-publish-version

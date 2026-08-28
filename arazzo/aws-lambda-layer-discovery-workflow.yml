@@ -16,8 +16,8 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: lambdaApi
-  url: ../openapi/aws-lambda-api-openapi.yml
+- name: layersApi
+  url: ../openapi/aws-lambda-layers-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: layer-discovery

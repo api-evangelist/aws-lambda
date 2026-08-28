@@ -14,8 +14,8 @@ info:
     without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: lambdaApi
-  url: ../openapi/aws-lambda-api-openapi.yml
+- name: concurrencyApi
+  url: ../openapi/aws-lambda-concurrency-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: reserved-concurrency-guardrail
