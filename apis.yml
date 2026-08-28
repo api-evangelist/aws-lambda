@@ -5,6 +5,20 @@ description: >-
   or backend service without provisioning or managing servers. Lambda runs your code on high-availability compute
   infrastructure and performs all of the administration of the compute resources, including server and operating system
   maintenance, capacity provisioning and automatic scaling, and logging.
+deliveryModel:
+  model: open-core
+  license: MIT-0
+  open_source: true
+  commercial: true
+  callable_host: true
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: high
+  source:
+  - license
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -490,6 +504,9 @@ apis:
   - type: Troubleshooting
     url: https://docs.aws.amazon.com/lambda/latest/dg/troubleshooting-deployment.html
 common:
+  - type: CapabilityMap
+    url: capabilities/aws-lambda-capability-edges.yml
+    name: AWS Lambda Business Capability Map
   - type: IssueTracker
     url: https://github.com/awsdocs/aws-lambda-developer-guide/issues
   - type: CodeOfConduct
