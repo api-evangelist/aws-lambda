@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: AWS Lambda Aliases Function URL API
   description: The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.
@@ -295,25 +295,25 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    qualifier:
-      name: Qualifier
-      in: query
-      description: A version number or alias name
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 128
-    functionName:
-      name: FunctionName
-      in: path
-      required: true
-      description: The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 170
   schemas:
+    UpdateFunctionUrlConfigRequest:
+      type: object
+      description: Request body for updating a function URL configuration
+      properties:
+        AuthType:
+          type: string
+          enum:
+          - NONE
+          - AWS_IAM
+          example: NONE
+        Cors:
+          $ref: '#/components/schemas/Cors'
+        InvokeMode:
+          type: string
+          enum:
+          - BUFFERED
+          - RESPONSE_STREAM
+          example: BUFFERED
     CreateFunctionUrlConfigRequest:
       type: object
       required:
@@ -351,6 +351,42 @@ components:
           type: string
           description: The error code
           example: example_value
+    FunctionUrlConfig:
+      type: object
+      description: Configuration for a Lambda function URL
+      properties:
+        FunctionUrl:
+          type: string
+          description: The HTTP URL endpoint for the function
+          example: https://www.example.com
+        FunctionArn:
+          type: string
+          description: The ARN of the function
+          example: example_value
+        AuthType:
+          type: string
+          description: The type of authentication the function URL uses
+          enum:
+          - NONE
+          - AWS_IAM
+          example: NONE
+        Cors:
+          $ref: '#/components/schemas/Cors'
+        CreationTime:
+          type: string
+          description: When the function URL was created in ISO 8601 format
+          example: example_value
+        LastModifiedTime:
+          type: string
+          description: When the function URL was last modified
+          example: example_value
+        InvokeMode:
+          type: string
+          description: Use BUFFERED for synchronous invocation or RESPONSE_STREAM for response streaming
+          enum:
+          - BUFFERED
+          - RESPONSE_STREAM
+          example: BUFFERED
     Cors:
       type: object
       description: Cross-origin resource sharing (CORS) settings for a function URL
@@ -393,60 +429,24 @@ components:
           minimum: 0
           maximum: 86400
           example: 10
-    UpdateFunctionUrlConfigRequest:
-      type: object
-      description: Request body for updating a function URL configuration
-      properties:
-        AuthType:
-          type: string
-          enum:
-          - NONE
-          - AWS_IAM
-          example: NONE
-        Cors:
-          $ref: '#/components/schemas/Cors'
-        InvokeMode:
-          type: string
-          enum:
-          - BUFFERED
-          - RESPONSE_STREAM
-          example: BUFFERED
-    FunctionUrlConfig:
-      type: object
-      description: Configuration for a Lambda function URL
-      properties:
-        FunctionUrl:
-          type: string
-          description: The HTTP URL endpoint for the function
-          example: https://www.example.com
-        FunctionArn:
-          type: string
-          description: The ARN of the function
-          example: example_value
-        AuthType:
-          type: string
-          description: The type of authentication the function URL uses
-          enum:
-          - NONE
-          - AWS_IAM
-          example: NONE
-        Cors:
-          $ref: '#/components/schemas/Cors'
-        CreationTime:
-          type: string
-          description: When the function URL was created in ISO 8601 format
-          example: example_value
-        LastModifiedTime:
-          type: string
-          description: When the function URL was last modified
-          example: example_value
-        InvokeMode:
-          type: string
-          description: Use BUFFERED for synchronous invocation or RESPONSE_STREAM for response streaming
-          enum:
-          - BUFFERED
-          - RESPONSE_STREAM
-          example: BUFFERED
+  parameters:
+    qualifier:
+      name: Qualifier
+      in: query
+      description: A version number or alias name
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 128
+    functionName:
+      name: FunctionName
+      in: path
+      required: true
+      description: The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 170
   securitySchemes:
     sigv4:
       type: apiKey

@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: AWS Lambda Aliases Event Source Mappings API
   description: The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.
@@ -437,6 +437,67 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    DestinationConfig:
+      type: object
+      description: Configuration for failed invocation destinations. Specify an SQS queue or SNS topic to receive records of failed asynchronous invocations or event source mapping batches.
+      properties:
+        OnSuccess:
+          type: object
+          properties:
+            Destination:
+              type: string
+              description: The ARN of the destination resource
+          example: example_value
+        OnFailure:
+          type: object
+          properties:
+            Destination:
+              type: string
+              description: The ARN of the destination resource
+          example: example_value
+    ListEventSourceMappingsResponse:
+      type: object
+      description: Paginated list of event source mappings
+      properties:
+        NextMarker:
+          type: string
+          description: Pagination token
+          example: example_value
+        EventSourceMappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventSourceMappingConfiguration'
+          example: []
+    FilterCriteria:
+      type: object
+      description: An object that contains the filters for an event source. Event filtering enables you to control which records from an event source Lambda sends to your function.
+      properties:
+        Filters:
+          type: array
+          description: A list of filters
+          items:
+            type: object
+            properties:
+              Pattern:
+                type: string
+                description: A filter pattern as a JSON string. Filter patterns support value matching with equals, prefix, and numeric comparisons.
+          example: []
+    ErrorResponse:
+      type: object
+      description: Error response from the Lambda API
+      properties:
+        Type:
+          type: string
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
+          example: example_value
     EventSourceMappingConfiguration:
       type: object
       description: A mapping between an AWS resource and a Lambda function. Lambda reads items from the event source and invokes the function.
@@ -543,123 +604,6 @@ components:
           example: []
         FilterCriteria:
           $ref: '#/components/schemas/FilterCriteria'
-    DestinationConfig:
-      type: object
-      description: Configuration for failed invocation destinations. Specify an SQS queue or SNS topic to receive records of failed asynchronous invocations or event source mapping batches.
-      properties:
-        OnSuccess:
-          type: object
-          properties:
-            Destination:
-              type: string
-              description: The ARN of the destination resource
-          example: example_value
-        OnFailure:
-          type: object
-          properties:
-            Destination:
-              type: string
-              description: The ARN of the destination resource
-          example: example_value
-    FilterCriteria:
-      type: object
-      description: An object that contains the filters for an event source. Event filtering enables you to control which records from an event source Lambda sends to your function.
-      properties:
-        Filters:
-          type: array
-          description: A list of filters
-          items:
-            type: object
-            properties:
-              Pattern:
-                type: string
-                description: A filter pattern as a JSON string. Filter patterns support value matching with equals, prefix, and numeric comparisons.
-          example: []
-    ListEventSourceMappingsResponse:
-      type: object
-      description: Paginated list of event source mappings
-      properties:
-        NextMarker:
-          type: string
-          description: Pagination token
-          example: example_value
-        EventSourceMappings:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventSourceMappingConfiguration'
-          example: []
-    UpdateEventSourceMappingRequest:
-      type: object
-      description: Request body for updating an event source mapping
-      properties:
-        FunctionName:
-          type: string
-          description: The name or ARN of the Lambda function
-          example: example_value
-        Enabled:
-          type: boolean
-          description: If true, the event source mapping is active
-          example: true
-        BatchSize:
-          type: integer
-          minimum: 1
-          maximum: 10000
-          example: 10
-        FilterCriteria:
-          $ref: '#/components/schemas/FilterCriteria'
-        MaximumBatchingWindowInSeconds:
-          type: integer
-          minimum: 0
-          maximum: 300
-          example: 10
-        DestinationConfig:
-          $ref: '#/components/schemas/DestinationConfig'
-        MaximumRecordAgeInSeconds:
-          type: integer
-          minimum: -1
-          maximum: 604800
-          example: 10
-        BisectBatchOnFunctionError:
-          type: boolean
-          example: true
-        MaximumRetryAttempts:
-          type: integer
-          minimum: -1
-          maximum: 10000
-          example: 10
-        ParallelizationFactor:
-          type: integer
-          minimum: 1
-          maximum: 10
-          example: 10
-        TumblingWindowInSeconds:
-          type: integer
-          minimum: 0
-          maximum: 900
-          example: 10
-        FunctionResponseTypes:
-          type: array
-          items:
-            type: string
-            enum:
-            - ReportBatchItemFailures
-          example: []
-    ErrorResponse:
-      type: object
-      description: Error response from the Lambda API
-      properties:
-        Type:
-          type: string
-          description: The error type
-          example: example_value
-        Message:
-          type: string
-          description: The error message
-          example: example_value
-        Code:
-          type: string
-          description: The error code
-          example: example_value
     CreateEventSourceMappingRequest:
       type: object
       required:
@@ -738,7 +682,70 @@ components:
             enum:
             - ReportBatchItemFailures
           example: []
+    UpdateEventSourceMappingRequest:
+      type: object
+      description: Request body for updating an event source mapping
+      properties:
+        FunctionName:
+          type: string
+          description: The name or ARN of the Lambda function
+          example: example_value
+        Enabled:
+          type: boolean
+          description: If true, the event source mapping is active
+          example: true
+        BatchSize:
+          type: integer
+          minimum: 1
+          maximum: 10000
+          example: 10
+        FilterCriteria:
+          $ref: '#/components/schemas/FilterCriteria'
+        MaximumBatchingWindowInSeconds:
+          type: integer
+          minimum: 0
+          maximum: 300
+          example: 10
+        DestinationConfig:
+          $ref: '#/components/schemas/DestinationConfig'
+        MaximumRecordAgeInSeconds:
+          type: integer
+          minimum: -1
+          maximum: 604800
+          example: 10
+        BisectBatchOnFunctionError:
+          type: boolean
+          example: true
+        MaximumRetryAttempts:
+          type: integer
+          minimum: -1
+          maximum: 10000
+          example: 10
+        ParallelizationFactor:
+          type: integer
+          minimum: 1
+          maximum: 10
+          example: 10
+        TumblingWindowInSeconds:
+          type: integer
+          minimum: 0
+          maximum: 900
+          example: 10
+        FunctionResponseTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - ReportBatchItemFailures
+          example: []
   parameters:
+    eventSourceMappingUUID:
+      name: UUID
+      in: path
+      required: true
+      description: The identifier of the event source mapping
+      schema:
+        type: string
     maxItems:
       name: MaxItems
       in: query
@@ -751,13 +758,6 @@ components:
       name: Marker
       in: query
       description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
-      schema:
-        type: string
-    eventSourceMappingUUID:
-      name: UUID
-      in: path
-      required: true
-      description: The identifier of the event source mapping
       schema:
         type: string
   securitySchemes:

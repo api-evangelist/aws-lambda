@@ -23,6 +23,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "aws-lambda-aliases-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "aws-lambda-concurrency-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "aws-lambda-event-source-mappings-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "aws-lambda-function-url-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "aws-lambda-functions-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "aws-lambda-layers-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "aws-lambda-tags-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "aws-lambda-versions-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

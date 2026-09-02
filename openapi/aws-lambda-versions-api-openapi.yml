@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: AWS Lambda Aliases Versions API
   description: The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.
@@ -257,6 +257,53 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ListVersionsResponse:
+      type: object
+      description: Paginated list of function versions
+      properties:
+        NextMarker:
+          type: string
+          description: Pagination token for the next page
+          example: example_value
+        Versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/FunctionConfiguration'
+          example: []
+    ErrorResponse:
+      type: object
+      description: Error response from the Lambda API
+      properties:
+        Type:
+          type: string
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
+          example: example_value
+    VpcConfigResponse:
+      type: object
+      description: VPC connectivity details returned by Lambda
+      properties:
+        SubnetIds:
+          type: array
+          items:
+            type: string
+          example: []
+        SecurityGroupIds:
+          type: array
+          items:
+            type: string
+          example: []
+        VpcId:
+          type: string
+          description: The VPC ID
+          example: '500123'
     Layer:
       type: object
       description: An Lambda layer attached to a function
@@ -277,22 +324,6 @@ components:
         SigningJobArn:
           type: string
           description: The ARN of a signing job
-          example: example_value
-    ErrorResponse:
-      type: object
-      description: Error response from the Lambda API
-      properties:
-        Type:
-          type: string
-          description: The error type
-          example: example_value
-        Message:
-          type: string
-          description: The error message
-          example: example_value
-        Code:
-          type: string
-          description: The error code
           example: example_value
     FunctionConfiguration:
       type: object
@@ -592,37 +623,6 @@ components:
               type: string
               description: The name of the CloudWatch log group
           example: example_value
-    VpcConfigResponse:
-      type: object
-      description: VPC connectivity details returned by Lambda
-      properties:
-        SubnetIds:
-          type: array
-          items:
-            type: string
-          example: []
-        SecurityGroupIds:
-          type: array
-          items:
-            type: string
-          example: []
-        VpcId:
-          type: string
-          description: The VPC ID
-          example: '500123'
-    ListVersionsResponse:
-      type: object
-      description: Paginated list of function versions
-      properties:
-        NextMarker:
-          type: string
-          description: Pagination token for the next page
-          example: example_value
-        Versions:
-          type: array
-          items:
-            $ref: '#/components/schemas/FunctionConfiguration'
-          example: []
   parameters:
     maxItems:
       name: MaxItems

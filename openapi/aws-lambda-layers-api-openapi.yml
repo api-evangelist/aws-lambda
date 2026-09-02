@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: AWS Lambda Aliases Layers API
   description: The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.
@@ -350,150 +350,38 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    versionNumber:
-      name: VersionNumber
-      in: path
-      required: true
-      description: The version number
-      schema:
-        type: integer
-    maxItems:
-      name: MaxItems
-      in: query
-      description: Maximum number of items to return (1-10000)
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 10000
-    marker:
-      name: Marker
-      in: query
-      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
-      schema:
-        type: string
-    layerName:
-      name: LayerName
-      in: path
-      required: true
-      description: The name or ARN of the layer
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 140
   schemas:
-    PublishLayerVersionResponse:
+    GetLayerVersionResponse:
       type: object
-      description: Details about a published layer version
+      description: Details about a layer version
       properties:
         Content:
           type: object
           properties:
             Location:
               type: string
-              description: A link to download the layer archive (valid for 10 minutes)
+              description: A presigned URL to download the layer archive
             CodeSha256:
               type: string
-              description: The SHA-256 hash of the layer archive
             CodeSize:
               type: integer
-              description: The size of the layer archive in bytes
               format: int64
-            SigningProfileVersionArn:
-              type: string
-            SigningJobArn:
-              type: string
           example: example_value
         LayerArn:
           type: string
-          description: The ARN of the layer
           example: example_value
         LayerVersionArn:
           type: string
-          description: The ARN of the layer version
           example: example_value
         Description:
           type: string
-          description: Description of the version
           example: A sample description.
         CreatedDate:
           type: string
-          description: The date the layer version was created in ISO 8601 format
           example: example_value
         Version:
           type: integer
-          description: The version number
           example: 10
-        CompatibleRuntimes:
-          type: array
-          items:
-            type: string
-          example: []
-        LicenseInfo:
-          type: string
-          example: example_value
-        CompatibleArchitectures:
-          type: array
-          items:
-            type: string
-          example: []
-    ListLayersResponse:
-      type: object
-      description: Paginated list of layers
-      properties:
-        NextMarker:
-          type: string
-          example: example_value
-        Layers:
-          type: array
-          items:
-            type: object
-            properties:
-              LayerName:
-                type: string
-                description: The name of the layer
-              LayerArn:
-                type: string
-                description: The ARN of the layer
-              LatestMatchingVersion:
-                $ref: '#/components/schemas/LayerVersionSummary'
-          example: []
-    ErrorResponse:
-      type: object
-      description: Error response from the Lambda API
-      properties:
-        Type:
-          type: string
-          description: The error type
-          example: example_value
-        Message:
-          type: string
-          description: The error message
-          example: example_value
-        Code:
-          type: string
-          description: The error code
-          example: example_value
-    LayerVersionSummary:
-      type: object
-      description: Summary information about a layer version
-      properties:
-        LayerVersionArn:
-          type: string
-          description: The ARN of the layer version
-          example: example_value
-        Version:
-          type: integer
-          description: The version number
-          example: 10
-        Description:
-          type: string
-          description: Description of the version
-          example: A sample description.
-        CreatedDate:
-          type: string
-          description: The date the version was created
-          example: example_value
         CompatibleRuntimes:
           type: array
           items:
@@ -571,36 +459,63 @@ components:
           items:
             $ref: '#/components/schemas/LayerVersionSummary'
           example: []
-    GetLayerVersionResponse:
+    ErrorResponse:
       type: object
-      description: Details about a layer version
+      description: Error response from the Lambda API
+      properties:
+        Type:
+          type: string
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
+          example: example_value
+    PublishLayerVersionResponse:
+      type: object
+      description: Details about a published layer version
       properties:
         Content:
           type: object
           properties:
             Location:
               type: string
-              description: A presigned URL to download the layer archive
+              description: A link to download the layer archive (valid for 10 minutes)
             CodeSha256:
               type: string
+              description: The SHA-256 hash of the layer archive
             CodeSize:
               type: integer
+              description: The size of the layer archive in bytes
               format: int64
+            SigningProfileVersionArn:
+              type: string
+            SigningJobArn:
+              type: string
           example: example_value
         LayerArn:
           type: string
+          description: The ARN of the layer
           example: example_value
         LayerVersionArn:
           type: string
+          description: The ARN of the layer version
           example: example_value
         Description:
           type: string
+          description: Description of the version
           example: A sample description.
         CreatedDate:
           type: string
+          description: The date the layer version was created in ISO 8601 format
           example: example_value
         Version:
           type: integer
+          description: The version number
           example: 10
         CompatibleRuntimes:
           type: array
@@ -615,6 +530,91 @@ components:
           items:
             type: string
           example: []
+    ListLayersResponse:
+      type: object
+      description: Paginated list of layers
+      properties:
+        NextMarker:
+          type: string
+          example: example_value
+        Layers:
+          type: array
+          items:
+            type: object
+            properties:
+              LayerName:
+                type: string
+                description: The name of the layer
+              LayerArn:
+                type: string
+                description: The ARN of the layer
+              LatestMatchingVersion:
+                $ref: '#/components/schemas/LayerVersionSummary'
+          example: []
+    LayerVersionSummary:
+      type: object
+      description: Summary information about a layer version
+      properties:
+        LayerVersionArn:
+          type: string
+          description: The ARN of the layer version
+          example: example_value
+        Version:
+          type: integer
+          description: The version number
+          example: 10
+        Description:
+          type: string
+          description: Description of the version
+          example: A sample description.
+        CreatedDate:
+          type: string
+          description: The date the version was created
+          example: example_value
+        CompatibleRuntimes:
+          type: array
+          items:
+            type: string
+          example: []
+        LicenseInfo:
+          type: string
+          example: example_value
+        CompatibleArchitectures:
+          type: array
+          items:
+            type: string
+          example: []
+  parameters:
+    layerName:
+      name: LayerName
+      in: path
+      required: true
+      description: The name or ARN of the layer
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 140
+    maxItems:
+      name: MaxItems
+      in: query
+      description: Maximum number of items to return (1-10000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+    versionNumber:
+      name: VersionNumber
+      in: path
+      required: true
+      description: The version number
+      schema:
+        type: integer
+    marker:
+      name: Marker
+      in: query
+      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
+      schema:
+        type: string
   securitySchemes:
     sigv4:
       type: apiKey

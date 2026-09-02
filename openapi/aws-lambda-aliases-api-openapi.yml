@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: AWS Lambda Aliases API
   description: The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.
@@ -315,7 +315,81 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    maxItems:
+      name: MaxItems
+      in: query
+      description: Maximum number of items to return (1-10000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+    aliasName:
+      name: AliasName
+      in: path
+      required: true
+      description: The name of the alias
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 128
+    functionName:
+      name: FunctionName
+      in: path
+      required: true
+      description: The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 170
+    marker:
+      name: Marker
+      in: query
+      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
+      schema:
+        type: string
   schemas:
+    ErrorResponse:
+      type: object
+      description: Error response from the Lambda API
+      properties:
+        Type:
+          type: string
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
+          example: example_value
+    ListAliasesResponse:
+      type: object
+      description: Paginated list of aliases
+      properties:
+        NextMarker:
+          type: string
+          description: Pagination token for the next page
+          example: example_value
+        Aliases:
+          type: array
+          items:
+            $ref: '#/components/schemas/AliasConfiguration'
+          example: []
+    AliasRoutingConfiguration:
+      type: object
+      description: The traffic-shifting configuration of a Lambda function alias. Used for weighted alias routing to enable canary deployments.
+      properties:
+        AdditionalVersionWeights:
+          type: object
+          additionalProperties:
+            type: number
+            minimum: 0.0
+            maximum: 1.0
+          description: The secondary version weight. The key is the version number or alias name and the value is the percentage of traffic (0.0-1.0).
+          example: example_value
     CreateAliasRequest:
       type: object
       required:
@@ -385,80 +459,6 @@ components:
           type: string
           description: Update only if the revision ID matches
           example: '500123'
-    AliasRoutingConfiguration:
-      type: object
-      description: The traffic-shifting configuration of a Lambda function alias. Used for weighted alias routing to enable canary deployments.
-      properties:
-        AdditionalVersionWeights:
-          type: object
-          additionalProperties:
-            type: number
-            minimum: 0.0
-            maximum: 1.0
-          description: The secondary version weight. The key is the version number or alias name and the value is the percentage of traffic (0.0-1.0).
-          example: example_value
-    ErrorResponse:
-      type: object
-      description: Error response from the Lambda API
-      properties:
-        Type:
-          type: string
-          description: The error type
-          example: example_value
-        Message:
-          type: string
-          description: The error message
-          example: example_value
-        Code:
-          type: string
-          description: The error code
-          example: example_value
-    ListAliasesResponse:
-      type: object
-      description: Paginated list of aliases
-      properties:
-        NextMarker:
-          type: string
-          description: Pagination token for the next page
-          example: example_value
-        Aliases:
-          type: array
-          items:
-            $ref: '#/components/schemas/AliasConfiguration'
-          example: []
-  parameters:
-    marker:
-      name: Marker
-      in: query
-      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
-      schema:
-        type: string
-    maxItems:
-      name: MaxItems
-      in: query
-      description: Maximum number of items to return (1-10000)
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 10000
-    functionName:
-      name: FunctionName
-      in: path
-      required: true
-      description: The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 170
-    aliasName:
-      name: AliasName
-      in: path
-      required: true
-      description: The name of the alias
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 128
   securitySchemes:
     sigv4:
       type: apiKey
