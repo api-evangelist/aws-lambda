@@ -1,202 +1,112 @@
-specification: API Commons Plans
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: AWS Lambda
-providerId: aws-lambda
-created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: true
-tags:
-  - Serverless
-  - Functions
-  - Compute
-  - Event-Driven
-  - AWS
-description: AWS Lambda is pay-as-you-go priced on two axes — number of requests and duration in
-  GB-seconds — with separate rates for x86 and ARM (Graviton2) architectures. Provisioned concurrency
-  and ephemeral storage above 512 MB are billed separately. A perpetual free tier provides 1M requests
-  and 400K GB-seconds per month. Compute Savings Plans offer up to 17% discount.
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://aws.amazon.com/lambda/pricing/
 sources:
-  - https://aws.amazon.com/lambda/pricing/
-  - https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
+- https://aws.amazon.com/lambda/pricing/
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T120546
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: per-call
+published: true
+note: Main rate tables are rendered via client-side pricing tokens ({priceOf!...}) so most headline per-GB-second
+  and per-request rates are not visible in the text; numeric prices captured come from stated Managed
+  Instances rates and the worked pricing examples (US East N. Virginia).
+plan_count: 14
+currency: USD
 plans:
-  - id: aws-lambda-on-demand-x86
-    name: On-Demand (x86)
-    type: usage-based
-    description: Default pricing for x86_64 Lambda functions.
-    entries:
-      - label: Requests
-        name: requests
-        type: metered
-        metric: request
-        limit: -1
-        timeFrame: usage
-        geo: US-East-1
-        unit: 1000000
-        price: '$0.20 per million'
-        userMultiplied: false
-      - label: Compute (first tier)
-        name: compute_x86_tier1
-        type: tiered
-        metric: GB-second
-        limit: -1
-        timeFrame: usage
-        geo: US-East-1
-        unit: 1
-        price: '$0.0000166667 per GB-second'
-        userMultiplied: false
-    elements:
-      - name: 128 MB - 10,240 MB memory in 1 MB steps
-      - name: Up to 15-minute timeout
-      - name: 512 MB ephemeral /tmp included
-      - name: Lambda function URLs (no extra charge)
-  - id: aws-lambda-on-demand-arm
-    name: On-Demand (ARM / Graviton2)
-    type: usage-based
-    description: Lower-cost ARM-based Graviton2 functions; AWS quotes up to 34% better price-performance
-      vs x86 for equivalent workloads.
-    entries:
-      - label: Requests
-        name: requests_arm
-        type: metered
-        metric: request
-        limit: -1
-        timeFrame: usage
-        geo: US-East-1
-        unit: 1000000
-        price: '$0.20 per million'
-        userMultiplied: false
-      - label: Compute (Graviton2)
-        name: compute_arm
-        type: metered
-        metric: GB-second
-        limit: -1
-        timeFrame: usage
-        geo: US-East-1
-        unit: 1
-        price: see Graviton2 row on https://aws.amazon.com/lambda/pricing/ (lower than x86)
-        userMultiplied: false
-    elements:
-      - name: Graviton2 ARM cores
-      - name: Up to 34% price-performance vs x86
-  - id: aws-lambda-provisioned-concurrency
-    name: Provisioned Concurrency
-    type: usage-based
-    description: Pre-warmed execution environments billed continuously while enabled. Used to eliminate
-      cold starts.
-    entries:
-      - label: Provisioned concurrency
-        name: provisioned_concurrency
-        type: metered
-        metric: GB-second
-        limit: -1
-        timeFrame: usage
-        geo: US-East-1
-        unit: 1
-        price: '$0.0000041667 per GB-second (configured)'
-        userMultiplied: false
-      - label: Compute on provisioned (executions)
-        name: provisioned_executions
-        type: metered
-        metric: GB-second
-        limit: -1
-        timeFrame: usage
-        geo: US-East-1
-        unit: 1
-        price: see provisioned-concurrency execution rate on https://aws.amazon.com/lambda/pricing/
-        userMultiplied: false
-    elements:
-      - name: Pre-warmed environments
-      - name: 5-minute billing increments from enable to disable
-  - id: aws-lambda-ephemeral-storage
-    name: Ephemeral /tmp Storage (above 512 MB)
-    type: usage-based
-    description: Configurable ephemeral storage from 512 MB up to 10,240 MB. First 512 MB free; charged
-      above that.
-    entries:
-      - label: Ephemeral storage above 512 MB
-        name: ephemeral_storage
-        type: metered
-        metric: GB-second
-        limit: -1
-        timeFrame: usage
-        geo: US-East-1
-        unit: 1
-        price: '$0.0000000309 per GB-second'
-        userMultiplied: false
-    elements:
-      - name: Per-invocation /tmp storage
-      - name: Up to 10,240 MB
-  - id: aws-lambda-data-transfer
-    name: Data Transfer
-    type: usage-based
-    description: Lambda inherits standard EC2 data-transfer rates for cross-region / internet egress.
-      In-region transfers to S3, DynamoDB, SNS, SQS, Kinesis are free.
-    entries:
-      - label: Data transfer out
-        name: lambda_data_transfer_out
-        type: metered
-        metric: gb
-        limit: -1
-        timeFrame: usage
-        geo: US-East-1
-        unit: 1
-        price: see EC2 data transfer rates on https://aws.amazon.com/ec2/pricing/on-demand/
-        userMultiplied: false
-    elements:
-      - name: Standard EC2 data-transfer rates apply
-      - name: Free same-region transfer to S3 / DynamoDB / SNS / SQS / Kinesis
-  - id: aws-lambda-savings-plans
-    name: Compute Savings Plans
-    type: subscription
-    description: Up to 17% discount on Lambda compute (duration + provisioned concurrency) for 1- or
-      3-year commitment.
-    entries:
-      - label: Compute Savings Plan discount
-        name: lambda_savings_plan
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: up to 17% discount on compute (1 yr / 3 yr terms)
-        userMultiplied: false
-    elements:
-      - name: 1-year or 3-year commitment
-      - name: Applies to duration and provisioned concurrency
-  - id: aws-lambda-free-tier
-    name: AWS Free Tier (perpetual)
-    type: freemium
-    description: Lambda free tier is perpetual, not 12-month-limited. Applies across both x86 and
-      Graviton2.
-    entries:
-      - label: Free requests
-        name: free_requests
-        type: quota
-        metric: request
-        limit: 1000000
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Free compute
-        name: free_compute
-        type: quota
-        metric: GB-second
-        limit: 400000
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: 1M requests per month perpetual
-      - name: 400K GB-seconds per month perpetual
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- name: Lambda Managed Instances – Request charges
+  price_text: $0.20 per million requests
+  price: 0.2
+  currency: USD
+  period: per-use
+  unit: million requests
+- name: Lambda Managed Instances – Compute management fee
+  price_text: 15% premium on the EC2 on-demand instance price
+  price: 15
+  period: per-use
+  unit: percent of EC2 on-demand price
+- name: Lambda Functions free tier
+  price_text: The free tier includes one million requests and 400,000 GB-seconds per month.
+  period: month
+  unit: requests and GB-seconds
+  included_quota: 1M requests and 400,000 GB-seconds per month
+- name: Durable Functions operations (example rate)
+  price_text: $8.00/M
+  price: 8
+  currency: USD
+  period: per-use
+  unit: million durable operations
+- name: Durable Functions data written (example rate)
+  price_text: $0.25/GB
+  price: 0.25
+  currency: USD
+  period: per-use
+  unit: GB written
+- name: Durable Functions data retained (example rate)
+  price_text: $0.15/GB-month
+  price: 0.15
+  currency: USD
+  period: month
+  unit: GB-month
+- name: Compute duration x86 (example rate)
+  price_text: $0.0000166667 per GB-s
+  price: 1.66667e-05
+  currency: USD
+  period: per-use
+  unit: GB-second
+  included_quota: 400,000 GB-s free tier
+- name: Provisioned Concurrency (example rate)
+  price_text: $0.0000041667 per GB-s
+  price: 4.1667e-06
+  currency: USD
+  period: per-use
+  unit: GB-second
+- name: Ephemeral storage (example rate)
+  price_text: $0.0000000309 for every GB-second
+  price: 3.09e-08
+  currency: USD
+  period: per-use
+  unit: GB-second
+  included_quota: 512 MB at no additional cost
+- name: HTTP Response Stream processed bytes (example rate)
+  price_text: $0.008 per GB
+  price: 0.008
+  currency: USD
+  period: per-use
+  unit: GB streamed
+  included_quota: 100 GB per month free tier; first 6 MB per request free
+- name: Provisioned Mode ESM – Kafka (example rate)
+  price_text: $0.185/hour
+  price: 0.185
+  currency: USD
+  period: per-use
+  unit: EPU-hour
+- name: Provisioned Mode ESM – SQS (example rate)
+  price_text: $0.00925 per EPU-hour
+  price: 0.00925
+  currency: USD
+  period: per-use
+  unit: EPU-hour
+- name: Lambda@Edge (example rates)
+  price_text: $0.60 per 1 million requests
+  price: 0.6
+  currency: USD
+  period: per-use
+  unit: 1M requests
+- name: SnapStart cache (example rate)
+  price_text: $0.0000015046
+  price: 1.5046e-06
+  currency: USD
+  period: per-use
+  unit: GB-second
+rate_limit_statements:
+- An EPU supports one event poller, each providing up to 1 MB/s throughput. Each SQS ESM requires a minimum
+  of 2 event pollers.
+- Each EPU supports up to 20 MB/s throughput capacity for event polling, with a default of 10 event pollers.
+  Each event poller can scale up to 5 MB/s throughput.
+- You can allocate any amount of memory to your function between 128 MB and 10,240 MB, in 1 MB increments.
+- 'Duration: Pricing is calculated per second, with a 1-minute minimum.'
+- your MicroVM can vertically scale up to 4x the baseline (up to 8GB / 4vCPU)

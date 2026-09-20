@@ -498,6 +498,8 @@ apis:
   - type: Troubleshooting
     url: https://docs.aws.amazon.com/lambda/latest/dg/troubleshooting-deployment.html
 common:
+- type: Plans
+  url: plans/aws-lambda-plans-pricing.yml
 - type: CapabilityMap
   url: capabilities/aws-lambda-capability-edges.yml
   name: AWS Lambda Business Capability Map
