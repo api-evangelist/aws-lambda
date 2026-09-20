@@ -10,6 +10,10 @@ provenance:
   grounding: every price_text was found verbatim in the fetched page text
 audience: developer-api
 pricing_basis: per-call
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-09-20'
 published: true
 note: Main rate tables are rendered via client-side pricing tokens ({priceOf!...}) so most headline per-GB-second
   and per-request rates are not visible in the text; numeric prices captured come from stated Managed
