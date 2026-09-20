@@ -498,6 +498,8 @@ apis:
   - type: Troubleshooting
     url: https://docs.aws.amazon.com/lambda/latest/dg/troubleshooting-deployment.html
 common:
+- type: RateLimits
+  url: rate-limits/aws-lambda-rate-limits.yml
 - type: Plans
   url: plans/aws-lambda-plans-pricing.yml
 - type: CapabilityMap

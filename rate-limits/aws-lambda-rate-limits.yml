@@ -1,124 +1,166 @@
-specification: API Commons Rate Limits
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
-provider: AWS Lambda
-providerId: aws-lambda
-created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: true
-tags:
-  - Serverless
-  - Functions
-  - Rate Limiting
-  - Concurrency
-  - AWS
-description: AWS Lambda enforces concurrency-based and API-based limits per account per Region.
-  Concurrent executions default to 1,000 (increasable). Each execution environment serves up to 10
-  synchronous requests per second, so per-function steady-state RPS scales as 10x concurrency. Burst
-  scaling adds 1,000 environments every 10 seconds. Control-plane APIs have separate fixed RPS quotas.
+# Rate limits transcribed from the provider's own documentation — see provenance. Quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
 sources:
-  - https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
-  - https://aws.amazon.com/lambda/pricing/
-responseCodes:
-  throttled: 429
-  serviceUnavailable: 503
+- https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
+provenance:
+  tool: planning/api-economics/harvest_ratelimits.py
+  run: 20260920T133210
+  grounding: every limit_text was found verbatim in the fetched page text
+published: true
+note: Lambda quotas page; many size/config quotas omitted as non-rate. No rate-limit headers or HTTP status
+  documented; page mentions retrying throttled requests with exponential backoff.
+limit_count: 25
 limits:
-  - name: Concurrent executions
-    scope: account/region
-    metric: concurrent_requests
-    limit: 1000
-    notes: Default per Region; new accounts may start lower. Increasable to tens of thousands via
-      Service Quotas.
-  - name: Burst concurrency scaling
-    scope: function
-    metric: concurrent_requests
-    limit: 1000
-    timeFrame: second
-    notes: Each function can add 1,000 execution environments every 10 seconds (i.e. ~100 environments
-      per second of burst headroom).
-  - name: Synchronous invocation per env
-    scope: execution-environment
-    metric: requests_per_second
-    limit: 10
-    timeFrame: second
-    notes: Each execution environment serves up to 10 synchronous requests per second; total
-      synchronous RPS is 10 x concurrency.
-  - name: Asynchronous invocation per env
-    scope: execution-environment
-    metric: requests_per_second
-    limit: -1
-    notes: Asynchronous invocation is unlimited per environment; total bounded only by available
-      concurrency.
-  - name: Provisioned concurrency invocation
-    scope: function-version-or-alias
-    metric: requests_per_second
-    limit: -1
-    notes: 10 x allocated provisioned concurrency. Applies only to functions with provisioned
-      concurrency configured.
-  - name: GetFunction API
-    scope: account
-    metric: requests_per_second
-    limit: 100
-    timeFrame: second
-    notes: Fixed; not increasable.
-  - name: GetPolicy API
-    scope: account
-    metric: requests_per_second
-    limit: 15
-    timeFrame: second
-    notes: Fixed; not increasable.
-  - name: Other control-plane APIs
-    scope: account
-    metric: requests_per_second
-    limit: 15
-    timeFrame: second
-    notes: 15 RPS aggregate across all other control-plane APIs (excludes invocation, GetFunction,
-      GetPolicy). Not increasable.
-  - name: Storage for uploaded functions / layers
-    scope: account/region
-    metric: GB
-    limit: 75
-    notes: Increasable to terabytes via Service Quotas.
-  - name: Function timeout
-    scope: function
-    metric: seconds
-    limit: 900
-    notes: 15 minutes max execution time. Fixed.
-  - name: Sync invocation payload
-    scope: invocation
-    metric: MB
-    limit: 6
-    notes: 6 MB request and 6 MB response (sync). 200 MB for streamed responses. 1 MB async.
-  - name: Deployment package (zip)
-    scope: function-version
-    metric: MB
-    limit: 50
-    notes: 50 MB via API/console; 250 MB unzipped including layers; container images up to 10 GB.
-  - name: ENIs per VPC
-    scope: vpc
-    metric: enis
-    limit: 500
-    notes: Shared with other services such as EFS.
-policies:
-  - name: Backoff Strategy
-    description: AWS SDKs implement exponential backoff with jitter on 429 / TooManyRequestsException
-      / 5xx automatically. Raw HTTP clients should mirror this and honor Retry-After.
-  - name: Reserved & Provisioned Concurrency
-    description: Use reserved concurrency to cap a function's slice of the account pool; use provisioned
-      concurrency to pre-warm and eliminate cold starts (billed separately).
-  - name: Service Quotas Increases
-    description: Concurrent executions, storage, ENIs, and durable executions are increasable via
-      Service Quotas; control-plane RPS, invocation payload, timeout, and runtime quotas are fixed.
-  - name: Burst Headroom
-    description: Cold-start bursts beyond the 1,000-environments-per-10-seconds rate will throttle even
-      if total concurrency is well below the account ceiling — pre-warm with provisioned concurrency
-      for spiky traffic.
-  - name: Idempotency
-    description: Asynchronous and event-source invocations may retry on failure (default 2 retries
-      asynchronous). Design handler logic to be idempotent on the event identifier.
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- name: Concurrent executions
+  limit_text: Concurrent executions 1,000
+  limit: 1000
+  scope: account
+- name: Function concurrency scaling limit
+  limit_text: For each function, 1,000 execution environments every 10 seconds
+  limit: 1000
+  scope: endpoint
+- name: Synchronous invocations per execution environment
+  limit_text: Each instance of your execution environment can serve up to 10 requests per second.
+  limit: 10
+  window: second
+  scope: endpoint
+  endpoint: Invocation requests per function per Region (synchronous)
+- name: Provisioned concurrency invocation rate
+  limit_text: 10 x allocated provisioned concurrency
+  scope: endpoint
+  endpoint: Invocation requests per function version or alias
+- name: GetFunction API requests
+  limit_text: 100 requests per second. Cannot be increased.
+  limit: 100
+  window: second
+  scope: account
+  endpoint: GetFunction
+- name: GetPolicy API requests
+  limit_text: 15 requests per second. Cannot be increased.
+  limit: 15
+  window: second
+  scope: account
+  endpoint: GetPolicy
+- name: Control plane API requests
+  limit_text: 15 requests per second across all APIs (not 15 requests per second per API). Cannot be increased.
+  limit: 15
+  window: second
+  scope: account
+  endpoint: Remainder of the control plane API requests
+- name: Durable execution initiation rate
+  limit_text: 300 requests per second.
+  limit: 300
+  window: second
+  scope: account
+  endpoint: Function invocation rate to initiate durable executions
+- name: CheckpointDurableExecution
+  limit_text: 10,000 requests per second. 20,000 requests per second in US East (N. Virginia), US West
+    (Oregon), and Europe (Ireland).
+  limit: 10000
+  window: second
+  scope: account
+  endpoint: CheckpointDurableExecution
+- name: GetDurableExecution
+  limit_text: GetDurableExecution API requests 30 requests per second.
+  limit: 30
+  window: second
+  scope: account
+  endpoint: GetDurableExecution
+- name: GetDurableExecutionHistory
+  limit_text: GetDurableExecutionHistory API requests 15 requests per second.
+  limit: 15
+  window: second
+  scope: account
+  endpoint: GetDurableExecutionHistory
+- name: GetDurableExecutionState
+  limit_text: GetDurableExecutionState API requests 10,000 requests per second.
+  limit: 10000
+  window: second
+  scope: account
+  endpoint: GetDurableExecutionState
+- name: ListDurableExecutionsByFunction
+  limit_text: ListDurableExecutionsByFunction API requests 15 requests per second.
+  limit: 15
+  window: second
+  scope: account
+  endpoint: ListDurableExecutionsByFunction
+- name: SendDurableExecutionCallbackFailure
+  limit_text: SendDurableExecutionCallbackFailure API requests 3,000 requests per second.
+  limit: 3000
+  window: second
+  scope: account
+  endpoint: SendDurableExecutionCallbackFailure
+- name: SendDurableExecutionCallbackHeartbeat
+  limit_text: SendDurableExecutionCallbackHeartbeat API requests 3,000 requests per second.
+  limit: 3000
+  window: second
+  scope: account
+  endpoint: SendDurableExecutionCallbackHeartbeat
+- name: SendDurableExecutionCallbackSuccess
+  limit_text: SendDurableExecutionCallbackSuccess API requests 3,000 requests per second.
+  limit: 3000
+  window: second
+  scope: account
+  endpoint: SendDurableExecutionCallbackSuccess
+- name: StopDurableExecution
+  limit_text: StopDurableExecution API requests 300 requests per second.
+  limit: 300
+  window: second
+  scope: account
+  endpoint: StopDurableExecution
+- name: Requests per second per MicroVM
+  limit_text: Requests per second per MicroVM 40 (4 vCPU / 8 GB), 160 (16 vCPU / 32 GB)
+  window: second
+  scope: endpoint
+  endpoint: MicroVM
+- name: RunMicrovm
+  limit_text: RunMicrovm 5 5 Yes
+  limit: 5
+  window: second
+  scope: account
+  endpoint: RunMicrovm
+  kind: burst
+- name: ResumeMicrovm
+  limit_text: ResumeMicrovm 5 5 Yes
+  limit: 5
+  window: second
+  scope: account
+  endpoint: ResumeMicrovm
+  kind: burst
+- name: SuspendMicrovm
+  limit_text: SuspendMicrovm 2 2 Yes
+  limit: 2
+  window: second
+  scope: account
+  endpoint: SuspendMicrovm
+  kind: burst
+- name: TerminateMicrovm
+  limit_text: TerminateMicrovm 10 10 Yes
+  limit: 10
+  window: second
+  scope: account
+  endpoint: TerminateMicrovm
+  kind: burst
+- name: GetMicrovm
+  limit_text: GetMicrovm 100 100 Yes
+  limit: 100
+  window: second
+  scope: account
+  endpoint: GetMicrovm
+  kind: burst
+- name: CreateMicrovmAuthToken
+  limit_text: CreateMicrovmAuthToken 50 50 Yes
+  limit: 50
+  window: second
+  scope: account
+  endpoint: CreateMicrovmAuthToken
+  kind: burst
+- name: CreateMicrovmShellAuthToken
+  limit_text: CreateMicrovmShellAuthToken 5 5 Yes
+  limit: 5
+  window: second
+  scope: account
+  endpoint: CreateMicrovmShellAuthToken
+  kind: burst
