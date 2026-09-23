@@ -1,14 +1,7 @@
 {
   "provider": "aws-lambda",
   "sources": [
-    "aws-lambda-aliases-api-openapi.yml",
-    "aws-lambda-concurrency-api-openapi.yml",
-    "aws-lambda-event-source-mappings-api-openapi.yml",
-    "aws-lambda-function-url-api-openapi.yml",
-    "aws-lambda-functions-api-openapi.yml",
-    "aws-lambda-layers-api-openapi.yml",
-    "aws-lambda-tags-api-openapi.yml",
-    "aws-lambda-versions-api-openapi.yml"
+    "_original/aws-lambda-api-openapi.yml"
   ],
   "outputs": [
     "aws-lambda-aliases-api-openapi.yml",
@@ -24,15 +17,22 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "aws-lambda-aliases-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "aws-lambda-concurrency-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "aws-lambda-event-source-mappings-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "aws-lambda-function-url-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "aws-lambda-functions-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "aws-lambda-layers-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "aws-lambda-tags-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "aws-lambda-versions-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "aws-lambda-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "aws-lambda-api-openapi.yml: tagged paths GET /2015-03-31/tags/{ARN} -> Tags",
+    "aws-lambda-api-openapi.yml: tagged paths POST /2015-03-31/tags/{ARN} -> Tags",
+    "aws-lambda-api-openapi.yml: tagged paths DELETE /2015-03-31/tags/{ARN} -> Tags",
+    "aws-lambda-api-openapi.yml: declared missing tag: Tags",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "aws-lambda-aliases-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aws-lambda-concurrency-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aws-lambda-event-source-mappings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aws-lambda-function-url-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aws-lambda-functions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aws-lambda-layers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aws-lambda-tags-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aws-lambda-versions-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

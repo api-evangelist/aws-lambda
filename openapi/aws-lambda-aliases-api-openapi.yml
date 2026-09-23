@@ -315,69 +315,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    maxItems:
-      name: MaxItems
-      in: query
-      description: Maximum number of items to return (1-10000)
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 10000
-    aliasName:
-      name: AliasName
-      in: path
-      required: true
-      description: The name of the alias
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 128
-    functionName:
-      name: FunctionName
-      in: path
-      required: true
-      description: The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 170
-    marker:
-      name: Marker
-      in: query
-      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
-      schema:
-        type: string
   schemas:
-    ErrorResponse:
-      type: object
-      description: Error response from the Lambda API
-      properties:
-        Type:
-          type: string
-          description: The error type
-          example: example_value
-        Message:
-          type: string
-          description: The error message
-          example: example_value
-        Code:
-          type: string
-          description: The error code
-          example: example_value
-    ListAliasesResponse:
-      type: object
-      description: Paginated list of aliases
-      properties:
-        NextMarker:
-          type: string
-          description: Pagination token for the next page
-          example: example_value
-        Aliases:
-          type: array
-          items:
-            $ref: '#/components/schemas/AliasConfiguration'
-          example: []
     AliasRoutingConfiguration:
       type: object
       description: The traffic-shifting configuration of a Lambda function alias. Used for weighted alias routing to enable canary deployments.
@@ -390,30 +328,6 @@ components:
             maximum: 1.0
           description: The secondary version weight. The key is the version number or alias name and the value is the percentage of traffic (0.0-1.0).
           example: example_value
-    CreateAliasRequest:
-      type: object
-      required:
-      - Name
-      - FunctionVersion
-      description: Request body for creating a function alias
-      properties:
-        Name:
-          type: string
-          description: The name of the alias
-          minLength: 1
-          maxLength: 128
-          example: Example Title
-        FunctionVersion:
-          type: string
-          description: The function version that the alias invokes
-          example: example_value
-        Description:
-          type: string
-          description: Description of the alias
-          maxLength: 256
-          example: A sample description.
-        RoutingConfig:
-          $ref: '#/components/schemas/AliasRoutingConfiguration'
     AliasConfiguration:
       type: object
       description: Configuration of a Lambda function alias
@@ -459,6 +373,92 @@ components:
           type: string
           description: Update only if the revision ID matches
           example: '500123'
+    ListAliasesResponse:
+      type: object
+      description: Paginated list of aliases
+      properties:
+        NextMarker:
+          type: string
+          description: Pagination token for the next page
+          example: example_value
+        Aliases:
+          type: array
+          items:
+            $ref: '#/components/schemas/AliasConfiguration'
+          example: []
+    ErrorResponse:
+      type: object
+      description: Error response from the Lambda API
+      properties:
+        Type:
+          type: string
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
+          example: example_value
+    CreateAliasRequest:
+      type: object
+      required:
+      - Name
+      - FunctionVersion
+      description: Request body for creating a function alias
+      properties:
+        Name:
+          type: string
+          description: The name of the alias
+          minLength: 1
+          maxLength: 128
+          example: Example Title
+        FunctionVersion:
+          type: string
+          description: The function version that the alias invokes
+          example: example_value
+        Description:
+          type: string
+          description: Description of the alias
+          maxLength: 256
+          example: A sample description.
+        RoutingConfig:
+          $ref: '#/components/schemas/AliasRoutingConfiguration'
+  parameters:
+    aliasName:
+      name: AliasName
+      in: path
+      required: true
+      description: The name of the alias
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 128
+    marker:
+      name: Marker
+      in: query
+      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
+      schema:
+        type: string
+    maxItems:
+      name: MaxItems
+      in: query
+      description: Maximum number of items to return (1-10000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+    functionName:
+      name: FunctionName
+      in: path
+      required: true
+      description: The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 170
   securitySchemes:
     sigv4:
       type: apiKey

@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: AWS Lambda Aliases Versions API
+  title: AWS Lambda Versions API
   description: The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.
   version: '2015-03-31'
   contact:
@@ -270,22 +270,6 @@ components:
           items:
             $ref: '#/components/schemas/FunctionConfiguration'
           example: []
-    ErrorResponse:
-      type: object
-      description: Error response from the Lambda API
-      properties:
-        Type:
-          type: string
-          description: The error type
-          example: example_value
-        Message:
-          type: string
-          description: The error message
-          example: example_value
-        Code:
-          type: string
-          description: The error code
-          example: example_value
     VpcConfigResponse:
       type: object
       description: VPC connectivity details returned by Lambda
@@ -304,6 +288,22 @@ components:
           type: string
           description: The VPC ID
           example: '500123'
+    ErrorResponse:
+      type: object
+      description: Error response from the Lambda API
+      properties:
+        Type:
+          type: string
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
+          example: example_value
     Layer:
       type: object
       description: An Lambda layer attached to a function
@@ -624,6 +624,12 @@ components:
               description: The name of the CloudWatch log group
           example: example_value
   parameters:
+    marker:
+      name: Marker
+      in: query
+      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
+      schema:
+        type: string
     maxItems:
       name: MaxItems
       in: query
@@ -632,12 +638,6 @@ components:
         type: integer
         minimum: 1
         maximum: 10000
-    marker:
-      name: Marker
-      in: query
-      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
-      schema:
-        type: string
     functionName:
       name: FunctionName
       in: path

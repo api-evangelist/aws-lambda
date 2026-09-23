@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: AWS Lambda Aliases Tags API
+  title: AWS Lambda Tags API
   description: The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.
   version: '2015-03-31'
   contact:

@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: AWS Lambda Aliases Concurrency API
+  title: AWS Lambda Concurrency API
   description: The AWS Lambda API enables you to create, configure, and manage Lambda functions, layers, event source mappings, aliases, versions, and function URLs programmatically. Lambda runs your code on high-availability compute infrastructure without provisioning or managing servers, performing all administration of compute resources including capacity provisioning, automatic scaling, and logging. The API version used is 2015-03-31.
   version: '2015-03-31'
   contact:
@@ -339,22 +339,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      description: Error response from the Lambda API
-      properties:
-        Type:
-          type: string
-          description: The error type
-          example: example_value
-        Message:
-          type: string
-          description: The error message
-          example: example_value
-        Code:
-          type: string
-          description: The error code
-          example: example_value
     ProvisionedConcurrencyConfig:
       type: object
       description: Provisioned concurrency configuration for a function
@@ -386,6 +370,22 @@ components:
         LastModified:
           type: string
           description: The date and time the configuration was last modified
+          example: example_value
+    ErrorResponse:
+      type: object
+      description: Error response from the Lambda API
+      properties:
+        Type:
+          type: string
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
           example: example_value
   parameters:
     functionName:
