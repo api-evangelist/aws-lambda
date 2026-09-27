@@ -1,7 +1,8 @@
 {
   "provider": "aws-lambda",
   "sources": [
-    "_original/aws-lambda-api-openapi.yml"
+    "_original/aws-lambda-api-openapi.yml",
+    "amazon-lambda-functions-api-openapi.yml"
   ],
   "outputs": [
     "aws-lambda-aliases-api-openapi.yml",
@@ -13,7 +14,9 @@
     "aws-lambda-tags-api-openapi.yml",
     "aws-lambda-versions-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "archived openapi/amazon-lambda-functions-api-openapi.yml"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -23,7 +26,8 @@
     "aws-lambda-api-openapi.yml: tagged paths POST /2015-03-31/tags/{ARN} -> Tags",
     "aws-lambda-api-openapi.yml: tagged paths DELETE /2015-03-31/tags/{ARN} -> Tags",
     "aws-lambda-api-openapi.yml: declared missing tag: Tags",
-    "apis.yml register: already-registered"
+    "tag 'Functions' spans 2 source specs (aws-lambda-api-openapi.yml, amazon-lambda-functions-api-openapi.yml): per-path servers applied",
+    "apis.yml register: written (+0 apis, 12 total)"
   ],
   "skipped": [
     "aws-lambda-aliases-api-openapi.yml: previously refined output, superseded by openapi/_original/",

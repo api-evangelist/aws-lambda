@@ -316,18 +316,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    AliasRoutingConfiguration:
-      type: object
-      description: The traffic-shifting configuration of a Lambda function alias. Used for weighted alias routing to enable canary deployments.
-      properties:
-        AdditionalVersionWeights:
-          type: object
-          additionalProperties:
-            type: number
-            minimum: 0.0
-            maximum: 1.0
-          description: The secondary version weight. The key is the version number or alias name and the value is the percentage of traffic (0.0-1.0).
-          example: example_value
     AliasConfiguration:
       type: object
       description: Configuration of a Lambda function alias
@@ -354,6 +342,18 @@ components:
           type: string
           description: A unique identifier that changes when you update the alias
           example: '500123'
+    AliasRoutingConfiguration:
+      type: object
+      description: The traffic-shifting configuration of a Lambda function alias. Used for weighted alias routing to enable canary deployments.
+      properties:
+        AdditionalVersionWeights:
+          type: object
+          additionalProperties:
+            type: number
+            minimum: 0.0
+            maximum: 1.0
+          description: The secondary version weight. The key is the version number or alias name and the value is the percentage of traffic (0.0-1.0).
+          example: example_value
     UpdateAliasRequest:
       type: object
       description: Request body for updating a function alias
@@ -373,6 +373,30 @@ components:
           type: string
           description: Update only if the revision ID matches
           example: '500123'
+    CreateAliasRequest:
+      type: object
+      required:
+      - Name
+      - FunctionVersion
+      description: Request body for creating a function alias
+      properties:
+        Name:
+          type: string
+          description: The name of the alias
+          minLength: 1
+          maxLength: 128
+          example: Example Title
+        FunctionVersion:
+          type: string
+          description: The function version that the alias invokes
+          example: example_value
+        Description:
+          type: string
+          description: Description of the alias
+          maxLength: 256
+          example: A sample description.
+        RoutingConfig:
+          $ref: '#/components/schemas/AliasRoutingConfiguration'
     ListAliasesResponse:
       type: object
       description: Paginated list of aliases
@@ -402,46 +426,7 @@ components:
           type: string
           description: The error code
           example: example_value
-    CreateAliasRequest:
-      type: object
-      required:
-      - Name
-      - FunctionVersion
-      description: Request body for creating a function alias
-      properties:
-        Name:
-          type: string
-          description: The name of the alias
-          minLength: 1
-          maxLength: 128
-          example: Example Title
-        FunctionVersion:
-          type: string
-          description: The function version that the alias invokes
-          example: example_value
-        Description:
-          type: string
-          description: Description of the alias
-          maxLength: 256
-          example: A sample description.
-        RoutingConfig:
-          $ref: '#/components/schemas/AliasRoutingConfiguration'
   parameters:
-    aliasName:
-      name: AliasName
-      in: path
-      required: true
-      description: The name of the alias
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 128
-    marker:
-      name: Marker
-      in: query
-      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
-      schema:
-        type: string
     maxItems:
       name: MaxItems
       in: query
@@ -459,6 +444,21 @@ components:
         type: string
         minLength: 1
         maxLength: 170
+    aliasName:
+      name: AliasName
+      in: path
+      required: true
+      description: The name of the alias
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 128
+    marker:
+      name: Marker
+      in: query
+      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
+      schema:
+        type: string
   securitySchemes:
     sigv4:
       type: apiKey

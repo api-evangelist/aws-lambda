@@ -1,0 +1,197 @@
+# x-archived-from: amazon-lambda-functions-api-openapi.yml
+# x-archived-on: 2026-09-26
+openapi: 3.2.0
+info:
+  title: Amazon Lambda Functions API
+  description: The Amazon Lambda API provides programmatic access to manage Lambda resources.
+  version: '2024-01-01'
+  contact:
+    name: AWS Support
+    url: https://aws.amazon.com/premiumsupport/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  x-logo:
+    url: https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png
+servers:
+- url: https://lambda.us-east-1.amazonaws.com
+  description: Amazon Lambda endpoint
+security:
+- sigv4: []
+tags:
+- name: Functions
+  description: Lambda function management
+paths:
+  /functions:
+    post:
+      operationId: CreateFunction
+      summary: Amazon Lambda Create Function
+      description: Creates a Lambda function.
+      tags:
+      - Functions
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    get:
+      operationId: ListFunctions
+      summary: Amazon Lambda List Functions
+      description: Returns a list of Lambda functions, with the version-specific configuration of each.
+      tags:
+      - Functions
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /functions/{FunctionName}:
+    get:
+      operationId: GetFunction
+      summary: Amazon Lambda Get Function
+      description: Returns information about the function or function version.
+      tags:
+      - Functions
+      parameters:
+      - name: FunctionName
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Lambda function.
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: DeleteFunction
+      summary: Amazon Lambda Delete Function
+      description: Deletes a Lambda function.
+      tags:
+      - Functions
+      parameters:
+      - name: FunctionName
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Lambda function.
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /functions/{FunctionName}/code:
+    put:
+      operationId: UpdateFunctionCode
+      summary: Amazon Lambda Update Function Code
+      description: Updates a Lambda function's code.
+      tags:
+      - Functions
+      parameters:
+      - name: FunctionName
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Lambda function.
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /functions/{FunctionName}/configuration:
+    put:
+      operationId: UpdateFunctionConfiguration
+      summary: Amazon Lambda Update Function Configuration
+      description: Modify the version-specific settings of a Lambda function.
+      tags:
+      - Functions
+      parameters:
+      - name: FunctionName
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Lambda function.
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /functions/{FunctionName}/invocations:
+    post:
+      operationId: InvokeFunction
+      summary: Amazon Lambda Invoke Function
+      description: Invokes a Lambda function.
+      tags:
+      - Functions
+      parameters:
+      - name: FunctionName
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The name of the Lambda function.
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad request
+        '403':
+          description: Access denied
+        '500':
+          description: Internal server error
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    sigv4:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: AWS Signature Version 4 authentication
