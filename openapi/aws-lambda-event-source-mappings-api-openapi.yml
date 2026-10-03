@@ -437,6 +437,76 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    FilterCriteria:
+      type: object
+      description: An object that contains the filters for an event source. Event filtering enables you to control which records from an event source Lambda sends to your function.
+      properties:
+        Filters:
+          type: array
+          description: A list of filters
+          items:
+            type: object
+            properties:
+              Pattern:
+                type: string
+                description: A filter pattern as a JSON string. Filter patterns support value matching with equals, prefix, and numeric comparisons.
+          example: []
+    UpdateEventSourceMappingRequest:
+      type: object
+      description: Request body for updating an event source mapping
+      properties:
+        FunctionName:
+          type: string
+          description: The name or ARN of the Lambda function
+          example: example_value
+        Enabled:
+          type: boolean
+          description: If true, the event source mapping is active
+          example: true
+        BatchSize:
+          type: integer
+          minimum: 1
+          maximum: 10000
+          example: 10
+        FilterCriteria:
+          $ref: '#/components/schemas/FilterCriteria'
+        MaximumBatchingWindowInSeconds:
+          type: integer
+          minimum: 0
+          maximum: 300
+          example: 10
+        DestinationConfig:
+          $ref: '#/components/schemas/DestinationConfig'
+        MaximumRecordAgeInSeconds:
+          type: integer
+          minimum: -1
+          maximum: 604800
+          example: 10
+        BisectBatchOnFunctionError:
+          type: boolean
+          example: true
+        MaximumRetryAttempts:
+          type: integer
+          minimum: -1
+          maximum: 10000
+          example: 10
+        ParallelizationFactor:
+          type: integer
+          minimum: 1
+          maximum: 10
+          example: 10
+        TumblingWindowInSeconds:
+          type: integer
+          minimum: 0
+          maximum: 900
+          example: 10
+        FunctionResponseTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - ReportBatchItemFailures
+          example: []
     ListEventSourceMappingsResponse:
       type: object
       description: Paginated list of event source mappings
@@ -450,6 +520,118 @@ components:
           items:
             $ref: '#/components/schemas/EventSourceMappingConfiguration'
           example: []
+    CreateEventSourceMappingRequest:
+      type: object
+      required:
+      - FunctionName
+      description: Request body for creating an event source mapping
+      properties:
+        EventSourceArn:
+          type: string
+          description: The ARN of the event source. Required for Kinesis, DynamoDB Streams, SQS, MQ, MSK, and DocumentDB.
+          example: example_value
+        FunctionName:
+          type: string
+          description: The name or ARN of the Lambda function
+          example: example_value
+        Enabled:
+          type: boolean
+          description: If true, the event source mapping is active
+          default: true
+          example: true
+        BatchSize:
+          type: integer
+          description: Maximum number of records in each batch
+          minimum: 1
+          maximum: 10000
+          example: 10
+        FilterCriteria:
+          $ref: '#/components/schemas/FilterCriteria'
+        MaximumBatchingWindowInSeconds:
+          type: integer
+          description: Maximum time to gather records before invoking
+          minimum: 0
+          maximum: 300
+          example: 10
+        ParallelizationFactor:
+          type: integer
+          description: Number of batches to process concurrently per shard
+          minimum: 1
+          maximum: 10
+          example: 10
+        StartingPosition:
+          type: string
+          description: Starting position in the stream
+          enum:
+          - TRIM_HORIZON
+          - LATEST
+          - AT_TIMESTAMP
+          example: TRIM_HORIZON
+        StartingPositionTimestamp:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        DestinationConfig:
+          $ref: '#/components/schemas/DestinationConfig'
+        MaximumRecordAgeInSeconds:
+          type: integer
+          minimum: -1
+          maximum: 604800
+          example: 10
+        BisectBatchOnFunctionError:
+          type: boolean
+          example: true
+        MaximumRetryAttempts:
+          type: integer
+          minimum: -1
+          maximum: 10000
+          example: 10
+        TumblingWindowInSeconds:
+          type: integer
+          minimum: 0
+          maximum: 900
+          example: 10
+        FunctionResponseTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - ReportBatchItemFailures
+          example: []
+    ErrorResponse:
+      type: object
+      description: Error response from the Lambda API
+      properties:
+        Type:
+          type: string
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
+          example: example_value
+    DestinationConfig:
+      type: object
+      description: Configuration for failed invocation destinations. Specify an SQS queue or SNS topic to receive records of failed asynchronous invocations or event source mapping batches.
+      properties:
+        OnSuccess:
+          type: object
+          properties:
+            Destination:
+              type: string
+              description: The ARN of the destination resource
+          example: example_value
+        OnFailure:
+          type: object
+          properties:
+            Destination:
+              type: string
+              description: The ARN of the destination resource
+          example: example_value
     EventSourceMappingConfiguration:
       type: object
       description: A mapping between an AWS resource and a Lambda function. Lambda reads items from the event source and invokes the function.
@@ -556,189 +738,13 @@ components:
           example: []
         FilterCriteria:
           $ref: '#/components/schemas/FilterCriteria'
-    FilterCriteria:
-      type: object
-      description: An object that contains the filters for an event source. Event filtering enables you to control which records from an event source Lambda sends to your function.
-      properties:
-        Filters:
-          type: array
-          description: A list of filters
-          items:
-            type: object
-            properties:
-              Pattern:
-                type: string
-                description: A filter pattern as a JSON string. Filter patterns support value matching with equals, prefix, and numeric comparisons.
-          example: []
-    CreateEventSourceMappingRequest:
-      type: object
-      required:
-      - FunctionName
-      description: Request body for creating an event source mapping
-      properties:
-        EventSourceArn:
-          type: string
-          description: The ARN of the event source. Required for Kinesis, DynamoDB Streams, SQS, MQ, MSK, and DocumentDB.
-          example: example_value
-        FunctionName:
-          type: string
-          description: The name or ARN of the Lambda function
-          example: example_value
-        Enabled:
-          type: boolean
-          description: If true, the event source mapping is active
-          default: true
-          example: true
-        BatchSize:
-          type: integer
-          description: Maximum number of records in each batch
-          minimum: 1
-          maximum: 10000
-          example: 10
-        FilterCriteria:
-          $ref: '#/components/schemas/FilterCriteria'
-        MaximumBatchingWindowInSeconds:
-          type: integer
-          description: Maximum time to gather records before invoking
-          minimum: 0
-          maximum: 300
-          example: 10
-        ParallelizationFactor:
-          type: integer
-          description: Number of batches to process concurrently per shard
-          minimum: 1
-          maximum: 10
-          example: 10
-        StartingPosition:
-          type: string
-          description: Starting position in the stream
-          enum:
-          - TRIM_HORIZON
-          - LATEST
-          - AT_TIMESTAMP
-          example: TRIM_HORIZON
-        StartingPositionTimestamp:
-          type: string
-          format: date-time
-          example: '2026-01-15T10:30:00Z'
-        DestinationConfig:
-          $ref: '#/components/schemas/DestinationConfig'
-        MaximumRecordAgeInSeconds:
-          type: integer
-          minimum: -1
-          maximum: 604800
-          example: 10
-        BisectBatchOnFunctionError:
-          type: boolean
-          example: true
-        MaximumRetryAttempts:
-          type: integer
-          minimum: -1
-          maximum: 10000
-          example: 10
-        TumblingWindowInSeconds:
-          type: integer
-          minimum: 0
-          maximum: 900
-          example: 10
-        FunctionResponseTypes:
-          type: array
-          items:
-            type: string
-            enum:
-            - ReportBatchItemFailures
-          example: []
-    DestinationConfig:
-      type: object
-      description: Configuration for failed invocation destinations. Specify an SQS queue or SNS topic to receive records of failed asynchronous invocations or event source mapping batches.
-      properties:
-        OnSuccess:
-          type: object
-          properties:
-            Destination:
-              type: string
-              description: The ARN of the destination resource
-          example: example_value
-        OnFailure:
-          type: object
-          properties:
-            Destination:
-              type: string
-              description: The ARN of the destination resource
-          example: example_value
-    ErrorResponse:
-      type: object
-      description: Error response from the Lambda API
-      properties:
-        Type:
-          type: string
-          description: The error type
-          example: example_value
-        Message:
-          type: string
-          description: The error message
-          example: example_value
-        Code:
-          type: string
-          description: The error code
-          example: example_value
-    UpdateEventSourceMappingRequest:
-      type: object
-      description: Request body for updating an event source mapping
-      properties:
-        FunctionName:
-          type: string
-          description: The name or ARN of the Lambda function
-          example: example_value
-        Enabled:
-          type: boolean
-          description: If true, the event source mapping is active
-          example: true
-        BatchSize:
-          type: integer
-          minimum: 1
-          maximum: 10000
-          example: 10
-        FilterCriteria:
-          $ref: '#/components/schemas/FilterCriteria'
-        MaximumBatchingWindowInSeconds:
-          type: integer
-          minimum: 0
-          maximum: 300
-          example: 10
-        DestinationConfig:
-          $ref: '#/components/schemas/DestinationConfig'
-        MaximumRecordAgeInSeconds:
-          type: integer
-          minimum: -1
-          maximum: 604800
-          example: 10
-        BisectBatchOnFunctionError:
-          type: boolean
-          example: true
-        MaximumRetryAttempts:
-          type: integer
-          minimum: -1
-          maximum: 10000
-          example: 10
-        ParallelizationFactor:
-          type: integer
-          minimum: 1
-          maximum: 10
-          example: 10
-        TumblingWindowInSeconds:
-          type: integer
-          minimum: 0
-          maximum: 900
-          example: 10
-        FunctionResponseTypes:
-          type: array
-          items:
-            type: string
-            enum:
-            - ReportBatchItemFailures
-          example: []
   parameters:
+    marker:
+      name: Marker
+      in: query
+      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
+      schema:
+        type: string
     maxItems:
       name: MaxItems
       in: query
@@ -747,12 +753,6 @@ components:
         type: integer
         minimum: 1
         maximum: 10000
-    marker:
-      name: Marker
-      in: query
-      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
-      schema:
-        type: string
     eventSourceMappingUUID:
       name: UUID
       in: path

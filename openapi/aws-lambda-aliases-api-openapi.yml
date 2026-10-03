@@ -316,6 +316,59 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ListAliasesResponse:
+      type: object
+      description: Paginated list of aliases
+      properties:
+        NextMarker:
+          type: string
+          description: Pagination token for the next page
+          example: example_value
+        Aliases:
+          type: array
+          items:
+            $ref: '#/components/schemas/AliasConfiguration'
+          example: []
+    ErrorResponse:
+      type: object
+      description: Error response from the Lambda API
+      properties:
+        Type:
+          type: string
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
+          example: example_value
+    CreateAliasRequest:
+      type: object
+      required:
+      - Name
+      - FunctionVersion
+      description: Request body for creating a function alias
+      properties:
+        Name:
+          type: string
+          description: The name of the alias
+          minLength: 1
+          maxLength: 128
+          example: Example Title
+        FunctionVersion:
+          type: string
+          description: The function version that the alias invokes
+          example: example_value
+        Description:
+          type: string
+          description: Description of the alias
+          maxLength: 256
+          example: A sample description.
+        RoutingConfig:
+          $ref: '#/components/schemas/AliasRoutingConfiguration'
     AliasConfiguration:
       type: object
       description: Configuration of a Lambda function alias
@@ -373,68 +426,7 @@ components:
           type: string
           description: Update only if the revision ID matches
           example: '500123'
-    CreateAliasRequest:
-      type: object
-      required:
-      - Name
-      - FunctionVersion
-      description: Request body for creating a function alias
-      properties:
-        Name:
-          type: string
-          description: The name of the alias
-          minLength: 1
-          maxLength: 128
-          example: Example Title
-        FunctionVersion:
-          type: string
-          description: The function version that the alias invokes
-          example: example_value
-        Description:
-          type: string
-          description: Description of the alias
-          maxLength: 256
-          example: A sample description.
-        RoutingConfig:
-          $ref: '#/components/schemas/AliasRoutingConfiguration'
-    ListAliasesResponse:
-      type: object
-      description: Paginated list of aliases
-      properties:
-        NextMarker:
-          type: string
-          description: Pagination token for the next page
-          example: example_value
-        Aliases:
-          type: array
-          items:
-            $ref: '#/components/schemas/AliasConfiguration'
-          example: []
-    ErrorResponse:
-      type: object
-      description: Error response from the Lambda API
-      properties:
-        Type:
-          type: string
-          description: The error type
-          example: example_value
-        Message:
-          type: string
-          description: The error message
-          example: example_value
-        Code:
-          type: string
-          description: The error code
-          example: example_value
   parameters:
-    maxItems:
-      name: MaxItems
-      in: query
-      description: Maximum number of items to return (1-10000)
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 10000
     functionName:
       name: FunctionName
       in: path
@@ -444,6 +436,12 @@ components:
         type: string
         minLength: 1
         maxLength: 170
+    marker:
+      name: Marker
+      in: query
+      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
+      schema:
+        type: string
     aliasName:
       name: AliasName
       in: path
@@ -453,12 +451,14 @@ components:
         type: string
         minLength: 1
         maxLength: 128
-    marker:
-      name: Marker
+    maxItems:
+      name: MaxItems
       in: query
-      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
+      description: Maximum number of items to return (1-10000)
       schema:
-        type: string
+        type: integer
+        minimum: 1
+        maximum: 10000
   securitySchemes:
     sigv4:
       type: apiKey

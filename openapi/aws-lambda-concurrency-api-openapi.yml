@@ -339,6 +339,22 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      description: Error response from the Lambda API
+      properties:
+        Type:
+          type: string
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
+          example: example_value
     ProvisionedConcurrencyConfig:
       type: object
       description: Provisioned concurrency configuration for a function
@@ -370,22 +386,6 @@ components:
         LastModified:
           type: string
           description: The date and time the configuration was last modified
-          example: example_value
-    ErrorResponse:
-      type: object
-      description: Error response from the Lambda API
-      properties:
-        Type:
-          type: string
-          description: The error type
-          example: example_value
-        Message:
-          type: string
-          description: The error message
-          example: example_value
-        Code:
-          type: string
-          description: The error code
           example: example_value
   parameters:
     functionName:

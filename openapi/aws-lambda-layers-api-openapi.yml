@@ -395,39 +395,6 @@ components:
           items:
             type: string
           example: []
-    LayerVersionSummary:
-      type: object
-      description: Summary information about a layer version
-      properties:
-        LayerVersionArn:
-          type: string
-          description: The ARN of the layer version
-          example: example_value
-        Version:
-          type: integer
-          description: The version number
-          example: 10
-        Description:
-          type: string
-          description: Description of the version
-          example: A sample description.
-        CreatedDate:
-          type: string
-          description: The date the version was created
-          example: example_value
-        CompatibleRuntimes:
-          type: array
-          items:
-            type: string
-          example: []
-        LicenseInfo:
-          type: string
-          example: example_value
-        CompatibleArchitectures:
-          type: array
-          items:
-            type: string
-          example: []
     ListLayerVersionsResponse:
       type: object
       description: Paginated list of layer versions
@@ -482,6 +449,39 @@ components:
           type: integer
           description: The version number
           example: 10
+        CompatibleRuntimes:
+          type: array
+          items:
+            type: string
+          example: []
+        LicenseInfo:
+          type: string
+          example: example_value
+        CompatibleArchitectures:
+          type: array
+          items:
+            type: string
+          example: []
+    LayerVersionSummary:
+      type: object
+      description: Summary information about a layer version
+      properties:
+        LayerVersionArn:
+          type: string
+          description: The ARN of the layer version
+          example: example_value
+        Version:
+          type: integer
+          description: The version number
+          example: 10
+        Description:
+          type: string
+          description: Description of the version
+          example: A sample description.
+        CreatedDate:
+          type: string
+          description: The date the version was created
+          example: example_value
         CompatibleRuntimes:
           type: array
           items:
@@ -585,20 +585,6 @@ components:
                 $ref: '#/components/schemas/LayerVersionSummary'
           example: []
   parameters:
-    maxItems:
-      name: MaxItems
-      in: query
-      description: Maximum number of items to return (1-10000)
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 10000
-    marker:
-      name: Marker
-      in: query
-      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
-      schema:
-        type: string
     layerName:
       name: LayerName
       in: path
@@ -608,6 +594,20 @@ components:
         type: string
         minLength: 1
         maxLength: 140
+    marker:
+      name: Marker
+      in: query
+      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
+      schema:
+        type: string
+    maxItems:
+      name: MaxItems
+      in: query
+      description: Maximum number of items to return (1-10000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
     versionNumber:
       name: VersionNumber
       in: path

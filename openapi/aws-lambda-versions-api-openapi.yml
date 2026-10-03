@@ -140,7 +140,7 @@ paths:
                       Size: 10
                     SnapStart:
                       ApplyOn: PublishedVersions
-                      OptimizationStatus: true
+                      OptimizationStatus: 'On'
                     RuntimeVersionConfig:
                       RuntimeVersionArn: example_value
                       Error:
@@ -256,31 +256,25 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    maxItems:
-      name: MaxItems
-      in: query
-      description: Maximum number of items to return (1-10000)
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 10000
-    functionName:
-      name: FunctionName
-      in: path
-      required: true
-      description: The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 170
-    marker:
-      name: Marker
-      in: query
-      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
-      schema:
-        type: string
   schemas:
+    VpcConfigResponse:
+      type: object
+      description: VPC connectivity details returned by Lambda
+      properties:
+        SubnetIds:
+          type: array
+          items:
+            type: string
+          example: []
+        SecurityGroupIds:
+          type: array
+          items:
+            type: string
+          example: []
+        VpcId:
+          type: string
+          description: The VPC ID
+          example: '500123'
     FunctionConfiguration:
       type: object
       description: A Lambda function's configuration and metadata
@@ -534,8 +528,8 @@ components:
             OptimizationStatus:
               type: string
               enum:
-              - true
-              - false
+              - 'On'
+              - 'Off'
           example: example_value
         RuntimeVersionConfig:
           type: object
@@ -579,37 +573,6 @@ components:
               type: string
               description: The name of the CloudWatch log group
           example: example_value
-    VpcConfigResponse:
-      type: object
-      description: VPC connectivity details returned by Lambda
-      properties:
-        SubnetIds:
-          type: array
-          items:
-            type: string
-          example: []
-        SecurityGroupIds:
-          type: array
-          items:
-            type: string
-          example: []
-        VpcId:
-          type: string
-          description: The VPC ID
-          example: '500123'
-    ListVersionsResponse:
-      type: object
-      description: Paginated list of function versions
-      properties:
-        NextMarker:
-          type: string
-          description: Pagination token for the next page
-          example: example_value
-        Versions:
-          type: array
-          items:
-            $ref: '#/components/schemas/FunctionConfiguration'
-          example: []
     Layer:
       type: object
       description: An Lambda layer attached to a function
@@ -647,6 +610,43 @@ components:
           type: string
           description: The error code
           example: example_value
+    ListVersionsResponse:
+      type: object
+      description: Paginated list of function versions
+      properties:
+        NextMarker:
+          type: string
+          description: Pagination token for the next page
+          example: example_value
+        Versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/FunctionConfiguration'
+          example: []
+  parameters:
+    functionName:
+      name: FunctionName
+      in: path
+      required: true
+      description: The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 170
+    marker:
+      name: Marker
+      in: query
+      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
+      schema:
+        type: string
+    maxItems:
+      name: MaxItems
+      in: query
+      description: Maximum number of items to return (1-10000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
   securitySchemes:
     sigv4:
       type: apiKey
