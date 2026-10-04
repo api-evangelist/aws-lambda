@@ -1326,30 +1326,167 @@ paths:
           - ca-central-1
 components:
   schemas:
-    FunctionCode:
+    CreateFunctionRequest:
       type: object
-      description: The code for the Lambda function. You can provide your deployment package as a .zip file archive uploaded directly, from S3, or as a container image from Amazon ECR.
+      required:
+      - FunctionName
+      - Role
+      - Code
+      description: Request body for creating a Lambda function
       properties:
-        ZipFile:
+        FunctionName:
           type: string
-          format: byte
-          description: Base64-encoded contents of the deployment package .zip file
+          description: The name of the Lambda function (1-64 characters). Can also specify an ARN.
+          minLength: 1
+          maxLength: 64
           example: example_value
-        S3Bucket:
+        Runtime:
           type: string
-          description: An S3 bucket in the same AWS Region as your function
+          description: The identifier of the function's runtime. Required for .zip file deployment packages.
           example: example_value
-        S3Key:
+        Role:
           type: string
-          description: The S3 key of the deployment package
+          description: The ARN of the function's execution role
           example: example_value
-        S3ObjectVersion:
+        Handler:
           type: string
-          description: The version of the S3 object for versioned buckets
+          description: The name of the function handler (e.g. index.handler)
+          maxLength: 128
           example: example_value
-        ImageUri:
+        Code:
+          $ref: '#/components/schemas/FunctionCode'
+        Description:
           type: string
-          description: URI of a container image in the Amazon ECR registry
+          description: Description of the function
+          maxLength: 256
+          example: A sample description.
+        Timeout:
+          type: integer
+          description: Execution timeout in seconds
+          default: 3
+          minimum: 1
+          maximum: 900
+          example: 10
+        MemorySize:
+          type: integer
+          description: Memory allocated in MB
+          default: 128
+          minimum: 128
+          maximum: 10240
+          example: 10
+        Publish:
+          type: boolean
+          description: Set to true to publish the first version of the function
+          default: false
+          example: true
+        VpcConfig:
+          $ref: '#/components/schemas/VpcConfig'
+        PackageType:
+          type: string
+          description: The type of deployment package
+          enum:
+          - Zip
+          - Image
+          default: Zip
+          example: Zip
+        DeadLetterConfig:
+          type: object
+          properties:
+            TargetArn:
+              type: string
+              description: ARN of an SQS queue or SNS topic
+          example: example_value
+        Environment:
+          type: object
+          properties:
+            Variables:
+              type: object
+              additionalProperties:
+                type: string
+          example: example_value
+        KMSKeyArn:
+          type: string
+          description: ARN of the KMS key to encrypt environment variables
+          example: example_value
+        TracingConfig:
+          type: object
+          properties:
+            Mode:
+              type: string
+              enum:
+              - Active
+              - PassThrough
+          example: example_value
+        Tags:
+          type: object
+          additionalProperties:
+            type: string
+          description: Key-value pairs for tagging the function
+          example: example_value
+        Layers:
+          type: array
+          description: A list of function layer ARNs (with version) to add to the function's execution environment. Up to five layers.
+          items:
+            type: string
+          maxItems: 5
+          example: []
+        Architectures:
+          type: array
+          description: The instruction set architecture
+          items:
+            type: string
+            enum:
+            - x86_64
+            - arm64
+          maxItems: 1
+          example: []
+        EphemeralStorage:
+          type: object
+          properties:
+            Size:
+              type: integer
+              minimum: 512
+              maximum: 10240
+          example: example_value
+        SnapStart:
+          type: object
+          properties:
+            ApplyOn:
+              type: string
+              enum:
+              - PublishedVersions
+              - None
+          example: example_value
+        LoggingConfig:
+          type: object
+          properties:
+            LogFormat:
+              type: string
+              enum:
+              - JSON
+              - Text
+            ApplicationLogLevel:
+              type: string
+            SystemLogLevel:
+              type: string
+            LogGroup:
+              type: string
+          example: example_value
+    ErrorResponse:
+      type: object
+      description: Error response from the Lambda API
+      properties:
+        Type:
+          type: string
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
           example: example_value
     UpdateFunctionConfigurationRequest:
       type: object
@@ -1454,24 +1591,6 @@ components:
             LogGroup:
               type: string
           example: example_value
-    VpcConfigResponse:
-      type: object
-      description: VPC connectivity details returned by Lambda
-      properties:
-        SubnetIds:
-          type: array
-          items:
-            type: string
-          example: []
-        SecurityGroupIds:
-          type: array
-          items:
-            type: string
-          example: []
-        VpcId:
-          type: string
-          description: The VPC ID
-          example: '500123'
     FunctionConfiguration:
       type: object
       description: A Lambda function's configuration and metadata
@@ -1791,6 +1910,67 @@ components:
           type: string
           description: The ARN of a signing job
           example: example_value
+    VpcConfigResponse:
+      type: object
+      description: VPC connectivity details returned by Lambda
+      properties:
+        SubnetIds:
+          type: array
+          items:
+            type: string
+          example: []
+        SecurityGroupIds:
+          type: array
+          items:
+            type: string
+          example: []
+        VpcId:
+          type: string
+          description: The VPC ID
+          example: '500123'
+    VpcConfig:
+      type: object
+      description: VPC connectivity settings for a Lambda function
+      properties:
+        SubnetIds:
+          type: array
+          description: A list of VPC subnet IDs
+          items:
+            type: string
+          maxItems: 16
+          example: []
+        SecurityGroupIds:
+          type: array
+          description: A list of VPC security group IDs
+          items:
+            type: string
+          maxItems: 5
+          example: []
+    FunctionCode:
+      type: object
+      description: The code for the Lambda function. You can provide your deployment package as a .zip file archive uploaded directly, from S3, or as a container image from Amazon ECR.
+      properties:
+        ZipFile:
+          type: string
+          format: byte
+          description: Base64-encoded contents of the deployment package .zip file
+          example: example_value
+        S3Bucket:
+          type: string
+          description: An S3 bucket in the same AWS Region as your function
+          example: example_value
+        S3Key:
+          type: string
+          description: The S3 key of the deployment package
+          example: example_value
+        S3ObjectVersion:
+          type: string
+          description: The version of the S3 object for versioned buckets
+          example: example_value
+        ImageUri:
+          type: string
+          description: URI of a container image in the Amazon ECR registry
+          example: example_value
     UpdateFunctionCodeRequest:
       type: object
       description: Request body for updating a function's code
@@ -1839,199 +2019,6 @@ components:
             - arm64
           maxItems: 1
           example: []
-    ErrorResponse:
-      type: object
-      description: Error response from the Lambda API
-      properties:
-        Type:
-          type: string
-          description: The error type
-          example: example_value
-        Message:
-          type: string
-          description: The error message
-          example: example_value
-        Code:
-          type: string
-          description: The error code
-          example: example_value
-    ListFunctionsResponse:
-      type: object
-      description: Paginated list of Lambda functions
-      properties:
-        NextMarker:
-          type: string
-          description: Pagination token for the next page of results
-          example: example_value
-        Functions:
-          type: array
-          items:
-            $ref: '#/components/schemas/FunctionConfiguration'
-          example: []
-    CreateFunctionRequest:
-      type: object
-      required:
-      - FunctionName
-      - Role
-      - Code
-      description: Request body for creating a Lambda function
-      properties:
-        FunctionName:
-          type: string
-          description: The name of the Lambda function (1-64 characters). Can also specify an ARN.
-          minLength: 1
-          maxLength: 64
-          example: example_value
-        Runtime:
-          type: string
-          description: The identifier of the function's runtime. Required for .zip file deployment packages.
-          example: example_value
-        Role:
-          type: string
-          description: The ARN of the function's execution role
-          example: example_value
-        Handler:
-          type: string
-          description: The name of the function handler (e.g. index.handler)
-          maxLength: 128
-          example: example_value
-        Code:
-          $ref: '#/components/schemas/FunctionCode'
-        Description:
-          type: string
-          description: Description of the function
-          maxLength: 256
-          example: A sample description.
-        Timeout:
-          type: integer
-          description: Execution timeout in seconds
-          default: 3
-          minimum: 1
-          maximum: 900
-          example: 10
-        MemorySize:
-          type: integer
-          description: Memory allocated in MB
-          default: 128
-          minimum: 128
-          maximum: 10240
-          example: 10
-        Publish:
-          type: boolean
-          description: Set to true to publish the first version of the function
-          default: false
-          example: true
-        VpcConfig:
-          $ref: '#/components/schemas/VpcConfig'
-        PackageType:
-          type: string
-          description: The type of deployment package
-          enum:
-          - Zip
-          - Image
-          default: Zip
-          example: Zip
-        DeadLetterConfig:
-          type: object
-          properties:
-            TargetArn:
-              type: string
-              description: ARN of an SQS queue or SNS topic
-          example: example_value
-        Environment:
-          type: object
-          properties:
-            Variables:
-              type: object
-              additionalProperties:
-                type: string
-          example: example_value
-        KMSKeyArn:
-          type: string
-          description: ARN of the KMS key to encrypt environment variables
-          example: example_value
-        TracingConfig:
-          type: object
-          properties:
-            Mode:
-              type: string
-              enum:
-              - Active
-              - PassThrough
-          example: example_value
-        Tags:
-          type: object
-          additionalProperties:
-            type: string
-          description: Key-value pairs for tagging the function
-          example: example_value
-        Layers:
-          type: array
-          description: A list of function layer ARNs (with version) to add to the function's execution environment. Up to five layers.
-          items:
-            type: string
-          maxItems: 5
-          example: []
-        Architectures:
-          type: array
-          description: The instruction set architecture
-          items:
-            type: string
-            enum:
-            - x86_64
-            - arm64
-          maxItems: 1
-          example: []
-        EphemeralStorage:
-          type: object
-          properties:
-            Size:
-              type: integer
-              minimum: 512
-              maximum: 10240
-          example: example_value
-        SnapStart:
-          type: object
-          properties:
-            ApplyOn:
-              type: string
-              enum:
-              - PublishedVersions
-              - None
-          example: example_value
-        LoggingConfig:
-          type: object
-          properties:
-            LogFormat:
-              type: string
-              enum:
-              - JSON
-              - Text
-            ApplicationLogLevel:
-              type: string
-            SystemLogLevel:
-              type: string
-            LogGroup:
-              type: string
-          example: example_value
-    VpcConfig:
-      type: object
-      description: VPC connectivity settings for a Lambda function
-      properties:
-        SubnetIds:
-          type: array
-          description: A list of VPC subnet IDs
-          items:
-            type: string
-          maxItems: 16
-          example: []
-        SecurityGroupIds:
-          type: array
-          description: A list of VPC security group IDs
-          items:
-            type: string
-          maxItems: 5
-          example: []
     GetFunctionResponse:
       type: object
       description: Response containing function details and code location
@@ -2068,7 +2055,28 @@ components:
               type: integer
               description: Reserved concurrency for the function
           example: example_value
+    ListFunctionsResponse:
+      type: object
+      description: Paginated list of Lambda functions
+      properties:
+        NextMarker:
+          type: string
+          description: Pagination token for the next page of results
+          example: example_value
+        Functions:
+          type: array
+          items:
+            $ref: '#/components/schemas/FunctionConfiguration'
+          example: []
   parameters:
+    qualifier:
+      name: Qualifier
+      in: query
+      description: A version number or alias name
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 128
     functionName:
       name: FunctionName
       in: path
@@ -2078,24 +2086,24 @@ components:
         type: string
         minLength: 1
         maxLength: 170
-    qualifier:
-      name: Qualifier
+    maxItems:
+      name: MaxItems
       in: query
-      description: A version number or alias name
+      description: Maximum number of items to return (1-10000)
       schema:
-        type: string
-        minLength: 1
-        maxLength: 128
-    marker:
-      name: Marker
-      in: query
-      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
-      schema:
-        type: string
+        type: integer
+        minimum: 1
+        maximum: 10000
     masterRegion:
       name: MasterRegion
       in: query
       description: For Lambda@Edge functions, the AWS Region of the master function
+      schema:
+        type: string
+    marker:
+      name: Marker
+      in: query
+      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
       schema:
         type: string
     functionVersion:
@@ -2106,14 +2114,6 @@ components:
         type: string
         enum:
         - ALL
-    maxItems:
-      name: MaxItems
-      in: query
-      description: Maximum number of items to return (1-10000)
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 10000
   securitySchemes:
     sigv4:
       type: apiKey

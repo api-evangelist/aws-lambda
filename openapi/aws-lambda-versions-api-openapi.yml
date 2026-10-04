@@ -257,24 +257,35 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    VpcConfigResponse:
+    ErrorResponse:
       type: object
-      description: VPC connectivity details returned by Lambda
+      description: Error response from the Lambda API
       properties:
-        SubnetIds:
-          type: array
-          items:
-            type: string
-          example: []
-        SecurityGroupIds:
-          type: array
-          items:
-            type: string
-          example: []
-        VpcId:
+        Type:
           type: string
-          description: The VPC ID
-          example: '500123'
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
+          example: example_value
+    ListVersionsResponse:
+      type: object
+      description: Paginated list of function versions
+      properties:
+        NextMarker:
+          type: string
+          description: Pagination token for the next page
+          example: example_value
+        Versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/FunctionConfiguration'
+          example: []
     FunctionConfiguration:
       type: object
       description: A Lambda function's configuration and metadata
@@ -594,35 +605,24 @@ components:
           type: string
           description: The ARN of a signing job
           example: example_value
-    ErrorResponse:
+    VpcConfigResponse:
       type: object
-      description: Error response from the Lambda API
+      description: VPC connectivity details returned by Lambda
       properties:
-        Type:
-          type: string
-          description: The error type
-          example: example_value
-        Message:
-          type: string
-          description: The error message
-          example: example_value
-        Code:
-          type: string
-          description: The error code
-          example: example_value
-    ListVersionsResponse:
-      type: object
-      description: Paginated list of function versions
-      properties:
-        NextMarker:
-          type: string
-          description: Pagination token for the next page
-          example: example_value
-        Versions:
+        SubnetIds:
           type: array
           items:
-            $ref: '#/components/schemas/FunctionConfiguration'
+            type: string
           example: []
+        SecurityGroupIds:
+          type: array
+          items:
+            type: string
+          example: []
+        VpcId:
+          type: string
+          description: The VPC ID
+          example: '500123'
   parameters:
     functionName:
       name: FunctionName
@@ -633,12 +633,6 @@ components:
         type: string
         minLength: 1
         maxLength: 170
-    marker:
-      name: Marker
-      in: query
-      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
-      schema:
-        type: string
     maxItems:
       name: MaxItems
       in: query
@@ -647,6 +641,12 @@ components:
         type: integer
         minimum: 1
         maximum: 10000
+    marker:
+      name: Marker
+      in: query
+      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
+      schema:
+        type: string
   securitySchemes:
     sigv4:
       type: apiKey

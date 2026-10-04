@@ -351,6 +351,107 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ListLayerVersionsResponse:
+      type: object
+      description: Paginated list of layer versions
+      properties:
+        NextMarker:
+          type: string
+          example: example_value
+        LayerVersions:
+          type: array
+          items:
+            $ref: '#/components/schemas/LayerVersionSummary'
+          example: []
+    ErrorResponse:
+      type: object
+      description: Error response from the Lambda API
+      properties:
+        Type:
+          type: string
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
+          example: example_value
+    ListLayersResponse:
+      type: object
+      description: Paginated list of layers
+      properties:
+        NextMarker:
+          type: string
+          example: example_value
+        Layers:
+          type: array
+          items:
+            type: object
+            properties:
+              LayerName:
+                type: string
+                description: The name of the layer
+              LayerArn:
+                type: string
+                description: The ARN of the layer
+              LatestMatchingVersion:
+                $ref: '#/components/schemas/LayerVersionSummary'
+          example: []
+    PublishLayerVersionRequest:
+      type: object
+      required:
+      - Content
+      description: Request body for publishing a layer version
+      properties:
+        Description:
+          type: string
+          description: Description of the layer version
+          maxLength: 256
+          example: A sample description.
+        Content:
+          type: object
+          required: []
+          description: The function layer archive
+          properties:
+            S3Bucket:
+              type: string
+              description: The S3 bucket of the layer archive
+            S3Key:
+              type: string
+              description: The S3 key of the layer archive
+            S3ObjectVersion:
+              type: string
+              description: For versioned objects, the version of the layer archive
+            ZipFile:
+              type: string
+              format: byte
+              description: Base64-encoded contents of the layer archive .zip file
+          example: example_value
+        CompatibleRuntimes:
+          type: array
+          description: A list of compatible runtimes. Used for filtering with ListLayers and ListLayerVersions.
+          items:
+            type: string
+          maxItems: 15
+          example: []
+        LicenseInfo:
+          type: string
+          description: The layer's software license (SPDX identifier, URL, or text)
+          maxLength: 512
+          example: example_value
+        CompatibleArchitectures:
+          type: array
+          description: A list of compatible instruction set architectures
+          items:
+            type: string
+            enum:
+            - x86_64
+            - arm64
+          maxItems: 2
+          example: []
     GetLayerVersionResponse:
       type: object
       description: Details about a layer version
@@ -394,18 +495,6 @@ components:
           type: array
           items:
             type: string
-          example: []
-    ListLayerVersionsResponse:
-      type: object
-      description: Paginated list of layer versions
-      properties:
-        NextMarker:
-          type: string
-          example: example_value
-        LayerVersions:
-          type: array
-          items:
-            $ref: '#/components/schemas/LayerVersionSummary'
           example: []
     PublishLayerVersionResponse:
       type: object
@@ -495,96 +584,22 @@ components:
           items:
             type: string
           example: []
-    PublishLayerVersionRequest:
-      type: object
-      required:
-      - Content
-      description: Request body for publishing a layer version
-      properties:
-        Description:
-          type: string
-          description: Description of the layer version
-          maxLength: 256
-          example: A sample description.
-        Content:
-          type: object
-          required: []
-          description: The function layer archive
-          properties:
-            S3Bucket:
-              type: string
-              description: The S3 bucket of the layer archive
-            S3Key:
-              type: string
-              description: The S3 key of the layer archive
-            S3ObjectVersion:
-              type: string
-              description: For versioned objects, the version of the layer archive
-            ZipFile:
-              type: string
-              format: byte
-              description: Base64-encoded contents of the layer archive .zip file
-          example: example_value
-        CompatibleRuntimes:
-          type: array
-          description: A list of compatible runtimes. Used for filtering with ListLayers and ListLayerVersions.
-          items:
-            type: string
-          maxItems: 15
-          example: []
-        LicenseInfo:
-          type: string
-          description: The layer's software license (SPDX identifier, URL, or text)
-          maxLength: 512
-          example: example_value
-        CompatibleArchitectures:
-          type: array
-          description: A list of compatible instruction set architectures
-          items:
-            type: string
-            enum:
-            - x86_64
-            - arm64
-          maxItems: 2
-          example: []
-    ErrorResponse:
-      type: object
-      description: Error response from the Lambda API
-      properties:
-        Type:
-          type: string
-          description: The error type
-          example: example_value
-        Message:
-          type: string
-          description: The error message
-          example: example_value
-        Code:
-          type: string
-          description: The error code
-          example: example_value
-    ListLayersResponse:
-      type: object
-      description: Paginated list of layers
-      properties:
-        NextMarker:
-          type: string
-          example: example_value
-        Layers:
-          type: array
-          items:
-            type: object
-            properties:
-              LayerName:
-                type: string
-                description: The name of the layer
-              LayerArn:
-                type: string
-                description: The ARN of the layer
-              LatestMatchingVersion:
-                $ref: '#/components/schemas/LayerVersionSummary'
-          example: []
   parameters:
+    versionNumber:
+      name: VersionNumber
+      in: path
+      required: true
+      description: The version number
+      schema:
+        type: integer
+    maxItems:
+      name: MaxItems
+      in: query
+      description: Maximum number of items to return (1-10000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
     layerName:
       name: LayerName
       in: path
@@ -600,21 +615,6 @@ components:
       description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
       schema:
         type: string
-    maxItems:
-      name: MaxItems
-      in: query
-      description: Maximum number of items to return (1-10000)
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 10000
-    versionNumber:
-      name: VersionNumber
-      in: path
-      required: true
-      description: The version number
-      schema:
-        type: integer
   securitySchemes:
     sigv4:
       type: apiKey

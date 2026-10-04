@@ -315,20 +315,40 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    aliasName:
+      name: AliasName
+      in: path
+      required: true
+      description: The name of the alias
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 128
+    functionName:
+      name: FunctionName
+      in: path
+      required: true
+      description: The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN.
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 170
+    maxItems:
+      name: MaxItems
+      in: query
+      description: Maximum number of items to return (1-10000)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+    marker:
+      name: Marker
+      in: query
+      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
+      schema:
+        type: string
   schemas:
-    ListAliasesResponse:
-      type: object
-      description: Paginated list of aliases
-      properties:
-        NextMarker:
-          type: string
-          description: Pagination token for the next page
-          example: example_value
-        Aliases:
-          type: array
-          items:
-            $ref: '#/components/schemas/AliasConfiguration'
-          example: []
     ErrorResponse:
       type: object
       description: Error response from the Lambda API
@@ -345,6 +365,19 @@ components:
           type: string
           description: The error code
           example: example_value
+    ListAliasesResponse:
+      type: object
+      description: Paginated list of aliases
+      properties:
+        NextMarker:
+          type: string
+          description: Pagination token for the next page
+          example: example_value
+        Aliases:
+          type: array
+          items:
+            $ref: '#/components/schemas/AliasConfiguration'
+          example: []
     CreateAliasRequest:
       type: object
       required:
@@ -426,39 +459,6 @@ components:
           type: string
           description: Update only if the revision ID matches
           example: '500123'
-  parameters:
-    functionName:
-      name: FunctionName
-      in: path
-      required: true
-      description: The name, ARN, or partial ARN of the Lambda function. Can be a function name, a function ARN, or a partial ARN.
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 170
-    marker:
-      name: Marker
-      in: query
-      description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
-      schema:
-        type: string
-    aliasName:
-      name: AliasName
-      in: path
-      required: true
-      description: The name of the alias
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 128
-    maxItems:
-      name: MaxItems
-      in: query
-      description: Maximum number of items to return (1-10000)
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 10000
   securitySchemes:
     sigv4:
       type: apiKey
