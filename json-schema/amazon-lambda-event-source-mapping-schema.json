@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-lambda/refs/heads/main/json-schema/amazon-lambda-event-source-mapping-schema.json",
+  "title": "EventSourceMapping",
+  "description": "A Lambda event source mapping that connects an event source to a Lambda function.",
+  "type": "object",
+  "properties": {
+    "UUID": {
+      "type": "string",
+      "description": "The identifier of the event source mapping.",
+      "example": "abc12345-6789-def0-1234-abcdef012345"
+    },
+    "EventSourceArn": {
+      "type": "string",
+      "description": "The ARN of the event source."
+    },
+    "FunctionArn": {
+      "type": "string",
+      "description": "The ARN of the Lambda function."
+    },
+    "State": {
+      "type": "string",
+      "description": "The state of the event source mapping.",
+      "example": "Enabled",
+      "enum": [
+        "Creating",
+        "Enabling",
+        "Enabled",
+        "Disabling",
+        "Disabled",
+        "Updating",
+        "Deleting"
+      ]
+    },
+    "BatchSize": {
+      "type": "integer",
+      "description": "The maximum number of records in each batch.",
+      "example": 10
+    }
+  }
+}

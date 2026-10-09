@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/amazon-lambda/refs/heads/main/json-schema/amazon-lambda-function-schema.json",
+  "title": "Function",
+  "description": "An AWS Lambda function.",
+  "type": "object",
+  "properties": {
+    "FunctionName": {
+      "type": "string",
+      "description": "The name of the function.",
+      "example": "my-function"
+    },
+    "FunctionArn": {
+      "type": "string",
+      "description": "The function's Amazon Resource Name (ARN)."
+    },
+    "Runtime": {
+      "type": "string",
+      "description": "The function's runtime identifier.",
+      "example": "python3.12",
+      "enum": [
+        "nodejs20.x",
+        "python3.12",
+        "java21",
+        "go1.x",
+        "ruby3.2",
+        "dotnet8",
+        "provided.al2023"
+      ]
+    },
+    "Role": {
+      "type": "string",
+      "description": "The function's execution role ARN."
+    },
+    "Handler": {
+      "type": "string",
+      "description": "The function that Lambda calls to begin execution.",
+      "example": "lambda_function.lambda_handler"
+    },
+    "CodeSize": {
+      "type": "integer",
+      "description": "The size of the function's deployment package, in bytes."
+    },
+    "Description": {
+      "type": "string",
+      "description": "The function's description."
+    },
+    "Timeout": {
+      "type": "integer",
+      "description": "The amount of time (in seconds) that Lambda allows a function to run.",
+      "example": 30
+    },
+    "MemorySize": {
+      "type": "integer",
+      "description": "The amount of memory available to the function at runtime.",
+      "example": 128
+    },
+    "LastModified": {
+      "type": "string",
+      "description": "The date and time the function was last updated.",
+      "format": "date-time"
+    },
+    "State": {
+      "type": "string",
+      "description": "The current state of the function.",
+      "example": "Active",
+      "enum": [
+        "Pending",
+        "Active",
+        "Inactive",
+        "Failed"
+      ]
+    },
+    "PackageType": {
+      "type": "string",
+      "description": "The type of deployment package.",
+      "example": "Zip",
+      "enum": [
+        "Zip",
+        "Image"
+      ]
+    }
+  }
+}
