@@ -60,7 +60,7 @@
     app_slug: aws-lambda
     beta: false
     builder: unknown (not in the directory record)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: aws-lambda-n8n
   label: n8n
@@ -85,5 +85,5 @@
     node_path: Aws
     trigger: false
     builder: n8n (built-in node)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
