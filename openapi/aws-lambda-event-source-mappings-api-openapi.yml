@@ -437,6 +437,67 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    DestinationConfig:
+      type: object
+      description: Configuration for failed invocation destinations. Specify an SQS queue or SNS topic to receive records of failed asynchronous invocations or event source mapping batches.
+      properties:
+        OnSuccess:
+          type: object
+          properties:
+            Destination:
+              type: string
+              description: The ARN of the destination resource
+          example: example_value
+        OnFailure:
+          type: object
+          properties:
+            Destination:
+              type: string
+              description: The ARN of the destination resource
+          example: example_value
+    ListEventSourceMappingsResponse:
+      type: object
+      description: Paginated list of event source mappings
+      properties:
+        NextMarker:
+          type: string
+          description: Pagination token
+          example: example_value
+        EventSourceMappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventSourceMappingConfiguration'
+          example: []
+    ErrorResponse:
+      type: object
+      description: Error response from the Lambda API
+      properties:
+        Type:
+          type: string
+          description: The error type
+          example: example_value
+        Message:
+          type: string
+          description: The error message
+          example: example_value
+        Code:
+          type: string
+          description: The error code
+          example: example_value
+    FilterCriteria:
+      type: object
+      description: An object that contains the filters for an event source. Event filtering enables you to control which records from an event source Lambda sends to your function.
+      properties:
+        Filters:
+          type: array
+          description: A list of filters
+          items:
+            type: object
+            properties:
+              Pattern:
+                type: string
+                description: A filter pattern as a JSON string. Filter patterns support value matching with equals, prefix, and numeric comparisons.
+          example: []
     EventSourceMappingConfiguration:
       type: object
       description: A mapping between an AWS resource and a Lambda function. Lambda reads items from the event source and invokes the function.
@@ -543,54 +604,6 @@ components:
           example: []
         FilterCriteria:
           $ref: '#/components/schemas/FilterCriteria'
-    ErrorResponse:
-      type: object
-      description: Error response from the Lambda API
-      properties:
-        Type:
-          type: string
-          description: The error type
-          example: example_value
-        Message:
-          type: string
-          description: The error message
-          example: example_value
-        Code:
-          type: string
-          description: The error code
-          example: example_value
-    DestinationConfig:
-      type: object
-      description: Configuration for failed invocation destinations. Specify an SQS queue or SNS topic to receive records of failed asynchronous invocations or event source mapping batches.
-      properties:
-        OnSuccess:
-          type: object
-          properties:
-            Destination:
-              type: string
-              description: The ARN of the destination resource
-          example: example_value
-        OnFailure:
-          type: object
-          properties:
-            Destination:
-              type: string
-              description: The ARN of the destination resource
-          example: example_value
-    FilterCriteria:
-      type: object
-      description: An object that contains the filters for an event source. Event filtering enables you to control which records from an event source Lambda sends to your function.
-      properties:
-        Filters:
-          type: array
-          description: A list of filters
-          items:
-            type: object
-            properties:
-              Pattern:
-                type: string
-                description: A filter pattern as a JSON string. Filter patterns support value matching with equals, prefix, and numeric comparisons.
-          example: []
     CreateEventSourceMappingRequest:
       type: object
       required:
@@ -669,19 +682,6 @@ components:
             enum:
             - ReportBatchItemFailures
           example: []
-    ListEventSourceMappingsResponse:
-      type: object
-      description: Paginated list of event source mappings
-      properties:
-        NextMarker:
-          type: string
-          description: Pagination token
-          example: example_value
-        EventSourceMappings:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventSourceMappingConfiguration'
-          example: []
     UpdateEventSourceMappingRequest:
       type: object
       description: Request body for updating an event source mapping
@@ -739,6 +739,13 @@ components:
             - ReportBatchItemFailures
           example: []
   parameters:
+    eventSourceMappingUUID:
+      name: UUID
+      in: path
+      required: true
+      description: The identifier of the event source mapping
+      schema:
+        type: string
     maxItems:
       name: MaxItems
       in: query
@@ -751,13 +758,6 @@ components:
       name: Marker
       in: query
       description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
-      schema:
-        type: string
-    eventSourceMappingUUID:
-      name: UUID
-      in: path
-      required: true
-      description: The identifier of the event source mapping
       schema:
         type: string
   securitySchemes:

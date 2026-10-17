@@ -273,19 +273,6 @@ components:
           type: string
           description: The error code
           example: example_value
-    ListVersionsResponse:
-      type: object
-      description: Paginated list of function versions
-      properties:
-        NextMarker:
-          type: string
-          description: Pagination token for the next page
-          example: example_value
-        Versions:
-          type: array
-          items:
-            $ref: '#/components/schemas/FunctionConfiguration'
-          example: []
     FunctionConfiguration:
       type: object
       description: A Lambda function's configuration and metadata
@@ -584,6 +571,24 @@ components:
               type: string
               description: The name of the CloudWatch log group
           example: example_value
+    VpcConfigResponse:
+      type: object
+      description: VPC connectivity details returned by Lambda
+      properties:
+        SubnetIds:
+          type: array
+          items:
+            type: string
+          example: []
+        SecurityGroupIds:
+          type: array
+          items:
+            type: string
+          example: []
+        VpcId:
+          type: string
+          description: The VPC ID
+          example: '500123'
     Layer:
       type: object
       description: An Lambda layer attached to a function
@@ -605,24 +610,19 @@ components:
           type: string
           description: The ARN of a signing job
           example: example_value
-    VpcConfigResponse:
+    ListVersionsResponse:
       type: object
-      description: VPC connectivity details returned by Lambda
+      description: Paginated list of function versions
       properties:
-        SubnetIds:
-          type: array
-          items:
-            type: string
-          example: []
-        SecurityGroupIds:
-          type: array
-          items:
-            type: string
-          example: []
-        VpcId:
+        NextMarker:
           type: string
-          description: The VPC ID
-          example: '500123'
+          description: Pagination token for the next page
+          example: example_value
+        Versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/FunctionConfiguration'
+          example: []
   parameters:
     functionName:
       name: FunctionName

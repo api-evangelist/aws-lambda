@@ -312,24 +312,6 @@ components:
           type: string
           description: The error code
           example: example_value
-    UpdateFunctionUrlConfigRequest:
-      type: object
-      description: Request body for updating a function URL configuration
-      properties:
-        AuthType:
-          type: string
-          enum:
-          - NONE
-          - AWS_IAM
-          example: NONE
-        Cors:
-          $ref: '#/components/schemas/Cors'
-        InvokeMode:
-          type: string
-          enum:
-          - BUFFERED
-          - RESPONSE_STREAM
-          example: BUFFERED
     FunctionUrlConfig:
       type: object
       description: Configuration for a Lambda function URL
@@ -362,27 +344,6 @@ components:
         InvokeMode:
           type: string
           description: Use BUFFERED for synchronous invocation or RESPONSE_STREAM for response streaming
-          enum:
-          - BUFFERED
-          - RESPONSE_STREAM
-          example: BUFFERED
-    CreateFunctionUrlConfigRequest:
-      type: object
-      required:
-      - AuthType
-      description: Request body for creating a function URL
-      properties:
-        AuthType:
-          type: string
-          description: The type of authentication. NONE allows public unauthenticated access. AWS_IAM requires IAM authentication.
-          enum:
-          - NONE
-          - AWS_IAM
-          example: NONE
-        Cors:
-          $ref: '#/components/schemas/Cors'
-        InvokeMode:
-          type: string
           enum:
           - BUFFERED
           - RESPONSE_STREAM
@@ -429,15 +390,46 @@ components:
           minimum: 0
           maximum: 86400
           example: 10
+    UpdateFunctionUrlConfigRequest:
+      type: object
+      description: Request body for updating a function URL configuration
+      properties:
+        AuthType:
+          type: string
+          enum:
+          - NONE
+          - AWS_IAM
+          example: NONE
+        Cors:
+          $ref: '#/components/schemas/Cors'
+        InvokeMode:
+          type: string
+          enum:
+          - BUFFERED
+          - RESPONSE_STREAM
+          example: BUFFERED
+    CreateFunctionUrlConfigRequest:
+      type: object
+      required:
+      - AuthType
+      description: Request body for creating a function URL
+      properties:
+        AuthType:
+          type: string
+          description: The type of authentication. NONE allows public unauthenticated access. AWS_IAM requires IAM authentication.
+          enum:
+          - NONE
+          - AWS_IAM
+          example: NONE
+        Cors:
+          $ref: '#/components/schemas/Cors'
+        InvokeMode:
+          type: string
+          enum:
+          - BUFFERED
+          - RESPONSE_STREAM
+          example: BUFFERED
   parameters:
-    qualifier:
-      name: Qualifier
-      in: query
-      description: A version number or alias name
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 128
     functionName:
       name: FunctionName
       in: path
@@ -447,6 +439,14 @@ components:
         type: string
         minLength: 1
         maxLength: 170
+    qualifier:
+      name: Qualifier
+      in: query
+      description: A version number or alias name
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 128
   securitySchemes:
     sigv4:
       type: apiKey

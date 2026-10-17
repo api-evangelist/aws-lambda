@@ -1488,108 +1488,30 @@ components:
           type: string
           description: The error code
           example: example_value
-    UpdateFunctionConfigurationRequest:
+    FunctionCode:
       type: object
-      description: Request body for updating a function's configuration
+      description: The code for the Lambda function. You can provide your deployment package as a .zip file archive uploaded directly, from S3, or as a container image from Amazon ECR.
       properties:
-        Role:
+        ZipFile:
           type: string
-          description: The ARN of the function's execution role
+          format: byte
+          description: Base64-encoded contents of the deployment package .zip file
           example: example_value
-        Handler:
+        S3Bucket:
           type: string
-          description: The name of the function handler
+          description: An S3 bucket in the same AWS Region as your function
           example: example_value
-        Description:
+        S3Key:
           type: string
-          description: A description of the function
-          maxLength: 256
-          example: A sample description.
-        Timeout:
-          type: integer
-          description: Execution timeout in seconds
-          minimum: 1
-          maximum: 900
-          example: 10
-        MemorySize:
-          type: integer
-          description: Memory allocated in MB
-          minimum: 128
-          maximum: 10240
-          example: 10
-        VpcConfig:
-          $ref: '#/components/schemas/VpcConfig'
-        Environment:
-          type: object
-          properties:
-            Variables:
-              type: object
-              additionalProperties:
-                type: string
+          description: The S3 key of the deployment package
           example: example_value
-        Runtime:
+        S3ObjectVersion:
           type: string
-          description: The runtime identifier
+          description: The version of the S3 object for versioned buckets
           example: example_value
-        DeadLetterConfig:
-          type: object
-          properties:
-            TargetArn:
-              type: string
-          example: example_value
-        KMSKeyArn:
+        ImageUri:
           type: string
-          example: example_value
-        TracingConfig:
-          type: object
-          properties:
-            Mode:
-              type: string
-              enum:
-              - Active
-              - PassThrough
-          example: example_value
-        RevisionId:
-          type: string
-          description: Update only if the revision ID matches. Prevents modifying a function that has changed since you last read it.
-          example: '500123'
-        Layers:
-          type: array
-          items:
-            type: string
-          maxItems: 5
-          example: []
-        EphemeralStorage:
-          type: object
-          properties:
-            Size:
-              type: integer
-              minimum: 512
-              maximum: 10240
-          example: example_value
-        SnapStart:
-          type: object
-          properties:
-            ApplyOn:
-              type: string
-              enum:
-              - PublishedVersions
-              - None
-          example: example_value
-        LoggingConfig:
-          type: object
-          properties:
-            LogFormat:
-              type: string
-              enum:
-              - JSON
-              - Text
-            ApplicationLogLevel:
-              type: string
-            SystemLogLevel:
-              type: string
-            LogGroup:
-              type: string
+          description: URI of a container image in the Amazon ECR registry
           example: example_value
     FunctionConfiguration:
       type: object
@@ -1889,27 +1811,6 @@ components:
               type: string
               description: The name of the CloudWatch log group
           example: example_value
-    Layer:
-      type: object
-      description: An Lambda layer attached to a function
-      properties:
-        Arn:
-          type: string
-          description: The ARN of the function layer
-          example: example_value
-        CodeSize:
-          type: integer
-          description: The size of the layer archive in bytes
-          format: int64
-          example: 10
-        SigningProfileVersionArn:
-          type: string
-          description: The ARN of a signing profile version
-          example: example_value
-        SigningJobArn:
-          type: string
-          description: The ARN of a signing job
-          example: example_value
     VpcConfigResponse:
       type: object
       description: VPC connectivity details returned by Lambda
@@ -1928,49 +1829,6 @@ components:
           type: string
           description: The VPC ID
           example: '500123'
-    VpcConfig:
-      type: object
-      description: VPC connectivity settings for a Lambda function
-      properties:
-        SubnetIds:
-          type: array
-          description: A list of VPC subnet IDs
-          items:
-            type: string
-          maxItems: 16
-          example: []
-        SecurityGroupIds:
-          type: array
-          description: A list of VPC security group IDs
-          items:
-            type: string
-          maxItems: 5
-          example: []
-    FunctionCode:
-      type: object
-      description: The code for the Lambda function. You can provide your deployment package as a .zip file archive uploaded directly, from S3, or as a container image from Amazon ECR.
-      properties:
-        ZipFile:
-          type: string
-          format: byte
-          description: Base64-encoded contents of the deployment package .zip file
-          example: example_value
-        S3Bucket:
-          type: string
-          description: An S3 bucket in the same AWS Region as your function
-          example: example_value
-        S3Key:
-          type: string
-          description: The S3 key of the deployment package
-          example: example_value
-        S3ObjectVersion:
-          type: string
-          description: The version of the S3 object for versioned buckets
-          example: example_value
-        ImageUri:
-          type: string
-          description: URI of a container image in the Amazon ECR registry
-          example: example_value
     UpdateFunctionCodeRequest:
       type: object
       description: Request body for updating a function's code
@@ -2019,6 +1877,161 @@ components:
             - arm64
           maxItems: 1
           example: []
+    ListFunctionsResponse:
+      type: object
+      description: Paginated list of Lambda functions
+      properties:
+        NextMarker:
+          type: string
+          description: Pagination token for the next page of results
+          example: example_value
+        Functions:
+          type: array
+          items:
+            $ref: '#/components/schemas/FunctionConfiguration'
+          example: []
+    UpdateFunctionConfigurationRequest:
+      type: object
+      description: Request body for updating a function's configuration
+      properties:
+        Role:
+          type: string
+          description: The ARN of the function's execution role
+          example: example_value
+        Handler:
+          type: string
+          description: The name of the function handler
+          example: example_value
+        Description:
+          type: string
+          description: A description of the function
+          maxLength: 256
+          example: A sample description.
+        Timeout:
+          type: integer
+          description: Execution timeout in seconds
+          minimum: 1
+          maximum: 900
+          example: 10
+        MemorySize:
+          type: integer
+          description: Memory allocated in MB
+          minimum: 128
+          maximum: 10240
+          example: 10
+        VpcConfig:
+          $ref: '#/components/schemas/VpcConfig'
+        Environment:
+          type: object
+          properties:
+            Variables:
+              type: object
+              additionalProperties:
+                type: string
+          example: example_value
+        Runtime:
+          type: string
+          description: The runtime identifier
+          example: example_value
+        DeadLetterConfig:
+          type: object
+          properties:
+            TargetArn:
+              type: string
+          example: example_value
+        KMSKeyArn:
+          type: string
+          example: example_value
+        TracingConfig:
+          type: object
+          properties:
+            Mode:
+              type: string
+              enum:
+              - Active
+              - PassThrough
+          example: example_value
+        RevisionId:
+          type: string
+          description: Update only if the revision ID matches. Prevents modifying a function that has changed since you last read it.
+          example: '500123'
+        Layers:
+          type: array
+          items:
+            type: string
+          maxItems: 5
+          example: []
+        EphemeralStorage:
+          type: object
+          properties:
+            Size:
+              type: integer
+              minimum: 512
+              maximum: 10240
+          example: example_value
+        SnapStart:
+          type: object
+          properties:
+            ApplyOn:
+              type: string
+              enum:
+              - PublishedVersions
+              - None
+          example: example_value
+        LoggingConfig:
+          type: object
+          properties:
+            LogFormat:
+              type: string
+              enum:
+              - JSON
+              - Text
+            ApplicationLogLevel:
+              type: string
+            SystemLogLevel:
+              type: string
+            LogGroup:
+              type: string
+          example: example_value
+    Layer:
+      type: object
+      description: An Lambda layer attached to a function
+      properties:
+        Arn:
+          type: string
+          description: The ARN of the function layer
+          example: example_value
+        CodeSize:
+          type: integer
+          description: The size of the layer archive in bytes
+          format: int64
+          example: 10
+        SigningProfileVersionArn:
+          type: string
+          description: The ARN of a signing profile version
+          example: example_value
+        SigningJobArn:
+          type: string
+          description: The ARN of a signing job
+          example: example_value
+    VpcConfig:
+      type: object
+      description: VPC connectivity settings for a Lambda function
+      properties:
+        SubnetIds:
+          type: array
+          description: A list of VPC subnet IDs
+          items:
+            type: string
+          maxItems: 16
+          example: []
+        SecurityGroupIds:
+          type: array
+          description: A list of VPC security group IDs
+          items:
+            type: string
+          maxItems: 5
+          example: []
     GetFunctionResponse:
       type: object
       description: Response containing function details and code location
@@ -2055,28 +2068,7 @@ components:
               type: integer
               description: Reserved concurrency for the function
           example: example_value
-    ListFunctionsResponse:
-      type: object
-      description: Paginated list of Lambda functions
-      properties:
-        NextMarker:
-          type: string
-          description: Pagination token for the next page of results
-          example: example_value
-        Functions:
-          type: array
-          items:
-            $ref: '#/components/schemas/FunctionConfiguration'
-          example: []
   parameters:
-    qualifier:
-      name: Qualifier
-      in: query
-      description: A version number or alias name
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 128
     functionName:
       name: FunctionName
       in: path
@@ -2094,18 +2086,20 @@ components:
         type: integer
         minimum: 1
         maximum: 10000
-    masterRegion:
-      name: MasterRegion
-      in: query
-      description: For Lambda@Edge functions, the AWS Region of the master function
-      schema:
-        type: string
     marker:
       name: Marker
       in: query
       description: A pagination token returned by a previous call. Use this token to retrieve the next page of results.
       schema:
         type: string
+    qualifier:
+      name: Qualifier
+      in: query
+      description: A version number or alias name
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 128
     functionVersion:
       name: FunctionVersion
       in: query
@@ -2114,6 +2108,12 @@ components:
         type: string
         enum:
         - ALL
+    masterRegion:
+      name: MasterRegion
+      in: query
+      description: For Lambda@Edge functions, the AWS Region of the master function
+      schema:
+        type: string
   securitySchemes:
     sigv4:
       type: apiKey

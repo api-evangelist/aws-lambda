@@ -351,17 +351,49 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ListLayerVersionsResponse:
+    GetLayerVersionResponse:
       type: object
-      description: Paginated list of layer versions
+      description: Details about a layer version
       properties:
-        NextMarker:
+        Content:
+          type: object
+          properties:
+            Location:
+              type: string
+              description: A presigned URL to download the layer archive
+            CodeSha256:
+              type: string
+            CodeSize:
+              type: integer
+              format: int64
+          example: example_value
+        LayerArn:
           type: string
           example: example_value
-        LayerVersions:
+        LayerVersionArn:
+          type: string
+          example: example_value
+        Description:
+          type: string
+          example: A sample description.
+        CreatedDate:
+          type: string
+          example: example_value
+        Version:
+          type: integer
+          example: 10
+        CompatibleRuntimes:
           type: array
           items:
-            $ref: '#/components/schemas/LayerVersionSummary'
+            type: string
+          example: []
+        LicenseInfo:
+          type: string
+          example: example_value
+        CompatibleArchitectures:
+          type: array
+          items:
+            type: string
           example: []
     ErrorResponse:
       type: object
@@ -379,27 +411,6 @@ components:
           type: string
           description: The error code
           example: example_value
-    ListLayersResponse:
-      type: object
-      description: Paginated list of layers
-      properties:
-        NextMarker:
-          type: string
-          example: example_value
-        Layers:
-          type: array
-          items:
-            type: object
-            properties:
-              LayerName:
-                type: string
-                description: The name of the layer
-              LayerArn:
-                type: string
-                description: The ARN of the layer
-              LatestMatchingVersion:
-                $ref: '#/components/schemas/LayerVersionSummary'
-          example: []
     PublishLayerVersionRequest:
       type: object
       required:
@@ -451,50 +462,6 @@ components:
             - x86_64
             - arm64
           maxItems: 2
-          example: []
-    GetLayerVersionResponse:
-      type: object
-      description: Details about a layer version
-      properties:
-        Content:
-          type: object
-          properties:
-            Location:
-              type: string
-              description: A presigned URL to download the layer archive
-            CodeSha256:
-              type: string
-            CodeSize:
-              type: integer
-              format: int64
-          example: example_value
-        LayerArn:
-          type: string
-          example: example_value
-        LayerVersionArn:
-          type: string
-          example: example_value
-        Description:
-          type: string
-          example: A sample description.
-        CreatedDate:
-          type: string
-          example: example_value
-        Version:
-          type: integer
-          example: 10
-        CompatibleRuntimes:
-          type: array
-          items:
-            type: string
-          example: []
-        LicenseInfo:
-          type: string
-          example: example_value
-        CompatibleArchitectures:
-          type: array
-          items:
-            type: string
           example: []
     PublishLayerVersionResponse:
       type: object
@@ -551,6 +518,27 @@ components:
           items:
             type: string
           example: []
+    ListLayersResponse:
+      type: object
+      description: Paginated list of layers
+      properties:
+        NextMarker:
+          type: string
+          example: example_value
+        Layers:
+          type: array
+          items:
+            type: object
+            properties:
+              LayerName:
+                type: string
+                description: The name of the layer
+              LayerArn:
+                type: string
+                description: The ARN of the layer
+              LatestMatchingVersion:
+                $ref: '#/components/schemas/LayerVersionSummary'
+          example: []
     LayerVersionSummary:
       type: object
       description: Summary information about a layer version
@@ -584,7 +572,28 @@ components:
           items:
             type: string
           example: []
+    ListLayerVersionsResponse:
+      type: object
+      description: Paginated list of layer versions
+      properties:
+        NextMarker:
+          type: string
+          example: example_value
+        LayerVersions:
+          type: array
+          items:
+            $ref: '#/components/schemas/LayerVersionSummary'
+          example: []
   parameters:
+    layerName:
+      name: LayerName
+      in: path
+      required: true
+      description: The name or ARN of the layer
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 140
     versionNumber:
       name: VersionNumber
       in: path
@@ -600,15 +609,6 @@ components:
         type: integer
         minimum: 1
         maximum: 10000
-    layerName:
-      name: LayerName
-      in: path
-      required: true
-      description: The name or ARN of the layer
-      schema:
-        type: string
-        minLength: 1
-        maxLength: 140
     marker:
       name: Marker
       in: query
